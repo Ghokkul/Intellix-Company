@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intellix Features</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2e0f61, #4b0f88, #1a063a);
+            color: #e5d9ff;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav a {
+            margin-left: 20px;
+            color: #e5d9ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        .hero {
+            padding: 120px 40px 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255,255,255,0.4);
+        }
+
+        .hero p {
+            margin-top: 20px;
+            font-size: 20px;
+            opacity: 0.85;
+        }
+
+        .grid {
+            padding: 40px;
+            display: grid;
+            gap: 20px;
+        }
+
+        @media(min-width: 900px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            background: rgba(255,255,255,0.08);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+            margin: 0;
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .card p {
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #d7c6ff;
+            opacity: 0.8;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div style="font-size: 24px; font-weight: bold;">Intellix</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="login.html">Login</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Advanced Payment Features</h1>
+    <p>The most powerful, intelligent, and future‑proof tools in the payments industry.</p>
+</section>
+
+<section class="grid">
+
+    <div class="card">
+        <h3>Real‑Time Payments</h3>
+        <p>Instant settlement technology allowing businesses to send and receive payments globally within seconds, powered by high‑speed rails and crypto‑backed liquidity.</p>
+    </div>
+
+    <div class="card">
+        <h3>AI Fraud Detection</h3>
+        <p>Next‑gen fraud defenses using machine learning, behavioral analysis, biometric validation, and anomaly tracking with 99.7% threat‑detection accuracy.</p>
+    </div>
+
+    <div class="card">
+        <h3>Crypto On/Off Ramp</h3>
+        <p>Buy, sell, convert and settle BTC, ETH, SOL and USDC instantly. Unified dashboard for both Web2 and Web3 payments.</p>
+    </div>
+
+    <div class="card">
+        <h3>Global Currencies</h3>
+        <p>Support 180+ currencies with automated FX conversion, smart routing, and low‑fee processing across continents.</p>
+    </div>
+
+    <div class="card">
+        <h3>Advanced Analytics</h3>
+        <p>Live insights, revenue predictions, fraud risk heatmap, dispute tracking, and customizable reporting dashboards.</p>
+    </div>
+
+    <div class="card">
+        <h3>Developer‑First APIs</h3>
+        <p>Lightning‑fast REST APIs, SDKs for Node, Python, Go & Swift, instant webhooks, sandbox mode, and AI‑assisted integration tools.</p>
+    </div>
+
+    <div class="card">
+        <h3>Merchant Payouts</h3>
+        <p>Same‑day or automated batch payouts with smart fee routing and compliance‑ready tax document generation.</p>
+    </div>
+
+    <div class="card">
+        <h3>Compliance & KYC Automation</h3>
+        <p>Instant ID verification, AML screening, sanctions monitoring, and business onboarding automation.</p>
+    </div>
+
+    <div class="card">
+        <h3>Subscription Billing</h3>
+        <p>Full suite for recurring payments, dunning management, automatic invoicing, prorated billing, and metered usage.</p>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 Intellix — Intelligent Payments
+</footer>
+
+</body>
+</html>
