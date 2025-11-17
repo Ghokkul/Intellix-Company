@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Intellix</title>
+
+<style>
+/* -------------------------------------------------
+   GLOBAL STYLE
+------------------------------------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at center, #5b2ff6 0%, #2e0f61 40%, #1a063a 100%);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* -------------------------------------------------
+   HERO HEADER
+------------------------------------------------- */
+.header {
+    text-align: center;
+    padding: 80px 20px 40px;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.header h1 {
+    font-size: 55px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 35px rgba(255,255,255,0.4);
+}
+
+.header p {
+    font-size: 20px;
+    opacity: 0.85;
+    margin-top: 10px;
+}
+
+/* -------------------------------------------------
+   CONTACT CARD
+------------------------------------------------- */
+.contact-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.contact-card {
+    background: rgba(255,255,255,0.08);
+    padding: 35px 40px;
+    width: 500px;
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 0 25px rgba(140,75,255,0.4);
+    animation: fadeSlide 1.5s ease-out;
+}
+
+/* Form Labels & Inputs */
+.contact-card label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+.contact-card input,
+.contact-card textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    margin-bottom: 20px;
+    outline: none;
+    font-size: 16px;
+}
+
+.contact-card textarea {
+    height: 120px;
+    resize: none;
+}
+
+.contact-card input::placeholder,
+.contact-card textarea::placeholder {
+    color: #e2d7ff;
+}
+
+/* -------------------------------------------------
+   SEND BUTTON
+------------------------------------------------- */
+.send-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(135deg, #6b32ff, #9a4bff);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(150, 90, 255, 0.7);
+    transition: 0.3s;
+}
+
+.send-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(170, 110, 255, 1);
+}
+
+/* -------------------------------------------------
+   ANIMATIONS
+------------------------------------------------- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* -------------------------------------------------
+   FOOTER
+------------
