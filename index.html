@@ -200,20 +200,55 @@ for (let i = 0; i < 40; i++) {
 </script>
 
 <!-- -------------------------------------------------
-                ENTER HOMEPAGE
+     ENTER HOMEPAGE
 ------------------------------------------------- -->
 <section class="hero">
     <div class="center">
         <div class="title">Welcome to Intellix</div>
         <div class="subtitle">Powering the future of intelligent payments</div>
 
-        <a href="home.html" class="notify-btn">
-            Enter Homepage
+        <a href="home.html" class="enter-btn">
+            Enter Dashboard
         </a>
     </div>
 </section>
 
-<a href="home.html" style="margin-left:70px" class="btn">Home</a>
+<style>
+    .enter-btn {
+        display: inline-block;
+        margin-top: 45px;
+        padding: 18px 50px;
+        border-radius: 40px;
+        font-size: 22px;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+
+        background: linear-gradient(135deg, #6b32ff, #9a4bff);
+        box-shadow: 0 0 30px rgba(140, 75, 255, 0.6);
+        border: 1px solid rgba(255,255,255,0.2);
+
+        transition: 0.3s ease;
+        animation: enterFade 1.8s ease-out;
+    }
+
+    .enter-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 45px rgba(150, 90, 255, 0.9);
+    }
+
+    @keyframes enterFade {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
 
 
 
