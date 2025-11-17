@@ -323,7 +323,67 @@ function showNotifyToast(e) {
 </script>
 
 
+<!-- -------------------------------------------------
+     NOTIFY & FEATURES SECTION
+------------------------------------------------- -->
+<section id="notify" class="notify-section">
+    <div class="container">
 
+        <div class="tag">Coming Soon</div>
+
+        <h2>Intellix</h2>
+        <p>Join the waitlist and be the first to experience the future of payments.</p>
+
+        <!-- Email Notify Form -->
+        <form class="form-container" onsubmit="showToast(event)">
+            <input type="email" class="input-field" placeholder="Enter your email" required />
+            <button type="submit" class="btn-primary">Notify Me</button>
+        </form>
+
+        <!-- Feature Cards -->
+        <div class="grid">
+            <div class="card">
+                <h3>Intelligent</h3>
+                <p>The smart way to process payments.</p>
+            </div>
+
+            <div class="card">
+                <h3>Seamless</h3>
+                <p>Effortless integration into any workflow.</p>
+            </div>
+
+            <div class="card">
+                <h3>Powerful</h3>
+                <p>Built to scale with your business.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Toast -->
+<div id="toast" style="
+    display:none; 
+    position:fixed; 
+    bottom:2rem; 
+    right:2rem;
+    background:#fff;
+    color:#000;
+    padding:1rem 1.5rem;
+    border-radius:0.5rem;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+">
+Thanks! You'll be notified.
+</div>
+
+<script>
+function showToast(e) {
+    e.preventDefault();
+    const toast = document.getElementById("toast");
+    toast.style.display = "block";
+    setTimeout(() => toast.style.display = "none", 3000);
+}
+</script>
 
 </body>
 </html>
