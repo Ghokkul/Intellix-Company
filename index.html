@@ -210,6 +210,12 @@ for (let i = 0; i < 40; i++) {
         <a href="home.html" class="enter-btn">
             Enter Dashboard
         </a>
+
+        <!-- Notify Me Container -->
+        <form class="notify-form" onsubmit="showNotifyToast(event)">
+            <input type="email" placeholder="Enter your email" required class="notify-input">
+            <button class="notify-submit">Notify Me</button>
+        </form>
     </div>
 </section>
 
@@ -237,6 +243,49 @@ for (let i = 0; i < 40; i++) {
         box-shadow: 0 0 45px rgba(150, 90, 255, 0.9);
     }
 
+    /* Notify Form Styling */
+    .notify-form {
+        margin-top: 35px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        animation: enterFade 2.2s ease-out;
+    }
+
+    .notify-input {
+        padding: 14px 18px;
+        border-radius: 30px;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.12);
+        color: #fff;
+        width: 260px;
+        font-size: 16px;
+        backdrop-filter: blur(8px);
+        outline: none;
+    }
+
+    .notify-input::placeholder {
+        color: #d6c8ff;
+    }
+
+    .notify-submit {
+        padding: 14px 25px;
+        border-radius: 30px;
+        border: none;
+        background: #8a3df7;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 20px rgba(140,75,255,0.6);
+    }
+
+    .notify-submit:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px rgba(160,90,255,1);
+    }
+
+    /* Fade animation */
     @keyframes enterFade {
         from {
             opacity: 0;
@@ -249,6 +298,29 @@ for (let i = 0; i < 40; i++) {
     }
 </style>
 
+<!-- Toast Notification -->
+<div id="notify-toast" style="
+    display:none;
+    position:fixed;
+    bottom:2rem;
+    right:2rem;
+    background:#fff;
+    color:#000;
+    padding:1rem 1.5rem;
+    border-radius:0.5rem;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+">
+    Thanks! You'll be notified.
+</div>
+
+<script>
+function showNotifyToast(e) {
+    e.preventDefault();
+    const toast = document.getElementById("notify-toast");
+    toast.style.display = "block";
+    setTimeout(() => toast.style.display = "none", 3000);
+}
+</script>
 
 
 
