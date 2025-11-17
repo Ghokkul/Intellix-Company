@@ -128,4 +128,76 @@ body {
 
 /* -------------------------------------------------
    FOOTER
-------------
+------------------------------------------------- */
+.footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 14px;
+    opacity: 0.6;
+    margin-top: 40px;
+}
+</style>
+
+</head>
+<body>
+
+<!-- -------------------------------------------------
+   HERO HEADER
+------------------------------------------------- -->
+<div class="header">
+    <h1>Contact Intellix</h1>
+    <p>Have questions? Get in touch with our team.</p>
+</div>
+
+<!-- -------------------------------------------------
+   CONTACT FORM
+------------------------------------------------- -->
+<div class="contact-container">
+    <form class="contact-card" onsubmit="sendMessage(event)">
+        
+        <label>Your Name</label>
+        <input type="text" placeholder="Enter your name" required>
+
+        <label>Email Address</label>
+        <input type="email" placeholder="Enter your email" required>
+
+        <label>Your Message</label>
+        <textarea placeholder="Write your message..." required></textarea>
+
+        <button class="send-btn">Send Message</button>
+    </form>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" style="
+    display:none;
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:white;
+    color:black;
+    padding:15px 25px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+">
+Message sent! We'll get back to you soon.
+</div>
+
+<script>
+function sendMessage(e) {
+    e.preventDefault();
+    const t = document.getElementById("toast");
+    t.style.display = "block";
+    setTimeout(() => t.style.display = "none", 3000);
+}
+</script>
+
+<!-- -------------------------------------------------
+   FOOTER
+------------------------------------------------- -->
+<div class="footer">
+    © 2025 Intellix. All rights reserved.
+</div>
+
+</body>
+</html>
