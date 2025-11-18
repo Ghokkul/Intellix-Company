@@ -286,19 +286,73 @@ footer {
     <div style="margin-top:18px;color:var(--muted)">Now onboarding limited partners for 2026 • <strong>Alpha Live</strong></div>
   </div>
 
-  <div class="hero-right">
-    <div class="mini-preview">
-      <div style="flex:1;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px;">
-        Live Dashboard Preview
-      </div>
+ <div class="mini-preview">
 
-      <div style="display:flex;gap:10px;margin-top:14px;">
-        <button style="flex:1" onclick="location.href='dashboard.html'">Open Dashboard</button>
-        <button style="flex:1;background:transparent;border:1px solid rgba(255,255,255,0.2);" onclick="location.href='contact.html'">Contact Sales</button>
-      </div>
+    <!-- Mini Ticker -->
+    <div style="
+        background: rgba(255,255,255,0.08);
+        padding: 6px;
+        border-radius: 8px;
+        font-size: 13px;
+        white-space: nowrap;
+        overflow: hidden;
+        margin-bottom: 14px;
+    ">
+        <div style="display:inline-block; animation: miniTicker 14s linear infinite;">
+            📈 AAPL 194.73 ↑ • TSLA 228.39 ↓ • NVDA 963.22 ↑ • BTC $67.4K ↑ • ETH $3.2K ↑
+        </div>
     </div>
-  </div>
-</section>
+
+    <style>
+        @keyframes miniTicker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+
+    <!-- Mini Dashboard Body -->
+    <div style="flex:1; color:var(--muted); font-size:15px;">
+
+        <div style="margin-bottom:10px;">
+            <strong style="color:#fff;">Payments Today</strong><br>
+            $4,392 processed
+        </div>
+
+        <div style="margin-bottom:10px;">
+            <strong style="color:#fff;">New Users</strong><br>
+            24 signups
+        </div>
+
+        <div style="margin-bottom:10px;">
+            <strong style="color:#fff;">System Status</strong><br>
+            <span style="color:#7cffc1;">●</span> All Systems Operational
+        </div>
+
+        <hr style="border:0;border-top:1px solid rgba(255,255,255,0.15); margin:12px 0;">
+
+        <div>
+            <strong style="color:#fff;">Quick Actions</strong>
+        </div>
+    </div>
+
+    <!-- Mini Buttons -->
+    <div style="display:flex; gap:10px; margin-top:14px;">
+        <button style="flex:1"
+            onclick="location.href='dashboard.html'">
+            Open Dashboard
+        </button>
+
+        <button style="
+            flex:1;
+            background:transparent;
+            border:1px solid rgba(255,255,255,0.25);
+            color:var(--muted);
+        " onclick="location.href='contact.html'">
+            Contact Sales
+        </button>
+    </div>
+</div>
+
 
 <h2 class="section-title">Core Technologies</h2>
 
