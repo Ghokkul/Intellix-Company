@@ -1,0 +1,15 @@
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\bin\Debug\net10.0\Intellix Company.exe
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\bin\Debug\net10.0\Intellix Company.deps.json
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\bin\Debug\net10.0\Intellix Company.runtimeconfig.json
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\bin\Debug\net10.0\Intellix Company.dll
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\bin\Debug\net10.0\Intellix Company.pdb
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\Intellix Company.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\Intellix Company.AssemblyInfoInputs.cache
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\Intellix Company.AssemblyInfo.cs
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\Intellix Company.csproj.CoreCompileInputs.cache
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\Intellix Company.sourcelink.json
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\Intellix Company.dll
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\refint\Intellix Company.dll
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\Intellix Company.pdb
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\Intellix Company.genruntimeconfig.cache
+C:\Users\Ghokkul\Desktop\Github Desktop Projects\Intellix Company\obj\Debug\net10.0\ref\Intellix Company.dll
