@@ -15,7 +15,7 @@
         height: 100%;
     }
 
-    /* Layout */
+    /* Sidebar */
     .sidebar {
         width: 260px;
         height: 100vh;
@@ -44,11 +44,9 @@
         border-radius: 6px;
         transition: 0.3s;
     }
+    .nav a:hover { background: rgba(255,255,255,0.12); }
 
-    .nav a:hover {
-        background: rgba(255,255,255,0.12);
-    }
-
+    /* Main */
     .main {
         margin-left: 260px;
         padding: 2rem;
@@ -60,16 +58,10 @@
         text-shadow: 0 0 20px rgba(255,255,255,0.4);
     }
 
-    /* Cards */
-    .grid {
-        display: grid;
-        gap: 1.5rem;
-    }
-
+    /* Grid & Cards */
+    .grid { display: grid; gap: 1.5rem; }
     @media(min-width: 768px) {
-        .grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
+        .grid { grid-template-columns: repeat(3, 1fr); }
     }
 
     .card {
@@ -80,14 +72,34 @@
         box-shadow: 0 0 20px rgba(0,0,0,0.3);
     }
 
-    .card h3 {
-        margin-bottom: 0.5rem;
-        font-size: 22px;
+    .card h3 { margin-bottom: 0.5rem; font-size: 22px; }
+    .card p { opacity: 0.9; }
+
+    /* Market Ticker */
+    .ticker {
+        margin-top: 30px;
+        background: rgba(255,255,255,0.1);
+        padding: 10px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        white-space: nowrap;
+        box-shadow: 0 0 20px rgba(255,255,255,0.15);
     }
 
-    .card p {
-        opacity: 0.9;
+    .ticker-move {
+        display: inline-block;
+        animation: ticker 25s linear infinite;
+        font-size: 16px;
+        letter-spacing: 0.5px;
     }
+
+    @keyframes ticker {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+
+    .green { color: #4efc7b; font-weight: bold; }
+    .red { color: #ff5f6a; font-weight: bold; }
 </style>
 </head>
 
@@ -101,13 +113,27 @@
         <a href="dashboard.html">📊 Dashboard</a>
         <a href="profile.html">👤 Profile</a>
         <a href="settings.html">⚙️ Settings</a>
-        <a href="logout.html">🚪 Logout</a  href="login.html"></a  href="signup.html">
+        <a href="logout.html">🚪 Logout</a>
     </div>
 </div>
 
-<!-- Main Content -->
+<!-- Main -->
 <div class="main">
     <h1>Dashboard Overview</h1>
+
+    <!-- Real-Time Ticker -->
+    <div class="ticker">
+        <div class="ticker-move">
+            📈 AAPL: 194.73 <span class="green">+1.83%</span> &nbsp;&nbsp;&nbsp;
+            TSLA: 228.39 <span class="red">-2.14%</span> &nbsp;&nbsp;&nbsp;
+            NVDA: 963.22 <span class="green">+3.91%</span> &nbsp;&nbsp;&nbsp;
+            BTC: $67,492 <span class="green">+5.3%</span> &nbsp;&nbsp;&nbsp;
+            ETH: $3,242 <span class="green">+2.1%</span> &nbsp;&nbsp;&nbsp;
+            AMZN: 176.45 <span class="green">+0.77%</span> &nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <br><br>
 
     <div class="grid">
         <div class="card">
@@ -125,6 +151,31 @@
             <p>All systems operational</p>
         </div>
     </div>
+
+    <br>
+
+    <!-- Live Stocks Preview -->
+    <div class="card" style="margin-top: 20px;">
+        <h3>📊 Live Stocks Overview</h3>
+        <p style="opacity:0.8">Real-time AI-curated global market signals</p>
+        <ul style="line-height: 1.8;">
+            <li><strong>Apple (AAPL)</strong> — 194.73 <span class="green">↑</span></li>
+            <li><strong>Microsoft (MSFT)</strong> — 412.28 <span class="green">↑</span></li>
+            <li><strong>Meta (META)</strong> — 492.20 <span class="green">↑</span></li>
+            <li><strong>Tesla (TSLA)</strong> — 228.39 <span class="red">↓</span></li>
+        </ul>
+    </div>
+
+    <!-- Crypto Snapshot -->
+    <div class="card" style="margin-top: 20px;">
+        <h3>💠 Crypto Snapshot</h3>
+        <ul style="line-height: 1.8;">
+            <li><strong>Bitcoin</strong> — $67,492 <span class="green">↑</span></li>
+            <li><strong>Ethereum</strong> — $3,242 <span class="green">↑</span></li>
+            <li><strong>Solana</strong> — $172.88 <span class="green">↑</span></li>
+        </ul>
+    </div>
+
 </div>
 
 </body>
