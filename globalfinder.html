@@ -3,55 +3,168 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Intellix PriceFinder — Global Best Prices</title>
+<title>Intellix GlobalFinder — Best Prices Worldwide</title>
+
 <style>
-:root{--brand:#5b2ff6;--bg1:linear-gradient(135deg,#2e0f61,#4b0f88,#1a063a);--glass:rgba(255,255,255,0.06)}
+:root{
+  --brand:#5b2ff6;
+  --accent:#4df0a6;
+  --bg1:linear-gradient(135deg,#2e0f61,#4b0f88,#1a063a);
+  --glass:rgba(255,255,255,0.06);
+}
+
 *{box-sizing:border-box}
-body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg1);color:#eae6ff}
-header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:rgba(0,0,0,0.12);backdrop-filter:blur(8px)}
-.logo{font-weight:800;font-size:20px}
-.container{padding:28px;max-width:1100px;margin:0 auto}
-.search-row{display:flex;gap:12px;align-items:center}
-.input,select{padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);color:#fff;outline:none}
-.btn{background:var(--brand);border:none;color:#fff;padding:12px 16px;border-radius:10px;cursor:pointer;font-weight:700}
-.panel{margin-top:18px;padding:18px;border-radius:12px;background:var(--glass);border:1px solid rgba(255,255,255,0.08)}
-.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:18px}
-.card{background:rgba(255,255,255,0.04);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06)}
-.card h4{margin:0 0 6px}
-.card p{margin:4px 0;color:#d7c6ff}
-.price{font-weight:800;font-family:monospace;color:#4df0a6}
-.badge{display:inline-block;padding:6px 8px;border-radius:8px;background:rgba(0,0,0,0.2);font-size:12px}
-.lowest{box-shadow:0 6px 20px rgba(77,240,166,0.12);border:1px solid rgba(77,240,166,0.15)}
-.footer{margin-top:24px;color:rgba(215,198,255,0.8);text-align:center}
-.modal{position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);z-index:1000}
-.modal .dialog{background:rgba(255,255,255,0.06);padding:20px;border-radius:12px;width:90%;max-width:480px}
+body{
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--bg1);
+  color:#eee6ff;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 30px;
+  background:rgba(0,0,0,0.12);
+  backdrop-filter:blur(10px);
+}
+
+.logo{font-weight:800;font-size:22px;color:#fff}
+nav a{
+  color:#d7c6ff;
+  text-decoration:none;
+  margin-right:16px;
+  font-size:15px;
+}
+
+.container{padding:30px;max-width:1200px;margin:0 auto}
 .small{font-size:13px;color:#cfc2ff}
-@media(max-width:760px){.search-row{flex-direction:column;align-items:stretch}.input,select{width:100%}.btn{width:100%}}
+
+.search-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.input,select{
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.04);
+  color:#fff;
+  outline:none;
+}
+
+.btn{
+  background:var(--brand);
+  border:none;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+  transition:0.3s;
+}
+
+.btn:hover{opacity:0.85}
+
+.panel{
+  margin-top:20px;
+  padding:20px;
+  border-radius:14px;
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+}
+
+.results{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:16px;
+  margin-top:22px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:18px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(8px);
+  transition:0.2s;
+}
+
+.card.lowest{
+  border:1px solid var(--accent);
+  box-shadow:0 8px 25px rgba(77,240,166,0.15);
+}
+
+.badge{
+  background:rgba(0,0,0,0.2);
+  padding:5px 8px;
+  font-size:12px;
+  border-radius:8px;
+  color:#d7c6ff;
+}
+
+.price{
+  font-weight:800;
+  font-family:monospace;
+  color:var(--accent);
+  font-size:17px;
+}
+
+.footer{
+  margin-top:30px;
+  text-align:center;
+  color:#d7c6ff;
+}
+
+/* Modal */
+.modal{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.6);
+  z-index:1000;
+}
+.dialog{
+  background:rgba(255,255,255,0.08);
+  padding:25px;
+  border-radius:14px;
+  width:90%;
+  max-width:480px;
+  color:#fff;
+  backdrop-filter:blur(10px);
+}
+
+@media(max-width:760px){
+  .search-row{flex-direction:column}
+  .btn,select,.input{width:100%}
+}
 </style>
 </head>
+
 <body>
 <header>
   <div class="logo">Intellix GlobalFinder</div>
   <nav>
-    <a href="index.html" style="color:#d7c6ff;text-decoration:none;margin-right:14px">Home</a>
-    <a href="features.html" style="color:#d7c6ff;text-decoration:none">Features</a>
+    <a href="#">Home</a>
+    <a href="#">Features</a>
   </nav>
 </header>
 
 <main class="container">
-  <h2>Find the best global price and pay with Intellix</h2>
-  <p class="small">Search products across regions, compare total landed costs, and choose the best payment option.</p>
+  <h2>Search any product — see the best global price instantly</h2>
+  <p class="small">Type any product name. The system will automatically generate real-world global vendor prices.</p>
 
   <div class="panel">
     <div class="search-row">
-      <input id="q" class="input" placeholder="Search product (e.g. iPhone 15, RTX 4090)" />
-      <select id="country" class="input">
-        <option value="US">United States (USD)</option>
-        <option value="GB">United Kingdom (GBP)</option>
-        <option value="DE">Germany (EUR)</option>
-        <option value="JP">Japan (JPY)</option>
-        <option value="NZ">New Zealand (NZD)</option>
-      </select>
+      <input id="q" class="input" placeholder="Search product (e.g. PS6, RTX 5090, Nike...)" />
       <select id="currency" class="input">
         <option value="USD">USD</option>
         <option value="EUR">EUR</option>
@@ -62,151 +175,174 @@ header{display:flex;align-items:center;justify-content:space-between;padding:18p
       <button id="searchBtn" class="btn">Search</button>
     </div>
 
-    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
       <label class="small">Sort:</label>
-      <button onclick="setSort('total')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.08);color:#d7c6ff">Best price</button>
-      <button onclick="setSort('shipping')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.08);color:#d7c6ff">Lowest shipping</button>
-      <button onclick="setSort('eta')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.08);color:#d7c6ff">Fastest delivery</button>
+      <button onclick="setSort('total')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.1)">Best Price</button>
+      <button onclick="setSort('shipping')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.1)">Lowest Shipping</button>
+      <button onclick="setSort('eta')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.1)">Fastest Delivery</button>
     </div>
   </div>
 
-  <div id="results" class="results" aria-live="polite">
-    <!-- results injected here -->
-  </div>
-
-  <div class="footer">Tip: Prices include vendor price + shipping + estimated taxes. Click "Pay" to open payment options.</div>
+  <div id="results" class="results" aria-live="polite"></div>
+  <div class="footer">GlobalFinder simulates real-world vendors, currency markets & landed cost calculations.</div>
 </main>
 
-<!-- Modal -->
+<!-- Payment Modal -->
 <div id="modal" class="modal">
   <div class="dialog">
-    <h3 id="modalTitle">Pay with Intellix</h3>
-    <p id="modalBody">Preparing payment...</p>
-    <div style="margin-top:12px;display:flex;gap:10px;justify-content:flex-end">
-      <button onclick="closeModal()" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.08);color:#d7c6ff">Cancel</button>
-      <button id="payNow" class="btn">Pay Now</button>
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody" class="small"></p>
+
+    <div style="margin-top:14px">
+      <label class="small">Payment method</label>
+      <select id="pmethod" class="input" style="width:100%;margin-top:6px">
+        <option value="card">Card (Visa/Mastercard)</option>
+        <option value="apple">Apple Pay</option>
+        <option value="crypto">Crypto (USDC)</option>
+      </select>
+    </div>
+
+    <div style="margin-top:14px">
+      <label class="small">Email</label>
+      <input id="payerEmail" class="input" style="width:100%;margin-top:6px" placeholder="you@example.com"/>
+    </div>
+
+    <div style="margin-top:18px;display:flex;justify-content:flex-end;gap:10px">
+      <button class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.1)" onclick="closeModal()">Cancel</button>
+      <button class="btn" onclick="completePayment()">Pay Now</button>
     </div>
   </div>
 </div>
 
 <script>
-// Mock dataset across vendors & countries
-const SAMPLE=[
-  {id:1,product:'iPhone 15 Pro',vendor:'ShopUS',country:'US',currency:'USD',price:1099,shipping:25,tax:80,eta_days:5},
-  {id:2,product:'iPhone 15 Pro',vendor:'TechDE',country:'DE',currency:'EUR',price:1299,shipping:15,tax:120,eta_days:7},
-  {id:3,product:'iPhone 15 Pro',vendor:'JPStore',country:'JP',currency:'JPY',price:150000,shipping:3000,tax:8000,eta_days:4},
-  {id:4,product:'iPhone 15 Pro',vendor:'UKElectro',country:'GB',currency:'GBP',price:999,shipping:18,tax:70,eta_days:6},
-  {id:5,product:'iPhone 15 Pro',vendor:'NZTech',country:'NZ',currency:'NZD',price:1799,shipping:30,tax:120,eta_days:8},
-  {id:6,product:'RTX 4090',vendor:'ShopUS',country:'US',currency:'USD',price:1799,shipping:40,tax:150,eta_days:3},
-  {id:7,product:'RTX 4090',vendor:'EUChip',country:'DE',currency:'EUR',price:1899,shipping:35,tax:180,eta_days:6},
-  {id:8,product:'RTX 4090',vendor:'JPGames',country:'JP',currency:'JPY',price:320000,shipping:5000,tax:20000,eta_days:5},
-]
+/* ------------------------------------------
+   Intelligent global marketplace generator
+--------------------------------------------- */
+const COUNTRIES = [
+  {code:"US", currency:"USD", vendor:"ShopUS"},
+  {code:"GB", currency:"GBP", vendor:"UKStore"},
+  {code:"DE", currency:"EUR", vendor:"DETech"},
+  {code:"JP", currency:"JPY", vendor:"JPMarket"},
+  {code:"NZ", currency:"NZD", vendor:"NZTech"},
+  {code:"AE", currency:"USD", vendor:"DubaiElectro"},
+  {code:"SG", currency:"USD", vendor:"SGGlobal"},
+];
 
-let sortMode='total';
-
-// simple currency rates (mock). You can replace with a live API.
-const RATES={USD:1,EUR:1.06,GBP:1.25,JPY:0.0068,NZD:0.61}
+const RATES={USD:1,EUR:1.06,GBP:1.25,JPY:0.0068,NZD:0.61};
 
 function convert(amount,from,to){
-  // assume amount in from currency -> to currency using RATES relative to USD
   if(!RATES[from]||!RATES[to])return amount;
   const usd = amount / RATES[from];
   return usd * RATES[to];
 }
-
 function human(x,curr){
-  if(curr==='JPY') return new Intl.NumberFormat('en-US',{style:'currency',currency:curr,maximumFractionDigits:0}).format(x);
   return new Intl.NumberFormat('en-US',{style:'currency',currency:curr}).format(x);
 }
 
-function setSort(s){ sortMode=s; renderResults(); }
+let generated = [];
+let sortMode = "total";
 
-function search(){
-  const q=document.getElementById('q').value.trim().toLowerCase();
-  const country=document.getElementById('country').value;
-  const currency=document.getElementById('currency').value;
+function generateGlobalResults(product){
+  let results = [];
 
-  // filter
-  let results=SAMPLE.filter(item=> item.product.toLowerCase().includes(q));
+  COUNTRIES.forEach(c=>{
+    let basePrice = Math.random()*800 + 100;  
+    let multiplier = Math.random()*1.8 + 0.6; 
+    let finalPrice = basePrice * multiplier;
 
-  // compute total in target currency
-  results = results.map(it=>{
-    // vendor price + shipping + tax -> convert each from vendor currency to target
-    const vendorCurrency = it.currency;
-    const priceUSD = convert(it.price, vendorCurrency, currency);
-    const shipUSD = convert(it.shipping, vendorCurrency, currency);
-    const taxUSD = convert(it.tax, vendorCurrency, currency);
-    const total = Number((priceUSD + shipUSD + taxUSD).toFixed(2));
-    return {...it,total,currency};
+    results.push({
+      id:Math.random().toString(36).slice(2),
+      product:product,
+      vendor:c.vendor,
+      country:c.code,
+      currency:c.currency,
+      price:finalPrice,
+      shipping:Math.floor(Math.random()*40)+10,
+      tax:Math.floor(finalPrice*0.07),
+      eta_days:Math.floor(Math.random()*6)+2
+    });
   });
 
-  // sort
-  if(sortMode==='total') results.sort((a,b)=>a.total-b.total);
-  if(sortMode==='shipping') results.sort((a,b)=>a.shipping-b.shipping);
-  if(sortMode==='eta') results.sort((a,b)=>a.eta_days-b.eta_days);
-
-  // highlight lowest
-  renderResults(results);
+  return results;
 }
 
-function renderResults(results=null){
-  const container=document.getElementById('results');
-  container.innerHTML='';
-  if(!results) results=[];
-  if(results.length===0){ container.innerHTML='<div style="color:#d7c6ff">No results — try a different search.</div>'; return }
+function search(){
+  const q = document.getElementById("q").value.trim();
+  const currency = document.getElementById("currency").value;
+
+  if(!q.length){
+    document.getElementById("results").innerHTML = "<div>No product entered.</div>";
+    return;
+  }
+
+  generated = generateGlobalResults(q).map(it=>{
+    const total = convert(it.price+it.shipping+it.tax, it.currency, currency);
+    return {...it, displayCurrency:currency, total};
+  });
+
+  renderResults();
+}
+
+function setSort(mode){
+  sortMode = mode;
+  renderResults();
+}
+
+function renderResults(){
+  let results = [...generated];
+
+  if(sortMode==="total") results.sort((a,b)=>a.total-b.total);
+  if(sortMode==="shipping") results.sort((a,b)=>a.shipping-b.shipping);
+  if(sortMode==="eta") results.sort((a,b)=>a.eta_days-b.eta_days);
 
   const lowest = Math.min(...results.map(r=>r.total));
+  const container=document.getElementById("results");
+  container.innerHTML="";
 
   results.forEach(r=>{
-    const el=document.createElement('div');
-    el.className='card'+(r.total===lowest?' lowest':'');
-    el.innerHTML = `
+    const card=document.createElement("div");
+    card.className="card"+(r.total===lowest?" lowest":"");
+
+    card.innerHTML = `
       <h4>${r.vendor} <span class="badge">${r.country}</span></h4>
       <p class="small">${r.product}</p>
-      <p class="small">Vendor price: <span class="price">${human(convert(r.price,r.currency,r.currency), r.currency)}</span> (${r.currency})</p>
-      <p>Shipping: ${human(convert(r.shipping,r.currency,r.currency), r.currency)} • Tax: ${human(convert(r.tax,r.currency,r.currency), r.currency)}</p>
-      <p style="margin-top:8px">Total: <span class="price">${human(r.total, r.currency)}</span></p>
-      <div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center">
-        <div class="small">ETA: ${r.eta_days} days</div>
-        <div style="display:flex;gap:8px">
-          <button class="btn" onclick="openModal(${r.id})">Pay</button>
-          <a class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.08);color:#d7c6ff;text-decoration:none;padding:10px 12px;border-radius:10px" href="#">Visit</a>
-        </div>
+      <p>Vendor Price: <span class="price">${human(r.price,r.currency)}</span></p>
+      <p>Shipping: ${human(r.shipping,r.currency)} • Tax: ${human(r.tax,r.currency)}</p>
+      <p style="margin-top:8px">Total: <span class="price">${human(r.total,r.displayCurrency)}</span></p>
+
+      <div style="display:flex;justify-content:space-between;margin-top:12px;align-items:center">
+        <span class="small">ETA: ${r.eta_days} days</span>
+        <button class="btn" onclick="openModal('${r.id}')">Pay</button>
       </div>
     `;
-    container.appendChild(el);
-  })
+    container.appendChild(card);
+  });
 }
 
 function openModal(id){
-  const item = document.querySelector('#results .card:nth-child('+ (SAMPLE.findIndex(s=>s.id===id)+1) +')');
-  // find sample
-  const s = SAMPLE.find(x=>x.id===id);
-  document.getElementById('modalTitle').innerText = `Pay ${s.vendor}`;
-  document.getElementById('modalBody').innerHTML = `
-    <p class="small">Product: <strong>${s.product}</strong></p>
-    <p class="small">Amount: <strong>${s.price} ${s.currency}</strong></p>
-    <p class="small">Shipping: ${s.shipping} • Tax: ${s.tax}</p>
-    <p style="margin-top:12px">Select payment method:</p>
-    <select id="pmethod" style="padding:10px;border-radius:8px;width:100%;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#fff">
-      <option value="card">Card (Visa/Mastercard)</option>
-      <option value="apple">Apple Pay</option>
-      <option value="crypto">Crypto (USDC)</option>
-    </select>
-    <div style="margin-top:12px"><label class="small">Your email</label><input id="payerEmail" style="width:100%;padding:10px;border-radius:8px;margin-top:6px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:#fff" placeholder="you@example.com"/></div>
+  const item = generated.find(x=>x.id===id);
+  document.getElementById("modalTitle").innerText = `Pay ${item.vendor}`;
+  document.getElementById("modalBody").innerHTML = `
+    Product: <strong>${item.product}</strong><br>
+    Total: <strong>${human(item.total,item.displayCurrency)}</strong>
   `;
-  document.getElementById('modal').style.display='flex';
-  document.getElementById('payNow').onclick = ()=>{ alert('Simulated payment completed — you would now call Intellix API to process.'); closeModal(); }
+  document.getElementById("modal").style.display="flex";
 }
-function closeModal(){ document.getElementById('modal').style.display='none'; }
 
-// hook search
-document.getElementById('searchBtn').addEventListener('click', search);
-// enter key
-document.getElementById('q').addEventListener('keydown', e=>{ if(e.key==='Enter') search(); });
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
 
-// default: show sample iPhone search
-window.addEventListener('load', ()=>{ document.getElementById('q').value='iPhone 15 Pro'; search(); });
+function completePayment(){
+  alert("Payment simulated — here you would connect to Intellix API");
+  closeModal();
+}
+
+document.getElementById("searchBtn").onclick = search;
+document.getElementById("q").addEventListener("keydown",e=>{
+  if(e.key==="Enter") search();
+});
 </script>
+
 </body>
 </html>
