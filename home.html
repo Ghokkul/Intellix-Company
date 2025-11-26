@@ -156,7 +156,7 @@ nav a:hover {
 }
 
 /* ---------------------------------------------
-   MINI DASHBOARD PREVIEW (right side)
+   MINI DASHBOARD PREVIEW
 --------------------------------------------- */
 .hero-right {
     flex: 1;
@@ -246,6 +246,38 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.08);
 }
 
+/* ---------------------------------------------
+   FLOATING VERTICAL SUPPORT LINKS
+--------------------------------------------- */
+.support-links {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+}
+
+.support-links a {
+    background: rgba(255,255,255,0.08);
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    transition: 0.2s;
+    box-shadow: 0 0 12px rgba(120,60,255,0.3);
+}
+
+.support-links a:hover {
+    color: white;
+    background: rgba(255,255,255,0.15);
+    box-shadow: 0 0 20px rgba(180,100,255,0.5);
+}
+
 @media(max-width:900px) {
     header { padding: 16px; }
     .hero { flex-direction: column; text-align: center; }
@@ -280,7 +312,7 @@ footer {
 </header>
 
 <!-- ---------------------------------------------
-     HERO (Fixed Layout)
+     HERO SECTION
 --------------------------------------------- -->
 <section class="hero">
   <div class="glow-orb"></div>
@@ -300,11 +332,9 @@ footer {
     <div style="margin-top:18px;color:var(--muted)">Now onboarding limited partners for 2026 • <strong>Alpha Live</strong></div>
   </div>
 
-  <!-- RIGHT SIDE MINI DASHBOARD PREVIEW -->
   <div class="hero-right">
     <div class="mini-preview">
 
-      <!-- Mini Ticker -->
       <div style="
           background: rgba(255,255,255,0.08);
           padding: 6px;
@@ -339,7 +369,7 @@ footer {
 
           <div style="margin-bottom:10px;">
               <strong style="color:#fff;">System Status</strong><br>
-              <span style="color:#7cffc1;">●</span> All Systems Operational
+              <span style="color:#7cffc1">●</span> All Systems Operational
           </div>
 
           <hr style="border:0;border-top:1px solid rgba(255,255,255,0.15); margin:12px 0;">
@@ -347,12 +377,8 @@ footer {
           <strong style="color:#fff;">Quick Actions</strong>
       </div>
 
-      <!-- Mini Buttons -->
       <div style="display:flex; gap:10px; margin-top:14px;">
-          <button style="flex:1"
-              onclick="location.href='dashboard.html'">
-              Open Dashboard
-          </button>
+          <button style="flex:1" onclick="location.href='dashboard.html'">Open Dashboard</button>
 
           <button style="
               flex:1;
@@ -399,6 +425,13 @@ footer {
 <footer>
   © 2026 Intellix — Intelligent Payments
 </footer>
+
+<!-- Floating Vertical Support Menu -->
+<div class="support-links">
+  <a href="support.html">Support</a>
+  <a href="terms.html">Terms</a>
+  <a href="privacy.html">Privacy</a>
+</div>
 
 </body>
 </html>
