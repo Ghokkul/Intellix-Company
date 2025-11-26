@@ -33,6 +33,38 @@ body {
 }
 
 /* ---------------------------------------------
+   FLOATING BUTTONS (Support, Terms, Privacy)
+--------------------------------------------- */
+.float-buttons {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+}
+
+.float-buttons button {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: white;
+    padding: 12px 18px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    width: 160px;
+    text-align: center;
+    box-shadow: 0 0 18px rgba(255,0,255,0.3);
+    transition: 0.2s;
+}
+
+.float-buttons button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 28px rgba(255,0,255,0.6);
+}
+
+/* ---------------------------------------------
    TOP CURRENCY TICKER
 --------------------------------------------- */
 .currency-ticker {
@@ -155,9 +187,7 @@ nav a:hover {
     margin-top: 20px;
 }
 
-/* ---------------------------------------------
-   MINI DASHBOARD PREVIEW (right side)
---------------------------------------------- */
+/* RIGHT SIDE PANEL */
 .hero-right {
     flex: 1;
     display: flex;
@@ -178,7 +208,7 @@ nav a:hover {
 }
 
 /* ---------------------------------------------
-   FEATURES GRID
+   SECTION TITLES
 --------------------------------------------- */
 .section-title {
     text-align: center;
@@ -209,14 +239,6 @@ nav a:hover {
     box-shadow: 0 0 40px rgba(180, 80, 255, 0.4);
 }
 
-.card h3 {
-    margin: 0 0 8px;
-    color: #fff;
-}
-
-/* ---------------------------------------------
-   TRUST BADGES
---------------------------------------------- */
 .trust-section {
     padding: 40px;
     text-align: center;
@@ -237,29 +259,25 @@ nav a:hover {
     border: 1px solid rgba(255,255,255,0.14);
 }
 
-/* ---------------------------------------------
-   FOOTER
---------------------------------------------- */
 footer {
     padding: 25px 40px;
     color: var(--muted);
     border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
 }
 
-@media(max-width:900px) {
-    header { padding: 16px; }
-    .hero { flex-direction: column; text-align: center; }
-    .hero-right { width: 100%; }
-    .mini-preview { margin-top: 20px; }
-    .hero h1 { font-size: 34px; }
-}
 </style>
 </head>
 <body>
 
-<!-- ---------------------------------------------
-     CURRENCY TICKER
---------------------------------------------- -->
+<!-- FLOATING BUTTONS -->
+<div class="float-buttons">
+    <button onclick="location.href='support.html'">Support</button>
+    <button onclick="location.href='terms.html'">Terms</button>
+    <button onclick="location.href='privacy.html'">Privacy</button>
+</div>
+
+<!-- CURRENCY TICKER -->
 <div class="currency-ticker">
     <div class="ticker-inner">
         USD • EUR • GBP • JPY • AUD • NZD • CAD • SGD • AED • BTC • ETH • USD • EUR • GBP • JPY • AUD • NZD • CAD • SGD • AED • BTC • ETH
@@ -279,9 +297,7 @@ footer {
   </nav>
 </header>
 
-<!-- ---------------------------------------------
-     HERO (Fixed Layout)
---------------------------------------------- -->
+<!-- HERO SECTION -->
 <section class="hero">
   <div class="glow-orb"></div>
 
@@ -292,113 +308,3 @@ footer {
       Ultra-fast transactions, global routing, crypto-native settlement, and the most intelligent fraud engine ever built — all in one unified platform.
     </p>
 
-    <div class="cta-row">
-      <button class="btn" onclick="location.href='signup.html'">Get Started</button>
-      <button onclick="location.href='features.html'" style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:var(--muted);padding:10px 14px;border-radius:10px;">View features</button>
-    </div>
-
-    <div style="margin-top:18px;color:var(--muted)">Now onboarding limited partners for 2026 • <strong>Alpha Live</strong></div>
-  </div>
-
-  <!-- RIGHT SIDE MINI DASHBOARD PREVIEW -->
-  <div class="hero-right">
-    <div class="mini-preview">
-
-      <!-- Mini Ticker -->
-      <div style="
-          background: rgba(255,255,255,0.08);
-          padding: 6px;
-          border-radius: 8px;
-          font-size: 13px;
-          white-space: nowrap;
-          overflow: hidden;
-          margin-bottom: 14px;">
-          <div style="display:inline-block; animation: miniTicker 14s linear infinite;">
-            📈 AAPL 194.73 ↑ • TSLA 228.39 ↓ • NVDA 963.22 ↑ • BTC $67.4K ↑ • ETH $3.2K ↑
-          </div>
-      </div>
-
-      <style>
-      @keyframes miniTicker {
-          0% { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
-      }
-      </style>
-
-      <div style="flex:1; color:var(--muted); font-size:15px;">
-
-          <div style="margin-bottom:10px;">
-              <strong style="color:#fff;">Payments Today</strong><br>
-              $4,392 processed
-          </div>
-
-          <div style="margin-bottom:10px;">
-              <strong style="color:#fff;">New Users</strong><br>
-              24 signups
-          </div>
-
-          <div style="margin-bottom:10px;">
-              <strong style="color:#fff;">System Status</strong><br>
-              <span style="color:#7cffc1;">●</span> All Systems Operational
-          </div>
-
-          <hr style="border:0;border-top:1px solid rgba(255,255,255,0.15); margin:12px 0;">
-
-          <strong style="color:#fff;">Quick Actions</strong>
-      </div>
-
-      <!-- Mini Buttons -->
-      <div style="display:flex; gap:10px; margin-top:14px;">
-          <button style="flex:1"
-              onclick="location.href='dashboard.html'">
-              Open Dashboard
-          </button>
-
-          <button style="
-              flex:1;
-              background:transparent;
-              border:1px solid rgba(255,255,255,0.25);
-              color:var(--muted);
-          " onclick="location.href='contact.html'">
-              Contact Sales
-          </button>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ---------------------------------------------
-     CORE TECHNOLOGIES
---------------------------------------------- -->
-<h2 class="section-title">Core Technologies</h2>
-
-<section class="features">
-  <div class="card"><h3>AI Payment Engine</h3><p>Routes every transaction globally for the lowest cost and highest approval rate.</p></div>
-  <div class="card"><h3>Dispute Automation</h3><p>AI builds evidence packages instantly to resolve chargebacks.</p></div>
-  <div class="card"><h3>Global Finder</h3><p>Compare prices anywhere in the world, with real-time currency conversion.</p></div>
-  <div class="card"><h3>340+ Global Methods</h3><p>Support for cards, bank transfers, wallets, local rails, and crypto.</p></div>
-  <div class="card"><h3>Military-grade Security</h3><p>End-to-end encryption, tokenization, behavioral biometrics.</p></div>
-  <div class="card"><h3>Real-time Insights</h3><p>Predictive analytics and anomaly alerts in seconds.</p></div>
-</section>
-
-<!-- ---------------------------------------------
-     TRUST
---------------------------------------------- -->
-<div class="trust-section">
-  <h2 class="section-title">Trusted & Verified</h2>
-
-  <div class="badges">
-    <div class="badge">PCI-DSS Level 1</div>
-    <div class="badge">99.999% Uptime</div>
-    <div class="badge">AI-Verified Fraud</div>
-    <div class="badge">Global Compliance</div>
-  </div>
-</div>
-
-<footer>
-  © 2026 Intellix — Intelligent Payments
-</footer>
-
-</body>
-</html>
