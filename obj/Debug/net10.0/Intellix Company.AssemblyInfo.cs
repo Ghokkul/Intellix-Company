@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Intellix Company")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef7cd370aca7dcc3efc5aba3f9207fd38bad2cb4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c86f206bfbe08b92163d081299fcc5e66727d9c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Intellix Company")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Intellix Company")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
