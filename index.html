@@ -30,6 +30,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.85)
 .nav-link{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;text-decoration:none;background:transparent;border:none;font-family:var(--body)}
 .nav-link:hover{color:var(--text);background:rgba(255,255,255,.04)}
 .nav-link.active{color:var(--cyan)}
+.nl-products-btn{background:linear-gradient(135deg,rgba(0,229,255,.12),rgba(156,111,255,.12)) !important;border:1px solid rgba(0,229,255,.25) !important;color:var(--cyan) !important;font-weight:700 !important;letter-spacing:.2px}
+.nl-products-btn:hover{background:linear-gradient(135deg,rgba(0,229,255,.2),rgba(156,111,255,.2)) !important;border-color:rgba(0,229,255,.5) !important}
+.nl-products-btn.active{color:var(--cyan) !important}
 .nav-space{flex:1}
 .nav-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;background:var(--card);border:1px solid var(--border2);font-size:12px;color:var(--text2)}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
@@ -490,7 +493,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
     <button class="nav-link" id="nl-fraud" onclick="showPage('fraud')">Fraud AI</button>
     <button class="nav-link" id="nl-api" onclick="showPage('api')">API</button>
     <button class="nav-link" id="nl-mobile" onclick="showPage('mobile')">Mobile</button>
-    <button class="nav-link" id="nl-products" onclick="showPage('products')">Smart Shop</button>
+    <button class="nav-link nl-products-btn" id="nl-products" onclick="showPage('products')">&#9670; Find Products</button>
   </div>
   <div class="nav-space"></div>
   <div class="nav-pill"><span class="live-dot"></span>Live · $4.2M/hr</div>
@@ -709,6 +712,41 @@ textarea.code-area:focus{border-color:var(--cyan)}
         </div>
       </div>
       <div class="bot-row">
+        <!-- AI PRODUCT FINDER WIDGET on dashboard -->
+        <div class="card" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(0,229,255,.04),rgba(156,111,255,.04));border-color:rgba(0,229,255,.15)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="ai-chip">AI PRODUCT FINDER</div>
+              <div>
+                <div class="card-title" style="font-size:15px">Find the best product for the best price</div>
+                <div class="card-sub">Intellix scans 24+ stores in real time — pay instantly with zero fees</div>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="showPage('products')" style="font-size:12px;padding:8px 18px">Browse all &rarr;</button>
+          </div>
+          <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+            <div style="flex:1;position:relative;min-width:220px">
+              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--text3)">&#9740;</span>
+              <input id="dashProdSearch" style="width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:11px 16px 11px 38px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;transition:border-color .2s" placeholder="Search any product — AI finds the best price..." oninput="dashSearch(this.value)" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='var(--border2)'">
+            </div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap" id="dashCatPills">
+              <div class="cur-btn active" style="font-size:11px" onclick="dashFilterCat('all',this)">All</div>
+              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('electronics',this)">&#9729; Electronics</div>
+              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('fashion',this)">&#9673; Fashion</div>
+              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('home',this)">&#8962; Home</div>
+              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('sports',this)">&#9971; Sports</div>
+              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('beauty',this)">&#10024; Beauty</div>
+            </div>
+          </div>
+          <!-- Quick results strip -->
+          <div id="dashProdResults" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px"></div>
+          <!-- AI recommendation row -->
+          <div id="dashAiTip" style="margin-top:12px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.12);border-radius:8px;font-size:12px;color:var(--text2);line-height:1.5">
+            <strong style="color:var(--cyan)">&#9670; AI tip:</strong> Based on your recent $32K BTC purchase, you might want to celebrate — the <strong style="color:var(--text)">Sony WH-1000XM5</strong> headphones are at their lowest price in 90 days ($278, down from $350). <a style="color:var(--cyan);cursor:pointer;font-weight:600" onclick="showPage('products')">See deal &rarr;</a>
+          </div>
+        </div>
+      </div>
+      <div class="bot-row" id="dashBotRow">
         <div class="card">
           <div class="flex justify-between align-center mb-16">
             <div><div class="card-title">Live Transactions</div><div class="card-sub">Updated every 3 seconds</div></div>
@@ -1160,7 +1198,7 @@ function showPage(p){
   const nl=document.getElementById('nl-'+p);
   if(nl)nl.classList.add('active');
   window.scrollTo(0,0);
-  if(p==='dashboard')buildVolChart();
+  if(p==='dashboard'){buildVolChart();setTimeout(()=>renderDashProducts(PRODUCTS),50);}
   if(p==='mobile')buildPhoneHome();
   if(p==='products')renderProducts();
 }
@@ -1453,9 +1491,63 @@ function searchProducts(q){
   renderProducts();
 }
 
+// ---- DASHBOARD PRODUCT FINDER ----
+let dashCat='all';
+function renderDashProducts(list){
+  const el=document.getElementById('dashProdResults');
+  if(!el)return;
+  const show=list.slice(0,4);
+  if(show.length===0){el.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text3);font-size:13px">No products found — try a different search</div>`;return;}
+  const aiColor=s=>s>=90?'var(--green)':s>=80?'var(--cyan)':'var(--orange)';
+  const badgeText={best:'Best Value',deal:'Top Deal',hot:'Hot',new:'New'};
+  const badgeStyle={best:`background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000`,deal:`background:rgba(0,230,118,.15);color:var(--green)`,hot:`background:rgba(255,145,0,.15);color:var(--orange)`,new:`background:rgba(156,111,255,.15);color:var(--purple)`};
+  el.innerHTML=show.map(p=>{
+    const save=Math.round((1-p.price/p.orig)*100);
+    return `<div style="background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden" onmouseenter="this.style.borderColor='var(--border2)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.borderColor='var(--border)';this.style.transform=''" onclick="showPage('products')">
+      <div style="position:absolute;top:8px;right:8px;padding:2px 7px;border-radius:6px;font-size:9px;font-weight:800;${badgeStyle[p.badge]}">${badgeText[p.badge]}</div>
+      <div style="font-size:36px;margin-bottom:8px;text-align:center;background:${p.bg};border-radius:10px;padding:10px">${p.icon}</div>
+      <div style="font-family:var(--font);font-size:12px;font-weight:700;margin-bottom:4px;line-height:1.3;padding-right:40px">${p.name}</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        <span style="font-family:var(--font);font-size:16px;font-weight:800;color:var(--cyan)">$${p.price}</span>
+        <span style="font-size:11px;color:var(--text3);text-decoration:line-through">$${p.orig}</span>
+        <span style="font-size:10px;font-weight:700;color:var(--green);background:rgba(0,230,118,.1);padding:2px 5px;border-radius:4px">-${save}%</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+        <span style="font-size:10px;color:var(--text3)">AI Score</span>
+        <div style="flex:1;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="width:${p.aiScore}%;height:100%;background:${aiColor(p.aiScore)};border-radius:2px"></div></div>
+        <span style="font-size:10px;font-family:var(--mono);color:${aiColor(p.aiScore)};font-weight:700">${p.aiScore}</span>
+      </div>
+      <div style="font-size:10px;color:var(--green);margin-bottom:8px">&#10003; Best: ${p.stores.find(s=>s.cheapest)?.name||p.stores[0].name} · Free shipping</div>
+      <button style="width:100%;padding:7px;border-radius:8px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)" onclick="event.stopPropagation();showPage('products')">Pay with Intellix</button>
+    </div>`;
+  }).join('');
+}
+function dashSearch(q){
+  const lq=q.toLowerCase().trim();
+  let base=dashCat==='all'?[...PRODUCTS]:PRODUCTS.filter(p=>p.category===dashCat);
+  const res=lq?base.filter(p=>p.name.toLowerCase().includes(lq)||p.category.includes(lq)||p.desc.toLowerCase().includes(lq)):base;
+  renderDashProducts(res);
+  const tip=document.getElementById('dashAiTip');
+  if(lq&&res.length>0){
+    const top=res[0];
+    const save=Math.round((1-top.price/top.orig)*100);
+    tip.innerHTML=`<strong style="color:var(--cyan)">&#9670; AI says:</strong> Best match for "<strong style="color:var(--text)">${q}</strong>" — <strong style="color:var(--text)">${top.name}</strong> at $${top.price} (${save}% off). Cheapest store: <strong style="color:var(--green)">${top.stores.find(s=>s.cheapest)?.name}</strong>. <a style="color:var(--cyan);cursor:pointer;font-weight:600" onclick="showPage('products')">Full comparison &rarr;</a>`;
+  } else if(!lq){
+    tip.innerHTML=`<strong style="color:var(--cyan)">&#9670; AI tip:</strong> Based on your recent $32K BTC purchase, you might want to celebrate — the <strong style="color:var(--text)">Sony WH-1000XM5</strong> headphones are at their lowest price in 90 days ($278, down from $350). <a style="color:var(--cyan);cursor:pointer;font-weight:600" onclick="showPage('products')">See deal &rarr;</a>`;
+  }
+}
+function dashFilterCat(cat,el){
+  dashCat=cat;
+  document.querySelectorAll('#dashCatPills .cur-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const q=document.getElementById('dashProdSearch')?.value||'';
+  dashSearch(q);
+}
+
 // Init
 buildVolChart();
 buildPhoneHome();
+setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},100);
 </script>
 </body>
 </html>
