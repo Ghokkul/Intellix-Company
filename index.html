@@ -358,6 +358,111 @@ textarea.code-area:focus{border-color:var(--cyan)}
 .fpill-auth{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:10px;margin-bottom:8px}
 .fpill-icon-auth{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 
+/* ===================== SMART SHOP ===================== */
+.shop-wrap{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 64px)}
+.shop-sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:0;display:flex;flex-direction:column}
+.shop-sidebar-hdr{padding:20px;border-bottom:1px solid var(--border)}
+.shop-sidebar-title{font-family:var(--font);font-size:15px;font-weight:800;margin-bottom:4px}
+.shop-sidebar-sub{font-size:12px;color:var(--text3)}
+.filter-section{padding:16px 20px;border-bottom:1px solid var(--border)}
+.filter-section-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.filter-cats{display:flex;flex-direction:column;gap:2px}
+.filter-cat{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;transition:all .15s;color:var(--text2);font-size:13px;font-weight:500}
+.filter-cat:hover{background:var(--card);color:var(--text)}
+.filter-cat.active{background:linear-gradient(90deg,rgba(0,229,255,.08),transparent);color:var(--cyan);border-left:2px solid var(--cyan)}
+.filter-cat-icon{width:22px;text-align:center;font-size:15px}
+.filter-cat-count{margin-left:auto;font-size:11px;font-family:var(--mono);color:var(--text3)}
+.price-filter{padding:16px 20px;border-bottom:1px solid var(--border)}
+.price-range-vals{display:flex;justify-content:space-between;font-size:12px;font-family:var(--mono);margin-bottom:8px}
+.price-range-vals span{color:var(--cyan)}
+.range-slider{width:100%;accent-color:var(--cyan)}
+.ai-filter-box{padding:16px 20px;margin:16px 20px;background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(156,111,255,.06));border:1px solid rgba(0,229,255,.2);border-radius:12px}
+.ai-filter-title{font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ai-filter-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:16px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);font-size:11px;color:var(--cyan);cursor:pointer;margin:3px 2px;transition:all .15s}
+.ai-filter-chip:hover{background:rgba(0,229,255,.15)}
+.ai-filter-chip.active{background:rgba(0,229,255,.2);border-color:var(--cyan)}
+.sort-bar{padding:16px 20px;border-bottom:1px solid var(--border)}
+.sort-bar-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.sort-chips{display:flex;gap:6px;flex-wrap:wrap}
+.sort-chip{padding:5px 12px;border-radius:16px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border2);color:var(--text3);background:var(--bg3);transition:all .15s}
+.sort-chip:hover{border-color:var(--border3);color:var(--text2)}
+.sort-chip.active{background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.3);color:var(--cyan)}
+.shop-main{display:flex;flex-direction:column;overflow-y:auto;background:var(--bg)}
+.shop-topbar{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--bg2)}
+.search-box{flex:1;position:relative;min-width:200px}
+.search-input{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:10px 16px 10px 38px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--cyan)}
+.search-input::placeholder{color:var(--text3)}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text3)}
+.shop-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px 24px;border-bottom:1px solid var(--border)}
+.shop-kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}
+.shop-kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.shop-kpi.sk-cyan::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.shop-kpi.sk-green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.shop-kpi.sk-purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.shop-kpi.sk-gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.shop-kpi-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.shop-kpi-val{font-family:var(--font);font-size:20px;font-weight:800}
+.shop-kpi-sub{font-size:11px;margin-top:3px}
+.ai-rec-banner{margin:0 24px 0;background:linear-gradient(135deg,rgba(0,229,255,.05),rgba(156,111,255,.05));border:1px solid rgba(0,229,255,.18);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px}
+.ai-rec-text{font-size:13px;color:var(--text2);line-height:1.5;flex:1}
+.ai-rec-text strong{color:var(--text)}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:20px 24px}
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
+.prod-card:hover{border-color:var(--border2);transform:translateY(-3px)}
+.prod-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative;overflow:hidden}
+.prod-badge{position:absolute;top:10px;left:10px;padding:3px 9px;border-radius:8px;font-size:10px;font-weight:800;font-family:var(--font)}
+.badge-best{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000}
+.badge-deal{background:rgba(0,230,118,.2);color:var(--green);border:1px solid rgba(0,230,118,.3)}
+.badge-hot{background:rgba(255,145,0,.2);color:var(--orange);border:1px solid rgba(255,145,0,.3)}
+.badge-new{background:rgba(156,111,255,.2);color:var(--purple);border:1px solid rgba(156,111,255,.3)}
+.prod-save{position:absolute;top:10px;right:10px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .15s}
+.prod-save:hover{background:rgba(255,64,129,.2);color:var(--pink)}
+.prod-save.saved{background:rgba(255,64,129,.2);color:var(--pink)}
+.prod-body{padding:14px 16px}
+.prod-category{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.prod-name{font-family:var(--font);font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3}
+.prod-rating{display:flex;align-items:center;gap:5px;margin-bottom:8px}
+.prod-stars{color:var(--gold);font-size:11px}
+.prod-rating-count{font-size:11px;color:var(--text3)}
+.prod-price-row{display:flex;align-items:flex-end;gap:8px;margin-bottom:10px}
+.prod-price{font-family:var(--font);font-size:20px;font-weight:800;color:var(--cyan)}
+.prod-orig{font-size:13px;color:var(--text3);text-decoration:line-through}
+.prod-save-pct{font-size:11px;font-weight:700;color:var(--green);background:rgba(0,230,118,.1);padding:2px 6px;border-radius:6px}
+.prod-ai-score{display:flex;align-items:center;gap:6px;padding:7px 10px;background:var(--bg3);border-radius:8px;margin-bottom:10px}
+.prod-ai-bar{flex:1;height:4px;background:var(--bg2);border-radius:2px;overflow:hidden}
+.prod-ai-fill{height:100%;border-radius:2px}
+.prod-ai-label{font-size:10px;font-weight:700;font-family:var(--mono)}
+.prod-stores{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.prod-store{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);font-size:10px;font-weight:600;cursor:pointer;transition:all .15s}
+.prod-store:hover{border-color:var(--cyan);color:var(--cyan)}
+.prod-store.cheapest{background:rgba(0,230,118,.08);border-color:rgba(0,230,118,.25);color:var(--green)}
+.prod-buy-btn{width:100%;padding:10px;border-radius:10px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s}
+.prod-buy-btn:hover{opacity:.9}
+.prod-detail-overlay{display:none;position:fixed;inset:0;background:rgba(6,7,13,.9);z-index:2000;align-items:center;justify-content:center;padding:24px}
+.prod-detail-overlay.show{display:flex}
+.prod-detail-box{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;max-width:820px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;position:relative}
+.prod-detail-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--text2)}
+.prod-detail-close:hover{color:var(--text);background:var(--card2)}
+.price-compare-table{width:100%;border-collapse:collapse;margin-top:12px}
+.price-compare-table th{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.price-compare-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px}
+.price-compare-table tr:last-child td{border-bottom:none}
+.price-compare-table tr:hover td{background:rgba(255,255,255,.02)}
+.price-winner{color:var(--green);font-weight:700;font-family:var(--mono)}
+.price-normal{font-family:var(--mono);color:var(--text2)}
+.checkout-btn-large{padding:14px 32px;border-radius:12px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font);transition:all .2s}
+.checkout-btn-large:hover{opacity:.9;transform:translateY(-2px)}
+.pay-via-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);font-size:11px;color:var(--cyan);font-weight:600}
+.watchlist-strip{background:var(--bg2);border-top:1px solid var(--border);padding:16px 24px}
+.watchlist-title{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.watchlist-items{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.watchlist-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer;transition:border-color .15s}
+.watchlist-item:hover{border-color:var(--border2)}
+.wl-icon{font-size:22px;flex-shrink:0}
+.wl-name{font-size:12px;font-weight:600;white-space:nowrap}
+.wl-price{font-size:12px;font-family:var(--mono);color:var(--cyan)}
+.wl-alert{font-size:10px;padding:2px 6px;border-radius:6px;background:rgba(0,230,118,.1);color:var(--green);font-weight:700;white-space:nowrap}
 /* Utility */
 .flex{display:flex}.gap-8{gap:8px}.gap-12{gap:12px}.gap-16{gap:16px}
 .justify-between{justify-content:space-between}.align-center{align-items:center}
@@ -385,6 +490,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
     <button class="nav-link" id="nl-fraud" onclick="showPage('fraud')">Fraud AI</button>
     <button class="nav-link" id="nl-api" onclick="showPage('api')">API</button>
     <button class="nav-link" id="nl-mobile" onclick="showPage('mobile')">Mobile</button>
+    <button class="nav-link" id="nl-products" onclick="showPage('products')">Smart Shop</button>
   </div>
   <div class="nav-space"></div>
   <div class="nav-pill"><span class="live-dot"></span>Live · $4.2M/hr</div>
@@ -838,6 +944,104 @@ textarea.code-area:focus{border-color:var(--cyan)}
   </div>
 </div>
 
+<!-- ======================== SMART SHOP ======================== -->
+<div class="page" id="page-products">
+  <div class="shop-wrap">
+    <!-- SIDEBAR -->
+    <div class="shop-sidebar">
+      <div class="shop-sidebar-hdr">
+        <div class="shop-sidebar-title">&#9670; Smart Shop</div>
+        <div class="shop-sidebar-sub">AI finds the best price for you</div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-section-label">Categories</div>
+        <div class="filter-cats">
+          <div class="filter-cat active" onclick="filterCat('all',this)"><span class="filter-cat-icon">&#9783;</span>All Products<span class="filter-cat-count">48</span></div>
+          <div class="filter-cat" onclick="filterCat('electronics',this)"><span class="filter-cat-icon">&#9729;</span>Electronics<span class="filter-cat-count">14</span></div>
+          <div class="filter-cat" onclick="filterCat('fashion',this)"><span class="filter-cat-icon">&#9673;</span>Fashion<span class="filter-cat-count">11</span></div>
+          <div class="filter-cat" onclick="filterCat('home',this)"><span class="filter-cat-icon">&#8962;</span>Home &amp; Living<span class="filter-cat-count">9</span></div>
+          <div class="filter-cat" onclick="filterCat('sports',this)"><span class="filter-cat-icon">&#9971;</span>Sports<span class="filter-cat-count">7</span></div>
+          <div class="filter-cat" onclick="filterCat('beauty',this)"><span class="filter-cat-icon">&#10024;</span>Beauty<span class="filter-cat-count">7</span></div>
+        </div>
+      </div>
+      <div class="price-filter">
+        <div class="filter-section-label">Price Range</div>
+        <div class="price-range-vals"><span>$0</span><span id="priceRangeVal">$2,000</span></div>
+        <input type="range" class="range-slider" min="0" max="5000" value="2000" step="50" oninput="setPriceRange(this.value)">
+      </div>
+      <div class="sort-bar">
+        <div class="sort-bar-label">Sort By</div>
+        <div class="sort-chips">
+          <div class="sort-chip active" onclick="setSortChip(this)">Best Value</div>
+          <div class="sort-chip" onclick="setSortChip(this)">Price &#8595;</div>
+          <div class="sort-chip" onclick="setSortChip(this)">Rating</div>
+          <div class="sort-chip" onclick="setSortChip(this)">Savings</div>
+        </div>
+      </div>
+      <div class="ai-filter-box">
+        <div class="ai-filter-title">&#9670; AI Quick Filters</div>
+        <div>
+          <div class="ai-filter-chip active" onclick="this.classList.toggle('active')">Best value deals</div>
+          <div class="ai-filter-chip" onclick="this.classList.toggle('active')">Price dropped</div>
+          <div class="ai-filter-chip" onclick="this.classList.toggle('active')">Top rated</div>
+          <div class="ai-filter-chip" onclick="this.classList.toggle('active')">Free shipping</div>
+          <div class="ai-filter-chip" onclick="this.classList.toggle('active')">In stock only</div>
+          <div class="ai-filter-chip" onclick="this.classList.toggle('active')">Trending now</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="shop-main">
+      <div class="shop-topbar">
+        <div class="search-box">
+          <span class="search-icon">&#9740;</span>
+          <input class="search-input" id="shopSearch" placeholder="Search products, brands, categories..." oninput="searchProducts(this.value)">
+        </div>
+        <div class="ai-chip" style="flex-shrink:0">AI POWERED</div>
+        <div style="font-size:12px;color:var(--text3);white-space:nowrap"><span id="productCount">12</span> products found</div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost" style="font-size:11px;padding:7px 14px" onclick="showPage('payment')">&#10003; Pay with Intellix</button>
+        </div>
+      </div>
+
+      <div class="shop-kpis">
+        <div class="shop-kpi sk-cyan"><div class="shop-kpi-label">Avg Savings</div><div class="shop-kpi-val text-cyan">34%</div><div class="shop-kpi-sub delta-up">&#9650; vs retail price</div></div>
+        <div class="shop-kpi sk-green"><div class="shop-kpi-label">Total Saved</div><div class="shop-kpi-val text-green">$2,847</div><div class="shop-kpi-sub" style="color:var(--text3)">This month</div></div>
+        <div class="shop-kpi sk-purple"><div class="shop-kpi-label">Stores Compared</div><div class="shop-kpi-val" style="color:var(--purple)">24</div><div class="shop-kpi-sub" style="color:var(--text3)">Live price feeds</div></div>
+        <div class="shop-kpi sk-gold"><div class="shop-kpi-label">Price Alerts</div><div class="shop-kpi-val" style="color:var(--gold)">6</div><div class="shop-kpi-sub delta-up">&#9650; 2 triggered today</div></div>
+      </div>
+
+      <div class="ai-rec-banner" style="margin:16px 24px 0">
+        <div class="ai-chip">AI INSIGHT</div>
+        <div class="ai-rec-text"><strong>Smart recommendation:</strong> Based on your payment history, you tend to buy electronics mid-month. The <strong>Sony WH-1000XM5</strong> dropped 18% today — lowest price in 90 days. <strong>Buy now to save $72.</strong></div>
+        <button class="btn btn-primary" style="font-size:12px;padding:8px 16px;flex-shrink:0" onclick="openProduct(0)">View Deal</button>
+      </div>
+
+      <div class="products-grid" id="productsGrid"></div>
+
+      <div class="watchlist-strip">
+        <div class="watchlist-title">&#9733; Price Watch &nbsp;<span style="font-size:11px;color:var(--text3);font-weight:400">AI monitors these and alerts you at target price</span></div>
+        <div class="watchlist-items">
+          <div class="watchlist-item"><div class="wl-icon">&#127911;</div><div><div class="wl-name">Sony WH-1000XM5</div><div class="wl-price">$278 <span style="font-size:10px;color:var(--text3)">/ target $260</span></div></div><div class="wl-alert">&#9660; Close!</div></div>
+          <div class="watchlist-item"><div class="wl-icon">&#128187;</div><div><div class="wl-name">MacBook Air M3</div><div class="wl-price">$1,099 <span style="font-size:10px;color:var(--text3)">/ target $999</span></div></div><div class="wl-alert" style="background:rgba(255,145,0,.1);color:var(--orange)">Watching</div></div>
+          <div class="watchlist-item"><div class="wl-icon">&#128247;</div><div><div class="wl-name">Canon EOS R50</div><div class="wl-price">$679 <span style="font-size:10px;color:var(--text3)">/ target $599</span></div></div><div class="wl-alert" style="background:rgba(255,145,0,.1);color:var(--orange)">Watching</div></div>
+          <div class="watchlist-item"><div class="wl-icon">&#128139;</div><div><div class="wl-name">Nike Air Max 270</div><div class="wl-price">$130 <span style="font-size:10px;color:var(--text3)">/ target $99</span></div></div><div class="wl-alert" style="background:rgba(0,230,118,.1);color:var(--green)">&#10003; Hit!</div></div>
+          <div class="watchlist-item" style="border:1px dashed var(--border2);cursor:pointer" onclick="document.getElementById('shopSearch').focus()"><div class="wl-icon" style="font-size:18px;color:var(--text3)">+</div><div><div class="wl-name" style="color:var(--text3)">Add product</div><div class="wl-price" style="color:var(--text3)">Set alert</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL OVERLAY -->
+  <div class="prod-detail-overlay" id="prodDetailOverlay" onclick="closeProdDetail(event)">
+    <div class="prod-detail-box" id="prodDetailBox">
+      <div class="prod-detail-close" onclick="document.getElementById('prodDetailOverlay').classList.remove('show')">&#10005;</div>
+      <div id="prodDetailContent"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ======================== AUTH PAGE ======================== -->
 <div class="page" id="page-auth">
   <div class="auth-wrap">
@@ -958,6 +1162,7 @@ function showPage(p){
   window.scrollTo(0,0);
   if(p==='dashboard')buildVolChart();
   if(p==='mobile')buildPhoneHome();
+  if(p==='products')renderProducts();
 }
 
 // ---- TAB SWITCHING ----
@@ -1108,6 +1313,144 @@ function doSignup(){
   const btn=document.getElementById('su-fin-btn');
   btn.textContent='Creating account...';btn.disabled=true;btn.style.opacity='.7';
   setTimeout(()=>{btn.style.display='none';document.getElementById('su-success').classList.add('show');},1800);
+}
+
+
+// ---- SMART SHOP ----
+const PRODUCTS = [
+  {id:0,name:'Sony WH-1000XM5',category:'electronics',icon:'&#127911;',bg:'rgba(0,229,255,.06)',price:278,orig:350,rating:4.9,reviews:12847,badge:'best',aiScore:97,aiLabel:'Best Value',desc:'Industry-leading noise cancellation with 30hr battery. AI-verified best price across 8 stores.',stores:[{name:'Amazon',price:278,ship:'Free',days:2,cheapest:true},{name:'Best Buy',price:299,ship:'Free',days:1,cheapest:false},{name:'Sony.com',price:350,ship:'$9',days:5,cheapest:false},{name:'Walmart',price:289,ship:'Free',days:3,cheapest:false}],specs:['Noise Cancellation: Industry-best','Battery: 30 hours','Multipoint: 2 devices','Weight: 250g']},
+  {id:1,name:'MacBook Air M3 13"',category:'electronics',icon:'&#128187;',bg:'rgba(156,111,255,.06)',price:1099,orig:1299,rating:4.8,reviews:8432,badge:'deal',aiScore:91,aiLabel:'Great Deal',desc:'Apple M3 chip, 8GB RAM, 256GB SSD. Lowest price in 6 months detected by Intellix AI.',stores:[{name:'Apple',price:1099,ship:'Free',days:3,cheapest:true},{name:'Amazon',price:1099,ship:'Free',days:2,cheapest:true},{name:'Best Buy',price:1149,ship:'Free',days:1,cheapest:false},{name:'B&H Photo',price:1089,ship:'Free',days:4,cheapest:false}],specs:['Chip: Apple M3','RAM: 8GB','Storage: 256GB SSD','Display: 13.6" Liquid Retina']},
+  {id:2,name:'Nike Air Max 270',category:'fashion',icon:'&#128139;',bg:'rgba(255,145,0,.06)',price:99,orig:150,rating:4.7,reviews:24103,badge:'hot',aiScore:88,aiLabel:'Hot Deal',desc:'Iconic Air Max cushioning. Price dropped 34% — AI alert triggered for 4,200 watchers.',stores:[{name:'Nike.com',price:110,ship:'Free',days:4,cheapest:false},{name:'Amazon',price:99,ship:'Free',days:2,cheapest:true},{name:'Foot Locker',price:120,ship:'$8',days:3,cheapest:false},{name:'ASOS',price:105,ship:'Free',days:5,cheapest:false}],specs:['Style: Air Max 270','Upper: Mesh + synthetic','Sole: Air unit heel','Sizes: US 6–15']},
+  {id:3,name:'Dyson V15 Detect',category:'home',icon:'&#129529;',bg:'rgba(0,230,118,.06)',price:649,orig:799,rating:4.8,reviews:6291,badge:'deal',aiScore:94,aiLabel:'Top Pick',desc:'Laser dust detection, 60-min runtime. Intellix found it $150 below average retail.',stores:[{name:'Dyson',price:799,ship:'Free',days:5,cheapest:false},{name:'Amazon',price:649,ship:'Free',days:2,cheapest:true},{name:'Target',price:699,ship:'Free',days:3,cheapest:false},{name:'Costco',price:669,ship:'Free',days:4,cheapest:false}],specs:['Suction: 240 AW','Runtime: 60 min','Detection: Laser','Filter: HEPA']},
+  {id:4,name:'iPad Pro 11" M4',category:'electronics',icon:'&#128396;',bg:'rgba(0,229,255,.06)',price:999,orig:1099,rating:4.9,reviews:4821,badge:'new',aiScore:89,aiLabel:'New & Worth It',desc:'M4 chip, Ultra Retina XDR display, Apple Pencil Pro ready. Brand new — AI price-tracked from launch.',stores:[{name:'Apple',price:999,ship:'Free',days:3,cheapest:true},{name:'Amazon',price:1009,ship:'Free',days:2,cheapest:false},{name:'Costco',price:979,ship:'Free',days:5,cheapest:false},{name:'Best Buy',price:999,ship:'Free',days:1,cheapest:false}],specs:['Chip: Apple M4','Display: 11" Ultra Retina XDR','Storage: 256GB','Pencil: Pro compatible']},
+  {id:5,name:'Lululemon Align Leggings',category:'fashion',icon:'&#128084;',bg:'rgba(255,64,129,.06)',price:89,orig:128,rating:4.8,reviews:31200,badge:'deal',aiScore:85,aiLabel:'Fan Favourite',desc:'Buttery-soft Nulu fabric. AI found 30% off — lowest price since Black Friday.',stores:[{name:'Lululemon',price:128,ship:'Free',days:4,cheapest:false},{name:'Amazon',price:89,ship:'Free',days:2,cheapest:true},{name:'Nordstrom',price:98,ship:'Free',days:3,cheapest:false},{name:'eBay',price:82,ship:'$6',days:6,cheapest:false}],specs:['Fabric: Nulu','Rise: High-rise 28"','Fit: Slim','Sizes: 0–20']},
+  {id:6,name:'Theragun PRO Plus',category:'sports',icon:'&#128170;',bg:'rgba(255,215,64,.06)',price:399,orig:599,rating:4.7,reviews:9842,badge:'best',aiScore:93,aiLabel:'Best in Class',desc:'Professional-grade percussive therapy. 6 attachments, smart app control. 33% off detected.',stores:[{name:'Therabody',price:599,ship:'Free',days:4,cheapest:false},{name:'Amazon',price:399,ship:'Free',days:2,cheapest:true},{name:'Best Buy',price:449,ship:'Free',days:1,cheapest:false},{name:'GNC',price:479,ship:'$12',days:5,cheapest:false}],specs:['Speed: 1750–2400 PPM','Battery: 150 min','Depth: 16mm','App: Therabody']},
+  {id:7,name:'Nespresso Vertuo Pop',category:'home',icon:'&#9749;',bg:'rgba(156,111,255,.06)',price:79,orig:129,rating:4.6,reviews:18340,badge:'hot',aiScore:82,aiLabel:'Great Value',desc:'Barcode-reading coffee perfection. AI found best bundle price across 6 retailers.',stores:[{name:'Nespresso',price:99,ship:'Free',days:4,cheapest:false},{name:'Amazon',price:79,ship:'Free',days:2,cheapest:true},{name:'Target',price:89,ship:'Free',days:2,cheapest:false},{name:'Williams Sonoma',price:129,ship:'Free',days:5,cheapest:false}],specs:['Capacity: 1.1L','Pressure: 19 bar','Capsule: Vertuo','Colors: 5 options']},
+  {id:8,name:'Charlotte Tilbury Pillow Talk',category:'beauty',icon:'&#128144;',bg:'rgba(255,64,129,.06)',price:34,orig:45,rating:4.9,reviews:52400,badge:'best',aiScore:96,aiLabel:'#1 Rated',desc:'Iconic universally-flattering nude-pink. AI price comparison across 12 beauty retailers.',stores:[{name:'Charlotte Tilbury',price:45,ship:'Free',days:4,cheapest:false},{name:'Sephora',price:38,ship:'Free',days:2,cheapest:false},{name:'Amazon',price:34,ship:'Free',days:2,cheapest:true},{name:'ASOS',price:36,ship:'$5',days:5,cheapest:false}],specs:['Type: Matte Revolution','Shade: Pillow Talk','Volume: 3.5g','Vegan: Yes']},
+  {id:9,name:'Samsung 65" OLED 4K',category:'electronics',icon:'&#128250;',bg:'rgba(0,229,255,.06)',price:1299,orig:1999,rating:4.8,reviews:7621,badge:'deal',aiScore:92,aiLabel:'Best Price Ever',desc:'4K OLED, 144Hz gaming, Dolby Atmos. AI confirmed all-time lowest price — $700 below MSRP.',stores:[{name:'Samsung',price:1999,ship:'Free',days:7,cheapest:false},{name:'Amazon',price:1299,ship:'Free',days:2,cheapest:true},{name:'Best Buy',price:1499,ship:'Free',days:1,cheapest:false},{name:'Costco',price:1349,ship:'Free',days:5,cheapest:false}],specs:['Panel: OLED','Resolution: 4K 144Hz','HDR: Dolby Vision IQ','Audio: Dolby Atmos 4.2.2']},
+  {id:10,name:'Patagonia Nano Puff Jacket',category:'fashion',icon:'&#129449;',bg:'rgba(0,230,118,.06)',price:179,orig:249,rating:4.8,reviews:14300,badge:'deal',aiScore:87,aiLabel:'Ethical Pick',desc:'PrimaLoft insulation, recycled materials. 28% off — Intellix tracks ethical brand deals.',stores:[{name:'Patagonia',price:249,ship:'Free',days:5,cheapest:false},{name:'REI',price:199,ship:'Free',days:3,cheapest:false},{name:'Amazon',price:179,ship:'Free',days:2,cheapest:true},{name:'Backcountry',price:189,ship:'Free',days:4,cheapest:false}],specs:['Insulation: PrimaLoft Gold','Shell: Recycled polyester','Fill: 60g','Packable: Yes']},
+  {id:11,name:'Vitamix A3500 Blender',category:'home',icon:'&#129371;',bg:'rgba(255,215,64,.06)',price:449,orig:649,rating:4.9,reviews:8910,badge:'best',aiScore:95,aiLabel:'Lifetime Value',desc:'Professional-grade blending, 10-year warranty. AI calculated best cost-per-year value.',stores:[{name:'Vitamix',price:649,ship:'Free',days:5,cheapest:false},{name:'Amazon',price:449,ship:'Free',days:2,cheapest:true},{name:'Williams Sonoma',price:549,ship:'Free',days:4,cheapest:false},{name:'Costco',price:399,ship:'Free',days:6,cheapest:false}],specs:['Motor: 2.2HP','Programs: 5 presets','Container: 64oz','Warranty: 10 years']}
+];
+
+let filteredProducts=[...PRODUCTS],currentCat='all',maxPrice=2000;
+
+function renderProducts(){
+  const grid=document.getElementById('productsGrid');
+  if(!grid)return;
+  const visible=filteredProducts.filter(p=>p.price<=maxPrice);
+  document.getElementById('productCount').textContent=visible.length;
+  grid.innerHTML=visible.map(p=>{
+    const savePct=Math.round((1-p.price/p.orig)*100);
+    const badgeMap={best:'badge-best',deal:'badge-deal',hot:'badge-hot',new:'badge-new'};
+    const badgeText={best:'Best Value',deal:'Top Deal',hot:'Hot',new:'New'};
+    const aiColor=p.aiScore>=90?'var(--green)':p.aiScore>=80?'var(--cyan)':'var(--orange)';
+    return `<div class="prod-card" onclick="openProduct(${p.id})">
+      <div class="prod-img" style="background:${p.bg}">${p.icon}
+        <div class="prod-badge ${badgeMap[p.badge]}">${badgeText[p.badge]}</div>
+        <div class="prod-save" onclick="event.stopPropagation();this.classList.toggle('saved')" title="Save">&#9825;</div>
+      </div>
+      <div class="prod-body">
+        <div class="prod-category">${p.category}</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-rating"><span class="prod-stars">${'&#9733;'.repeat(Math.floor(p.rating))}${p.rating%1?'&#9734;':''}</span><span class="prod-rating-count">${p.rating} (${p.reviews.toLocaleString()})</span></div>
+        <div class="prod-price-row">
+          <div class="prod-price">$${p.price}</div>
+          <div class="prod-orig">$${p.orig}</div>
+          <div class="prod-save-pct">-${savePct}%</div>
+        </div>
+        <div class="prod-ai-score">
+          <span style="font-size:10px;color:var(--text3);white-space:nowrap">AI Score</span>
+          <div class="prod-ai-bar"><div class="prod-ai-fill" style="width:${p.aiScore}%;background:${aiColor}"></div></div>
+          <span class="prod-ai-label" style="color:${aiColor}">${p.aiScore}</span>
+        </div>
+        <div class="prod-stores">${p.stores.slice(0,3).map(s=>`<div class="prod-store ${s.cheapest?'cheapest':''}">${s.cheapest?'&#10003; ':''}${s.name} $${s.price}</div>`).join('')}</div>
+        <button class="prod-buy-btn" onclick="event.stopPropagation();buyNow(${p.id})">Buy via Intellix &rarr;</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openProduct(id){
+  const p=PRODUCTS[id];
+  const savePct=Math.round((1-p.price/p.orig)*100);
+  const aiColor=p.aiScore>=90?'var(--green)':p.aiScore>=80?'var(--cyan)':'var(--orange)';
+  document.getElementById('prodDetailContent').innerHTML=`
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:28px;margin-bottom:24px">
+      <div style="background:${p.bg};border-radius:16px;height:200px;display:flex;align-items:center;justify-content:center;font-size:72px">${p.icon}</div>
+      <div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">${p.category}</div>
+        <div style="font-family:var(--font);font-size:24px;font-weight:800;margin-bottom:8px">${p.name}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><span style="color:var(--gold);font-size:13px">${'&#9733;'.repeat(Math.floor(p.rating))}</span><span style="font-size:13px;color:var(--text2)">${p.rating} · ${p.reviews.toLocaleString()} reviews</span></div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px">${p.desc}</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+          <span style="font-family:var(--font);font-size:30px;font-weight:800;color:var(--cyan)">$${p.price}</span>
+          <span style="font-size:15px;color:var(--text3);text-decoration:line-through">$${p.orig}</span>
+          <span style="background:rgba(0,230,118,.12);color:var(--green);font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px">Save ${savePct}%</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="display:flex;align-items:center;gap:6px;background:var(--bg3);padding:7px 12px;border-radius:8px">
+            <span style="font-size:11px;color:var(--text3)">AI Score</span>
+            <span style="font-family:var(--mono);font-size:14px;font-weight:700;color:${aiColor}">${p.aiScore}/100</span>
+            <span style="font-size:11px;color:${aiColor}">${p.aiLabel}</span>
+          </div>
+          <div class="pay-via-badge">&#9670; Pay via Intellix</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="checkout-btn-large" onclick="buyNow(${p.id})">Buy Now — $${p.price}</button>
+          <button class="btn btn-ghost" onclick="document.getElementById('prodDetailOverlay').classList.remove('show')">&#9825; Watchlist</button>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;font-family:var(--font)">&#9670; Price Comparison</div>
+        <table class="price-compare-table">
+          <thead><tr><th>Store</th><th>Price</th><th>Shipping</th><th>Delivery</th></tr></thead>
+          <tbody>${p.stores.map(s=>`<tr><td style="font-weight:${s.cheapest?700:400}">${s.cheapest?'&#9670; ':''}${s.name}</td><td class="${s.cheapest?'price-winner':'price-normal'}">$${s.price}</td><td style="color:var(--green);font-size:12px">${s.ship}</td><td style="color:var(--text3);font-size:12px">${s.days}d</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;font-family:var(--font)">&#9632; Specifications</div>
+        <div style="display:flex;flex-direction:column;gap:8px">${p.specs.map(s=>{const[k,v]=s.split(': ');return`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px"><span style="color:var(--text3)">${k}</span><span style="font-weight:600">${v}</span></div>`;}).join('')}</div>
+      </div>
+    </div>`;
+  document.getElementById('prodDetailOverlay').classList.add('show');
+}
+
+function closeProdDetail(e){if(e.target===document.getElementById('prodDetailOverlay'))document.getElementById('prodDetailOverlay').classList.remove('show');}
+
+function buyNow(id){
+  document.getElementById('prodDetailOverlay').classList.remove('show');
+  showPage('payment');
+  const p=PRODUCTS[id];
+  const el=document.getElementById('payAmt');
+  if(el){el.value=p.price;calcPayFees();}
+}
+
+function filterCat(cat,el){
+  document.querySelectorAll('.filter-cat').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');currentCat=cat;
+  filteredProducts=cat==='all'?[...PRODUCTS]:PRODUCTS.filter(p=>p.category===cat);
+  renderProducts();
+}
+
+function setPriceRange(v){maxPrice=parseInt(v);document.getElementById('priceRangeVal').textContent='$'+parseInt(v).toLocaleString();renderProducts();}
+
+function setSortChip(el){
+  document.querySelectorAll('.sort-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  const t=el.textContent.trim();
+  if(t.includes('Price'))filteredProducts.sort((a,b)=>a.price-b.price);
+  else if(t.includes('Rating'))filteredProducts.sort((a,b)=>b.rating-a.rating);
+  else if(t.includes('Savings'))filteredProducts.sort((a,b)=>(b.orig-b.price)-(a.orig-a.price));
+  else filteredProducts.sort((a,b)=>b.aiScore-a.aiScore);
+  renderProducts();
+}
+
+function searchProducts(q){
+  const lq=q.toLowerCase();
+  filteredProducts=PRODUCTS.filter(p=>p.name.toLowerCase().includes(lq)||p.category.toLowerCase().includes(lq)||p.desc.toLowerCase().includes(lq));
+  renderProducts();
 }
 
 // Init
