@@ -3,388 +3,1156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<title>Welcome to Intellix</title>
-
+<title>Intellix — AI Payment Engine</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* -------------------------------------------------
-   GLOBAL STYLE & BACKGROUND
-------------------------------------------------- */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at center, #5b2ff6 0%, #2e0f61 40%, #1a063a 100%);
-    scroll-behavior: smooth;
-    color: #fff;
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06070d;--bg2:#0d0f1a;--bg3:#12152a;--card:#161a2e;--card2:#1c2040;
+  --border:#ffffff10;--border2:#ffffff1c;--border3:#ffffff28;
+  --text:#e8eaf6;--text2:#7b82b0;--text3:#3a4060;
+  --cyan:#00e5ff;--cyan2:#00b8d9;--purple:#9c6fff;--purple2:#7c4fff;
+  --green:#00e676;--red:#ff1744;--orange:#ff9100;--gold:#ffd740;--pink:#ff4081;
+  --font:'Syne',sans-serif;--body:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
 }
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:14px;overflow-x:hidden}
 
-/* -------------------------------------------------
-   FLOATING PARTICLES
-------------------------------------------------- */
-.particle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    animation: floatUp linear infinite;
-}
+/* GLOBAL GRID BG */
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
 
-@keyframes floatUp {
-    from { transform: translateY(100vh) scale(0.5); opacity: 0; }
-    to { transform: translateY(-10vh) scale(1); opacity: 1; }
-}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;padding:0 32px;gap:20px}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.nav-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:14px;font-weight:800;color:#000}
+.nav-name{font-family:var(--font);font-size:18px;font-weight:800;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:4px;margin-left:24px}
+.nav-link{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;text-decoration:none;background:transparent;border:none;font-family:var(--body)}
+.nav-link:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.nav-link.active{color:var(--cyan)}
+.nav-space{flex:1}
+.nav-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;background:var(--card);border:1px solid var(--border2);font-size:12px;color:var(--text2)}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,230,118,.5)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(0,230,118,0)}}
+.nav-btn{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:var(--font);transition:all .15s}
+.nav-btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.nav-btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.nav-btn-primary{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000}
+.nav-btn-primary:hover{opacity:.9}
 
-/* -------------------------------------------------
-   HERO (ROCKSTAR-GTA STYLE)
-------------------------------------------------- */
-.hero {
-    height: 100vh;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
+/* PAGES */
+.page{display:none;min-height:100vh;padding-top:64px;position:relative;z-index:1}
+.page.active{display:block}
 
-.center {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    animation: fadeIn 2s ease-out;
-}
+/* ===================== LANDING PAGE ===================== */
+.hero{min-height:calc(100vh - 64px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 32px;position:relative;overflow:hidden}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);font-size:12px;font-weight:600;color:var(--cyan);margin-bottom:28px;font-family:var(--font)}
+.hero-title{font-family:var(--font);font-size:72px;font-weight:800;line-height:1.05;letter-spacing:-3px;margin-bottom:24px;max-width:800px}
+.hero-title .grad{background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:18px;color:var(--text2);line-height:1.7;max-width:560px;margin-bottom:40px;font-weight:400}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:60px}
+.hero-btn-lg{padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:all .2s}
+.hero-btn-primary{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000}
+.hero-btn-primary:hover{transform:translateY(-2px);opacity:.92}
+.hero-btn-ghost{background:transparent;border:1px solid var(--border3);color:var(--text)}
+.hero-btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.hero-stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap}
+.hero-stat-val{font-family:var(--font);font-size:28px;font-weight:800}
+.hero-stat-label{font-size:12px;color:var(--text3);margin-top:4px;font-weight:500;text-transform:uppercase;letter-spacing:.8px}
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translate(-50%, -40%); }
-    to { opacity: 1; transform: translate(-50%, -50%); }
-}
+/* FLOATING CARDS */
+.hero-float{position:absolute;pointer-events:none;animation:floatY 6s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.float-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:14px 18px;backdrop-filter:blur(10px)}
 
-.title {
-    font-size: 70px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-shadow: 0 0 40px rgba(255,255,255,0.4);
-    animation: glow 3s infinite alternate;
-}
+/* FEATURES SECTION */
+.section{padding:100px 32px;max-width:1200px;margin:0 auto}
+.section-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;background:rgba(156,111,255,.08);border:1px solid rgba(156,111,255,.2);font-size:11px;font-weight:700;color:var(--purple);margin-bottom:16px;font-family:var(--font);letter-spacing:.5px}
+.section-title{font-family:var(--font);font-size:44px;font-weight:800;letter-spacing:-2px;margin-bottom:14px;line-height:1.1}
+.section-sub{font-size:16px;color:var(--text2);line-height:1.7;max-width:520px;margin-bottom:56px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:border-color .2s,transform .2s;cursor:default;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s}
+.feat-card:hover{border-color:var(--border2);transform:translateY(-4px)}
+.feat-card:hover::before{opacity:1}
+.feat-card.fc-cyan::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.feat-card.fc-purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.feat-card.fc-green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.feat-card.fc-gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.feat-card.fc-pink::before{background:linear-gradient(90deg,var(--pink),transparent)}
+.feat-card.fc-orange::before{background:linear-gradient(90deg,var(--orange),transparent)}
+.feat-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+.feat-title{font-family:var(--font);font-size:17px;font-weight:700;margin-bottom:10px}
+.feat-desc{font-size:13px;color:var(--text2);line-height:1.7}
+.feat-tag{display:inline-block;padding:3px 10px;border-radius:10px;font-size:10px;font-weight:700;margin-top:14px;font-family:var(--mono)}
 
-@keyframes glow {
-    from { text-shadow: 0 0 20px rgba(91,47,246,0.5); }
-    to { text-shadow: 0 0 40px rgba(255,255,255,0.9); }
-}
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px;transition:border-color .2s;position:relative;overflow:hidden}
+.price-card.featured{border-color:rgba(0,229,255,.3);background:linear-gradient(160deg,rgba(0,229,255,.05),rgba(156,111,255,.05))}
+.price-popular{position:absolute;top:16px;right:16px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000;font-size:10px;font-weight:800;padding:4px 10px;border-radius:10px;font-family:var(--font)}
+.price-name{font-family:var(--font);font-size:14px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+.price-amount{font-family:var(--font);font-size:42px;font-weight:800;letter-spacing:-2px;margin-bottom:4px}
+.price-period{font-size:13px;color:var(--text3);margin-bottom:24px}
+.price-features{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.pf-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)}
+.pf-check{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.pf-check.on{background:rgba(0,230,118,.15);color:var(--green)}
+.pf-check.off{background:var(--bg3);color:var(--text3)}
+.price-btn{width:100%;padding:12px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:all .15s}
+.price-btn-primary{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000}
+.price-btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.price-btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
 
-.subtitle {
-    margin-top: 20px;
-    font-size: 24px;
-    opacity: 0.85;
-}
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
+.testi-quote{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#000;flex-shrink:0}
+.testi-name{font-size:13px;font-weight:600}
+.testi-role{font-size:11px;color:var(--text3)}
+.testi-stars{color:var(--gold);font-size:12px;margin-bottom:10px}
 
-.notify-btn {
-    margin-top: 40px;
-    padding: 16px 40px;
-    background: #5b2ff6;
-    border: none;
-    border-radius: 40px;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 0 25px rgba(91,47,246,0.7);
-    transition: 0.3s;
-}
+/* CTA SECTION */
+.cta-section{padding:100px 32px;text-align:center;position:relative}
+.cta-box{max-width:700px;margin:0 auto;background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(156,111,255,.06));border:1px solid rgba(0,229,255,.2);border-radius:24px;padding:64px 48px}
+.cta-title{font-family:var(--font);font-size:48px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.1}
+.cta-sub{font-size:16px;color:var(--text2);margin-bottom:32px;line-height:1.6}
 
-.notify-btn:hover {
-    transform: scale(1.06);
-    box-shadow: 0 0 35px rgba(91,47,246,1);
-}
+/* ===================== DASHBOARD ===================== */
+.dash-shell{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px)}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:20px 0;display:flex;flex-direction:column;gap:2px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
+.nav-section-label{padding:8px 20px 4px;font-size:10px;font-weight:600;color:var(--text3);letter-spacing:1px;text-transform:uppercase}
+.side-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;transition:all .15s;color:var(--text2);font-size:13px;font-weight:500;border-left:2px solid transparent;margin:0 8px;border-radius:6px}
+.side-item:hover{background:var(--card);color:var(--text)}
+.side-item.active{background:linear-gradient(90deg,rgba(0,229,255,.08),transparent);color:var(--cyan);border-left-color:var(--cyan)}
+.side-icon{font-size:15px;width:20px;text-align:center}
+.side-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;border-radius:10px;padding:2px 6px}
+.sidebar-footer{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border)}
+.health-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:6px}
+.health-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));width:94%;border-radius:2px}
+.dash-main{overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:20px;background:var(--bg)}
+.dash-topbar{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.dash-title{font-family:var(--font);font-size:22px;font-weight:800;letter-spacing:-.5px}
+.dash-sub{font-size:13px;color:var(--text2);margin-top:4px}
+.dash-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tab-row{display:flex;gap:3px;background:var(--bg3);border-radius:10px;padding:4px}
+.tab{padding:6px 14px;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;color:var(--text3);transition:all .15s}
+.tab.active{background:var(--card2);color:var(--text)}
+.btn{padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:var(--body);transition:all .15s}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-primary{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.ai-insight{display:flex;align-items:flex-start;gap:14px;background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(156,111,255,.06));border:1px solid rgba(0,229,255,.2);border-radius:12px;padding:16px 18px}
+.ai-chip{background:linear-gradient(135deg,var(--cyan2),var(--purple2));border-radius:8px;padding:6px 10px;font-size:11px;font-weight:700;color:#000;white-space:nowrap;flex-shrink:0;font-family:var(--font)}
+.ai-text{font-size:13px;color:var(--text2);line-height:1.6}
+.ai-text strong{color:var(--text);font-weight:600}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.kpi-card:hover{border-color:var(--border2)}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kpi-card.kc-cyan::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.kpi-card.kc-purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.kpi-card.kc-green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.kpi-card.kc-orange::before{background:linear-gradient(90deg,var(--orange),transparent)}
+.kpi-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.kpi-value{font-size:26px;font-weight:700;letter-spacing:-1px;margin-bottom:6px;font-family:var(--font)}
+.kpi-delta{font-size:12px;display:flex;align-items:center;gap:4px}
+.delta-up{color:var(--green)}
+.delta-down{color:var(--red)}
+.mid-row{display:grid;grid-template-columns:1fr 340px;gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.card-title{font-size:14px;font-weight:600;font-family:var(--font)}
+.card-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.vol-chart{height:180px;display:flex;align-items:flex-end;gap:3px;padding-bottom:24px;position:relative}
+.vol-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.vol-bar{width:100%;border-radius:3px 3px 0 0;cursor:pointer;transition:filter .2s}
+.vol-bar:hover{filter:brightness(1.3)}
+.vol-bar.crypto{background:linear-gradient(180deg,var(--purple),rgba(156,111,255,.2))}
+.vol-bar.fiat{background:linear-gradient(180deg,var(--cyan),rgba(0,229,255,.2))}
+.vol-label{font-size:9px;color:var(--text3);font-family:var(--mono)}
+.bot-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.tx-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:padding .1s}
+.tx-item:last-child{border-bottom:none}
+.tx-item:hover{padding-left:4px}
+.tx-av{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.tx-name{font-size:13px;font-weight:600}
+.tx-meta{font-size:11px;color:var(--text3);margin-top:2px;font-family:var(--mono)}
+.tx-amount{font-size:13px;font-weight:700;font-family:var(--mono);text-align:right}
+.tx-status{font-size:10px;font-weight:600;margin-top:3px;text-align:right}
+.s-ok{color:var(--green)}
+.s-flag{color:var(--red)}
+.s-pend{color:var(--orange)}
+.risk-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:8px;cursor:pointer;transition:background .15s;margin-bottom:8px}
+.risk-item:hover{background:var(--card2)}
+.risk-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.risk-badge{padding:3px 8px;border-radius:20px;font-size:10px;font-weight:700;white-space:nowrap;font-family:var(--font)}
+.rb-h{background:rgba(255,23,68,.15);color:var(--red)}
+.rb-m{background:rgba(255,145,0,.15);color:var(--orange)}
+.rb-l{background:rgba(0,230,118,.15);color:var(--green)}
 
-/* -------------------------------------------------
-   NOTIFY SECTION (Merged Index)
-------------------------------------------------- */
-.notify-section {
-    padding: 5rem 1rem;
-    background: linear-gradient(135deg, #0f172a, #581c87, #0f172a);
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
+/* ===================== PAYMENT SCREEN ===================== */
+.pay-wrap{display:grid;grid-template-columns:1fr 360px;min-height:calc(100vh - 64px);gap:0}
+.pay-left{background:var(--bg2);border-right:1px solid var(--border);padding:36px}
+.pay-right{background:var(--bg);padding:36px;display:flex;flex-direction:column;gap:18px}
+.pay-title{font-family:var(--font);font-size:20px;font-weight:800;margin-bottom:24px}
+.input-label{font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;display:block}
+.fx-input{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:12px 16px;color:var(--text);font-size:14px;font-family:var(--body);outline:none;transition:border-color .2s;margin-bottom:14px}
+.fx-input:focus{border-color:var(--cyan)}
+.fx-input::placeholder{color:var(--text3)}
+.big-amount{font-family:var(--font);font-size:40px;font-weight:800;color:var(--cyan);letter-spacing:-2px;border:none;background:transparent;width:100%;outline:none;margin-bottom:10px}
+.big-amount::placeholder{color:var(--text3)}
+.cur-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.cur-btn{padding:7px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font-size:12px;font-family:var(--mono);font-weight:600;cursor:pointer;transition:all .15s}
+.cur-btn.active{background:linear-gradient(135deg,var(--cyan2),var(--purple2));border-color:transparent;color:#000}
+.fee-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:18px}
+.fee-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px}
+.fee-row:last-child{border-bottom:none}
+.fee-total{font-weight:700;font-size:14px;color:var(--cyan)}
+.ai-route-box{background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.2);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:18px}
+.ai-route-box strong{color:var(--cyan)}
+.progress-steps{display:flex;align-items:center;gap:0;margin-bottom:24px}
+.pstep{display:flex;align-items:center;gap:8px;flex:1}
+.pstep-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;border:1px solid var(--border2);background:var(--card);color:var(--text3)}
+.pstep-circle.done{background:var(--green);border-color:var(--green);color:#000}
+.pstep-circle.active{background:linear-gradient(135deg,var(--cyan2),var(--purple2));border-color:transparent;color:#000}
+.pstep-label{font-size:11px;color:var(--text3)}
+.pstep-line{flex:1;height:1px;background:var(--border);margin:0 6px}
+.pstep-line.done{background:var(--green)}
+.bio-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.bio-ring{width:90px;height:90px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s;font-size:32px}
+.bio-ring.scanning{border-color:var(--cyan);animation:scanRing 1.5s ease-in-out infinite}
+.bio-ring.done{border-color:var(--green)}
+@keyframes scanRing{0%,100%{box-shadow:0 0 0 0 rgba(0,229,255,.3)}50%{box-shadow:0 0 0 12px rgba(0,229,255,0)}}
+.bio-methods{display:flex;gap:8px}
+.bio-method{padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--text2)}
+.bio-method.active{background:rgba(0,229,255,.1);border-color:var(--cyan);color:var(--cyan)}
+.send-btn{width:100%;padding:15px;border-radius:12px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s}
+.send-btn:hover{opacity:.9;transform:translateY(-2px)}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.confirm-success{background:rgba(6,7,13,.95);border-radius:14px;padding:28px;text-align:center;display:none;flex-direction:column;align-items:center;gap:14px}
+.confirm-success.show{display:flex}
+.check-ring{width:60px;height:60px;border-radius:50%;background:rgba(0,230,118,.12);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:26px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes popIn{0%{transform:scale(0)}100%{transform:scale(1)}}
+.schedule-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sched-opt{padding:10px;border-radius:8px;text-align:center;cursor:pointer;border:1px solid var(--border);background:var(--bg3);transition:all .15s}
+.sched-opt.active{background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.3)}
+.sched-opt-time{font-size:10px;font-weight:700;color:var(--text2)}
+.sched-opt.active .sched-opt-time{color:var(--cyan)}
+.sched-opt-fee{font-size:11px;color:var(--green);margin-top:3px}
 
-.container {
-    max-width: 900px;
-    margin: auto;
-}
+/* ===================== FRAUD WORKSPACE ===================== */
+.fraud-wrap{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 64px)}
+.fraud-sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:0}
+.fraud-header{padding:18px 18px 14px;border-bottom:1px solid var(--border)}
+.fraud-list{overflow-y:auto}
+.fraud-row{padding:12px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;display:flex;gap:10px;align-items:flex-start}
+.fraud-row:hover{background:var(--card)}
+.fraud-row.selected{background:var(--card2);border-left:3px solid var(--cyan)}
+.fdot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.fdot-r{background:var(--red)}
+.fdot-o{background:var(--orange)}
+.fdot-g{background:var(--green)}
+.fraud-main{padding:28px;overflow-y:auto}
+.verdict-box{background:linear-gradient(135deg,rgba(255,23,68,.06),rgba(156,111,255,.06));border:1px solid rgba(255,23,68,.2);border-radius:12px;padding:16px;display:flex;gap:12px;margin-bottom:20px}
+.signal-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.signal-row:last-child{border-bottom:none}
+.sig-weight{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;font-family:var(--mono)}
+.sw-r{background:rgba(255,23,68,.15);color:var(--red)}
+.sw-o{background:rgba(255,145,0,.15);color:var(--orange)}
+.sw-g{background:rgba(0,230,118,.15);color:var(--green)}
+.sig-bar-track{width:80px;height:4px;background:var(--bg3);border-radius:2px;flex-shrink:0}
+.sig-bar-fill{height:100%;border-radius:2px}
+.action-btn{padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:var(--body);transition:all .15s}
+.btn-block{background:rgba(255,23,68,.12);color:var(--red);border:1px solid rgba(255,23,68,.25)}
+.btn-approve{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.25)}
+.btn-escalate{background:rgba(255,145,0,.1);color:var(--orange);border:1px solid rgba(255,145,0,.2)}
 
-.tag {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    background: rgba(168, 85, 247, 0.2);
-    border: 1px solid rgba(192, 132, 252, 0.3);
-    border-radius: 9999px;
-    color: #d8b4fe;
-    margin-bottom: 2rem;
-}
+/* ===================== API CONSOLE ===================== */
+.api-wrap{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 64px)}
+.api-sidebar{background:var(--bg2);border-right:1px solid var(--border)}
+.api-sidebar-hdr{padding:16px;border-bottom:1px solid var(--border)}
+.ep-group-lbl{padding:8px 16px 4px;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase}
+.ep-item{padding:9px 16px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:background .15s}
+.ep-item:hover{background:var(--card)}
+.ep-item.selected{background:var(--card2);border-left:2px solid var(--cyan)}
+.method-badge{font-size:9px;font-weight:800;padding:2px 5px;border-radius:4px;font-family:var(--mono);min-width:36px;text-align:center}
+.mb-post{background:rgba(0,230,118,.12);color:var(--green)}
+.mb-get{background:rgba(0,229,255,.1);color:var(--cyan)}
+.mb-del{background:rgba(255,23,68,.1);color:var(--red)}
+.api-main{display:flex;flex-direction:column}
+.api-topbar{padding:14px 20px;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.url-bar{flex:1;background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:8px 14px;font-family:var(--mono);font-size:12px;color:var(--cyan);display:flex;align-items:center;gap:8px;min-width:200px}
+.run-btn{padding:9px 18px;border-radius:8px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);white-space:nowrap}
+.api-body{display:grid;grid-template-columns:1fr 1fr;flex:1}
+.api-panel{border-right:1px solid var(--border);display:flex;flex-direction:column}
+.panel-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg3)}
+.ptab{padding:10px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;transition:all .15s}
+.ptab.active{color:var(--text);border-bottom-color:var(--cyan)}
+.panel-body{flex:1;padding:14px;overflow-y:auto}
+.code-area{background:var(--bg3);border-radius:8px;padding:14px;font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--text2);white-space:pre;overflow-x:auto;min-height:260px}
+textarea.code-area{border:1px solid var(--border);resize:none;height:280px;width:100%;outline:none}
+textarea.code-area:focus{border-color:var(--cyan)}
+.res-status-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--bg3);display:none}
+.sdk-chip{padding:5px 12px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);font-size:11px;font-family:var(--mono);font-weight:600;cursor:pointer;transition:all .15s;color:var(--text2)}
+.sdk-chip:hover{border-color:var(--cyan);color:var(--cyan)}
+.sdk-chip.active{background:rgba(0,229,255,.1);border-color:var(--cyan);color:var(--cyan)}
+.api-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 20px;border-bottom:1px solid var(--border)}
+.api-stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center}
+.api-stat-val{font-size:15px;font-weight:700;font-family:var(--mono)}
+.api-stat-lbl{font-size:10px;color:var(--text3);margin-top:3px}
 
-h2 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
+/* ===================== MOBILE VIEW ===================== */
+.mobile-page{padding:24px;display:flex;flex-direction:column;align-items:center;gap:24px;background:var(--bg)}
+.phone-wrap{position:relative}
+.phone-frame{width:280px;background:#0a0b14;border-radius:40px;border:2px solid var(--border2);overflow:hidden}
+.phone-notch{height:30px;background:#06070d;display:flex;align-items:center;justify-content:center}
+.notch-pill{width:80px;height:5px;border-radius:3px;background:#1c1c2e}
+.phone-tabs-outer{display:flex;gap:8px}
+.phone-tab{padding:7px 16px;border-radius:16px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border2);color:var(--text3);background:var(--bg3);transition:all .15s}
+.phone-tab.active{background:rgba(0,229,255,.1);border-color:var(--cyan);color:var(--cyan)}
+.viral-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;max-width:1100px;width:100%}
+.viral-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.viral-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.vc-cyan::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.vc-purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.vc-gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.viral-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.viral-title{font-family:var(--font);font-size:15px;font-weight:700;margin-bottom:8px}
+.viral-desc{font-size:12px;color:var(--text2);line-height:1.6}
 
-p {
-    opacity: 0.9;
-    max-width: 600px;
-}
+/* ===================== AUTH PAGES ===================== */
+.auth-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px)}
+.auth-brand{background:var(--bg2);border-right:1px solid var(--border);padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.auth-brand-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.auth-brand-content{position:relative;z-index:1}
+.auth-headline{font-family:var(--font);font-size:34px;font-weight:800;line-height:1.15;letter-spacing:-1.5px;margin-bottom:18px}
+.auth-headline span{background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.auth-form-side{background:var(--bg);display:flex;align-items:center;justify-content:center;padding:48px 40px}
+.auth-form-box{width:100%;max-width:400px}
+.form-toggle{display:flex;background:var(--card);border-radius:12px;padding:4px;margin-bottom:28px;border:1px solid var(--border)}
+.ftog{flex:1;padding:10px;border-radius:9px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--text3);font-family:var(--font)}
+.ftog.active{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000}
+.auth-title{font-family:var(--font);font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px}
+.auth-sub{font-size:13px;color:var(--text3);margin-bottom:26px;line-height:1.5}
+.social-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.social-btn{padding:11px;border-radius:10px;background:var(--card);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--text2)}
+.social-btn:hover{border-color:var(--border3);color:var(--text)}
+.soc-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0}
+.divider{display:flex;align-items:center;gap:10px;margin:16px 0;font-size:11px;color:var(--text3)}
+.divider-line{flex:1;height:1px;background:var(--border)}
+.ix-input{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:12px 16px;color:var(--text);font-size:14px;font-family:var(--body);outline:none;transition:border-color .2s;margin-bottom:14px}
+.ix-input:focus{border-color:var(--cyan)}
+.ix-input::placeholder{color:var(--text3)}
+.ix-input.err{border-color:var(--red)}
+.ix-input.ok{border-color:var(--green)}
+.pw-bar{height:3px;border-radius:2px;background:var(--bg3);margin-bottom:4px;overflow:hidden}
+.pw-fill{height:100%;border-radius:2px;transition:width .3s,background .3s;width:0}
+.auth-submit{width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:4px}
+.auth-submit:hover{opacity:.9;transform:translateY(-1px)}
+.auth-submit:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.cb-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px;cursor:pointer}
+.custom-cb{width:16px;height:16px;border-radius:4px;border:1px solid var(--border2);background:var(--card);cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;transition:all .15s}
+.custom-cb.checked{background:linear-gradient(135deg,var(--cyan2),var(--purple2));border-color:transparent;color:#000}
+.step-dots{display:flex;gap:6px;justify-content:center;margin-bottom:22px}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--border2);transition:all .2s}
+.sdot.active{width:20px;border-radius:3px;background:var(--cyan)}
+.sdot.done{background:var(--green)}
+.success-screen{display:none;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:16px 0}
+.success-screen.show{display:flex}
+.success-ring{width:68px;height:68px;border-radius:50%;background:rgba(0,230,118,.12);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:28px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275)}
+.fpill-auth{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:10px;margin-bottom:8px}
+.fpill-icon-auth{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 
-/* Email form */
-.form-container {
-    margin-top: 2rem;
-    display: flex;
-    gap: 0.75rem;
-}
-
-.input-field {
-    flex: 1;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-}
-
-.btn-primary {
-    background: #9333ea;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.6rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-}
-
-/* Features Grid */
-.grid {
-    margin-top: 3.5rem;
-    display: grid;
-    gap: 1.5rem;
-}
-
-@media(min-width:768px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-.card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 1.5rem;
-    border-radius: 0.7rem;
-}
-
-.card h3 {
-    margin-bottom: 0.5rem;
-}
-
+/* Utility */
+.flex{display:flex}.gap-8{gap:8px}.gap-12{gap:12px}.gap-16{gap:16px}
+.justify-between{justify-content:space-between}.align-center{align-items:center}
+.mt-12{margin-top:12px}.mt-16{margin-top:16px}.mt-20{margin-top:20px}
+.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}.mb-20{margin-bottom:20px}
+.text-cyan{color:var(--cyan)}.text-green{color:var(--green)}.text-red{color:var(--red)}.text-orange{color:var(--orange)}.text-purple{color:var(--purple)}
+.font-mono{font-family:var(--mono)}.font-syne{font-family:var(--font)}
+.fw-700{font-weight:700}.fs-12{font-size:12px}.fs-13{font-size:13px}
+.w-full{width:100%}.border-t{border-top:1px solid var(--border)}
 </style>
 </head>
-
 <body>
+<div class="grid-bg"></div>
 
-<!-- Floating particles -->
-<script>
-for (let i = 0; i < 40; i++) {
-    const p = document.createElement('div');
-    const size = Math.random() * 8 + 4;
-    p.classList.add('particle');
-    p.style.width = size + 'px';
-    p.style.height = size + 'px';
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.animationDuration = (Math.random() * 8 + 6) + 's';
-    p.style.animationDelay = Math.random() * 5 + 's';
-    document.body.appendChild(p);
-}
-</script>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('landing')">
+    <div class="nav-mark">IX</div>
+    <div class="nav-name">Intellix</div>
+  </a>
+  <div class="nav-links">
+    <button class="nav-link active" id="nl-landing" onclick="showPage('landing')">Home</button>
+    <button class="nav-link" id="nl-dashboard" onclick="showPage('dashboard')">Dashboard</button>
+    <button class="nav-link" id="nl-payment" onclick="showPage('payment')">Payments</button>
+    <button class="nav-link" id="nl-fraud" onclick="showPage('fraud')">Fraud AI</button>
+    <button class="nav-link" id="nl-api" onclick="showPage('api')">API</button>
+    <button class="nav-link" id="nl-mobile" onclick="showPage('mobile')">Mobile</button>
+  </div>
+  <div class="nav-space"></div>
+  <div class="nav-pill"><span class="live-dot"></span>Live · $4.2M/hr</div>
+  <button class="nav-btn nav-btn-ghost" onclick="showPage('auth')">Sign in</button>
+  <button class="nav-btn nav-btn-primary" onclick="showPage('auth')">Get started</button>
+</nav>
 
-<!-- -------------------------------------------------
-     ENTER HOMEPAGE
-------------------------------------------------- -->
-<section class="hero">
-    <div class="center">
-        <div class="title">Welcome to Intellix</div>
-        <div class="subtitle">Powering the future of intelligent payments</div>
-
-        <a href="home.html" class="enter-btn">
-            Enter Intellix
-        </a>
-
-        <!-- Notify Me Container -->
-        <form class="notify-form" onsubmit="showNotifyToast(event)">
-            <input type="email" placeholder="Enter your email" required class="notify-input">
-            <button class="notify-submit">Notify Me</button>
-        </form>
+<!-- ======================== LANDING PAGE ======================== -->
+<div class="page active" id="page-landing">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">&#9670; Now live in 47 countries &nbsp;·&nbsp; AI-Powered Payments</div>
+    <h1 class="hero-title">The <span class="grad">most intelligent</span><br>payment engine ever built</h1>
+    <p class="hero-sub">AI fraud detection, crypto + fiat multi-currency, biometric auth, and predictive analytics — all in one platform built for the future.</p>
+    <div class="hero-btns">
+      <button class="hero-btn-lg hero-btn-primary" onclick="showPage('auth')">Start for free &rarr;</button>
+      <button class="hero-btn-lg hero-btn-ghost" onclick="showPage('dashboard')">View live demo</button>
     </div>
-</section>
+    <div class="hero-stats">
+      <div><div class="hero-stat-val text-cyan">$4.2B+</div><div class="hero-stat-label">Processed</div></div>
+      <div><div class="hero-stat-val text-green">99.98%</div><div class="hero-stat-label">Uptime</div></div>
+      <div><div class="hero-stat-val text-purple">124K+</div><div class="hero-stat-label">Daily txns</div></div>
+      <div><div class="hero-stat-val" style="color:var(--gold)">47</div><div class="hero-stat-label">Countries</div></div>
+    </div>
+  </div>
 
-<style>
-    .enter-btn {
-        display: inline-block;
-        margin-top: 45px;
-        padding: 18px 50px;
-        border-radius: 40px;
-        font-size: 22px;
-        font-weight: bold;
-        text-decoration: none;
-        color: white;
+  <!-- Features -->
+  <div class="section">
+    <div class="section-badge">&#9670; PLATFORM FEATURES</div>
+    <h2 class="section-title">Everything payments<br>needs to be</h2>
+    <p class="section-sub">Six breakthrough technologies that no single payment platform has ever combined.</p>
+    <div class="features-grid">
+      <div class="feat-card fc-cyan">
+        <div class="feat-icon" style="background:rgba(0,229,255,.1);color:var(--cyan)">&#9670;</div>
+        <div class="feat-title">AI Fraud Shield</div>
+        <div class="feat-desc">Real-time neural network scores every transaction at 0ms latency. Explainable AI signals — you see exactly why a payment was flagged.</div>
+        <div class="feat-tag" style="background:rgba(0,229,255,.1);color:var(--cyan)">FraudNet v2.1</div>
+      </div>
+      <div class="feat-card fc-purple">
+        <div class="feat-icon" style="background:rgba(156,111,255,.1);color:var(--purple)">&#8383;</div>
+        <div class="feat-title">Crypto + Fiat</div>
+        <div class="feat-desc">BTC, ETH, USDC, SOL alongside USD, EUR, GBP and 40+ more. Auto-routing finds the cheapest path across every network.</div>
+        <div class="feat-tag" style="background:rgba(156,111,255,.1);color:var(--purple)">50+ currencies</div>
+      </div>
+      <div class="feat-card fc-green">
+        <div class="feat-icon" style="background:rgba(0,230,118,.1);color:var(--green)">&#9711;</div>
+        <div class="feat-title">Biometric Auth</div>
+        <div class="feat-desc">Fingerprint, Face ID, and voice authentication. Hardware-level security means zero friction for legitimate payments, zero chance for bad actors.</div>
+        <div class="feat-tag" style="background:rgba(0,230,118,.1);color:var(--green)">Level 3 certified</div>
+      </div>
+      <div class="feat-card fc-gold">
+        <div class="feat-icon" style="background:rgba(255,215,64,.08);color:var(--gold)">&#8728;</div>
+        <div class="feat-title">Predictive Analytics</div>
+        <div class="feat-desc">AI forecasts your payment volumes, spending patterns and fraud risk 30 days ahead. Auto-shields savings before problems emerge.</div>
+        <div class="feat-tag" style="background:rgba(255,215,64,.08);color:var(--gold)">30-day forecasting</div>
+      </div>
+      <div class="feat-card fc-pink">
+        <div class="feat-icon" style="background:rgba(255,64,129,.1);color:var(--pink)">&#9829;</div>
+        <div class="feat-title">Social Pay</div>
+        <div class="feat-desc">Payment moments become shareable experiences. AI Split Pay tracks group expenses and auto-nudges late payers so you never have to.</div>
+        <div class="feat-tag" style="background:rgba(255,64,129,.1);color:var(--pink)">Viral feature</div>
+      </div>
+      <div class="feat-card fc-orange">
+        <div class="feat-icon" style="background:rgba(255,145,0,.1);color:var(--orange)">&#8652;</div>
+        <div class="feat-title">Route Optimizer</div>
+        <div class="feat-desc">AI finds the cheapest fee path in real time. Detected savings of 98.5% on one recent payment by routing via Polygon Bridge vs direct ETH.</div>
+        <div class="feat-tag" style="background:rgba(255,145,0,.1);color:var(--orange)">Avg 94% savings</div>
+      </div>
+    </div>
+  </div>
 
-        background: linear-gradient(135deg, #6b32ff, #9a4bff);
-        box-shadow: 0 0 30px rgba(140, 75, 255, 0.6);
-        border: 1px solid rgba(255,255,255,0.2);
-
-        transition: 0.3s ease;
-        animation: enterFade 1.8s ease-out;
-    }
-
-    .enter-btn:hover {
-        transform: scale(1.08);
-        box-shadow: 0 0 45px rgba(150, 90, 255, 0.9);
-    }
-
-    /* Notify Form Styling */
-    .notify-form {
-        margin-top: 35px;
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        animation: enterFade 2.2s ease-out;
-    }
-
-    .notify-input {
-        padding: 14px 18px;
-        border-radius: 30px;
-        border: 1px solid rgba(255,255,255,0.2);
-        background: rgba(255,255,255,0.12);
-        color: #fff;
-        width: 260px;
-        font-size: 16px;
-        backdrop-filter: blur(8px);
-        outline: none;
-    }
-
-    .notify-input::placeholder {
-        color: #d6c8ff;
-    }
-
-    .notify-submit {
-        padding: 14px 25px;
-        border-radius: 30px;
-        border: none;
-        background: #8a3df7;
-        color: #fff;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 0 20px rgba(140,75,255,0.6);
-    }
-
-    .notify-submit:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 30px rgba(160,90,255,1);
-    }
-
-    /* Fade animation */
-    @keyframes enterFade {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-</style>
-
-<!-- Toast Notification -->
-<div id="notify-toast" style="
-    display:none;
-    position:fixed;
-    bottom:2rem;
-    right:2rem;
-    background:#fff;
-    color:#000;
-    padding:1rem 1.5rem;
-    border-radius:0.5rem;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
-">
-    Thanks! You'll be notified.
-</div>
-
-<script>
-function showNotifyToast(e) {
-    e.preventDefault();
-    const toast = document.getElementById("notify-toast");
-    toast.style.display = "block";
-    setTimeout(() => toast.style.display = "none", 3000);
-}
-</script>
-
-
-<!-- -------------------------------------------------
-     NOTIFY & FEATURES SECTION
-------------------------------------------------- -->
-<section id="notify" class="notify-section">
-    <div class="container">
-
-        <div class="tag">Coming Soon</div>
-
-        <h2>Intellix</h2>
-        <p>Join the waitlist and be the first to experience the future of payments.</p>
-
-        <!-- Email Notify Form -->
-        <form class="form-container" onsubmit="showToast(event)">
-            <input type="email" class="input-field" placeholder="Enter your email" required />
-            <button type="submit" class="btn-primary">Notify Me</button>
-        </form>
-
-        <!-- Feature Cards -->
-        <div class="grid">
-            <div class="card">
-                <h3>Intelligent</h3>
-                <p>The smart way to process payments.</p>
-            </div>
-
-            <div class="card">
-                <h3>Seamless</h3>
-                <p>Effortless integration into any workflow.</p>
-            </div>
-
-            <div class="card">
-                <h3>Powerful</h3>
-                <p>Built to scale with your business.</p>
-            </div>
+  <!-- Pricing -->
+  <div class="section" style="padding-top:0">
+    <div class="section-badge">&#9670; PRICING</div>
+    <h2 class="section-title">Simple, transparent<br>pricing</h2>
+    <p class="section-sub">No hidden fees. Start free, scale as you grow.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Starter</div>
+        <div class="price-amount">$0</div>
+        <div class="price-period">Free forever · up to $10K/mo</div>
+        <div class="price-features">
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Up to $10K monthly volume</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Basic fraud detection</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>5 currencies</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Mobile app</div>
+          <div class="pf-item"><div class="pf-check off">&#10005;</div>AI Route Optimizer</div>
+          <div class="pf-item"><div class="pf-check off">&#10005;</div>Predictive Analytics</div>
         </div>
-
+        <button class="price-btn price-btn-ghost" onclick="showPage('auth')">Get started free</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-popular">Most Popular</div>
+        <div class="price-name">Pro</div>
+        <div class="price-amount" style="color:var(--cyan)">$49</div>
+        <div class="price-period">per month · unlimited volume</div>
+        <div class="price-features">
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Unlimited volume</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>AI FraudNet Shield</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>50+ currencies + crypto</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>AI Route Optimizer</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Predictive Analytics</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Biometric auth</div>
+        </div>
+        <button class="price-btn price-btn-primary" onclick="showPage('auth')">Start Pro trial</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Enterprise</div>
+        <div class="price-amount">Custom</div>
+        <div class="price-period">Custom volume · SLA guaranteed</div>
+        <div class="price-features">
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Everything in Pro</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Dedicated AI model</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>White-label API</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>99.99% SLA</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Dedicated support</div>
+          <div class="pf-item"><div class="pf-check on">&#10003;</div>Custom integrations</div>
+        </div>
+        <button class="price-btn price-btn-ghost">Contact sales</button>
+      </div>
     </div>
-</section>
+  </div>
 
-<!-- Toast -->
-<div id="toast" style="
-    display:none; 
-    position:fixed; 
-    bottom:2rem; 
-    right:2rem;
-    background:#fff;
-    color:#000;
-    padding:1rem 1.5rem;
-    border-radius:0.5rem;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
-">
-Thanks! You'll be notified.
+  <!-- Testimonials -->
+  <div class="section" style="padding-top:0">
+    <div class="section-badge">&#9670; TESTIMONIALS</div>
+    <h2 class="section-title">Trusted by builders<br>worldwide</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="testi-quote">"Intellix's AI fraud detection caught a $84K laundering attempt our old system missed entirely. The explainability feature was the clincher — we could see exactly why it was flagged."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,var(--cyan),var(--purple))">SR</div>
+          <div><div class="testi-name">Sarah Reeves</div><div class="testi-role">CTO, NovaPay Corp</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="testi-quote">"The Route Optimizer saved us $48,000 in fees last quarter alone. We processed $12M through Intellix and paid a fraction of what Stripe would have charged."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,var(--green),var(--cyan))">MK</div>
+          <div><div class="testi-name">Marcus Kim</div><div class="testi-role">CFO, DeFi Labs</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="testi-quote">"The Social Pay feature made our app go viral. Users were sharing their payment moments — we grew 40% month-over-month purely from organic Intellix activity."</div>
+        <div class="testi-author">
+          <div class="testi-av" style="background:linear-gradient(135deg,var(--purple),var(--pink))">AJ</div>
+          <div><div class="testi-name">Aisha Johnson</div><div class="testi-role">Founder, SplitApp</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="cta-box">
+      <div class="cta-title">Ready to build the<br><span style="background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">future of payments?</span></div>
+      <p class="cta-sub">Join 2.4 million users and 12,000 businesses already using Intellix. Free to start, no credit card required.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <button class="hero-btn-lg hero-btn-primary" onclick="showPage('auth')">Create free account</button>
+        <button class="hero-btn-lg hero-btn-ghost" onclick="showPage('api')">View API docs</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== DASHBOARD ======================== -->
+<div class="page" id="page-dashboard">
+  <div class="dash-shell">
+    <div class="sidebar">
+      <div class="nav-section-label">Core</div>
+      <div class="side-item active" id="si-dash">&#9670; &nbsp;Dashboard</div>
+      <div class="side-item" onclick="showPage('payment')">&#8645; &nbsp;Transactions</div>
+      <div class="side-item">&#9675; &nbsp;Payment Flows</div>
+      <div class="nav-section-label">AI Engine</div>
+      <div class="side-item" onclick="showPage('fraud')">&#9634; &nbsp;Fraud Detection <span class="side-badge">3</span></div>
+      <div class="side-item">&#9670; &nbsp;Risk Scoring</div>
+      <div class="side-item">&#8764; &nbsp;Predictive AI</div>
+      <div class="nav-section-label">Assets</div>
+      <div class="side-item">&#9674; &nbsp;Crypto Ledger</div>
+      <div class="side-item">$ &nbsp;Fiat Accounts</div>
+      <div class="side-item">&#8644; &nbsp;Conversions</div>
+      <div class="nav-section-label">Platform</div>
+      <div class="side-item" onclick="showPage('api')">&#61; &nbsp;API Console</div>
+      <div class="side-item">&#9675; &nbsp;Settings</div>
+      <div class="sidebar-footer">
+        <div style="font-size:11px;color:var(--text3)">System Health · 94%</div>
+        <div class="health-bar"><div class="health-fill"></div></div>
+      </div>
+    </div>
+    <div class="dash-main">
+      <div class="dash-topbar">
+        <div><div class="dash-title">Command Center</div><div class="dash-sub">Sunday, March 15 · Real-time AI payment intelligence</div></div>
+        <div class="dash-actions">
+          <div class="tab-row"><div class="tab active">1D</div><div class="tab">7D</div><div class="tab">30D</div><div class="tab">1Y</div></div>
+          <button class="btn btn-ghost">&#8595; Export</button>
+          <button class="btn btn-primary" onclick="showPage('payment')">+ New Payment</button>
+        </div>
+      </div>
+      <div class="ai-insight">
+        <div class="ai-chip">AI INSIGHT</div>
+        <div class="ai-text"><strong>Anomaly detected:</strong> APAC transaction velocity is <strong>+38% above baseline</strong> in the last 2 hours. Predictive model forecasts a <strong>$2.1M surge</strong> in 4 hours. <strong>3 high-risk transactions</strong> auto-flagged for review.</div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-card kc-cyan"><div class="kpi-label">Total Volume</div><div class="kpi-value text-cyan">$48.7M</div><div class="kpi-delta delta-up">&#9650; 12.4% vs yesterday</div></div>
+        <div class="kpi-card kc-purple"><div class="kpi-label">AI Risk Score</div><div class="kpi-value" style="color:var(--purple)">0.03</div><div class="kpi-delta delta-up">&#9650; Improved 0.01</div></div>
+        <div class="kpi-card kc-green"><div class="kpi-label">Transactions</div><div class="kpi-value text-green">124,382</div><div class="kpi-delta delta-up">&#9650; 8.1% today</div></div>
+        <div class="kpi-card kc-orange"><div class="kpi-label">Flagged</div><div class="kpi-value" style="color:var(--orange)">3</div><div class="kpi-delta delta-down">&#9660; 5 resolved today</div></div>
+      </div>
+      <div class="mid-row">
+        <div class="card">
+          <div class="flex justify-between align-center mb-16">
+            <div><div class="card-title">Payment Volume</div><div class="card-sub">Crypto vs Fiat — Last 12 hours</div></div>
+            <div class="tab-row"><div class="tab active">Hourly</div><div class="tab">Daily</div><div class="tab">Weekly</div></div>
+          </div>
+          <div class="vol-chart" id="volChart"></div>
+          <div class="flex gap-16 mt-12">
+            <div class="flex gap-8 align-center"><div style="width:8px;height:8px;border-radius:2px;background:var(--purple)"></div><span class="fs-12" style="color:var(--text2)">Crypto</span></div>
+            <div class="flex gap-8 align-center"><div style="width:8px;height:8px;border-radius:2px;background:var(--cyan)"></div><span class="fs-12" style="color:var(--text2)">Fiat</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="flex justify-between align-center mb-16">
+            <div><div class="card-title">AI Fraud Shield</div><div class="card-sub">Real-time threats</div></div>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite"></div>
+          </div>
+          <div style="text-align:center;margin-bottom:14px">
+            <svg width="110" height="110" viewBox="0 0 110 110" style="display:block;margin:0 auto">
+              <circle cx="55" cy="55" r="45" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="9"/>
+              <circle cx="55" cy="55" r="45" fill="none" stroke="url(#rg)" stroke-width="9" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="17" transform="rotate(-90 55 55)"/>
+              <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#00e676"/><stop offset="100%" stop-color="#00e5ff"/></linearGradient></defs>
+            </svg>
+            <div style="margin-top:-70px;padding-bottom:26px;font-family:var(--font);font-size:22px;font-weight:800;color:var(--green)">97%</div>
+            <div style="font-size:11px;color:var(--text3)">Safe Score</div>
+          </div>
+          <div class="risk-item" onclick="showPage('fraud')">
+            <div class="risk-icon" style="background:rgba(255,23,68,.1)">&#9888;</div>
+            <div style="flex:1"><div class="fs-12 fw-700">Velocity Spike #TXN-9821</div><div style="font-size:11px;color:var(--text3)">$84,200 · SG→Cayman</div></div>
+            <div class="risk-badge rb-h">HIGH</div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-icon" style="background:rgba(255,145,0,.1)">&#9685;</div>
+            <div style="flex:1"><div class="fs-12 fw-700">Geo-mismatch #TXN-9819</div><div style="font-size:11px;color:var(--text3)">$12,400 · DE device→RU IP</div></div>
+            <div class="risk-badge rb-m">MED</div>
+          </div>
+        </div>
+      </div>
+      <div class="bot-row">
+        <div class="card">
+          <div class="flex justify-between align-center mb-16">
+            <div><div class="card-title">Live Transactions</div><div class="card-sub">Updated every 3 seconds</div></div>
+            <button class="btn btn-ghost" style="font-size:11px;padding:5px 12px" onclick="showPage('payment')">View All</button>
+          </div>
+          <div class="tx-item"><div class="tx-av" style="background:rgba(0,229,255,.1)">&#8383;</div><div style="flex:1"><div class="tx-name">Stripe → Crypto Vault</div><div class="tx-meta">BTC · 0.482 · TXN-9831</div></div><div><div class="tx-amount text-cyan">+$32,100</div><div class="tx-status s-ok">&#9679; Confirmed</div></div></div>
+          <div class="tx-item"><div class="tx-av" style="background:rgba(156,111,255,.1)">&#926;</div><div style="flex:1"><div class="tx-name">MetaMask · DeFi Swap</div><div class="tx-meta">ETH · 14.2 · TXN-9830</div></div><div><div class="tx-amount" style="color:var(--purple)">+$28,440</div><div class="tx-status s-ok">&#9679; Confirmed</div></div></div>
+          <div class="tx-item" onclick="showPage('fraud')"><div class="tx-av" style="background:rgba(255,23,68,.1);font-size:13px">&#9888;</div><div style="flex:1"><div class="tx-name">Anon Wallet · SG</div><div class="tx-meta">USDC · TXN-9821</div></div><div><div class="tx-amount text-red">$84,200</div><div class="tx-status s-flag">&#9679; Flagged</div></div></div>
+          <div class="tx-item"><div class="tx-av" style="background:rgba(0,230,118,.1)">$</div><div style="flex:1"><div class="tx-name">Acme Corp · Wire</div><div class="tx-meta">USD · ACH · TXN-9829</div></div><div><div class="tx-amount text-green">+$142K</div><div class="tx-status s-ok">&#9679; Confirmed</div></div></div>
+        </div>
+        <div class="card">
+          <div class="flex justify-between align-center mb-16">
+            <div><div class="card-title">Predictive Analytics</div><div class="card-sub">AI forecast · Next 24 hours</div></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Projected Vol</div><div style="font-size:18px;font-weight:700;font-family:var(--mono);color:var(--cyan)">$92.4M</div><div style="font-size:11px;color:var(--green)">&#9650; +18%</div></div>
+            <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Fraud Risk</div><div style="font-size:18px;font-weight:700;font-family:var(--mono);color:var(--green)">0.8%</div><div style="font-size:11px;color:var(--green)">&#9660; -0.2%</div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="flex align-center gap-8"><span style="font-size:12px;color:var(--text2);width:48px">BTC</span><div style="flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:72%;height:100%;background:linear-gradient(90deg,#f7931a,var(--gold));border-radius:3px"></div></div><span class="fs-12 font-mono" style="color:var(--text2);width:28px;text-align:right">72%</span></div>
+            <div class="flex align-center gap-8"><span style="font-size:12px;color:var(--text2);width:48px">ETH</span><div style="flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:58%;height:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:3px"></div></div><span class="fs-12 font-mono" style="color:var(--text2);width:28px;text-align:right">58%</span></div>
+            <div class="flex align-center gap-8"><span style="font-size:12px;color:var(--text2);width:48px">USD</span><div style="flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:85%;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan));border-radius:3px"></div></div><span class="fs-12 font-mono" style="color:var(--text2);width:28px;text-align:right">85%</span></div>
+            <div class="flex align-center gap-8"><span style="font-size:12px;color:var(--text2);width:48px">USDC</span><div style="flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden"><div style="width:61%;height:100%;background:linear-gradient(90deg,#2775ca,var(--purple));border-radius:3px"></div></div><span class="fs-12 font-mono" style="color:var(--text2);width:28px;text-align:right">61%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== PAYMENT SCREEN ======================== -->
+<div class="page" id="page-payment">
+  <div class="pay-wrap">
+    <div class="pay-left">
+      <div class="pay-title">Send Payment</div>
+      <div class="progress-steps">
+        <div class="pstep"><div class="pstep-circle done" id="ps1">1</div><div class="pstep-label">Amount</div></div>
+        <div class="pstep-line done" id="pl1"></div>
+        <div class="pstep"><div class="pstep-circle active" id="ps2">2</div><div class="pstep-label">Recipient</div></div>
+        <div class="pstep-line" id="pl2"></div>
+        <div class="pstep"><div class="pstep-circle" id="ps3">3</div><div class="pstep-label">Biometric</div></div>
+        <div class="pstep-line" id="pl3"></div>
+        <div class="pstep"><div class="pstep-circle" id="ps4">4</div><div class="pstep-label">Confirm</div></div>
+      </div>
+      <label class="input-label">You send</label>
+      <input class="big-amount" id="payAmt" placeholder="0.00" value="12,500" oninput="calcPayFees()">
+      <div class="cur-row" id="payCur">
+        <div class="cur-btn active" onclick="setCurP(this)">USD</div>
+        <div class="cur-btn" onclick="setCurP(this)">BTC</div>
+        <div class="cur-btn" onclick="setCurP(this)">ETH</div>
+        <div class="cur-btn" onclick="setCurP(this)">USDC</div>
+        <div class="cur-btn" onclick="setCurP(this)">EUR</div>
+      </div>
+      <label class="input-label">Recipient receives</label>
+      <div class="fx-input" id="payRecv" style="color:var(--green);font-weight:700;font-family:var(--mono)">12,456.25 USD</div>
+      <label class="input-label">Send to</label>
+      <input class="fx-input" placeholder="Wallet address, email, or account number">
+      <div class="ai-route-box"><strong>AI Route Optimizer:</strong> Cheapest path via <strong>Polygon Bridge → ETH</strong>. Fee <strong>$0.18</strong> vs $12.40 direct. Saves 98.5%.</div>
+      <div class="fee-box">
+        <div class="fee-row"><span style="color:var(--text2)">Network fee</span><span class="font-mono" id="pfeeNet">$0.18</span></div>
+        <div class="fee-row"><span style="color:var(--text2)">Intellix fee (0.05%)</span><span class="font-mono" id="pfeeIx">$6.25</span></div>
+        <div class="fee-row"><span style="color:var(--text2)">FX rate</span><span class="font-mono">1 USD = 0.9965 EUR</span></div>
+        <div class="fee-row" style="border:none;padding-top:10px"><span class="fw-700">Total deducted</span><span class="font-mono fee-total" id="pfeeTotal">$12,506.43</span></div>
+      </div>
+    </div>
+    <div class="pay-right">
+      <div style="font-family:var(--font);font-size:16px;font-weight:700">Authorization</div>
+      <div class="bio-section">
+        <div class="bio-ring" id="payBioRing" onclick="payBioScan()">&#9711;</div>
+        <div style="font-size:13px;font-weight:600" id="payBioLabel">Tap to authenticate</div>
+        <div style="font-size:11px;color:var(--text3)">Required for payments over $10,000</div>
+        <div class="bio-methods">
+          <div class="bio-method active" onclick="paySetBio(this)">Fingerprint</div>
+          <div class="bio-method" onclick="paySetBio(this)">Face ID</div>
+          <div class="bio-method" onclick="paySetBio(this)">Voice</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title mb-12">AI Risk Assessment</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><div class="flex justify-between mb-12" style="margin-bottom:4px"><span class="fs-12" style="color:var(--text2)">Transaction risk</span><span class="fs-12 font-mono text-green">LOW · 0.02</span></div><div style="height:4px;background:var(--bg3);border-radius:2px"><div style="width:5%;height:100%;background:var(--green);border-radius:2px"></div></div></div>
+          <div><div class="flex justify-between" style="margin-bottom:4px"><span class="fs-12" style="color:var(--text2)">Recipient trust</span><span class="fs-12 font-mono text-cyan">98%</span></div><div style="height:4px;background:var(--bg3);border-radius:2px"><div style="width:98%;height:100%;background:var(--cyan);border-radius:2px"></div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title mb-12">Smart Scheduling</div>
+        <div class="schedule-grid">
+          <div class="sched-opt active"><div class="sched-opt-time">NOW</div><div class="sched-opt-fee">$6.43</div></div>
+          <div class="sched-opt"><div class="sched-opt-time">14:00</div><div class="sched-opt-fee">$1.20</div></div>
+          <div class="sched-opt"><div class="sched-opt-time">22:00</div><div class="sched-opt-fee">$0.18</div></div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:8px">AI recommends 22:00 — lowest fee window</div>
+      </div>
+      <button class="send-btn" id="paySendBtn" onclick="paySend()" disabled>Authenticate to Send</button>
+      <div class="confirm-success" id="paySuccess">
+        <div class="check-ring">&#10003;</div>
+        <div style="font-family:var(--font);font-size:20px;font-weight:800;color:var(--green)">Payment Sent!</div>
+        <div style="font-size:13px;color:var(--text2)">To NovaPay Corp · via Polygon<br>Estimated arrival: 14 seconds</div>
+        <div style="font-size:10px;color:var(--text3);font-family:var(--mono);background:var(--bg3);padding:8px 12px;border-radius:6px">TX: 0x7f3a9b2c4e8d1f6a...</div>
+        <button class="send-btn" onclick="payReset()">New Payment</button>
+      </div>
+      <div style="font-size:11px;color:var(--text3);text-align:center">Protected by Intellix-Shield · AES-256</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== FRAUD WORKSPACE ======================== -->
+<div class="page" id="page-fraud">
+  <div class="fraud-wrap">
+    <div class="fraud-sidebar">
+      <div class="fraud-header">
+        <div style="font-family:var(--font);font-size:15px;font-weight:700;margin-bottom:4px">Fraud Workspace</div>
+        <div style="font-size:11px;color:var(--text3)">3 flagged · 47 cleared today</div>
+      </div>
+      <div class="fraud-list">
+        <div class="fraud-row selected" onclick="selFraud(this)"><div class="fdot fdot-r"></div><div style="flex:1"><div style="font-size:11px;color:var(--text3);font-family:var(--mono)">#TXN-9821</div><div class="fs-13 fw-700">Anon Wallet → Cayman</div><div style="font-size:11px;color:var(--red);font-family:var(--mono)">$84,200 · USDC</div></div><div class="risk-badge rb-h">HIGH</div></div>
+        <div class="fraud-row" onclick="selFraud(this)"><div class="fdot fdot-o"></div><div style="flex:1"><div style="font-size:11px;color:var(--text3);font-family:var(--mono)">#TXN-9819</div><div class="fs-13 fw-700">Device DE → IP RU</div><div style="font-size:11px;color:var(--orange);font-family:var(--mono)">$12,400 · EUR</div></div><div class="risk-badge rb-m">MED</div></div>
+        <div class="fraud-row" onclick="selFraud(this)"><div class="fdot fdot-o"></div><div style="flex:1"><div style="font-size:11px;color:var(--text3);font-family:var(--mono)">#TXN-9814</div><div class="fs-13 fw-700">Rapid micro-splits</div><div style="font-size:11px;color:var(--orange);font-family:var(--mono)">$48,000 · 12 txns</div></div><div class="risk-badge rb-m">MED</div></div>
+        <div class="fraud-row" onclick="selFraud(this)"><div class="fdot fdot-g"></div><div style="flex:1"><div style="font-size:11px;color:var(--text3);font-family:var(--mono)">#TXN-9810</div><div class="fs-13 fw-700">Stripe · US Corp</div><div style="font-size:11px;color:var(--text3);font-family:var(--mono)">$142,000 · ACH</div></div><div class="risk-badge rb-l">CLEAR</div></div>
+      </div>
+    </div>
+    <div class="fraud-main">
+      <div class="flex justify-between align-center mb-16" style="flex-wrap:wrap;gap:12px">
+        <div><div style="font-family:var(--font);font-size:17px;font-weight:800">TXN-9821 · Velocity + Destination Anomaly</div><div style="font-size:12px;color:var(--text3);font-family:var(--mono);margin-top:4px">Flagged 14:32:07 UTC · Auto-hold active</div></div>
+        <div class="flex gap-8"><button class="action-btn btn-block" onclick="fraudAction(this,'Blocked!')">Block</button><button class="action-btn btn-escalate" onclick="fraudAction(this,'Escalated!')">Escalate</button><button class="action-btn btn-approve" onclick="fraudAction(this,'Approved!')">Approve</button></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px">
+        <div class="card"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Amount</div><div style="font-family:var(--font);font-size:20px;font-weight:800;color:var(--red)">$84,200</div><div class="fs-12" style="color:var(--text3)">USDC · Stablecoin</div></div>
+        <div class="card"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">AI Risk Score</div><div style="font-family:var(--font);font-size:20px;font-weight:800;color:var(--red)">0.94 / 1.0</div><div class="fs-12" style="color:var(--text3)">Critical threshold</div></div>
+        <div class="card"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Velocity Rank</div><div style="font-family:var(--font);font-size:20px;font-weight:800;color:var(--orange)">99.8%ile</div><div class="fs-12" style="color:var(--text3)">Top 0.2% of accounts</div></div>
+      </div>
+      <div class="verdict-box mb-16">
+        <div style="font-size:22px">&#9888;</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.6"><strong style="color:var(--text)">AI Verdict:</strong> Matches 94% similarity to known <strong style="color:var(--text)">layering schemes</strong>. Wallet created <strong style="color:var(--text)">6 days ago</strong>, zero prior transactions, routing to <strong style="color:var(--text)">FATF watchlist jurisdiction</strong>. Recommend <strong style="color:var(--red)">immediate block + SAR filing</strong>.</div>
+      </div>
+      <div class="card">
+        <div class="flex align-center gap-8 mb-16"><div class="ai-chip">AI EXPLAINABILITY</div><span style="font-size:13px;font-weight:600">Signal Breakdown</span></div>
+        <div class="signal-row"><div class="sig-weight sw-r">+62%</div><div style="flex:1"><div class="fs-13 fw-700">New wallet + high value</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Wallet age 6 days. First txn $84,200 vs $340 baseline.</div></div><div><div class="sig-bar-track"><div class="sig-bar-fill" style="width:92%;background:var(--red)"></div></div><div style="font-size:10px;color:var(--text3);font-family:var(--mono);text-align:right;margin-top:3px">+62%</div></div></div>
+        <div class="signal-row"><div class="sig-weight sw-r">+18%</div><div style="flex:1"><div class="fs-13 fw-700">FATF jurisdiction destination</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Cayman Islands — elevated financial opacity risk.</div></div><div><div class="sig-bar-track"><div class="sig-bar-fill" style="width:65%;background:var(--red)"></div></div><div style="font-size:10px;color:var(--text3);font-family:var(--mono);text-align:right;margin-top:3px">+18%</div></div></div>
+        <div class="signal-row"><div class="sig-weight sw-o">+9%</div><div style="flex:1"><div class="fs-13 fw-700">Velocity spike · 4h window</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Transaction 4h after wallet funded. No warm-up period.</div></div><div><div class="sig-bar-track"><div class="sig-bar-fill" style="width:40%;background:var(--orange)"></div></div><div style="font-size:10px;color:var(--text3);font-family:var(--mono);text-align:right;margin-top:3px">+9%</div></div></div>
+        <div class="signal-row"><div class="sig-weight sw-g">-3%</div><div style="flex:1"><div class="fs-13 fw-700">Device fingerprint clean</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Device not blacklisted. Browser environment legitimate.</div></div><div><div class="sig-bar-track"><div class="sig-bar-fill" style="width:15%;background:var(--green)"></div></div><div style="font-size:10px;color:var(--text3);font-family:var(--mono);text-align:right;margin-top:3px">-3%</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== API CONSOLE ======================== -->
+<div class="page" id="page-api">
+  <div class="api-wrap">
+    <div class="api-sidebar">
+      <div class="api-sidebar-hdr"><div style="font-family:var(--font);font-size:14px;font-weight:700">Intellix API v3</div><div style="font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:3px">api.intellix.io/v3</div></div>
+      <div class="ep-group-lbl">Payments</div>
+      <div class="ep-item selected" onclick="loadEp('createPay',this)"><div class="method-badge mb-post">POST</div><span style="font-size:12px;color:var(--text2)">/payments/create</span></div>
+      <div class="ep-item" onclick="loadEp('getPay',this)"><div class="method-badge mb-get">GET</div><span style="font-size:12px;color:var(--text2)">/payments/{id}</span></div>
+      <div class="ep-group-lbl">AI Fraud</div>
+      <div class="ep-item" onclick="loadEp('riskScore',this)"><div class="method-badge mb-post">POST</div><span style="font-size:12px;color:var(--text2)">/ai/risk-score</span></div>
+      <div class="ep-item" onclick="loadEp('fraudCheck',this)"><div class="method-badge mb-post">POST</div><span style="font-size:12px;color:var(--text2)">/ai/fraud-check</span></div>
+      <div class="ep-group-lbl">Crypto</div>
+      <div class="ep-item" onclick="loadEp('convertCrypto',this)"><div class="method-badge mb-post">POST</div><span style="font-size:12px;color:var(--text2)">/crypto/convert</span></div>
+      <div class="ep-item" onclick="loadEp('getWallet',this)"><div class="method-badge mb-get">GET</div><span style="font-size:12px;color:var(--text2)">/crypto/wallet</span></div>
+      <div class="ep-group-lbl">Webhooks</div>
+      <div class="ep-item" onclick="loadEp('createWebhook',this)"><div class="method-badge mb-post">POST</div><span style="font-size:12px;color:var(--text2)">/webhooks/create</span></div>
+    </div>
+    <div class="api-main">
+      <div class="api-topbar">
+        <div class="url-bar"><span style="font-size:10px;font-weight:800;color:var(--green);font-family:var(--mono)" id="apiMethod">POST</span><span style="color:var(--text3)">/</span><span id="apiPath">v3/payments/create</span></div>
+        <div class="flex gap-8">
+          <div class="sdk-chip active" onclick="setSdk(this)">cURL</div>
+          <div class="sdk-chip" onclick="setSdk(this)">Node</div>
+          <div class="sdk-chip" onclick="setSdk(this)">Python</div>
+          <div class="sdk-chip" onclick="setSdk(this)">Go</div>
+        </div>
+        <button class="run-btn" onclick="runApi()">Run Request</button>
+      </div>
+      <div class="api-stats">
+        <div class="api-stat"><div class="api-stat-val text-cyan">99.98%</div><div class="api-stat-lbl">Uptime 30d</div></div>
+        <div class="api-stat"><div class="api-stat-val text-green">42ms</div><div class="api-stat-lbl">Avg latency</div></div>
+        <div class="api-stat"><div class="api-stat-val" style="color:var(--purple)">2.4M</div><div class="api-stat-lbl">Calls today</div></div>
+      </div>
+      <div class="api-body" style="flex:1">
+        <div class="api-panel">
+          <div class="panel-tabs"><div class="ptab active">Body</div><div class="ptab">Headers</div></div>
+          <div class="panel-body"><textarea class="code-area w-full" id="apiBody" spellcheck="false">{"amount":12500,"currency":"USD","recipient":{"wallet":"0x3f4a9b2c...","type":"eth_address"},"options":{"route_optimizer":true,"fraud_check":"realtime","biometric_required":true}}</textarea></div>
+        </div>
+        <div style="display:flex;flex-direction:column;flex:1">
+          <div class="panel-tabs"><div class="ptab active">Response</div><div class="ptab">Timeline</div></div>
+          <div id="apiResStatus" class="res-status-bar"><span style="font-weight:700;font-family:var(--mono);color:var(--green)" id="apiStatusCode">200 OK</span><span style="font-size:11px;color:var(--text3);font-family:var(--mono)" id="apiResTime">42ms</span></div>
+          <div class="panel-body"><div class="code-area" id="apiResBody" style="color:var(--text3);font-style:italic">Hit "Run Request" to execute &uarr;</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== MOBILE PAGE ======================== -->
+<div class="page" id="page-mobile">
+  <div class="mobile-page">
+    <div style="text-align:center;max-width:700px">
+      <div class="section-badge" style="display:inline-flex">&#9670; MOBILE APP</div>
+      <h2 style="font-family:var(--font);font-size:36px;font-weight:800;letter-spacing:-1.5px;margin:12px 0 12px">Intellix in your pocket</h2>
+      <p style="font-size:15px;color:var(--text2);line-height:1.7">Full payment power, biometric security and AI insights — all in a native mobile experience.</p>
+    </div>
+    <div class="flex gap-8 phone-tabs-outer">
+      <div class="phone-tab active" onclick="switchPhone('home',this)">Home</div>
+      <div class="phone-tab" onclick="switchPhone('pay',this)">Pay</div>
+      <div class="phone-tab" onclick="switchPhone('crypto',this)">Crypto</div>
+    </div>
+    <div class="phone-frame" style="width:290px">
+      <div class="phone-notch"><div class="notch-pill"></div></div>
+      <div id="phoneScreen" style="background:#0a0b14;min-height:560px"></div>
+    </div>
+    <div style="max-width:1100px;width:100%">
+      <div style="font-family:var(--font);font-size:20px;font-weight:800;margin-bottom:6px;text-align:center">3 Viral Features</div>
+      <div style="font-size:13px;color:var(--text3);text-align:center;margin-bottom:20px">Features no payment app has ever shipped</div>
+      <div class="viral-grid">
+        <div class="viral-card vc-cyan">
+          <div class="viral-icon" style="background:rgba(0,229,255,.1);color:var(--cyan)">&#9783;</div>
+          <div class="viral-title">AI Split Pay</div>
+          <div class="viral-desc">Group expense tracking with debt intelligence. AI nudges late payers automatically so you never have to have that awkward conversation.</div>
+        </div>
+        <div class="viral-card vc-purple">
+          <div class="viral-icon" style="background:rgba(156,111,255,.1);color:var(--purple)">&#9829;</div>
+          <div class="viral-title">Social Payment Feed</div>
+          <div class="viral-desc">Every payment becomes a shareable moment. Join viral savings challenges with friends and celebrate financial milestones together.</div>
+        </div>
+        <div class="viral-card vc-gold">
+          <div class="viral-icon" style="background:rgba(255,215,64,.08);color:var(--gold)">&#9888;</div>
+          <div class="viral-title">Spend Guardian</div>
+          <div class="viral-desc">AI predicts overspending 30 days ahead and auto-shields your savings before you can spend them. Proactive, not reactive.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== AUTH PAGE ======================== -->
+<div class="page" id="page-auth">
+  <div class="auth-wrap">
+    <div class="auth-brand">
+      <div class="auth-brand-grid"></div>
+      <div class="auth-brand-content">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:48px">
+          <div class="nav-mark">IX</div>
+          <div><div class="nav-name">Intellix</div><div style="font-size:12px;color:var(--text3)">AI Payment Engine</div></div>
+        </div>
+        <div class="auth-headline">The future of<br><span>intelligent money</span><br>is here.</div>
+        <div style="font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:36px">Send, receive and manage payments across crypto and fiat with AI that works for you 24/7.</div>
+        <div class="fpill-auth"><div class="fpill-icon-auth" style="background:rgba(0,229,255,.1);color:var(--cyan)">&#9670;</div><div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">AI Fraud Shield</strong> — real-time protection on every payment</div></div>
+        <div class="fpill-auth"><div class="fpill-icon-auth" style="background:rgba(156,111,255,.1);color:var(--purple)">&#8383;</div><div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Crypto + Fiat</strong> — BTC, ETH, USDC, USD, EUR and 45+ more</div></div>
+        <div class="fpill-auth"><div class="fpill-icon-auth" style="background:rgba(0,230,118,.1);color:var(--green)">&#9711;</div><div style="font-size:12px;color:var(--text2)"><strong style="color:var(--text)">Biometric Auth</strong> — fingerprint, face ID and voice</div></div>
+        <div style="margin-top:32px;display:flex;gap:32px">
+          <div><div style="font-family:var(--font);font-size:22px;font-weight:800;color:var(--cyan)">$4.2B+</div><div style="font-size:11px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.8px">Processed</div></div>
+          <div><div style="font-family:var(--font);font-size:22px;font-weight:800;color:var(--green)">2.4M+</div><div style="font-size:11px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.8px">Users</div></div>
+          <div><div style="font-family:var(--font);font-size:22px;font-weight:800;color:var(--purple)">47</div><div style="font-size:11px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.8px">Countries</div></div>
+        </div>
+      </div>
+      <div style="position:relative;z-index:1;display:flex;gap:20px"><span style="font-size:12px;color:var(--text3);cursor:pointer">Privacy</span><span style="font-size:12px;color:var(--text3);cursor:pointer">Terms</span><span style="font-size:12px;color:var(--text3);cursor:pointer">Security</span></div>
+    </div>
+    <div class="auth-form-side">
+      <div class="auth-form-box">
+        <div class="form-toggle">
+          <div class="ftog active" id="atog-login" onclick="switchAuth('login')">Sign in</div>
+          <div class="ftog" id="atog-signup" onclick="switchAuth('signup')">Create account</div>
+        </div>
+        <!-- LOGIN -->
+        <div id="auth-login">
+          <div class="auth-title">Welcome back</div>
+          <div class="auth-sub">Sign in to your Intellix account.</div>
+          <div class="social-btns">
+            <div class="social-btn"><div class="soc-icon" style="background:#fff;color:#d44">G</div>Google</div>
+            <div class="social-btn"><div class="soc-icon" style="background:#000;color:#fff">&#63743;</div>Apple</div>
+          </div>
+          <div class="divider"><div class="divider-line"></div><span>or continue with email</span><div class="divider-line"></div></div>
+          <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Email address</label>
+          <input class="ix-input" id="li-email" type="email" placeholder="you@company.com">
+          <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Password</label>
+          <input class="ix-input" id="li-pw" type="password" placeholder="Your password">
+          <div style="text-align:right;margin-top:-6px;margin-bottom:14px"><a style="font-size:12px;color:var(--cyan);cursor:pointer">Forgot password?</a></div>
+          <button class="auth-submit" id="li-btn" onclick="doAuthLogin()">Sign in to Intellix</button>
+          <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--text3)">No account? <a style="color:var(--cyan);cursor:pointer" onclick="switchAuth('signup')">Create one free</a></div>
+          <div class="success-screen" id="li-success">
+            <div class="success-ring">&#10003;</div>
+            <div style="font-family:var(--font);font-size:18px;font-weight:800">Welcome back!</div>
+            <div style="font-size:13px;color:var(--text3)">Redirecting to your dashboard...</div>
+            <button class="auth-submit" onclick="showPage('dashboard')">Go to Dashboard</button>
+          </div>
+        </div>
+        <!-- SIGNUP -->
+        <div id="auth-signup" style="display:none">
+          <div class="step-dots"><div class="sdot active" id="asu-d1"></div><div class="sdot" id="asu-d2"></div><div class="sdot" id="asu-d3"></div></div>
+          <div id="asu-s1">
+            <div class="auth-title">Create account</div>
+            <div class="auth-sub">Join 2.4M+ users on Intellix.</div>
+            <div class="social-btns">
+              <div class="social-btn"><div class="soc-icon" style="background:#fff;color:#d44">G</div>Google</div>
+              <div class="social-btn"><div class="soc-icon" style="background:#000;color:#fff">&#63743;</div>Apple</div>
+            </div>
+            <div class="divider"><div class="divider-line"></div><span>or sign up with email</span><div class="divider-line"></div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div><label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">First name</label><input class="ix-input" placeholder="Alex"></div>
+              <div><label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Last name</label><input class="ix-input" placeholder="Owen"></div>
+            </div>
+            <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Work email</label>
+            <input class="ix-input" type="email" placeholder="you@company.com">
+            <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Password</label>
+            <input class="ix-input" type="password" placeholder="Create a strong password" id="su-pw" oninput="checkSuPw(this.value)">
+            <div class="pw-bar"><div class="pw-fill" id="su-pw-fill"></div></div>
+            <div style="font-size:11px;color:var(--text3);margin-bottom:14px" id="su-pw-lbl">8+ chars, 1 number, 1 symbol</div>
+            <div class="cb-row" onclick="toggleAuthCb('su-cb')"><div class="custom-cb" id="su-cb"></div><div style="font-size:12px;color:var(--text3);line-height:1.5">I agree to the <a style="color:var(--cyan)">Terms</a> and <a style="color:var(--cyan)">Privacy Policy</a>. I confirm I am 18+.</div></div>
+            <button class="auth-submit" onclick="asuGoStep(2)">Continue &rarr;</button>
+          </div>
+          <div id="asu-s2" style="display:none">
+            <div class="auth-title">Verify identity</div>
+            <div class="auth-sub">Quick KYC — under 60 seconds.</div>
+            <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Phone number</label>
+            <div style="display:flex;gap:8px;margin-bottom:14px"><select class="ix-input" style="width:80px;flex-shrink:0;margin-bottom:0"><option>+1</option><option>+44</option><option>+61</option><option>+64</option></select><input class="ix-input" style="margin-bottom:0" placeholder="(555) 000-0000"></div>
+            <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Country</label>
+            <select class="ix-input"><option>United States</option><option>United Kingdom</option><option>Australia</option><option>New Zealand</option><option>Singapore</option></select>
+            <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:8px">Account type</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+              <div id="at-personal" onclick="setAuthType('personal')" style="padding:12px;border-radius:10px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);cursor:pointer;text-align:center"><div style="font-size:16px;margin-bottom:3px">&#128100;</div><div style="font-size:12px;font-weight:700;color:var(--cyan)">Personal</div></div>
+              <div id="at-business" onclick="setAuthType('business')" style="padding:12px;border-radius:10px;background:var(--card);border:1px solid var(--border2);cursor:pointer;text-align:center"><div style="font-size:16px;margin-bottom:3px">&#127970;</div><div style="font-size:12px;font-weight:700;color:var(--text2)">Business</div></div>
+            </div>
+            <div style="display:flex;gap:8px"><button class="auth-submit" style="background:var(--card2);color:var(--text2);flex:0 0 72px" onclick="asuGoStep(1)">Back</button><button class="auth-submit" style="flex:1" onclick="asuGoStep(3)">Send Code &rarr;</button></div>
+          </div>
+          <div id="asu-s3" style="display:none">
+            <div class="auth-title">Almost done!</div>
+            <div class="auth-sub">Enter the 6-digit code sent to your phone.</div>
+            <input class="ix-input" placeholder="_ _ _ _ _ _" maxlength="6" style="letter-spacing:8px;font-size:18px;text-align:center;font-family:var(--mono)" id="otp-in" oninput="checkOtp(this.value)">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:16px">Didn't receive it? <a style="color:var(--cyan);cursor:pointer">Resend</a></div>
+            <div class="success-screen" id="su-success">
+              <div class="success-ring">&#10003;</div>
+              <div style="font-family:var(--font);font-size:18px;font-weight:800">Account created!</div>
+              <div style="font-size:13px;color:var(--text3)">Welcome to Intellix, Alex.</div>
+              <button class="auth-submit" onclick="showPage('dashboard')">Go to Dashboard</button>
+            </div>
+            <div style="display:flex;gap:8px"><button class="auth-submit" style="background:var(--card2);color:var(--text2);flex:0 0 72px" onclick="asuGoStep(2)">Back</button><button class="auth-submit" style="flex:1" id="su-fin-btn" onclick="doSignup()">Create Account</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
-function showToast(e) {
-    e.preventDefault();
-    const toast = document.getElementById("toast");
-    toast.style.display = "block";
-    setTimeout(() => toast.style.display = "none", 3000);
+// ---- NAV ----
+function showPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  const nl=document.getElementById('nl-'+p);
+  if(nl)nl.classList.add('active');
+  window.scrollTo(0,0);
+  if(p==='dashboard')buildVolChart();
+  if(p==='mobile')buildPhoneHome();
 }
-</script>
 
+// ---- TAB SWITCHING ----
+document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{const tr=t.closest('.tab-row');if(tr){tr.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');}});});
+document.querySelectorAll('.ptab').forEach(t=>{t.addEventListener('click',()=>{const tr=t.closest('.panel-tabs');if(tr){tr.querySelectorAll('.ptab').forEach(x=>x.classList.remove('active'));t.classList.add('active');}});});
+
+// ---- DASHBOARD VOL CHART ----
+function buildVolChart(){
+  const el=document.getElementById('volChart');
+  if(!el||el.childElementCount>0)return;
+  const hrs=['00','01','02','03','04','05','06','07','08','09','10','11'];
+  const c=[38,22,45,60,55,72,88,65,92,78,84,97];
+  const f=[55,40,62,48,70,85,60,77,65,90,72,88];
+  const mx=Math.max(...c,...f);
+  hrs.forEach((h,i)=>{
+    const w=document.createElement('div');w.className='vol-bar-wrap';
+    const ch=Math.round((c[i]/mx)*140),fh=Math.round((f[i]/mx)*140);
+    w.innerHTML=`<div class="vol-bar crypto" style="height:${ch}px"></div><div class="vol-bar fiat" style="height:${fh}px"></div><div class="vol-label">${h}h</div>`;
+    el.appendChild(w);
+  });
+}
+
+// ---- PAYMENT ----
+let payAuth=false;
+function setCurP(el){document.querySelectorAll('#payCur .cur-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');calcPayFees();}
+function calcPayFees(){
+  const raw=document.getElementById('payAmt').value.replace(/[^0-9.]/g,'');
+  const amt=parseFloat(raw)||0;
+  document.getElementById('pfeeNet').textContent='$0.18';
+  document.getElementById('pfeeIx').textContent='$'+(amt*0.0005).toFixed(2);
+  document.getElementById('pfeeTotal').textContent='$'+(amt+0.18+amt*0.0005).toFixed(2);
+  document.getElementById('payRecv').textContent=(amt*0.9965).toFixed(2)+' USD';
+}
+function paySetBio(el){document.querySelectorAll('.bio-method').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
+function payBioScan(){
+  if(payAuth)return;
+  const ring=document.getElementById('payBioRing');
+  const lbl=document.getElementById('payBioLabel');
+  ring.classList.add('scanning');lbl.textContent='Scanning...';
+  setTimeout(()=>{
+    ring.classList.remove('scanning');ring.classList.add('done');
+    ring.innerHTML='&#10003;';ring.style.color='var(--green)';
+    lbl.textContent='Identity Verified';payAuth=true;
+    const btn=document.getElementById('paySendBtn');
+    btn.disabled=false;btn.textContent='Send $12,500 Now';
+    document.getElementById('ps3').classList.add('done');document.getElementById('pl2').classList.add('done');
+  },2000);
+}
+function paySend(){
+  if(!payAuth)return;
+  document.getElementById('ps4').classList.add('done');document.getElementById('pl3').classList.add('done');
+  document.getElementById('paySendBtn').style.display='none';
+  document.getElementById('paySuccess').classList.add('show');document.getElementById('paySuccess').style.display='flex';
+}
+function payReset(){
+  payAuth=false;
+  document.getElementById('payBioRing').className='bio-ring';document.getElementById('payBioRing').innerHTML='&#9711;';document.getElementById('payBioRing').style.color='';
+  document.getElementById('payBioLabel').textContent='Tap to authenticate';
+  const btn=document.getElementById('paySendBtn');btn.disabled=true;btn.textContent='Authenticate to Send';btn.style.display='';
+  document.getElementById('paySuccess').classList.remove('show');document.getElementById('paySuccess').style.display='none';
+  ['ps1','ps2','ps3','ps4'].forEach((id,i)=>{const el=document.getElementById(id);el.classList.remove('done','active');if(i===0)el.classList.add('done');if(i===1)el.classList.add('active');});
+  ['pl1','pl2','pl3'].forEach(id=>document.getElementById(id).classList.remove('done'));
+  document.getElementById('pl1').classList.add('done');
+}
+
+// ---- FRAUD ----
+function selFraud(el){document.querySelectorAll('.fraud-row').forEach(r=>r.classList.remove('selected'));el.classList.add('selected');}
+function fraudAction(btn,msg){const orig=btn.textContent;btn.textContent=msg;setTimeout(()=>btn.textContent=orig,2000);}
+
+// ---- API ----
+const eps={
+  createPay:{m:'POST',p:'v3/payments/create',b:'{\n  "amount": 12500,\n  "currency": "USD",\n  "recipient": {"wallet":"0x3f4a...","type":"eth_address"},\n  "options": {"route_optimizer":true,"fraud_check":"realtime"}\n}',r:'{\n  "success": true,\n  "payment_id": "pay_9xK2mN8pQ4",\n  "status": "processing",\n  "route": {"path":"polygon_bridge","fee":0.18},\n  "risk_score": 0.02,\n  "fraud_verdict": "approved"\n}'},
+  getPay:{m:'GET',p:'v3/payments/{id}',b:'// GET /v3/payments/pay_9xK2mN8pQ4',r:'{\n  "payment_id": "pay_9xK2mN8pQ4",\n  "status": "confirmed",\n  "tx_hash": "0x7f3a9b2c4e8d...",\n  "confirmations": 12\n}'},
+  riskScore:{m:'POST',p:'v3/ai/risk-score',b:'{\n  "amount": 84200,\n  "sender_wallet": "0xANON...",\n  "destination": "Cayman Islands",\n  "currency": "USDC"\n}',r:'{\n  "risk_score": 0.94,\n  "verdict": "HIGH_RISK",\n  "signals": [{"type":"new_wallet_high_value","weight":0.62}],\n  "recommended_action": "block"\n}'},
+  fraudCheck:{m:'POST',p:'v3/ai/fraud-check',b:'{\n  "transaction_id": "TXN-9821",\n  "realtime": true,\n  "include_explainability": true\n}',r:'{\n  "fraud_detected": true,\n  "confidence": 0.94,\n  "hold_applied": true\n}'},
+  convertCrypto:{m:'POST',p:'v3/crypto/convert',b:'{"from":"BTC","to":"USD","amount":0.482}',r:'{"converted":32100.44,"rate":66598.42,"fee":9.63}'},
+  getWallet:{m:'GET',p:'v3/crypto/wallet',b:'// GET /v3/crypto/wallet',r:'{"wallets":[{"currency":"BTC","balance":2.841,"usd_value":189197},{"currency":"ETH","balance":48.2,"usd_value":168700}]}'},
+  createWebhook:{m:'POST',p:'v3/webhooks/create',b:'{"url":"https://myapp.com/webhooks","events":["payment.confirmed","fraud.flagged"]}',r:'{"webhook_id":"wh_4mK9pQ2rT","status":"active"}'}
+};
+function loadEp(key,el){
+  document.querySelectorAll('.ep-item').forEach(i=>i.classList.remove('selected'));el.classList.add('selected');
+  const ep=eps[key];
+  document.getElementById('apiMethod').textContent=ep.m;
+  document.getElementById('apiPath').textContent=ep.p;
+  document.getElementById('apiBody').value=ep.b;
+  document.getElementById('apiResBody').textContent='Hit "Run Request" to execute ↑';
+  document.getElementById('apiResBody').style.color='var(--text3)';document.getElementById('apiResBody').style.fontStyle='italic';
+  document.getElementById('apiResStatus').style.display='none';
+}
+function setSdk(el){document.querySelectorAll('.sdk-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+function runApi(){
+  const btn=document.querySelector('.run-btn');btn.textContent='Running...';btn.style.opacity='.7';
+  setTimeout(()=>{
+    const path=document.getElementById('apiPath').textContent;
+    const key=Object.keys(eps).find(k=>eps[k].p===path)||'createPay';
+    const rb=document.getElementById('apiResBody');
+    rb.textContent=eps[key].r;rb.style.color='var(--text)';rb.style.fontStyle='normal';
+    const rs=document.getElementById('apiResStatus');rs.style.display='flex';
+    document.getElementById('apiStatusCode').textContent='200 OK';
+    document.getElementById('apiResTime').textContent=Math.round(30+Math.random()*40)+'ms';
+    btn.textContent='Run Request';btn.style.opacity='1';
+  },500+Math.random()*400);
+}
+
+// ---- MOBILE ----
+const mobileScreens={
+  home:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Good morning, <span style="color:#00e5ff">Alex</span></div><div style="width:24px;height:24px;border-radius:50%;background:#1c2040;display:flex;align-items:center;justify-content:center;font-size:11px;position:relative">&#9993;<div style="position:absolute;top:2px;right:2px;width:5px;height:5px;border-radius:50%;background:#ff1744"></div></div></div><div style="margin:4px 14px 0;background:linear-gradient(135deg,#0f1232,#1a0f3a);border:1px solid rgba(156,111,255,.2);border-radius:18px;padding:18px"><div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase">Total Balance</div><div style="font-size:28px;font-weight:800;color:#fff;margin:4px 0;letter-spacing:-1px;font-family:'Syne',sans-serif">$48,291</div><div style="font-size:11px;color:#00e676">&#9650; +$1,204.40 today</div><div style="display:flex;gap:6px;margin-top:12px"><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer"><div style="font-size:14px">&#8645;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Send</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer"><div style="font-size:14px">&#8644;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Receive</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer"><div style="font-size:14px">&#8652;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Swap</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer"><div style="font-size:14px">&#10010;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Top Up</div></div></div></div><div style="padding:12px 14px 6px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer"><div style="width:40px;height:40px;border-radius:12px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9783;</div><div style="font-size:9px;color:#3a4060">Split</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer"><div style="width:40px;height:40px;border-radius:12px;background:rgba(156,111,255,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9670;</div><div style="font-size:9px;color:#3a4060">Invest</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer"><div style="width:40px;height:40px;border-radius:12px;background:rgba(0,230,118,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#8635;</div><div style="font-size:9px;color:#3a4060">Recurring</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer"><div style="width:40px;height:40px;border-radius:12px;background:rgba(255,215,64,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9733;</div><div style="font-size:9px;color:#3a4060">Rewards</div></div></div><div style="padding:8px 14px"><div style="font-size:11px;font-weight:700;color:#7b82b0;margin-bottom:6px">Recent</div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="width:30px;height:30px;border-radius:9px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center">&#8383;</div><div style="flex:1"><div style="font-size:11px;font-weight:600">BTC Purchase</div><div style="font-size:9px;color:#3a4060">2 min ago</div></div><div style="font-size:11px;font-weight:700;color:#ff1744;font-family:'JetBrains Mono',monospace">-$2,400</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="width:30px;height:30px;border-radius:9px;background:rgba(0,230,118,.1);display:flex;align-items:center;justify-content:center">$</div><div style="flex:1"><div style="font-size:11px;font-weight:600">Salary Deposit</div><div style="font-size:9px;color:#3a4060">Today 09:00</div></div><div style="font-size:11px;font-weight:700;color:#00e676;font-family:'JetBrains Mono',monospace">+$8,200</div></div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;color:#00e5ff">&#9783;</div><div style="font-size:8px;color:#00e5ff">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#8645;</div><div style="font-size:8px;color:#3a4060">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9670;</div><div style="font-size:8px;color:#3a4060">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`,
+  pay:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Send <span style="color:#00e5ff">Payment</span></div></div><div style="padding:14px"><div style="font-size:10px;color:#3a4060;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px">Amount</div><div style="font-size:36px;font-weight:800;font-family:'JetBrains Mono',monospace;color:#00e5ff;margin-bottom:12px">$0.00</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px"><div style="padding:5px 10px;border-radius:14px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.2);font-size:11px;color:#00e5ff;font-family:monospace">USD</div><div style="padding:5px 10px;border-radius:14px;background:#12152a;border:1px solid rgba(255,255,255,.1);font-size:11px;color:#3a4060;font-family:monospace">BTC</div><div style="padding:5px 10px;border-radius:14px;background:#12152a;border:1px solid rgba(255,255,255,.1);font-size:11px;color:#3a4060;font-family:monospace">ETH</div></div><div style="font-size:10px;color:#3a4060;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px">To</div><div style="background:#1c2040;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:#7b82b0">Search name, wallet, email...</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:10px;overflow:hidden;margin-top:16px">${[1,2,3,4,5,6,7,8,9,'.',0,'&#9003;'].map(k=>`<div style="padding:12px;text-align:center;background:#161a2e;font-size:16px;font-weight:600;cursor:pointer">${k}</div>`).join('')}</div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9783;</div><div style="font-size:8px;color:#3a4060">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;color:#00e5ff">&#8645;</div><div style="font-size:8px;color:#00e5ff">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9670;</div><div style="font-size:8px;color:#3a4060">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`,
+  crypto:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Crypto <span style="color:#00e5ff">Wallet</span></div></div><div style="padding:10px 14px;display:flex;flex-direction:column;gap:8px"><div style="background:linear-gradient(135deg,rgba(247,147,26,.08),rgba(0,229,255,.06));border:1px solid rgba(247,147,26,.2);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:rgba(247,147,26,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">&#8383;</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Bitcoin</div><div style="font-size:10px;color:#3a4060;font-family:monospace">2.841 BTC</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$189,197</div><div style="font-size:10px;color:#00e676">+4.2%</div></div></div><div style="background:linear-gradient(135deg,rgba(156,111,255,.08),rgba(0,229,255,.06));border:1px solid rgba(156,111,255,.2);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:rgba(156,111,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">&#926;</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Ethereum</div><div style="font-size:10px;color:#3a4060;font-family:monospace">48.2 ETH</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$168,700</div><div style="font-size:10px;color:#ff1744">-1.1%</div></div></div><div style="background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(0,230,118,.06));border:1px solid rgba(0,229,255,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:rgba(0,229,255,.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">USDC</div><div style="flex:1"><div style="font-size:12px;font-weight:700">USD Coin</div><div style="font-size:10px;color:#3a4060;font-family:monospace">540,200 USDC</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$540,200</div><div style="font-size:10px;color:#3a4060">Stable</div></div></div><div style="padding:10px 12px;background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);border-radius:10px;font-size:11px;color:#7b82b0"><strong style="color:#00e676">AI:</strong> ETH down 1.1% — historically recovers in 6h. Auto-DCA $200?</div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9783;</div><div style="font-size:8px;color:#3a4060">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#8645;</div><div style="font-size:8px;color:#3a4060">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;color:#00e5ff">&#9670;</div><div style="font-size:8px;color:#00e5ff">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`
+};
+function buildPhoneHome(){document.getElementById('phoneScreen').innerHTML=mobileScreens.home;}
+function switchPhone(s,el){document.querySelectorAll('.phone-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.getElementById('phoneScreen').innerHTML=mobileScreens[s]||mobileScreens.home;}
+
+// ---- AUTH ----
+let asuStep=1;
+function switchAuth(m){
+  document.getElementById('auth-login').style.display=m==='login'?'block':'none';
+  document.getElementById('auth-signup').style.display=m==='signup'?'block':'none';
+  document.getElementById('atog-login').classList.toggle('active',m==='login');
+  document.getElementById('atog-signup').classList.toggle('active',m==='signup');
+}
+function doAuthLogin(){
+  const btn=document.getElementById('li-btn');
+  btn.textContent='Authenticating...';btn.disabled=true;btn.style.opacity='.7';
+  setTimeout(()=>{btn.style.display='none';document.getElementById('li-success').classList.add('show');},1600);
+}
+function checkSuPw(v){
+  const fill=document.getElementById('su-pw-fill');const lbl=document.getElementById('su-pw-lbl');
+  let s=0;if(v.length>=8)s++;if(/[A-Z]/.test(v))s++;if(/[0-9]/.test(v))s++;if(/[^A-Za-z0-9]/.test(v))s++;
+  const c=['','#ff1744','#ff9100','#ffd740','#00e676'];const l=['','Weak','Fair','Good','Strong'];
+  fill.style.width=(s*25)+'%';fill.style.background=c[s]||'transparent';lbl.textContent=l[s]||'';lbl.style.color=c[s]||'var(--text3)';
+}
+function toggleAuthCb(id){document.getElementById(id).classList.toggle('checked');}
+function asuGoStep(n){
+  document.getElementById('asu-s'+asuStep).style.display='none';
+  document.getElementById('asu-d'+asuStep).className='sdot done';
+  asuStep=n;
+  document.getElementById('asu-s'+n).style.display='block';
+  document.getElementById('asu-d'+n).className='sdot active';
+}
+function setAuthType(t){
+  const p=document.getElementById('at-personal'),b=document.getElementById('at-business');
+  if(t==='personal'){p.style.background='rgba(0,229,255,.08)';p.style.border='1px solid rgba(0,229,255,.3)';p.querySelector('div:nth-child(2)').style.color='var(--cyan)';b.style.background='var(--card)';b.style.border='1px solid var(--border2)';b.querySelector('div:nth-child(2)').style.color='var(--text2)';}
+  else{b.style.background='rgba(0,229,255,.08)';b.style.border='1px solid rgba(0,229,255,.3)';b.querySelector('div:nth-child(2)').style.color='var(--cyan)';p.style.background='var(--card)';p.style.border='1px solid var(--border2)';p.querySelector('div:nth-child(2)').style.color='var(--text2)';}
+}
+function checkOtp(v){if(v.length===6){document.getElementById('otp-in').classList.add('ok');}}
+function doSignup(){
+  const btn=document.getElementById('su-fin-btn');
+  btn.textContent='Creating account...';btn.disabled=true;btn.style.opacity='.7';
+  setTimeout(()=>{btn.style.display='none';document.getElementById('su-success').classList.add('show');},1800);
+}
+
+// Init
+buildVolChart();
+buildPhoneHome();
+</script>
 </body>
 </html>
-
