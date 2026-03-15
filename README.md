@@ -1,96 +1,74 @@
 # Intellix — AI Payment Engine
 
-> The most intelligent payment platform ever built.
+> The world's most intelligent payment platform, complete with a fully integrated live database system.
 
 ![Intellix](https://img.shields.io/badge/Intellix-AI%20Payment%20Engine-00e5ff?style=for-the-badge)
-![Version](https://img.shields.io/badge/version-3.2.0-9c6fff?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-4.0.0-9c6fff?style=for-the-badge)
 ![License](https://img.shields.io/badge/license-MIT-00e676?style=for-the-badge)
 
 ## Overview
 
-Intellix is a full-stack AI-powered payment platform featuring real-time fraud detection, crypto + fiat multi-currency support, biometric authentication, and predictive spending analytics — all in a single futuristic web application.
+Intellix is a full-stack AI-powered payment platform. Everything runs in a single HTML file — no server, no build step, no dependencies beyond CDN scripts. Open it in a browser and you have a complete, working payment company system.
 
-## Pages & Features
+## Pages
 
 | Screen | Description |
 |--------|-------------|
-| 🏠 **Home** | Landing page with features, pricing, testimonials |
-| 📊 **Dashboard** | Live KPIs, volume charts, AI insights |
-| 💸 **Payments** | Send flow with biometric auth & AI routing |
+| 🏠 **Home** | Landing page with features, pricing, CTA |
+| 📊 **Dashboard** | Live KPIs, volume charts, AI insights, product finder |
+| 💸 **Payments** | Full send flow with biometric auth & AI routing |
 | 🛡️ **Fraud AI** | Investigation workspace with explainable AI |
-| ⚡ **API Console** | Interactive API docs with live requests |
+| ⚡ **API Console** | Interactive API docs with live request execution |
 | 📱 **Mobile** | Mobile app preview + 3 viral features |
-| 🔐 **Auth** | Login & 3-step signup with KYC |
+| 🔍 **Find Products** | AI-powered product price comparison (12 products, 24 stores) |
+| 🔐 **Auth** | Login & 3-step signup with KYC + biometrics |
+| 🗄️ **Database** | Full live SQLite database — 12 tables, CRUD, SQL console, analytics |
 
-## Key Features
+## Database System (SQLite WASM)
 
-- **AI FraudNet v2.1** — Real-time neural fraud detection with explainability
-- **Crypto + Fiat** — BTC, ETH, USDC, USD, EUR and 45+ currencies
-- **Biometric Auth** — Fingerprint, Face ID and Voice authentication
-- **AI Route Optimizer** — Finds cheapest payment path automatically
-- **Predictive Analytics** — 30-day spend forecasting and auto-savings
-- **Social Pay** — Viral group payments and challenges
-- **API v3** — Full REST API with webhooks
+The Database page runs a real in-memory SQLite engine powered by sql.js:
 
-## Quick Start
+| Table | Records | Description |
+|-------|---------|-------------|
+| transactions | 15 | Payment transactions with risk scores |
+| users | 10 | User profiles, KYC status, tiers |
+| payments | 12 | Payment intents with method & routing |
+| wallets | 12 | Crypto + fiat wallet balances |
+| fraud_alerts | 5 | Flagged transactions with AI signals |
+| kyc_verifications | 10 | Identity verification records |
+| currencies | 14 | BTC, ETH, USDC, USD, EUR + more |
+| api_keys | 6 | API keys with permissions & usage |
+| webhooks | 5 | Event subscriptions |
+| exchange_rates | 12 | Live FX + crypto rates |
+| audit_logs | Auto | Every DB operation logged |
+| products | 12 | Smart Shop AI-scored products |
 
-### Deploy to GitHub Pages
-1. Upload `index.html` to your repository
-2. Go to **Settings → Pages**
-3. Set source to **main branch / root**
-4. Live at `https://yourusername.github.io/repo-name`
+**Features:** Full CRUD on every table · SQL Console with 8 presets · Schema viewer · Analytics dashboard · CSV export · Auto audit log
 
-### Deploy to Netlify
-1. Go to [netlify.com/drop](https://netlify.com/drop)
-2. Drag and drop `index.html`
-3. Instant live URL — no account needed
+## Deployment
 
-### Deploy to Vercel
+### GitHub Pages (auto-deploy on push)
+The `.github/workflows/deploy.yml` file handles this automatically.
+
+### Netlify Drop
+Drag `index.html` to [netlify.com/drop](https://netlify.com/drop)
+
+### Vercel
 ```bash
 npx vercel --yes
 ```
 
-### Run Locally
+### Local
 ```bash
-# Just open in browser — no build step needed
-open index.html
+open index.html   # macOS
+start index.html  # Windows
 ```
 
 ## Tech Stack
-
-- **Pure HTML5 + CSS3 + Vanilla JS** — Zero dependencies
-- **Syne** — Display typeface for headings
-- **JetBrains Mono** — Monospace for data and code
-- **Inter** — Body text
-- Single file, fully self-contained
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/v3/payments/create` | Create a payment |
-| GET | `/v3/payments/{id}` | Get payment status |
-| POST | `/v3/ai/risk-score` | AI fraud risk scoring |
-| POST | `/v3/ai/fraud-check` | Full fraud investigation |
-| POST | `/v3/crypto/convert` | Crypto conversion |
-| GET | `/v3/crypto/wallet` | Wallet balances |
-| POST | `/v3/webhooks/create` | Create webhook |
-
-## Pricing
-
-| Plan | Price | Volume |
-|------|-------|--------|
-| Starter | Free | Up to $10K/mo |
-| Pro | $49/mo | Unlimited |
-| Enterprise | Custom | Custom + SLA |
-
-## Stats
-
-- **$4.2B+** processed
-- **99.98%** uptime
-- **124K+** daily transactions
-- **47** countries
+- **Pure HTML5 + CSS3 + Vanilla JS** — zero npm, zero build
+- **sql.js** — SQLite compiled to WebAssembly (CDN)
+- **Google Fonts** — Syne, JetBrains Mono, Inter
+- Single `index.html` file, fully self-contained
 
 ## License
-
-MIT © 2026 Intellix. Built with ❤️ and AI.
+MIT © 2026 Intellix
