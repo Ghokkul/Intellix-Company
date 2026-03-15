@@ -475,6 +475,222 @@ textarea.code-area:focus{border-color:var(--cyan)}
 .font-mono{font-family:var(--mono)}.font-syne{font-family:var(--font)}
 .fw-700{font-weight:700}.fs-12{font-size:12px}.fs-13{font-size:13px}
 .w-full{width:100%}.border-t{border-top:1px solid var(--border)}
+
+/* ══════════════════════════════════════
+   INTELLIX DATABASE SYSTEM — CSS
+   (scoped to #page-database)
+   ══════════════════════════════════════ */
+#page-database .grid-bg{display:none}
+#page-database{padding-top:0!important;min-height:calc(100vh - 64px)}
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#06070d;--bg2:#0d0f1a;--bg3:#12152a;--card:#161a2e;--card2:#1c2040;
+  --border:#ffffff10;--border2:#ffffff1c;--border3:#ffffff28;
+  --text:#e8eaf6;--text2:#7b82b0;--text3:#3a4060;
+  --cyan:#00e5ff;--cyan2:#00b8d9;--purple:#9c6fff;--purple2:#7c4fff;
+  --green:#00e676;--red:#ff1744;--orange:#ff9100;--gold:#ffd740;--pink:#ff4081;
+  --font:'Syne',sans-serif;--body:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13px;overflow-x:hidden;min-height:100vh}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0}
+
+/* ── DB PAGE UNIQUE STYLES ── */
+.topbar{position:fixed;top:0;left:0;right:0;height:58px;background:rgba(6,7,13,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;z-index:1000}
+.topbar-logo{display:flex;align-items:center;gap:8px;font-family:var(--font);font-size:17px;font-weight:800;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000}
+.topbar-subtitle{font-size:11px;color:var(--text3);margin-left:4px;font-family:var(--body);-webkit-text-fill-color:var(--text3)}
+.topbar-space{flex:1}
+.live-badge{display:flex;align-items:center;gap:5px;padding:4px 12px;border-radius:16px;background:var(--card);border:1px solid var(--border2);font-size:11px;color:var(--text2)}
+.ldot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,230,118,.4)}50%{box-shadow:0 0 0 5px rgba(0,230,118,0)}}
+.topbar-stat{font-size:11px;font-family:var(--mono);padding:4px 12px;border-radius:16px;background:var(--card);border:1px solid var(--border2)}
+
+/* ── LAYOUT ── */
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;padding-top:58px}
+
+/* ── SIDEBAR ── */
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.db-info{padding:16px;border-bottom:1px solid var(--border)}
+.db-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);font-size:10px;font-weight:700;color:var(--cyan);margin-bottom:8px;font-family:var(--font)}
+.db-name{font-family:var(--font);font-size:14px;font-weight:800;margin-bottom:2px}
+.db-meta{font-size:11px;color:var(--text3)}
+.db-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.db-stat{background:var(--bg3);border-radius:8px;padding:8px 10px}
+.db-stat-val{font-family:var(--mono);font-size:14px;font-weight:600}
+.db-stat-lbl{font-size:10px;color:var(--text3);margin-top:2px}
+.nav-section{padding:8px 16px 4px;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:9px;padding:9px 16px;cursor:pointer;transition:all .15s;color:var(--text2);font-size:12px;font-weight:500;border-left:2px solid transparent}
+.nav-item:hover{background:var(--card);color:var(--text)}
+.nav-item.active{background:linear-gradient(90deg,rgba(0,229,255,.08),transparent);color:var(--cyan);border-left-color:var(--cyan)}
+.nav-item-icon{font-size:13px;width:18px;text-align:center;flex-shrink:0}
+.nav-item-count{margin-left:auto;font-size:10px;font-family:var(--mono);background:var(--bg3);padding:2px 6px;border-radius:6px;color:var(--text3)}
+.nav-item-count.hot{background:rgba(0,229,255,.1);color:var(--cyan)}
+.sidebar-footer{margin-top:auto;padding:14px 16px;border-top:1px solid var(--border)}
+.engine-label{font-size:10px;color:var(--text3);margin-bottom:6px}
+.engine-bar{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.engine-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:2px;transition:width .5s}
+
+/* ── MAIN ── */
+.main{overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:20px;position:relative;z-index:1}
+
+/* ── TABLE CARDS ── */
+.table-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.table-title{font-family:var(--font);font-size:18px;font-weight:800;letter-spacing:-.5px}
+.table-sub{font-size:12px;color:var(--text3);margin-top:2px}
+.table-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.search-wrap{position:relative}
+.search-wrap input{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:8px 12px 8px 32px;color:var(--text);font-size:12px;font-family:var(--body);outline:none;width:200px;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--cyan)}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text3);pointer-events:none}
+.btn{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:var(--body);transition:all .15s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-danger{background:rgba(255,23,68,.12);border:1px solid rgba(255,23,68,.25);color:var(--red)}
+.btn-danger:hover{background:rgba(255,23,68,.2)}
+.btn-success{background:rgba(0,230,118,.12);border:1px solid rgba(0,230,118,.25);color:var(--green)}
+.btn-sm{padding:4px 10px;font-size:11px}
+
+/* ── DATA TABLE ── */
+.data-table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.data-table{width:100%;border-collapse:collapse}
+.data-table thead th{padding:11px 14px;text-align:left;font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border);background:var(--bg3);white-space:nowrap}
+.data-table thead th.sortable{cursor:pointer;user-select:none}
+.data-table thead th.sortable:hover{color:var(--text2)}
+.data-table tbody tr{transition:background .1s;cursor:pointer}
+.data-table tbody tr:hover td{background:rgba(255,255,255,.02)}
+.data-table tbody tr.selected td{background:rgba(0,229,255,.04)!important}
+.data-table tbody td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:12px;vertical-align:middle}
+.data-table tbody tr:last-child td{border-bottom:none}
+.mono{font-family:var(--mono)}
+.badge{padding:3px 8px;border-radius:8px;font-size:10px;font-weight:700;white-space:nowrap;font-family:var(--font)}
+.badge-green{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.2)}
+.badge-red{background:rgba(255,23,68,.12);color:var(--red);border:1px solid rgba(255,23,68,.2)}
+.badge-orange{background:rgba(255,145,0,.12);color:var(--orange);border:1px solid rgba(255,145,0,.2)}
+.badge-cyan{background:rgba(0,229,255,.1);color:var(--cyan);border:1px solid rgba(0,229,255,.2)}
+.badge-purple{background:rgba(156,111,255,.12);color:var(--purple);border:1px solid rgba(156,111,255,.2)}
+.badge-gold{background:rgba(255,215,64,.1);color:var(--gold);border:1px solid rgba(255,215,64,.2)}
+.badge-gray{background:var(--bg3);color:var(--text3);border:1px solid var(--border2)}
+
+/* ── TABLE PAGINATION ── */
+.table-footer{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--border);background:var(--bg3)}
+.table-info{font-size:11px;color:var(--text3)}
+.pagination{display:flex;gap:4px}
+.page-btn{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--text2);transition:all .15s}
+.page-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.page-btn.active{background:linear-gradient(135deg,var(--cyan2),var(--purple2));border-color:transparent;color:#000}
+
+/* ── STATS ROW ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;position:relative;overflow:hidden;transition:border-color .2s;cursor:default}
+.stat-card:hover{border-color:var(--border2)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.sc-cyan::before{background:linear-gradient(90deg,var(--cyan),transparent)}
+.sc-purple::before{background:linear-gradient(90deg,var(--purple),transparent)}
+.sc-green::before{background:linear-gradient(90deg,var(--green),transparent)}
+.sc-gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+.sc-red::before{background:linear-gradient(90deg,var(--red),transparent)}
+.sc-orange::before{background:linear-gradient(90deg,var(--orange),transparent)}
+.stat-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.stat-value{font-family:var(--font);font-size:22px;font-weight:800;letter-spacing:-.5px;margin-bottom:4px}
+.stat-delta{font-size:11px}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(6,7,13,.88);z-index:5000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;position:relative}
+.modal-header{padding:20px 24px 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg2);z-index:1;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.modal-title{font-family:var(--font);font-size:16px;font-weight:800}
+.modal-close{width:28px;height:28px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--text2);flex-shrink:0}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:20px 24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;background:var(--bg2);position:sticky;bottom:0}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px}
+.form-input,.form-select,.form-textarea{background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;transition:border-color .2s;width:100%}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--cyan)}
+.form-input::placeholder,.form-textarea::placeholder{color:var(--text3)}
+.form-select option{background:var(--card2)}
+.form-textarea{resize:vertical;min-height:80px;line-height:1.5}
+.form-hint{font-size:10px;color:var(--text3);margin-top:2px}
+.form-error{font-size:10px;color:var(--red);margin-top:2px;display:none}
+.form-input.invalid,.form-select.invalid{border-color:var(--red)}
+.form-input.valid{border-color:var(--green)}
+
+/* ── SCHEMA VIEW ── */
+.schema-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.schema-table{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.schema-table-header{padding:12px 14px;background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.schema-table-icon{font-size:14px}
+.schema-table-name{font-family:var(--font);font-size:13px;font-weight:700}
+.schema-table-count{margin-left:auto;font-size:10px;font-family:var(--mono);color:var(--text3)}
+.schema-field{display:flex;align-items:center;gap:8px;padding:7px 14px;border-bottom:1px solid var(--border);font-size:11px}
+.schema-field:last-child{border-bottom:none}
+.field-name{font-family:var(--mono);color:var(--text);flex:1}
+.field-type{font-family:var(--mono);font-size:10px;color:var(--purple)}
+.field-badge{font-size:9px;padding:1px 5px;border-radius:4px;font-weight:700}
+.pk{background:rgba(255,215,64,.12);color:var(--gold)}
+.fk{background:rgba(0,229,255,.1);color:var(--cyan)}
+.idx{background:rgba(0,230,118,.1);color:var(--green)}
+.nn{background:rgba(156,111,255,.1);color:var(--purple)}
+.schema-relation{position:relative;font-size:10px;color:var(--text3);padding:4px 14px;background:rgba(0,229,255,.03);border-bottom:1px solid var(--border)}
+.schema-relation:last-child{border-bottom:none}
+
+/* ── SQL CONSOLE ── */
+.sql-editor{background:var(--bg3);border:1px solid var(--border2);border-radius:10px;overflow:hidden}
+.sql-toolbar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.sql-lang{font-size:10px;font-weight:700;color:var(--cyan);font-family:var(--font);background:rgba(0,229,255,.1);padding:3px 8px;border-radius:6px}
+.sql-textarea{width:100%;background:transparent;border:none;padding:14px;color:var(--green);font-family:var(--mono);font-size:12px;line-height:1.7;resize:none;height:140px;outline:none}
+.sql-result{border-top:1px solid var(--border)}
+.sql-result-header{display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--card);border-bottom:1px solid var(--border);font-size:11px;color:var(--text3)}
+.sql-result-body{padding:12px 14px;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--text2);max-height:180px;overflow-y:auto;white-space:pre}
+
+/* ── AUDIT LOG ── */
+.audit-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.audit-item:last-child{border-bottom:none}
+.audit-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px}
+.audit-body{flex:1}
+.audit-action{font-size:12px;font-weight:600}
+.audit-detail{font-size:11px;color:var(--text3);margin-top:2px;font-family:var(--mono)}
+.audit-time{font-size:10px;color:var(--text3);white-space:nowrap;font-family:var(--mono);margin-top:3px}
+
+/* ── TOAST ── */
+#toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast-item{background:var(--card2);border-radius:10px;padding:11px 16px;font-size:12px;color:var(--text);pointer-events:auto;cursor:pointer;min-width:220px;max-width:340px;opacity:0;transition:opacity .3s;border-left:3px solid var(--cyan)}
+.toast-item.show{opacity:1}
+.toast-item.success{border-left-color:var(--green)}
+.toast-item.error{border-left-color:var(--red)}
+.toast-item.warning{border-left-color:var(--orange)}
+
+/* ── MISC ── */
+.section{display:none}.section.active{display:flex;flex-direction:column;gap:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.card-title{font-family:var(--font);font-size:14px;font-weight:700;margin-bottom:14px}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600;margin:2px}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text3)}
+.empty-icon{font-size:32px;margin-bottom:10px}
+.empty-title{font-size:14px;font-weight:600;color:var(--text2);margin-bottom:6px}
+.relation-line{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);padding:4px 0}
+.rel-arrow{color:var(--cyan)}
+.chip{padding:3px 9px;border-radius:12px;font-size:10px;font-weight:600;font-family:var(--mono);background:var(--bg3);border:1px solid var(--border2);color:var(--text2);cursor:pointer;transition:all .15s}
+.chip:hover,.chip.active{background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.3);color:var(--cyan)}
+.progress-bar{height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.divider{height:1px;background:var(--border);margin:4px 0}
+.flex{display:flex}.gap-8{gap:8px}.gap-12{gap:12px}.items-center{align-items:center}.justify-between{justify-content:space-between}.flex-1{flex:1}
+.text-cyan{color:var(--cyan)}.text-green{color:var(--green)}.text-red{color:var(--red)}.text-orange{color:var(--orange)}.text-purple{color:var(--purple)}.text-gold{color:var(--gold)}
+.fw-600{font-weight:600}.fw-700{font-weight:700}.fs-11{font-size:11px}.fs-12{font-size:12px}
+.mt-4{margin-top:4px}.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mb-4{margin-bottom:4px}.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}
+
 </style>
 </head>
 <body>
@@ -494,6 +710,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
     <button class="nav-link" id="nl-api" onclick="showPage('api')">API</button>
     <button class="nav-link" id="nl-mobile" onclick="showPage('mobile')">Mobile</button>
     <button class="nav-link nl-products-btn" id="nl-products" onclick="showPage('products')">&#9670; Find Products</button>
+    <button class="nav-link" id="nl-database" onclick="showPage('database')" style="background:rgba(156,111,255,.1);border:1px solid rgba(156,111,255,.25);color:var(--purple);font-weight:700">&#9632; Database</button>
   </div>
   <div class="nav-space"></div>
   <div class="nav-pill"><span class="live-dot"></span>Live · $4.2M/hr</div>
@@ -612,7 +829,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
           <div class="pf-item"><div class="pf-check on">&#10003;</div>Dedicated support</div>
           <div class="pf-item"><div class="pf-check on">&#10003;</div>Custom integrations</div>
         </div>
-        <button class="price-btn price-btn-ghost">Contact sales</button>
+        <button class="price-btn price-btn-ghost" onclick="contactSales()">Contact sales</button>
       </div>
     </div>
   </div>
@@ -635,20 +852,20 @@ textarea.code-area:focus{border-color:var(--cyan)}
   <div class="dash-shell">
     <div class="sidebar">
       <div class="nav-section-label">Core</div>
-      <div class="side-item active" id="si-dash">&#9670; &nbsp;Dashboard</div>
+      <div class="side-item active" id="si-dash" onclick="showPage('dashboard')">&#9670; &nbsp;Dashboard</div>
       <div class="side-item" onclick="showPage('payment')">&#8645; &nbsp;Transactions</div>
-      <div class="side-item">&#9675; &nbsp;Payment Flows</div>
+      <div class="side-item" onclick="toast('Payment Flows coming soon!','warning')">&#9675; &nbsp;Payment Flows</div>
       <div class="nav-section-label">AI Engine</div>
       <div class="side-item" onclick="showPage('fraud')">&#9634; &nbsp;Fraud Detection <span class="side-badge">3</span></div>
-      <div class="side-item">&#9670; &nbsp;Risk Scoring</div>
-      <div class="side-item">&#8764; &nbsp;Predictive AI</div>
+      <div class="side-item" onclick="toast('AI Risk Scoring — score: 0.03 (Excellent)','success')">&#9670; &nbsp;Risk Scoring</div>
+      <div class="side-item" onclick="toast('Predictive AI forecasting $92.4M volume tomorrow','info')">&#8764; &nbsp;Predictive AI</div>
       <div class="nav-section-label">Assets</div>
-      <div class="side-item">&#9674; &nbsp;Crypto Ledger</div>
-      <div class="side-item">$ &nbsp;Fiat Accounts</div>
-      <div class="side-item">&#8644; &nbsp;Conversions</div>
+      <div class="side-item" onclick="toast('Crypto Ledger: BTC 2.841 · ETH 48.2 · USDC 540K','info')">&#9674; &nbsp;Crypto Ledger</div>
+      <div class="side-item" onclick="toast('Fiat Accounts: USD $48,291 · EUR €12,840','info')">$ &nbsp;Fiat Accounts</div>
+      <div class="side-item" onclick="toast('Best rate: 1 USD = 0.9965 EUR · via Polygon','success')">&#8644; &nbsp;Conversions</div>
       <div class="nav-section-label">Platform</div>
       <div class="side-item" onclick="showPage('api')">&#61; &nbsp;API Console</div>
-      <div class="side-item">&#9675; &nbsp;Settings</div>
+      <div class="side-item" onclick="showModal('Settings','Settings panel coming in the next release. You can manage your profile, notifications, security and billing here.',[{label:'Got it',fn:'closeModal()',primary:true}])">&#9675; &nbsp;Settings</div>
       <div class="sidebar-footer">
         <div style="font-size:11px;color:var(--text3)">System Health · 94%</div>
         <div class="health-bar"><div class="health-fill"></div></div>
@@ -659,7 +876,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
         <div><div class="dash-title">Command Center</div><div class="dash-sub">Sunday, March 15 · Real-time AI payment intelligence</div></div>
         <div class="dash-actions">
           <div class="tab-row"><div class="tab active">1D</div><div class="tab">7D</div><div class="tab">30D</div><div class="tab">1Y</div></div>
-          <button class="btn btn-ghost">&#8595; Export</button>
+          <button class="btn btn-ghost" onclick="exportDashboard()">&#8595; Export</button>
           <button class="btn btn-primary" onclick="showPage('payment')">+ New Payment</button>
         </div>
       </div>
@@ -704,7 +921,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
             <div style="flex:1"><div class="fs-12 fw-700">Velocity Spike #TXN-9821</div><div style="font-size:11px;color:var(--text3)">$84,200 · SG→Cayman</div></div>
             <div class="risk-badge rb-h">HIGH</div>
           </div>
-          <div class="risk-item">
+          <div class="risk-item" onclick="showPage('fraud')">
             <div class="risk-icon" style="background:rgba(255,145,0,.1)">&#9685;</div>
             <div style="flex:1"><div class="fs-12 fw-700">Geo-mismatch #TXN-9819</div><div style="font-size:11px;color:var(--text3)">$12,400 · DE device→RU IP</div></div>
             <div class="risk-badge rb-m">MED</div>
@@ -804,7 +1021,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
       <div class="fx-input" id="payRecv" style="color:var(--green);font-weight:700;font-family:var(--mono)">12,456.25 USD</div>
       <label class="input-label">Send to</label>
       <input class="fx-input" placeholder="Wallet address, email, or account number">
-      <div class="ai-route-box"><strong>AI Route Optimizer:</strong> Cheapest path via <strong>Polygon Bridge → ETH</strong>. Fee <strong>$0.18</strong> vs $12.40 direct. Saves 98.5%.</div>
+      <div class="ai-route-box" onclick="applyRoute()" style="cursor:pointer"><strong>AI Route Optimizer:</strong> Cheapest path via <strong>Polygon Bridge → ETH</strong>. Fee <strong>$0.18</strong> vs $12.40 direct. Saves 98.5%. <span style="color:var(--cyan);font-weight:600">Click to apply &rarr;</span></div>
       <div class="fee-box">
         <div class="fee-row"><span style="color:var(--text2)">Network fee</span><span class="font-mono" id="pfeeNet">$0.18</span></div>
         <div class="fee-row"><span style="color:var(--text2)">Intellix fee (0.05%)</span><span class="font-mono" id="pfeeIx">$6.25</span></div>
@@ -834,9 +1051,9 @@ textarea.code-area:focus{border-color:var(--cyan)}
       <div class="card">
         <div class="card-title mb-12">Smart Scheduling</div>
         <div class="schedule-grid">
-          <div class="sched-opt active"><div class="sched-opt-time">NOW</div><div class="sched-opt-fee">$6.43</div></div>
-          <div class="sched-opt"><div class="sched-opt-time">14:00</div><div class="sched-opt-fee">$1.20</div></div>
-          <div class="sched-opt"><div class="sched-opt-time">22:00</div><div class="sched-opt-fee">$0.18</div></div>
+          <div class="sched-opt active" onclick="selectSchedule(this,'Now','$6.43')"><div class="sched-opt-time">NOW</div><div class="sched-opt-fee">$6.43</div></div>
+          <div class="sched-opt" onclick="selectSchedule(this,'14:00 UTC','$1.20')"><div class="sched-opt-time">14:00</div><div class="sched-opt-fee">$1.20</div></div>
+          <div class="sched-opt" onclick="selectSchedule(this,'22:00 UTC','$0.18')"><div class="sched-opt-time">22:00</div><div class="sched-opt-fee">$0.18</div></div>
         </div>
         <div style="font-size:11px;color:var(--text3);margin-top:8px">AI recommends 22:00 — lowest fee window</div>
       </div>
@@ -1101,7 +1318,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
           <div><div style="font-family:var(--font);font-size:22px;font-weight:800;color:var(--purple)">47</div><div style="font-size:11px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.8px">Countries</div></div>
         </div>
       </div>
-      <div style="position:relative;z-index:1;display:flex;gap:20px"><span style="font-size:12px;color:var(--text3);cursor:pointer">Privacy</span><span style="font-size:12px;color:var(--text3);cursor:pointer">Terms</span><span style="font-size:12px;color:var(--text3);cursor:pointer">Security</span></div>
+      <div style="position:relative;z-index:1;display:flex;gap:20px"><span style="font-size:12px;color:var(--text3);cursor:pointer" onclick="showPolicy('Privacy')">Privacy</span><span style="font-size:12px;color:var(--text3);cursor:pointer" onclick="showPolicy('Terms')">Terms</span><span style="font-size:12px;color:var(--text3);cursor:pointer" onclick="showPolicy('Security')">Security</span></div>
     </div>
     <div class="auth-form-side">
       <div class="auth-form-box">
@@ -1114,15 +1331,15 @@ textarea.code-area:focus{border-color:var(--cyan)}
           <div class="auth-title">Welcome back</div>
           <div class="auth-sub">Sign in to your Intellix account.</div>
           <div class="social-btns">
-            <div class="social-btn"><div class="soc-icon" style="background:#fff;color:#d44">G</div>Google</div>
-            <div class="social-btn"><div class="soc-icon" style="background:#000;color:#fff">&#63743;</div>Apple</div>
+            <div class="social-btn" onclick="socialSignIn('Google')"><div class="soc-icon" style="background:#fff;color:#d44">G</div>Google</div>
+            <div class="social-btn" onclick="socialSignIn('Apple')"><div class="soc-icon" style="background:#000;color:#fff">&#63743;</div>Apple</div>
           </div>
           <div class="divider"><div class="divider-line"></div><span>or continue with email</span><div class="divider-line"></div></div>
           <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Email address</label>
           <input class="ix-input" id="li-email" type="email" placeholder="you@company.com">
           <label style="font-size:12px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px">Password</label>
           <input class="ix-input" id="li-pw" type="password" placeholder="Your password">
-          <div style="text-align:right;margin-top:-6px;margin-bottom:14px"><a style="font-size:12px;color:var(--cyan);cursor:pointer">Forgot password?</a></div>
+          <div style="text-align:right;margin-top:-6px;margin-bottom:14px"><a style="font-size:12px;color:var(--cyan);cursor:pointer" onclick="forgotPassword()">Forgot password?</a></div>
           <button class="auth-submit" id="li-btn" onclick="doAuthLogin()">Sign in to Intellix</button>
           <div style="text-align:center;margin-top:14px;font-size:12px;color:var(--text3)">No account? <a style="color:var(--cyan);cursor:pointer" onclick="switchAuth('signup')">Create one free</a></div>
           <div class="success-screen" id="li-success">
@@ -1139,8 +1356,8 @@ textarea.code-area:focus{border-color:var(--cyan)}
             <div class="auth-title">Create account</div>
             <div class="auth-sub">Join 2.4M+ users on Intellix.</div>
             <div class="social-btns">
-              <div class="social-btn"><div class="soc-icon" style="background:#fff;color:#d44">G</div>Google</div>
-              <div class="social-btn"><div class="soc-icon" style="background:#000;color:#fff">&#63743;</div>Apple</div>
+              <div class="social-btn" onclick="socialSignIn('Google')"><div class="soc-icon" style="background:#fff;color:#d44">G</div>Google</div>
+              <div class="social-btn" onclick="socialSignIn('Apple')"><div class="soc-icon" style="background:#000;color:#fff">&#63743;</div>Apple</div>
             </div>
             <div class="divider"><div class="divider-line"></div><span>or sign up with email</span><div class="divider-line"></div></div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -1189,43 +1406,1711 @@ textarea.code-area:focus{border-color:var(--cyan)}
   </div>
 </div>
 
+<!-- ======================== DATABASE PAGE ======================== -->
+<div class="page" id="page-database">
+
+<!-- DB SUB-HEADER -->
+<div class="db-subheader" style="display:flex;align-items:center;height:52px;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;gap:16px;position:sticky;top:64px;z-index:100">
+  <div style="font-family:var(--font);font-size:14px;font-weight:800;color:var(--purple)">&#9632; Database System</div><span style="font-size:11px;color:var(--text3)">intellix_production · SQLite WASM · 12 tables</span>
+  <div class="topbar-space"></div>
+  <div class="live-badge"><span class="ldot"></span>SQLite In-Memory</div>
+  <div class="topbar-stat" id="topTxnCount" style="color:var(--cyan)">0 txns</div>
+  <div class="topbar-stat" id="topUserCount" style="color:var(--green)">0 users</div>
+  <div class="topbar-stat" id="topVolume" style="color:var(--gold)">$0</div>
+</div>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="db-info">
+      <div class="db-badge">&#9670; INTELLIX DB</div>
+      <div class="db-name">intellix_production</div>
+      <div class="db-meta">12 tables · In-memory SQLite</div>
+    </div>
+    <div class="db-stats">
+      <div class="db-stat"><div class="db-stat-val text-cyan" id="sbTxns">0</div><div class="db-stat-lbl">Transactions</div></div>
+      <div class="db-stat"><div class="db-stat-val text-green" id="sbUsers">0</div><div class="db-stat-lbl">Users</div></div>
+      <div class="db-stat"><div class="db-stat-val text-purple" id="sbPayments">0</div><div class="db-stat-lbl">Payments</div></div>
+      <div class="db-stat"><div class="db-stat-val" style="color:var(--gold)" id="sbAlerts">0</div><div class="db-stat-lbl">Alerts</div></div>
+    </div>
+
+    <div class="nav-section">Tables</div>
+    <div class="nav-item active" onclick="navTo('transactions',this)"><span class="nav-item-icon">&#8645;</span>transactions<span class="nav-item-count hot" id="cnt-transactions">0</span></div>
+    <div class="nav-item" onclick="navTo('users',this)"><span class="nav-item-icon">&#128100;</span>users<span class="nav-item-count" id="cnt-users">0</span></div>
+    <div class="nav-item" onclick="navTo('payments',this)"><span class="nav-item-icon">&#9670;</span>payments<span class="nav-item-count" id="cnt-payments">0</span></div>
+    <div class="nav-item" onclick="navTo('wallets',this)"><span class="nav-item-icon">&#9674;</span>wallets<span class="nav-item-count" id="cnt-wallets">0</span></div>
+    <div class="nav-item" onclick="navTo('fraud_alerts',this)"><span class="nav-item-icon">&#9888;</span>fraud_alerts<span class="nav-item-count" id="cnt-fraud_alerts">0</span></div>
+    <div class="nav-item" onclick="navTo('kyc_verifications',this)"><span class="nav-item-icon">&#9711;</span>kyc_verifications<span class="nav-item-count" id="cnt-kyc_verifications">0</span></div>
+    <div class="nav-item" onclick="navTo('currencies',this)"><span class="nav-item-icon">&#8383;</span>currencies<span class="nav-item-count" id="cnt-currencies">0</span></div>
+    <div class="nav-item" onclick="navTo('api_keys',this)"><span class="nav-item-icon">&#61;</span>api_keys<span class="nav-item-count" id="cnt-api_keys">0</span></div>
+    <div class="nav-item" onclick="navTo('webhooks',this)"><span class="nav-item-icon">&#8680;</span>webhooks<span class="nav-item-count" id="cnt-webhooks">0</span></div>
+    <div class="nav-item" onclick="navTo('exchange_rates',this)"><span class="nav-item-icon">&#8644;</span>exchange_rates<span class="nav-item-count" id="cnt-exchange_rates">0</span></div>
+    <div class="nav-item" onclick="navTo('audit_logs',this)"><span class="nav-item-icon">&#128196;</span>audit_logs<span class="nav-item-count" id="cnt-audit_logs">0</span></div>
+    <div class="nav-item" onclick="navTo('products',this)"><span class="nav-item-icon">&#127873;</span>products<span class="nav-item-count" id="cnt-products">0</span></div>
+
+    <div class="nav-section">Tools</div>
+    <div class="nav-item" onclick="navTo('schema',this)"><span class="nav-item-icon">&#9632;</span>Schema View</div>
+    <div class="nav-item" onclick="navTo('sql',this)"><span class="nav-item-icon">&#9654;</span>SQL Console</div>
+    <div class="nav-item" onclick="navTo('analytics',this)"><span class="nav-item-icon">&#8728;</span>Analytics</div>
+
+    <div class="sidebar-footer">
+      <div class="engine-label">DB Engine · SQLite WASM</div>
+      <div class="progress-bar"><div class="progress-fill" id="engineBar" style="width:0%;background:linear-gradient(90deg,var(--cyan),var(--purple))"></div></div>
+      <div style="font-size:10px;color:var(--text3);margin-top:5px" id="engineStatus">Initializing...</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main" id="mainArea">
+    <!-- Loading state -->
+    <div id="loadingState" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:16px">
+      <div style="font-family:var(--font);font-size:24px;font-weight:800;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Initializing Database</div>
+      <div style="font-size:13px;color:var(--text3)" id="loadMsg">Loading SQLite engine...</div>
+      <div style="width:300px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div id="loadBar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:2px;transition:width .3s"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Modal</div>
+      <div class="modal-close" onclick="closeModal()">&#10005;</div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.js"></script>
 <script>
+// ══════════════════════════════════════════════════════════════
+// INTELLIX DATABASE SYSTEM — FULL IMPLEMENTATION
+// ══════════════════════════════════════════════════════════════
+
+let DB = null;
+let currentTable = 'transactions';
+let currentPage = 1;
+const PAGE_SIZE = 15;
+let sortCol = null, sortDir = 'asc';
+let searchQuery = '';
+let auditBuffer = [];
+
+// ── DB TOAST → bridges to main Intellix toast ──
+// toast() is already defined in the main script block above, so DB code uses it directly
+
+// ── MODAL ──
+function openModal(title, bodyHTML, footerHTML=''){
+  document.getElementById('modalTitle').textContent=title;
+  document.getElementById('modalBody').innerHTML=bodyHTML;
+  document.getElementById('modalFooter').innerHTML=footerHTML||`<button class="btn btn-ghost" onclick="closeModal()">Close</button>`;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+
+// ── AUDIT ──
+function logAudit(action, table, details, user='admin'){
+  const entry={id:genId(),timestamp:new Date().toISOString(),action,table_name:table,details,user,ip:'192.168.1.'+Math.floor(Math.random()*255)};
+  try{
+    DB.run(`INSERT INTO audit_logs VALUES(?,?,?,?,?,?)`,
+      [entry.id,entry.timestamp,entry.action,entry.table_name,entry.details,entry.user]);
+  }catch(e){}
+  auditBuffer.unshift(entry);
+  if(auditBuffer.length>100)auditBuffer.pop();
+  updateCounts();
+}
+
+// ── ID GENERATOR ──
+function genId(prefix=''){
+  return prefix+(Date.now().toString(36)+Math.random().toString(36).slice(2,6)).toUpperCase();
+}
+function genUUID(){
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&0x3|0x8)).toString(16);});
+}
+
+// ══════════════════════════════════════════════════════════════
+// SCHEMA DEFINITIONS
+// ══════════════════════════════════════════════════════════════
+
+const SCHEMA = {
+  users:{
+    icon:'&#128100;',
+    color:'var(--cyan)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'email',type:'TEXT',tags:['NN','IDX']},
+      {name:'full_name',type:'TEXT',tags:['NN']},
+      {name:'phone',type:'TEXT',tags:[]},
+      {name:'country',type:'TEXT',tags:[]},
+      {name:'account_type',type:'TEXT',tags:[]},
+      {name:'kyc_status',type:'TEXT',tags:[]},
+      {name:'risk_score',type:'REAL',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:[]},
+      {name:'last_login',type:'DATETIME',tags:[]},
+      {name:'is_active',type:'INTEGER',tags:[]},
+      {name:'tier',type:'TEXT',tags:[]}
+    ],
+    relations:['id → wallets.user_id','id → transactions.user_id','id → kyc_verifications.user_id']
+  },
+  transactions:{
+    icon:'&#8645;',
+    color:'var(--purple)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'user_id',type:'TEXT',tags:['FK']},
+      {name:'payment_id',type:'TEXT',tags:['FK']},
+      {name:'type',type:'TEXT',tags:['IDX']},
+      {name:'status',type:'TEXT',tags:['IDX']},
+      {name:'amount',type:'REAL',tags:['NN']},
+      {name:'currency',type:'TEXT',tags:[]},
+      {name:'amount_usd',type:'REAL',tags:[]},
+      {name:'from_wallet',type:'TEXT',tags:[]},
+      {name:'to_wallet',type:'TEXT',tags:[]},
+      {name:'network',type:'TEXT',tags:[]},
+      {name:'tx_hash',type:'TEXT',tags:['IDX']},
+      {name:'fee',type:'REAL',tags:[]},
+      {name:'risk_score',type:'REAL',tags:[]},
+      {name:'fraud_flag',type:'INTEGER',tags:[]},
+      {name:'route',type:'TEXT',tags:[]},
+      {name:'metadata',type:'TEXT',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:['IDX']},
+      {name:'confirmed_at',type:'DATETIME',tags:[]}
+    ],
+    relations:['user_id → users.id','payment_id → payments.id']
+  },
+  payments:{
+    icon:'&#9670;',
+    color:'var(--green)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'user_id',type:'TEXT',tags:['FK']},
+      {name:'amount',type:'REAL',tags:['NN']},
+      {name:'currency',type:'TEXT',tags:[]},
+      {name:'status',type:'TEXT',tags:['IDX']},
+      {name:'payment_method',type:'TEXT',tags:[]},
+      {name:'recipient_wallet',type:'TEXT',tags:[]},
+      {name:'recipient_name',type:'TEXT',tags:[]},
+      {name:'description',type:'TEXT',tags:[]},
+      {name:'route_optimizer',type:'INTEGER',tags:[]},
+      {name:'scheduled_at',type:'DATETIME',tags:[]},
+      {name:'completed_at',type:'DATETIME',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:[]}
+    ],
+    relations:['user_id → users.id']
+  },
+  wallets:{
+    icon:'&#9674;',
+    color:'var(--gold)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'user_id',type:'TEXT',tags:['FK']},
+      {name:'currency',type:'TEXT',tags:['IDX']},
+      {name:'address',type:'TEXT',tags:['IDX']},
+      {name:'balance',type:'REAL',tags:[]},
+      {name:'balance_usd',type:'REAL',tags:[]},
+      {name:'network',type:'TEXT',tags:[]},
+      {name:'wallet_type',type:'TEXT',tags:[]},
+      {name:'is_primary',type:'INTEGER',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:[]}
+    ],
+    relations:['user_id → users.id']
+  },
+  fraud_alerts:{
+    icon:'&#9888;',
+    color:'var(--red)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'transaction_id',type:'TEXT',tags:['FK']},
+      {name:'user_id',type:'TEXT',tags:['FK']},
+      {name:'risk_score',type:'REAL',tags:['IDX']},
+      {name:'severity',type:'TEXT',tags:['IDX']},
+      {name:'signals',type:'TEXT',tags:[]},
+      {name:'verdict',type:'TEXT',tags:[]},
+      {name:'action_taken',type:'TEXT',tags:[]},
+      {name:'reviewed_by',type:'TEXT',tags:[]},
+      {name:'reviewed_at',type:'DATETIME',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:[]}
+    ],
+    relations:['transaction_id → transactions.id','user_id → users.id']
+  },
+  kyc_verifications:{
+    icon:'&#9711;',
+    color:'var(--cyan)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'user_id',type:'TEXT',tags:['FK']},
+      {name:'status',type:'TEXT',tags:['IDX']},
+      {name:'doc_type',type:'TEXT',tags:[]},
+      {name:'doc_country',type:'TEXT',tags:[]},
+      {name:'biometric_method',type:'TEXT',tags:[]},
+      {name:'verified_at',type:'DATETIME',tags:[]},
+      {name:'expires_at',type:'DATETIME',tags:[]},
+      {name:'provider',type:'TEXT',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:[]}
+    ],
+    relations:['user_id → users.id']
+  },
+  currencies:{
+    icon:'&#8383;',
+    color:'var(--orange)',
+    fields:[
+      {name:'code',type:'TEXT',tags:['PK']},
+      {name:'name',type:'TEXT',tags:['NN']},
+      {name:'type',type:'TEXT',tags:[]},
+      {name:'symbol',type:'TEXT',tags:[]},
+      {name:'decimals',type:'INTEGER',tags:[]},
+      {name:'network',type:'TEXT',tags:[]},
+      {name:'is_active',type:'INTEGER',tags:[]},
+      {name:'min_amount',type:'REAL',tags:[]},
+      {name:'max_amount',type:'REAL',tags:[]}
+    ],
+    relations:[]
+  },
+  api_keys:{
+    icon:'&#61;',
+    color:'var(--purple)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'user_id',type:'TEXT',tags:['FK']},
+      {name:'key_hash',type:'TEXT',tags:['IDX']},
+      {name:'key_prefix',type:'TEXT',tags:[]},
+      {name:'name',type:'TEXT',tags:[]},
+      {name:'permissions',type:'TEXT',tags:[]},
+      {name:'last_used',type:'DATETIME',tags:[]},
+      {name:'calls_today',type:'INTEGER',tags:[]},
+      {name:'is_active',type:'INTEGER',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:[]}
+    ],
+    relations:['user_id → users.id']
+  },
+  webhooks:{
+    icon:'&#8680;',
+    color:'var(--green)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'user_id',type:'TEXT',tags:['FK']},
+      {name:'url',type:'TEXT',tags:['NN']},
+      {name:'events',type:'TEXT',tags:[]},
+      {name:'secret_hash',type:'TEXT',tags:[]},
+      {name:'is_active',type:'INTEGER',tags:[]},
+      {name:'last_triggered',type:'DATETIME',tags:[]},
+      {name:'success_count',type:'INTEGER',tags:[]},
+      {name:'fail_count',type:'INTEGER',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:[]}
+    ],
+    relations:['user_id → users.id']
+  },
+  exchange_rates:{
+    icon:'&#8644;',
+    color:'var(--cyan)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'from_currency',type:'TEXT',tags:['IDX']},
+      {name:'to_currency',type:'TEXT',tags:['IDX']},
+      {name:'rate',type:'REAL',tags:['NN']},
+      {name:'source',type:'TEXT',tags:[]},
+      {name:'bid',type:'REAL',tags:[]},
+      {name:'ask',type:'REAL',tags:[]},
+      {name:'updated_at',type:'DATETIME',tags:[]}
+    ],
+    relations:[]
+  },
+  audit_logs:{
+    icon:'&#128196;',
+    color:'var(--text2)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'timestamp',type:'DATETIME',tags:['IDX']},
+      {name:'action',type:'TEXT',tags:['IDX']},
+      {name:'table_name',type:'TEXT',tags:[]},
+      {name:'details',type:'TEXT',tags:[]},
+      {name:'user',type:'TEXT',tags:[]}
+    ],
+    relations:[]
+  },
+  products:{
+    icon:'&#127873;',
+    color:'var(--pink)',
+    fields:[
+      {name:'id',type:'TEXT',tags:['PK']},
+      {name:'name',type:'TEXT',tags:['NN']},
+      {name:'category',type:'TEXT',tags:['IDX']},
+      {name:'price',type:'REAL',tags:['NN']},
+      {name:'original_price',type:'REAL',tags:[]},
+      {name:'ai_score',type:'REAL',tags:[]},
+      {name:'rating',type:'REAL',tags:[]},
+      {name:'review_count',type:'INTEGER',tags:[]},
+      {name:'best_store',type:'TEXT',tags:[]},
+      {name:'in_stock',type:'INTEGER',tags:[]},
+      {name:'created_at',type:'DATETIME',tags:[]}
+    ],
+    relations:[]
+  }
+};
+
+// ══════════════════════════════════════════════════════════════
+// DATABASE INITIALIZATION
+// ══════════════════════════════════════════════════════════════
+
+async function initDB(){
+  const loadBar=document.getElementById('loadBar');
+  const loadMsg=document.getElementById('loadMsg');
+  const engineBar=document.getElementById('engineBar');
+  const engineStatus=document.getElementById('engineStatus');
+
+  function progress(pct,msg){
+    loadBar.style.width=pct+'%';
+    if(loadMsg)loadMsg.textContent=msg;
+    engineBar.style.width=pct+'%';
+  }
+
+  try{
+    progress(10,'Loading SQLite WASM engine...');
+    const SQL=await initSqlJs({locateFile:f=>`https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/${f}`});
+    DB=new SQL.Database();
+    progress(25,'Creating tables...');
+    createTables();
+    progress(50,'Seeding user data...');
+    seedUsers();
+    progress(60,'Seeding transactions...');
+    seedTransactions();
+    progress(70,'Seeding wallets & payments...');
+    seedWallets();seedPayments();
+    progress(78,'Seeding fraud alerts...');
+    seedFraudAlerts();
+    progress(84,'Seeding KYC & currencies...');
+    seedKYC();seedCurrencies();
+    progress(90,'Seeding API keys, webhooks & rates...');
+    seedAPIKeys();seedWebhooks();seedExchangeRates();
+    progress(95,'Seeding products...');
+    seedProducts();
+    progress(100,'Ready!');
+    engineStatus.textContent='Ready · 12 tables active';
+    setTimeout(()=>{
+      document.getElementById('loadingState').remove();
+      updateCounts();
+      updateTopBar();
+      renderSection('transactions');
+      toast('Database initialized — 12 tables, seeded with live data','success',4000);
+    },400);
+  }catch(e){
+    loadMsg.textContent='Error: '+e.message;
+    engineStatus.textContent='Error — check console';
+    console.error('DB init error:',e);
+    toast('Failed to load SQLite WASM. Check your internet connection.','error',6000);
+  }
+}
+
+function createTables(){
+  DB.run(`CREATE TABLE users(id TEXT PRIMARY KEY,email TEXT UNIQUE NOT NULL,full_name TEXT,phone TEXT,country TEXT,account_type TEXT DEFAULT 'personal',kyc_status TEXT DEFAULT 'pending',risk_score REAL DEFAULT 0.0,created_at DATETIME,last_login DATETIME,is_active INTEGER DEFAULT 1,tier TEXT DEFAULT 'starter')`);
+  DB.run(`CREATE TABLE transactions(id TEXT PRIMARY KEY,user_id TEXT,payment_id TEXT,type TEXT,status TEXT,amount REAL,currency TEXT,amount_usd REAL,from_wallet TEXT,to_wallet TEXT,network TEXT,tx_hash TEXT,fee REAL,risk_score REAL DEFAULT 0.0,fraud_flag INTEGER DEFAULT 0,route TEXT,metadata TEXT,created_at DATETIME,confirmed_at DATETIME,FOREIGN KEY(user_id)REFERENCES users(id))`);
+  DB.run(`CREATE TABLE payments(id TEXT PRIMARY KEY,user_id TEXT,amount REAL,currency TEXT,status TEXT,payment_method TEXT,recipient_wallet TEXT,recipient_name TEXT,description TEXT,route_optimizer INTEGER DEFAULT 1,scheduled_at DATETIME,completed_at DATETIME,created_at DATETIME,FOREIGN KEY(user_id)REFERENCES users(id))`);
+  DB.run(`CREATE TABLE wallets(id TEXT PRIMARY KEY,user_id TEXT,currency TEXT,address TEXT,balance REAL,balance_usd REAL,network TEXT,wallet_type TEXT DEFAULT 'custodial',is_primary INTEGER DEFAULT 0,created_at DATETIME,FOREIGN KEY(user_id)REFERENCES users(id))`);
+  DB.run(`CREATE TABLE fraud_alerts(id TEXT PRIMARY KEY,transaction_id TEXT,user_id TEXT,risk_score REAL,severity TEXT,signals TEXT,verdict TEXT,action_taken TEXT,reviewed_by TEXT,reviewed_at DATETIME,created_at DATETIME,FOREIGN KEY(transaction_id)REFERENCES transactions(id))`);
+  DB.run(`CREATE TABLE kyc_verifications(id TEXT PRIMARY KEY,user_id TEXT,status TEXT,doc_type TEXT,doc_country TEXT,biometric_method TEXT,verified_at DATETIME,expires_at DATETIME,provider TEXT DEFAULT 'Intellix-KYC',created_at DATETIME,FOREIGN KEY(user_id)REFERENCES users(id))`);
+  DB.run(`CREATE TABLE currencies(code TEXT PRIMARY KEY,name TEXT NOT NULL,type TEXT,symbol TEXT,decimals INTEGER DEFAULT 2,network TEXT,is_active INTEGER DEFAULT 1,min_amount REAL DEFAULT 0.01,max_amount REAL DEFAULT 1000000)`);
+  DB.run(`CREATE TABLE api_keys(id TEXT PRIMARY KEY,user_id TEXT,key_hash TEXT UNIQUE,key_prefix TEXT,name TEXT,permissions TEXT,last_used DATETIME,calls_today INTEGER DEFAULT 0,is_active INTEGER DEFAULT 1,created_at DATETIME,FOREIGN KEY(user_id)REFERENCES users(id))`);
+  DB.run(`CREATE TABLE webhooks(id TEXT PRIMARY KEY,user_id TEXT,url TEXT NOT NULL,events TEXT,secret_hash TEXT,is_active INTEGER DEFAULT 1,last_triggered DATETIME,success_count INTEGER DEFAULT 0,fail_count INTEGER DEFAULT 0,created_at DATETIME,FOREIGN KEY(user_id)REFERENCES users(id))`);
+  DB.run(`CREATE TABLE exchange_rates(id TEXT PRIMARY KEY,from_currency TEXT,to_currency TEXT,rate REAL NOT NULL,source TEXT,bid REAL,ask REAL,updated_at DATETIME)`);
+  DB.run(`CREATE TABLE audit_logs(id TEXT PRIMARY KEY,timestamp DATETIME,action TEXT,table_name TEXT,details TEXT,user TEXT)`);
+  DB.run(`CREATE TABLE products(id TEXT PRIMARY KEY,name TEXT NOT NULL,category TEXT,price REAL,original_price REAL,ai_score REAL,rating REAL,review_count INTEGER,best_store TEXT,in_stock INTEGER DEFAULT 1,created_at DATETIME)`);
+  DB.run(`CREATE INDEX idx_txn_user ON transactions(user_id)`);
+  DB.run(`CREATE INDEX idx_txn_status ON transactions(status)`);
+  DB.run(`CREATE INDEX idx_txn_created ON transactions(created_at)`);
+  DB.run(`CREATE INDEX idx_fraud_severity ON fraud_alerts(severity)`);
+}
+
+// ── SEED DATA ──
+const NOW=new Date();
+function daysAgo(d){return new Date(NOW-d*86400000).toISOString();}
+function hoursAgo(h){return new Date(NOW-h*3600000).toISOString();}
+function minsAgo(m){return new Date(NOW-m*60000).toISOString();}
+
+const USER_SEEDS=[
+  ['USR001','alex.owen@company.com','Alex Owen','+1-415-555-0101','United States','personal','approved',0.02,daysAgo(180),hoursAgo(2),1,'pro'],
+  ['USR002','priya.rao@novapay.io','Priya Rao','+44-20-555-0202','United Kingdom','business','approved',0.01,daysAgo(240),hoursAgo(5),1,'enterprise'],
+  ['USR003','marcus.kim@defilabs.io','Marcus Kim','+1-650-555-0303','United States','business','approved',0.03,daysAgo(90),hoursAgo(1),1,'pro'],
+  ['USR004','aisha.j@splitapp.co','Aisha Johnson','+1-212-555-0404','United States','personal','approved',0.02,daysAgo(60),hoursAgo(8),1,'starter'],
+  ['USR005','jamie.k@acme.com','Jamie Kimura','+81-3-555-0505','Japan','business','approved',0.01,daysAgo(365),hoursAgo(3),1,'enterprise'],
+  ['USR006','max.silva@email.com','Max Silva','+55-11-555-0606','Brazil','personal','pending',0.45,daysAgo(6),hoursAgo(14),1,'starter'],
+  ['USR007','sara.r@corp.sg','Sarah Reeves','+65-6-555-0707','Singapore','business','approved',0.02,daysAgo(500),daysAgo(1),1,'enterprise'],
+  ['USR008','anon.wallet@temp.io','Anonymous User',null,'Unknown','personal','failed',0.92,daysAgo(6),hoursAgo(4),0,'starter'],
+  ['USR009','dev.test@intellix.io','Dev Tester','+1-800-555-0909','United States','personal','approved',0.01,daysAgo(730),hoursAgo(1),1,'pro'],
+  ['USR010','nina.t@fintech.de','Nina Torsten','+49-30-555-1010','Germany','business','approved',0.03,daysAgo(120),daysAgo(2),1,'pro'],
+];
+function seedUsers(){USER_SEEDS.forEach(u=>DB.run(`INSERT INTO users VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`,u));}
+
+function seedTransactions(){
+  const txns=[
+    ['TXN9831','USR001','PAY001','crypto_buy','confirmed',32100,'USD',32100,'0x3f4a9b2c','vault_btc','ethereum','0x7f3a9b2c4e8d1f6a',0.18,0.02,0,'polygon_bridge','{"ref":"INV-2024-0391"}',minsAgo(2),minsAgo(1)],
+    ['TXN9830','USR003','PAY002','defi_swap','confirmed',28440,'USD',28440,'0xdefi1234','0xpool5678','ethereum','0x8a2b3c4d5e6f7a8b',12.40,0.03,0,'direct','{"pool":"Uniswap V3"}',minsAgo(8),minsAgo(6)],
+    ['TXN9829','USR005','PAY003','wire_transfer','confirmed',142000,'USD',142000,'ACH-ACME','ACH-DEST','ACH','ACH-TXN-9829-2024',0.00,0.01,0,'ach','{"ref":"Q1-SETTLEMENT"}',minsAgo(15),minsAgo(10)],
+    ['TXN9828','USR010','PAY004','fx_conversion','processing',18600,'EUR',20460,'EUR-NIN01','USD-NIN01','fiat','FX-9828-2024',9.30,0.02,0,'fx_engine','{"rate":1.10}',minsAgo(20),null],
+    ['TXN9827','USR002','PAY005','business_payment','confirmed',84500,'GBP',107000,'GBP-NVP01','USD-CORP','swift','SWIFT-9827-NVP',0.00,0.01,0,'swift','{}',hoursAgo(1),hoursAgo(1)],
+    ['TXN9826','USR004','PAY006','split_payment','confirmed',340,'USD',340,'USD-AJS01','USD-JMK01','fiat','SP-9826-2024',0.17,0.01,0,'direct','{"split":4,"desc":"Dinner Nobu"}',hoursAgo(2),hoursAgo(2)],
+    ['TXN9821','USR008','PAY007','crypto_transfer','pending',84200,'USDC',84200,'0xANON9821','0xCAYMAN99','ethereum','',0.18,0.94,1,'polygon_bridge','{"flag":"velocity_spike"}',hoursAgo(2),null],
+    ['TXN9820','USR006','PAY008','crypto_buy','pending',12400,'EUR',13640,'EUR-MXS01','0xDEST820','ethereum','',9.30,0.45,1,'direct','{"flag":"geo_mismatch"}',hoursAgo(3),null],
+    ['TXN9815','USR001','PAY009','wallet_topup','confirmed',5000,'USD',5000,'BANK-AOW','USD-AOW01','fiat','ACH-9815-2024',0.00,0.01,0,'ach','{}',daysAgo(1),daysAgo(1)],
+    ['TXN9810','USR007','PAY010','wire_transfer','confirmed',142000,'USD',142000,'ACH-CORP','ACH-DEST10','ACH','ACH-9810-2024',0.00,0.01,0,'ach','{}',daysAgo(1),daysAgo(1)],
+    ['TXN9805','USR009','PAY011','api_payment','confirmed',500,'USD',500,'USD-DEV01','USD-TEST','fiat','API-9805-2024',0.25,0.00,0,'direct','{"api_key":"ix_test_sk"}',daysAgo(2),daysAgo(2)],
+    ['TXN9800','USR001','PAY012','crypto_sell','confirmed',2400,'USD',2400,'vault_btc','USD-AOW01','ethereum','0x1a2b3c4d5e6f',0.18,0.01,0,'polygon_bridge','{}',daysAgo(2),daysAgo(2)],
+    ['TXN9795','USR003','PAY013','business_payment','confirmed',45000,'USD',45000,'USD-MKM01','USD-CORP3','fiat','ACH-9795-2024',22.50,0.02,0,'ach','{"invoice":"Q4-2024"}',daysAgo(3),daysAgo(3)],
+    ['TXN9790','USR002','PAY014','crypto_buy','confirmed',15000,'ETH',52000,'GBP-NVP01','vault_eth','ethereum','0x9f8e7d6c5b4a',18.00,0.02,0,'direct','{}',daysAgo(4),daysAgo(4)],
+    ['TXN9785','USR005','PAY015','wire_transfer','confirmed',200000,'JPY',1350,'JPY-JMK01','JPY-DEST','swift','SWIFT-9785-JMK',0.00,0.01,0,'swift','{}',daysAgo(5),daysAgo(5)],
+  ];
+  txns.forEach(t=>DB.run(`INSERT INTO transactions VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,t));
+}
+
+function seedWallets(){
+  const w=[
+    ['WAL001','USR001','BTC','1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2',2.841,189197,'bitcoin','custodial',1,daysAgo(180)],
+    ['WAL002','USR001','ETH','0x3f4a9b2c8e1d4f6a',14.2,49700,'ethereum','custodial',0,daysAgo(180)],
+    ['WAL003','USR001','USD','USD-AOW-001',48291,48291,'fiat','fiat',0,daysAgo(180)],
+    ['WAL004','USR001','USDC','0xUSDC3f4a9b2c',10000,10000,'ethereum','custodial',0,daysAgo(90)],
+    ['WAL005','USR003','ETH','0xdefi1234abcd',48.2,168700,'ethereum','self-custody',1,daysAgo(90)],
+    ['WAL006','USR003','BTC','bc1qmarcus5678',1.5,99900,'bitcoin','custodial',0,daysAgo(90)],
+    ['WAL007','USR002','GBP','GBP-NVP-001',95000,120450,'fiat','fiat',1,daysAgo(240)],
+    ['WAL008','USR002','ETH','0xnovapayeth',25.0,87500,'ethereum','custodial',0,daysAgo(200)],
+    ['WAL009','USR007','USD','USD-SAR-001',250000,250000,'fiat','fiat',1,daysAgo(500)],
+    ['WAL010','USR008','USDC','0xANON9821xxxx',84400,84400,'ethereum','self-custody',1,daysAgo(6)],
+    ['WAL011','USR004','USD','USD-AJS-001',2840,2840,'fiat','fiat',1,daysAgo(60)],
+    ['WAL012','USR010','EUR','EUR-NIN-001',32000,35200,'fiat','fiat',1,daysAgo(120)],
+  ];
+  w.forEach(row=>DB.run(`INSERT INTO wallets VALUES(?,?,?,?,?,?,?,?,?,?)`,row));
+}
+
+function seedPayments(){
+  const p=[
+    ['PAY001','USR001',32100,'USD','completed','crypto','vault_btc','Crypto Vault Inc','BTC purchase via Polygon',1,minsAgo(3),minsAgo(1),minsAgo(3)],
+    ['PAY002','USR003',28440,'ETH','completed','defi','0xpool5678','Uniswap V3 Pool','DeFi swap ETH→USDC',1,minsAgo(9),minsAgo(6),minsAgo(9)],
+    ['PAY003','USR005',142000,'USD','completed','wire','ACH-DEST','Acme Corp','Q1 Settlement',0,minsAgo(16),minsAgo(10),minsAgo(16)],
+    ['PAY004','USR010',18600,'EUR','processing','fx','USD-NIN01','Self Transfer','EUR to USD conversion',1,null,null,minsAgo(21)],
+    ['PAY005','USR002',84500,'GBP','completed','swift','USD-CORP','Corporate Account','Business remittance',0,hoursAgo(1.1),hoursAgo(1),hoursAgo(1.2)],
+    ['PAY006','USR004',340,'USD','completed','split','USD-JMK01','Jamie K + friends','Dinner split Nobu',0,hoursAgo(2.1),hoursAgo(2),hoursAgo(2.1)],
+    ['PAY007','USR008',84200,'USDC','pending','crypto','0xCAYMAN99','Unknown Entity','Transfer out',0,null,null,hoursAgo(2)],
+    ['PAY008','USR006',12400,'EUR','pending','crypto','0xDEST820','Unknown Wallet','Crypto purchase',0,null,null,hoursAgo(3)],
+    ['PAY009','USR001',5000,'USD','completed','bank','USD-AOW01','Self','Wallet top-up',0,daysAgo(1),daysAgo(1),daysAgo(1)],
+    ['PAY010','USR007',142000,'USD','completed','wire','ACH-DEST10','Stripe HQ','Monthly settlement',0,daysAgo(1),daysAgo(1),daysAgo(1)],
+    ['PAY011','USR009',500,'USD','completed','api','USD-TEST','Test Account','API test payment',0,daysAgo(2),daysAgo(2),daysAgo(2)],
+    ['PAY012','USR001',2400,'USD','completed','crypto','USD-AOW01','Self','BTC sell to USD',1,daysAgo(2),daysAgo(2),daysAgo(2)],
+  ];
+  p.forEach(row=>DB.run(`INSERT INTO payments VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`,row));
+}
+
+function seedFraudAlerts(){
+  const fa=[
+    ['FA001','TXN9821','USR008',0.94,'critical','new_wallet+fatf_jurisdiction+velocity_spike','HIGH_RISK','auto_hold','system',null,hoursAgo(2)],
+    ['FA002','TXN9820','USR006',0.45,'medium','geo_mismatch+new_account','MEDIUM_RISK','flag_review','system',null,hoursAgo(3)],
+    ['FA003','TXN9828','USR010',0.12,'low','unusual_amount','LOW_RISK','monitor','system',minsAgo(15),minsAgo(18)],
+    ['FA004','TXN9795','USR003',0.08,'low','large_business_payment','NORMAL','cleared','admin',daysAgo(3),daysAgo(3)],
+    ['FA005','TXN9790','USR002',0.06,'low','cross_border_crypto','NORMAL','cleared','admin',daysAgo(4),daysAgo(4)],
+  ];
+  fa.forEach(row=>DB.run(`INSERT INTO fraud_alerts VALUES(?,?,?,?,?,?,?,?,?,?,?)`,row));
+}
+
+function seedKYC(){
+  const k=[
+    ['KYC001','USR001','approved','passport','United States','fingerprint',daysAgo(175),daysAgo(-550),'Intellix-KYC',daysAgo(180)],
+    ['KYC002','USR002','approved','passport','United Kingdom','face_id',daysAgo(230),daysAgo(-500),'Intellix-KYC',daysAgo(240)],
+    ['KYC003','USR003','approved','drivers_license','United States','fingerprint',daysAgo(85),daysAgo(-640),'Intellix-KYC',daysAgo(90)],
+    ['KYC004','USR004','approved','passport','United States','voice',daysAgo(55),daysAgo(-670),'Intellix-KYC',daysAgo(60)],
+    ['KYC005','USR005','approved','national_id','Japan','fingerprint',daysAgo(360),daysAgo(-365),'Intellix-KYC',daysAgo(365)],
+    ['KYC006','USR006','pending',null,null,null,null,null,'Intellix-KYC',daysAgo(6)],
+    ['KYC007','USR007','approved','passport','Singapore','face_id',daysAgo(490),daysAgo(-235),'Intellix-KYC',daysAgo(500)],
+    ['KYC008','USR008','failed','passport','Unknown',null,null,null,'Intellix-KYC',daysAgo(6)],
+    ['KYC009','USR009','approved','drivers_license','United States','fingerprint',daysAgo(720),daysAgo(-10),'Intellix-KYC',daysAgo(730)],
+    ['KYC010','USR010','approved','passport','Germany','face_id',daysAgo(115),daysAgo(-610),'Intellix-KYC',daysAgo(120)],
+  ];
+  k.forEach(row=>DB.run(`INSERT INTO kyc_verifications VALUES(?,?,?,?,?,?,?,?,?,?)`,row));
+}
+
+function seedCurrencies(){
+  const cur=[
+    ['USD','US Dollar','fiat','$',2,null,1,0.01,1000000],
+    ['EUR','Euro','fiat','€',2,null,1,0.01,1000000],
+    ['GBP','British Pound','fiat','£',2,null,1,0.01,1000000],
+    ['JPY','Japanese Yen','fiat','¥',0,null,1,1,100000000],
+    ['AUD','Australian Dollar','fiat','A$',2,null,1,0.01,1000000],
+    ['CAD','Canadian Dollar','fiat','C$',2,null,1,0.01,1000000],
+    ['SGD','Singapore Dollar','fiat','S$',2,null,1,0.01,1000000],
+    ['BTC','Bitcoin','crypto','₿',8,'bitcoin',1,0.00001,100],
+    ['ETH','Ethereum','crypto','Ξ',18,'ethereum',1,0.0001,10000],
+    ['USDC','USD Coin','stablecoin','$',6,'ethereum',1,0.01,10000000],
+    ['USDT','Tether','stablecoin','$',6,'ethereum',1,0.01,10000000],
+    ['SOL','Solana','crypto','◎',9,'solana',1,0.001,100000],
+    ['BNB','BNB Chain','crypto','B',18,'bsc',1,0.001,100000],
+    ['MATIC','Polygon','crypto','⬡',18,'polygon',1,0.01,10000000],
+  ];
+  cur.forEach(row=>DB.run(`INSERT INTO currencies VALUES(?,?,?,?,?,?,?,?,?)`,row));
+}
+
+function seedAPIKeys(){
+  const ak=[
+    ['AK001','USR001','hash_ix_live_sk_9xK2','ix_live_sk_9xK2','Production Key','payments:read,payments:write,fraud:read',hoursAgo(2),1847,1,daysAgo(180)],
+    ['AK002','USR001','hash_ix_test_sk_dev1','ix_test_sk_dev1','Development Key','payments:read,payments:write',daysAgo(1),248,1,daysAgo(90)],
+    ['AK003','USR002','hash_ix_live_sk_nv01','ix_live_sk_nv01','NovaPay Production','payments:write,webhooks:manage,fraud:read',hoursAgo(5),4210,1,daysAgo(240)],
+    ['AK004','USR003','hash_ix_live_sk_df01','ix_live_sk_df01','DeFi Labs Key','crypto:read,crypto:write,payments:write',hoursAgo(1),892,1,daysAgo(90)],
+    ['AK005','USR009','hash_ix_test_sk_tst1','ix_test_sk_tst1','Test Key','payments:read',daysAgo(2),50,1,daysAgo(90)],
+    ['AK006','USR007','hash_ix_live_sk_sr01','ix_live_sk_sr01','Stripe Integration','payments:write,webhooks:read',daysAgo(1),15234,1,daysAgo(500)],
+  ];
+  ak.forEach(row=>DB.run(`INSERT INTO api_keys VALUES(?,?,?,?,?,?,?,?,?,?)`,row));
+}
+
+function seedWebhooks(){
+  const wh=[
+    ['WH001','USR001','https://company.io/webhooks/intellix','payment.confirmed,fraud.flagged,payment.failed','whsec_aow_hash',1,minsAgo(8),142,2,daysAgo(90)],
+    ['WH002','USR002','https://novapay.io/hooks/ix','payment.confirmed,payment.failed','whsec_nvp_hash',1,hoursAgo(1),2840,15,daysAgo(200)],
+    ['WH003','USR003','https://defilabs.io/webhooks','payment.confirmed,crypto.swap','whsec_dfl_hash',1,minsAgo(12),450,5,daysAgo(85)],
+    ['WH004','USR007','https://stripe-int.io/webhooks','payment.confirmed','whsec_str_hash',1,daysAgo(1),8910,0,daysAgo(480)],
+    ['WH005','USR009','https://staging.test/hook','payment.confirmed,payment.failed,fraud.flagged','whsec_tst_hash',1,daysAgo(2),38,1,daysAgo(88)],
+  ];
+  wh.forEach(row=>DB.run(`INSERT INTO webhooks VALUES(?,?,?,?,?,?,?,?,?,?)`,row));
+}
+
+function seedExchangeRates(){
+  const rates=[
+    ['ER001','USD','EUR',0.9254,'ecb',0.9250,0.9258,minsAgo(5)],
+    ['ER002','USD','GBP',0.7892,'boe',0.7889,0.7895,minsAgo(5)],
+    ['ER003','USD','JPY',149.82,'boj',149.78,149.86,minsAgo(5)],
+    ['ER004','USD','AUD',1.5234,'rba',1.5230,1.5238,minsAgo(5)],
+    ['ER005','USD','SGD',1.3412,'mas',1.3408,1.3416,minsAgo(5)],
+    ['ER006','BTC','USD',66598.42,'binance',66550,66620,minsAgo(1)],
+    ['ER007','ETH','USD',3502.18,'binance',3498,3506,minsAgo(1)],
+    ['ER008','USDC','USD',1.0001,'coinbase',0.9999,1.0003,minsAgo(1)],
+    ['ER009','SOL','USD',142.30,'binance',141.80,142.80,minsAgo(1)],
+    ['ER010','EUR','USD',1.0806,'ecb',1.0802,1.0810,minsAgo(5)],
+    ['ER011','GBP','USD',1.2671,'boe',1.2668,1.2674,minsAgo(5)],
+    ['ER012','MATIC','USD',0.8420,'binance',0.8390,0.8450,minsAgo(2)],
+  ];
+  rates.forEach(row=>DB.run(`INSERT INTO exchange_rates VALUES(?,?,?,?,?,?,?,?)`,row));
+}
+
+function seedProducts(){
+  const prod=[
+    ['PROD001','Sony WH-1000XM5','electronics',278,350,97,4.9,12847,'Amazon',1,daysAgo(30)],
+    ['PROD002','MacBook Air M3 13"','electronics',1099,1299,91,4.8,8432,'Apple',1,daysAgo(25)],
+    ['PROD003','Nike Air Max 270','fashion',99,150,88,4.7,24103,'Amazon',1,daysAgo(20)],
+    ['PROD004','Dyson V15 Detect','home',649,799,94,4.8,6291,'Amazon',1,daysAgo(15)],
+    ['PROD005','iPad Pro 11" M4','electronics',999,1099,89,4.9,4821,'Apple',1,daysAgo(10)],
+    ['PROD006','Lululemon Align Leggings','fashion',89,128,85,4.8,31200,'Amazon',1,daysAgo(12)],
+    ['PROD007','Theragun PRO Plus','sports',399,599,93,4.7,9842,'Amazon',1,daysAgo(8)],
+    ['PROD008','Nespresso Vertuo Pop','home',79,129,82,4.6,18340,'Amazon',1,daysAgo(18)],
+    ['PROD009','Charlotte Tilbury Pillow Talk','beauty',34,45,96,4.9,52400,'Amazon',1,daysAgo(22)],
+    ['PROD010','Samsung 65" OLED 4K','electronics',1299,1999,92,4.8,7621,'Amazon',1,daysAgo(14)],
+    ['PROD011','Patagonia Nano Puff Jacket','fashion',179,249,87,4.8,14300,'Amazon',1,daysAgo(16)],
+    ['PROD012','Vitamix A3500 Blender','home',449,649,95,4.9,8910,'Costco',1,daysAgo(19)],
+  ];
+  prod.forEach(row=>DB.run(`INSERT INTO products VALUES(?,?,?,?,?,?,?,?,?,?,?)`,row));
+}
+
+// ══════════════════════════════════════════════════════════════
+// COUNT UPDATES
+// ══════════════════════════════════════════════════════════════
+
+function getCount(tbl){
+  try{return DB.exec(`SELECT COUNT(*) FROM ${tbl}`)[0].values[0][0];}catch(e){return 0;}
+}
+function updateCounts(){
+  const tables=['transactions','users','payments','wallets','fraud_alerts','kyc_verifications','currencies','api_keys','webhooks','exchange_rates','audit_logs','products'];
+  let total=0;
+  tables.forEach(t=>{
+    const c=getCount(t);
+    const el=document.getElementById('cnt-'+t);
+    if(el)el.textContent=c;
+    total+=c;
+  });
+  const txnC=getCount('transactions');
+  const userC=getCount('users');
+  const payC=getCount('payments');
+  const alertC=getCount('fraud_alerts');
+  document.getElementById('sbTxns').textContent=txnC;
+  document.getElementById('sbUsers').textContent=userC;
+  document.getElementById('sbPayments').textContent=payC;
+  document.getElementById('sbAlerts').textContent=alertC;
+}
+function updateTopBar(){
+  try{
+    const txnC=getCount('transactions');
+    const userC=getCount('users');
+    const vol=DB.exec(`SELECT COALESCE(SUM(amount_usd),0) FROM transactions WHERE status='confirmed'`)[0].values[0][0];
+    document.getElementById('topTxnCount').textContent=txnC+' txns';
+    document.getElementById('topUserCount').textContent=userC+' users';
+    document.getElementById('topVolume').textContent='$'+Number(vol).toLocaleString('en-US',{maximumFractionDigits:0});
+  }catch(e){}
+}
+
+// ══════════════════════════════════════════════════════════════
+// NAVIGATION & SECTION RENDERING
+// ══════════════════════════════════════════════════════════════
+
+function navTo(section, el){
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderSection(section);
+}
+
+function renderSection(section){
+  currentTable=section;
+  currentPage=1;
+  sortCol=null;
+  searchQuery='';
+  const main=document.getElementById('mainArea');
+  switch(section){
+    case 'schema': renderSchema(main); break;
+    case 'sql': renderSQL(main); break;
+    case 'analytics': renderAnalytics(main); break;
+    default: renderTable(section, main);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// TABLE RENDERER — FULL CRUD
+// ══════════════════════════════════════════════════════════════
+
+const TABLE_CONFIG={
+  transactions:{
+    cols:['id','status','type','amount','currency','amount_usd','from_wallet','to_wallet','risk_score','fraud_flag','created_at'],
+    formatters:{
+      id:v=>`<span class="mono" style="font-size:10px;color:var(--text3)">${v}</span>`,
+      status:v=>statusBadge(v),
+      type:v=>`<span class="badge badge-purple">${v}</span>`,
+      amount:v=>`<span class="mono fw-600">$${Number(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</span>`,
+      amount_usd:v=>`<span class="mono" style="color:var(--cyan)">$${Number(v).toLocaleString()}</span>`,
+      risk_score:v=>riskBar(v),
+      fraud_flag:v=>v?`<span class="badge badge-red">&#9888; FLAGGED</span>`:`<span class="badge badge-green">&#10003; CLEAN</span>`,
+      created_at:v=>timeAgo(v),
+      from_wallet:v=>`<span class="mono fs-11" style="color:var(--text3)">${shortAddr(v)}</span>`,
+      to_wallet:v=>`<span class="mono fs-11" style="color:var(--text3)">${shortAddr(v)}</span>`,
+    }
+  },
+  users:{
+    cols:['id','full_name','email','country','account_type','tier','kyc_status','risk_score','is_active','created_at'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v}</span>`,
+      tier:v=>({pro:`<span class="badge badge-cyan">PRO</span>`,enterprise:`<span class="badge badge-purple">ENTERPRISE</span>`,starter:`<span class="badge badge-gray">STARTER</span>`}[v]||v),
+      kyc_status:v=>({approved:`<span class="badge badge-green">&#10003; Approved</span>`,pending:`<span class="badge badge-orange">&#9680; Pending</span>`,failed:`<span class="badge badge-red">&#10005; Failed</span>`}[v]||v),
+      is_active:v=>v?`<span class="badge badge-green">Active</span>`:`<span class="badge badge-red">Inactive</span>`,
+      risk_score:v=>riskBar(v),
+      created_at:v=>timeAgo(v),
+      account_type:v=>`<span class="badge badge-purple">${v}</span>`,
+    }
+  },
+  payments:{
+    cols:['id','user_id','amount','currency','status','payment_method','recipient_name','route_optimizer','created_at'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v}</span>`,
+      status:v=>statusBadge(v),
+      amount:v=>`<span class="mono fw-600">$${Number(v).toLocaleString(undefined,{minimumFractionDigits:2})}</span>`,
+      payment_method:v=>`<span class="badge badge-cyan">${v}</span>`,
+      route_optimizer:v=>v?`<span class="badge badge-green">&#9670; AI Route</span>`:`<span class="badge badge-gray">Standard</span>`,
+      created_at:v=>timeAgo(v),
+      user_id:v=>`<span class="mono fs-11" style="color:var(--cyan)">${v}</span>`,
+    }
+  },
+  wallets:{
+    cols:['id','user_id','currency','address','balance','balance_usd','network','wallet_type','is_primary'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v}</span>`,
+      address:v=>`<span class="mono fs-11" style="color:var(--text3)">${shortAddr(v)}</span>`,
+      balance:v=>`<span class="mono fw-600">${Number(v).toFixed(6)}</span>`,
+      balance_usd:v=>`<span class="mono" style="color:var(--cyan)">$${Number(v).toLocaleString()}</span>`,
+      currency:v=>`<span class="badge badge-gold">${v}</span>`,
+      network:v=>v?`<span class="badge badge-purple">${v}</span>`:'-',
+      wallet_type:v=>`<span class="badge badge-gray">${v}</span>`,
+      is_primary:v=>v?`<span class="badge badge-cyan">PRIMARY</span>`:'',
+      user_id:v=>`<span class="mono fs-11" style="color:var(--cyan)">${v}</span>`,
+    }
+  },
+  fraud_alerts:{
+    cols:['id','transaction_id','user_id','risk_score','severity','verdict','action_taken','reviewed_by','created_at'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v}</span>`,
+      transaction_id:v=>`<span class="mono fs-11" style="color:var(--purple)">${v}</span>`,
+      risk_score:v=>riskBar(v),
+      severity:v=>({critical:`<span class="badge badge-red">&#9888; CRITICAL</span>`,medium:`<span class="badge badge-orange">MED</span>`,low:`<span class="badge badge-green">LOW</span>`}[v]||v),
+      verdict:v=>({HIGH_RISK:`<span class="badge badge-red">HIGH RISK</span>`,MEDIUM_RISK:`<span class="badge badge-orange">MED RISK</span>`,NORMAL:`<span class="badge badge-green">NORMAL</span>`,LOW_RISK:`<span class="badge badge-green">LOW</span>`}[v]||v),
+      action_taken:v=>`<span class="badge badge-gray">${v}</span>`,
+      reviewed_by:v=>v||`<span style="color:var(--text3)">—</span>`,
+      created_at:v=>timeAgo(v),
+      user_id:v=>`<span class="mono fs-11" style="color:var(--cyan)">${v}</span>`,
+    }
+  },
+  kyc_verifications:{
+    cols:['id','user_id','status','doc_type','doc_country','biometric_method','verified_at','provider'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v}</span>`,
+      status:v=>({approved:`<span class="badge badge-green">&#10003; Approved</span>`,pending:`<span class="badge badge-orange">&#9680; Pending</span>`,failed:`<span class="badge badge-red">&#10005; Failed</span>`}[v]||v),
+      verified_at:v=>v?timeAgo(v):`<span style="color:var(--text3)">—</span>`,
+      biometric_method:v=>v?`<span class="badge badge-cyan">${v}</span>`:`<span style="color:var(--text3)">—</span>`,
+      doc_type:v=>v||`<span style="color:var(--text3)">—</span>`,
+      user_id:v=>`<span class="mono fs-11" style="color:var(--cyan)">${v}</span>`,
+    }
+  },
+  currencies:{
+    cols:['code','name','type','symbol','decimals','network','is_active','min_amount','max_amount'],
+    formatters:{
+      code:v=>`<span class="badge badge-gold">${v}</span>`,
+      type:v=>({fiat:`<span class="badge badge-cyan">FIAT</span>`,crypto:`<span class="badge badge-purple">CRYPTO</span>`,stablecoin:`<span class="badge badge-green">STABLE</span>`}[v]||v),
+      is_active:v=>v?`<span class="badge badge-green">Active</span>`:`<span class="badge badge-red">Inactive</span>`,
+      network:v=>v?`<span class="badge badge-gray">${v}</span>`:`<span style="color:var(--text3)">—</span>`,
+      min_amount:v=>`<span class="mono">${v}</span>`,
+      max_amount:v=>`<span class="mono">${Number(v).toLocaleString()}</span>`,
+    }
+  },
+  api_keys:{
+    cols:['id','user_id','key_prefix','name','permissions','calls_today','is_active','last_used'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v}</span>`,
+      key_prefix:v=>`<span class="mono" style="color:var(--cyan)">${v}...</span>`,
+      is_active:v=>v?`<span class="badge badge-green">Active</span>`:`<span class="badge badge-red">Revoked</span>`,
+      calls_today:v=>`<span class="mono fw-600" style="color:var(--purple)">${Number(v).toLocaleString()}</span>`,
+      last_used:v=>v?timeAgo(v):`<span style="color:var(--text3)">—</span>`,
+      permissions:v=>`<div style="display:flex;flex-wrap:wrap;gap:3px">${v.split(',').map(p=>`<span class="tag" style="background:rgba(156,111,255,.1);color:var(--purple);border:1px solid rgba(156,111,255,.2)">${p.trim()}</span>`).join('')}</div>`,
+      user_id:v=>`<span class="mono fs-11" style="color:var(--cyan)">${v}</span>`,
+    }
+  },
+  webhooks:{
+    cols:['id','user_id','url','events','is_active','success_count','fail_count','last_triggered'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v}</span>`,
+      url:v=>`<span class="mono fs-11" style="color:var(--cyan)">${v.replace('https://','')}</span>`,
+      is_active:v=>v?`<span class="badge badge-green">Active</span>`:`<span class="badge badge-red">Disabled</span>`,
+      success_count:v=>`<span class="mono" style="color:var(--green)">${v}</span>`,
+      fail_count:v=>v>0?`<span class="mono" style="color:var(--red)">${v}</span>`:`<span class="mono" style="color:var(--text3)">0</span>`,
+      last_triggered:v=>v?timeAgo(v):`<span style="color:var(--text3)">—</span>`,
+      events:v=>`<span class="fs-11" style="color:var(--text2)">${v.split(',').length} events</span>`,
+      user_id:v=>`<span class="mono fs-11" style="color:var(--cyan)">${v}</span>`,
+    }
+  },
+  exchange_rates:{
+    cols:['from_currency','to_currency','rate','bid','ask','source','updated_at'],
+    formatters:{
+      from_currency:v=>`<span class="badge badge-gold">${v}</span>`,
+      to_currency:v=>`<span class="badge badge-cyan">${v}</span>`,
+      rate:v=>`<span class="mono fw-600" style="color:var(--green)">${Number(v).toFixed(6)}</span>`,
+      bid:v=>`<span class="mono">${Number(v).toFixed(4)}</span>`,
+      ask:v=>`<span class="mono">${Number(v).toFixed(4)}</span>`,
+      source:v=>`<span class="badge badge-gray">${v.toUpperCase()}</span>`,
+      updated_at:v=>timeAgo(v),
+    }
+  },
+  audit_logs:{
+    cols:['id','timestamp','action','table_name','details','user'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v.slice(0,8)}...</span>`,
+      timestamp:v=>timeAgo(v),
+      action:v=>({INSERT:`<span class="badge badge-green">INSERT</span>`,UPDATE:`<span class="badge badge-orange">UPDATE</span>`,DELETE:`<span class="badge badge-red">DELETE</span>`,SELECT:`<span class="badge badge-cyan">SELECT</span>`}[v]||`<span class="badge badge-gray">${v}</span>`),
+      table_name:v=>`<span class="mono" style="color:var(--purple)">${v}</span>`,
+      details:v=>`<span class="fs-11" style="color:var(--text2)">${(v||'').slice(0,60)}${v&&v.length>60?'...':''}</span>`,
+    }
+  },
+  products:{
+    cols:['id','name','category','price','original_price','ai_score','rating','review_count','best_store','in_stock'],
+    formatters:{
+      id:v=>`<span class="mono fs-11" style="color:var(--text3)">${v}</span>`,
+      price:v=>`<span class="mono fw-600" style="color:var(--cyan)">$${v}</span>`,
+      original_price:v=>`<span class="mono" style="color:var(--text3);text-decoration:line-through">$${v}</span>`,
+      ai_score:v=>{const c=v>=90?'var(--green)':v>=80?'var(--cyan)':'var(--orange)';return`<span class="mono fw-600" style="color:${c}">${v}</span>`},
+      rating:v=>`<span style="color:var(--gold)">&#9733;</span> <span class="mono">${v}</span>`,
+      review_count:v=>`<span class="mono">${Number(v).toLocaleString()}</span>`,
+      in_stock:v=>v?`<span class="badge badge-green">In Stock</span>`:`<span class="badge badge-red">Out</span>`,
+      category:v=>`<span class="badge badge-purple">${v}</span>`,
+      best_store:v=>`<span class="badge badge-cyan">${v}</span>`,
+    }
+  }
+};
+
+function statusBadge(v){
+  const m={confirmed:'badge-green',completed:'badge-green',approved:'badge-green',active:'badge-green',processing:'badge-orange',pending:'badge-orange',failed:'badge-red',cancelled:'badge-red',flagged:'badge-red',hold:'badge-red'};
+  return`<span class="badge ${m[v]||'badge-gray'}">${v}</span>`;
+}
+function riskBar(v){
+  const pct=Math.round(v*100);
+  const c=v>=0.7?'var(--red)':v>=0.4?'var(--orange)':'var(--green)';
+  return`<div style="display:flex;align-items:center;gap:6px"><div style="width:60px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden"><div style="width:${pct}%;height:100%;background:${c};border-radius:2px"></div></div><span class="mono fs-11" style="color:${c}">${v.toFixed(2)}</span></div>`;
+}
+function shortAddr(v){if(!v)return'—';if(v.startsWith('0x'))return v.slice(0,6)+'...'+v.slice(-4);return v.length>16?v.slice(0,14)+'...':v;}
+function timeAgo(v){
+  if(!v)return'—';
+  const d=new Date(v),n=new Date();
+  const s=Math.floor((n-d)/1000);
+  if(s<60)return`${s}s ago`;
+  if(s<3600)return`${Math.floor(s/60)}m ago`;
+  if(s<86400)return`${Math.floor(s/3600)}h ago`;
+  return`${Math.floor(s/86400)}d ago`;
+}
+
+function renderTable(tbl, container){
+  const cfg=TABLE_CONFIG[tbl];
+  if(!cfg){container.innerHTML=`<div class="empty-state"><div class="empty-icon">&#9632;</div><div class="empty-title">Table not found</div></div>`;return;}
+  const schema=SCHEMA[tbl]||{};
+
+  // Build query
+  let q=`SELECT * FROM ${tbl}`;
+  const params=[];
+  if(searchQuery){
+    const cols=cfg.cols.filter(c=>!['risk_score','fraud_flag','is_active','is_primary','route_optimizer','calls_today','success_count','fail_count','in_stock'].includes(c));
+    const where=cols.map(c=>`CAST(${c} AS TEXT) LIKE ?`).join(' OR ');
+    if(where){q+=` WHERE ${where}`;cols.forEach(()=>params.push('%'+searchQuery+'%'));}
+  }
+  if(sortCol)q+=` ORDER BY ${sortCol} ${sortDir.toUpperCase()}`;
+  else q+=` ORDER BY rowid DESC`;
+
+  let totalRows=0;
+  try{
+    const countQ=`SELECT COUNT(*) FROM (${q})`;
+    totalRows=DB.exec(countQ,params)[0]?.values[0][0]||0;
+  }catch(e){totalRows=0;}
+
+  const totalPages=Math.max(1,Math.ceil(totalRows/PAGE_SIZE));
+  if(currentPage>totalPages)currentPage=1;
+  const offset=(currentPage-1)*PAGE_SIZE;
+
+  let rows=[];
+  try{
+    const res=DB.exec(q+` LIMIT ${PAGE_SIZE} OFFSET ${offset}`,params);
+    if(res.length){
+      const {columns,values}=res[0];
+      rows=values.map(v=>Object.fromEntries(columns.map((c,i)=>[c,v[i]])));
+    }
+  }catch(e){console.error(e);}
+
+  const icons={transactions:'&#8645;',users:'&#128100;',payments:'&#9670;',wallets:'&#9674;',fraud_alerts:'&#9888;',kyc_verifications:'&#9711;',currencies:'&#8383;',api_keys:'&#61;',webhooks:'&#8680;',exchange_rates:'&#8644;',audit_logs:'&#128196;',products:'&#127873;'};
+  const canAdd=['transactions','users','payments','wallets','fraud_alerts','kyc_verifications','api_keys','webhooks','products'].includes(tbl);
+
+  container.innerHTML=`
+  <div>
+    <div class="table-header">
+      <div>
+        <div class="table-title">${icons[tbl]||'&#9632;'} ${tbl}</div>
+        <div class="table-sub">${totalRows} records · ${Object.keys(cfg.cols).length} columns displayed</div>
+      </div>
+      <div class="table-actions">
+        <div class="search-wrap">
+          <span class="search-icon">&#9740;</span>
+          <input id="tableSearch" placeholder="Search ${tbl}..." value="${searchQuery}" oninput="onSearch(this.value)">
+        </div>
+        <button class="btn btn-ghost" onclick="refreshTable()">&#8635; Refresh</button>
+        <button class="btn btn-ghost" onclick="exportCSV('${tbl}')">&#8595; CSV</button>
+        ${canAdd?`<button class="btn btn-primary" onclick="openAddForm('${tbl}')">+ Add Row</button>`:''}
+      </div>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead><tr>
+          <th style="width:40px"></th>
+          ${cfg.cols.map(c=>`<th class="sortable" onclick="sortTable('${c}')">${c.replace(/_/g,' ')} ${sortCol===c?(sortDir==='asc'?'&#9650;':'&#9660;'):''}</th>`).join('')}
+          <th style="width:120px">Actions</th>
+        </tr></thead>
+        <tbody id="tableBody">
+          ${rows.length===0?`<tr><td colspan="${cfg.cols.length+2}"><div class="empty-state"><div class="empty-icon">&#9632;</div><div class="empty-title">No records found</div></div></td></tr>`:''}
+          ${rows.map((row,i)=>`
+          <tr onclick="selectRow(this)" data-id="${row[cfg.cols[0]]}">
+            <td style="color:var(--text3);font-family:var(--mono);font-size:11px">${offset+i+1}</td>
+            ${cfg.cols.map(c=>`<td>${(cfg.formatters?.[c]?.(row[c]))||row[c]||'<span style="color:var(--text3)">—</span>'}</td>`).join('')}
+            <td>
+              <div style="display:flex;gap:4px">
+                <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();viewRow('${tbl}','${row[cfg.cols[0]]}')">View</button>
+                ${canAdd?`<button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openEditForm('${tbl}','${row[cfg.cols[0]]}')">Edit</button>`:''}
+                <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();confirmDelete('${tbl}','${row[cfg.cols[0]]}')">Del</button>
+              </div>
+            </td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+      <div class="table-footer">
+        <div class="table-info">Showing ${offset+1}–${Math.min(offset+PAGE_SIZE,totalRows)} of ${totalRows}</div>
+        <div class="pagination">
+          <div class="page-btn" onclick="changePage(${currentPage-1})" ${currentPage===1?'style="opacity:.3;pointer-events:none"':''}>&#8249;</div>
+          ${Array.from({length:Math.min(totalPages,7)},(_,i)=>{
+            const p=totalPages<=7?i+1:currentPage<=4?i+1:currentPage>=totalPages-3?totalPages-6+i:currentPage-3+i;
+            return`<div class="page-btn ${p===currentPage?'active':''}" onclick="changePage(${p})">${p}</div>`;
+          }).join('')}
+          <div class="page-btn" onclick="changePage(${currentPage+1})" ${currentPage===totalPages?'style="opacity:.3;pointer-events:none"':''}>&#8250;</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function selectRow(tr){document.querySelectorAll('.data-table tbody tr').forEach(r=>r.classList.remove('selected'));tr.classList.add('selected');}
+function onSearch(v){searchQuery=v;currentPage=1;renderTable(currentTable,document.getElementById('mainArea'));}
+function sortTable(col){if(sortCol===col)sortDir=sortDir==='asc'?'desc':'asc';else{sortCol=col;sortDir='asc';}renderTable(currentTable,document.getElementById('mainArea'));}
+function changePage(p){const total=Math.ceil(getCount(currentTable)/PAGE_SIZE);if(p<1||p>total)return;currentPage=p;renderTable(currentTable,document.getElementById('mainArea'));}
+function refreshTable(){renderTable(currentTable,document.getElementById('mainArea'));toast('Table refreshed','info',1200);}
+
+function exportCSV(tbl){
+  try{
+    const res=DB.exec(`SELECT * FROM ${tbl}`);
+    if(!res.length){toast('No data to export','warning');return;}
+    const {columns,values}=res[0];
+    const csv=[columns.join(','),...values.map(r=>r.map(v=>JSON.stringify(v??'')).join(','))].join('\n');
+    const a=document.createElement('a');
+    a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+    a.download=`intellix_${tbl}_${Date.now()}.csv`;
+    a.click();
+    toast(`${tbl}.csv exported — ${values.length} rows`,'success');
+    logAudit('EXPORT',tbl,`Exported ${values.length} rows to CSV`);
+  }catch(e){toast('Export failed: '+e.message,'error');}
+}
+
+// ── VIEW ROW ──
+function viewRow(tbl, id){
+  const cfg=TABLE_CONFIG[tbl];
+  if(!cfg)return;
+  const pk=cfg.cols[0];
+  try{
+    const res=DB.exec(`SELECT * FROM ${tbl} WHERE ${pk}=?`,[id]);
+    if(!res.length){toast('Record not found','error');return;}
+    const {columns,values}=res[0];
+    const row=Object.fromEntries(columns.map((c,i)=>[c,values[0][i]]));
+    const schema=SCHEMA[tbl];
+    let html=`<div style="display:flex;flex-direction:column;gap:10px">`;
+    columns.forEach(c=>{
+      const v=row[c];
+      const fmt=cfg.formatters?.[c]?.(v)||`<span style="font-family:var(--mono);font-size:12px">${v??'—'}</span>`;
+      const fieldInfo=schema?.fields?.find(f=>f.name===c);
+      html+=`<div style="display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border)">
+        <div style="display:flex;flex-direction:column;gap:3px;min-width:140px">
+          <span style="font-size:11px;font-weight:600;color:var(--text2)">${c}</span>
+          <span style="font-size:10px;color:var(--text3);font-family:var(--mono)">${fieldInfo?.type||'TEXT'}</span>
+        </div>
+        <div style="text-align:right;flex:1">${fmt}</div>
+      </div>`;
+    });
+    html+=`</div>`;
+    openModal(`&#128203; ${tbl} / ${id}`,html,`
+      <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+      <button class="btn btn-ghost" onclick="closeModal();openEditForm('${tbl}','${id}')">Edit</button>
+      <button class="btn btn-danger" onclick="closeModal();confirmDelete('${tbl}','${id}')">Delete</button>
+    `);
+    logAudit('SELECT',tbl,`Viewed record ${id}`);
+  }catch(e){toast('Error loading record: '+e.message,'error');}
+}
+
+// ── DELETE ──
+function confirmDelete(tbl, id){
+  openModal('&#9888; Confirm Delete',
+    `<div style="text-align:center;padding:12px 0"><div style="font-size:32px;margin-bottom:12px">&#9888;</div><div style="font-size:14px;font-weight:600;margin-bottom:8px">Delete record?</div><div style="font-size:13px;color:var(--text2)">This will permanently delete <span style="font-family:var(--mono);color:var(--red)">${id}</span> from <strong>${tbl}</strong>. This action cannot be undone.</div></div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-danger" onclick="deleteRow('${tbl}','${id}')">Delete</button>`
+  );
+}
+function deleteRow(tbl, id){
+  const cfg=TABLE_CONFIG[tbl];
+  if(!cfg)return;
+  const pk=cfg.cols[0];
+  try{
+    DB.run(`DELETE FROM ${tbl} WHERE ${pk}=?`,[id]);
+    closeModal();
+    logAudit('DELETE',tbl,`Deleted ${pk}=${id}`);
+    updateCounts();updateTopBar();
+    renderTable(tbl,document.getElementById('mainArea'));
+    toast(`Record ${id} deleted from ${tbl}`,'warning');
+  }catch(e){toast('Delete failed: '+e.message,'error');}
+}
+
+// ══════════════════════════════════════════════════════════════
+// ADD / EDIT FORMS
+// ══════════════════════════════════════════════════════════════
+
+const FORM_CONFIG={
+  transactions:{
+    fields:[
+      {n:'type',l:'Type',t:'select',opts:['crypto_buy','crypto_sell','crypto_transfer','wire_transfer','fx_conversion','defi_swap','business_payment','split_payment','wallet_topup','api_payment'],req:true},
+      {n:'user_id',l:'User ID',t:'select_users',req:true},
+      {n:'amount',l:'Amount',t:'number',req:true,ph:'e.g. 1500.00'},
+      {n:'currency',l:'Currency',t:'select_currencies',req:true},
+      {n:'from_wallet',l:'From Wallet',t:'text',ph:'Address or account ID'},
+      {n:'to_wallet',l:'To Wallet',t:'text',ph:'Address or account ID'},
+      {n:'network',l:'Network',t:'select',opts:['ethereum','bitcoin','fiat','ach','swift','polygon','solana','bsc']},
+      {n:'route',l:'Route',t:'select',opts:['polygon_bridge','direct','ach','swift','fx_engine']},
+      {n:'fee',l:'Fee ($)',t:'number',ph:'0.18'},
+      {n:'metadata',l:'Metadata (JSON)',t:'textarea',ph:'{"ref":"INV-001"}'},
+    ]
+  },
+  users:{
+    fields:[
+      {n:'full_name',l:'Full Name',t:'text',req:true,ph:'Jane Doe'},
+      {n:'email',l:'Email',t:'email',req:true,ph:'jane@company.com'},
+      {n:'phone',l:'Phone',t:'text',ph:'+1-555-000-0000'},
+      {n:'country',l:'Country',t:'text',ph:'United States'},
+      {n:'account_type',l:'Account Type',t:'select',opts:['personal','business']},
+      {n:'tier',l:'Tier',t:'select',opts:['starter','pro','enterprise']},
+      {n:'kyc_status',l:'KYC Status',t:'select',opts:['pending','approved','failed']},
+      {n:'risk_score',l:'Risk Score (0-1)',t:'number',ph:'0.02'},
+    ]
+  },
+  payments:{
+    fields:[
+      {n:'user_id',l:'User ID',t:'select_users',req:true},
+      {n:'amount',l:'Amount',t:'number',req:true,ph:'500.00'},
+      {n:'currency',l:'Currency',t:'select_currencies',req:true},
+      {n:'payment_method',l:'Method',t:'select',opts:['crypto','wire','ach','swift','fx','split','bank','api','defi'],req:true},
+      {n:'recipient_wallet',l:'Recipient Wallet / Account',t:'text',ph:'0x... or ACCOUNT-ID'},
+      {n:'recipient_name',l:'Recipient Name',t:'text',ph:'Jane Doe'},
+      {n:'description',l:'Description',t:'text',ph:'Invoice #001'},
+      {n:'route_optimizer',l:'AI Route Optimizer',t:'select',opts:['1','0']},
+    ]
+  },
+  wallets:{
+    fields:[
+      {n:'user_id',l:'User ID',t:'select_users',req:true},
+      {n:'currency',l:'Currency',t:'select_currencies',req:true},
+      {n:'address',l:'Wallet Address',t:'text',req:true,ph:'0x... or account ID'},
+      {n:'balance',l:'Balance',t:'number',ph:'0.00'},
+      {n:'network',l:'Network',t:'select',opts:['ethereum','bitcoin','fiat','polygon','solana','bsc']},
+      {n:'wallet_type',l:'Type',t:'select',opts:['custodial','self-custody','fiat']},
+      {n:'is_primary',l:'Primary Wallet',t:'select',opts:['0','1']},
+    ]
+  },
+  fraud_alerts:{
+    fields:[
+      {n:'transaction_id',l:'Transaction ID',t:'text',req:true,ph:'TXN...'},
+      {n:'user_id',l:'User ID',t:'select_users',req:true},
+      {n:'risk_score',l:'Risk Score (0-1)',t:'number',req:true,ph:'0.94'},
+      {n:'severity',l:'Severity',t:'select',opts:['low','medium','high','critical'],req:true},
+      {n:'signals',l:'Signals',t:'text',ph:'signal1+signal2'},
+      {n:'verdict',l:'Verdict',t:'select',opts:['LOW_RISK','MEDIUM_RISK','HIGH_RISK','NORMAL']},
+      {n:'action_taken',l:'Action',t:'select',opts:['monitor','flag_review','auto_hold','block','cleared']},
+    ]
+  },
+  kyc_verifications:{
+    fields:[
+      {n:'user_id',l:'User ID',t:'select_users',req:true},
+      {n:'status',l:'Status',t:'select',opts:['pending','approved','failed'],req:true},
+      {n:'doc_type',l:'Document Type',t:'select',opts:['passport','drivers_license','national_id','residence_permit']},
+      {n:'doc_country',l:'Doc Country',t:'text',ph:'United States'},
+      {n:'biometric_method',l:'Biometric',t:'select',opts:['','fingerprint','face_id','voice']},
+    ]
+  },
+  api_keys:{
+    fields:[
+      {n:'user_id',l:'User ID',t:'select_users',req:true},
+      {n:'name',l:'Key Name',t:'text',req:true,ph:'Production Key'},
+      {n:'permissions',l:'Permissions',t:'text',req:true,ph:'payments:read,payments:write'},
+    ]
+  },
+  webhooks:{
+    fields:[
+      {n:'user_id',l:'User ID',t:'select_users',req:true},
+      {n:'url',l:'Endpoint URL',t:'text',req:true,ph:'https://yourapp.com/webhooks'},
+      {n:'events',l:'Events',t:'text',req:true,ph:'payment.confirmed,fraud.flagged'},
+    ]
+  },
+  products:{
+    fields:[
+      {n:'name',l:'Product Name',t:'text',req:true,ph:'Sony WH-1000XM5'},
+      {n:'category',l:'Category',t:'select',opts:['electronics','fashion','home','sports','beauty']},
+      {n:'price',l:'Price ($)',t:'number',req:true,ph:'278'},
+      {n:'original_price',l:'Original Price ($)',t:'number',ph:'350'},
+      {n:'ai_score',l:'AI Score (0-100)',t:'number',ph:'97'},
+      {n:'rating',l:'Rating (0-5)',t:'number',ph:'4.9'},
+      {n:'review_count',l:'Review Count',t:'number',ph:'12000'},
+      {n:'best_store',l:'Best Store',t:'text',ph:'Amazon'},
+      {n:'in_stock',l:'In Stock',t:'select',opts:['1','0']},
+    ]
+  }
+};
+
+function getUserOptions(){
+  try{
+    const res=DB.exec(`SELECT id,full_name FROM users ORDER BY full_name`);
+    return res[0]?.values.map(([id,name])=>`<option value="${id}">${id} — ${name}</option>`).join('')||'';
+  }catch(e){return'';}
+}
+function getCurrencyOptions(){
+  try{
+    const res=DB.exec(`SELECT code FROM currencies ORDER BY code`);
+    return res[0]?.values.map(([c])=>`<option value="${c}">${c}</option>`).join('')||'';
+  }catch(e){return'';}
+}
+
+function buildFormHTML(tbl, existing=null){
+  const cfg=FORM_CONFIG[tbl];
+  if(!cfg)return`<div class="empty-state">Form not available for this table.</div>`;
+  const userOpts=getUserOptions();
+  const curOpts=getCurrencyOptions();
+  return`<div class="form-grid">${cfg.fields.map(f=>{
+    const val=existing?.[f.n]??'';
+    let input='';
+    if(f.t==='select'){
+      input=`<select class="form-select" id="f_${f.n}" ${f.req?'required':''}>
+        <option value="">Select...</option>
+        ${f.opts.map(o=>`<option value="${o}" ${val==o?'selected':''}>${o}</option>`).join('')}
+      </select>`;
+    }else if(f.t==='select_users'){
+      input=`<select class="form-select" id="f_${f.n}" ${f.req?'required':''}>
+        <option value="">Select user...</option>
+        ${userOpts}
+      </select>`;
+    }else if(f.t==='select_currencies'){
+      input=`<select class="form-select" id="f_${f.n}" ${f.req?'required':''}>
+        <option value="">Select currency...</option>
+        ${curOpts}
+      </select>`;
+    }else if(f.t==='textarea'){
+      input=`<textarea class="form-textarea" id="f_${f.n}" placeholder="${f.ph||''}" ${f.req?'required':''}>${val}</textarea>`;
+    }else{
+      input=`<input class="form-input" type="${f.t||'text'}" id="f_${f.n}" value="${val}" placeholder="${f.ph||''}" ${f.req?'required':''}>`;
+    }
+    const isWide=['metadata','permissions','events','description','signals'].includes(f.n);
+    return`<div class="form-group ${isWide?'form-full':''}">
+      <label class="form-label">${f.l}${f.req?' <span style="color:var(--red)">*</span>':''}</label>
+      ${input}
+      <div class="form-error" id="err_${f.n}"></div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function openAddForm(tbl){
+  const html=buildFormHTML(tbl);
+  openModal(`+ Add Row — ${tbl}`,html,
+    `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+     <button class="btn btn-primary" onclick="submitAdd('${tbl}')">&#10003; Insert Row</button>`
+  );
+  // Set default select values
+  setTimeout(()=>{
+    const cfg=FORM_CONFIG[tbl];
+    if(cfg)cfg.fields.forEach(f=>{
+      if(f.t==='select_users'&&getUserOptions()){const s=document.getElementById('f_'+f.n);if(s&&s.options.length>1)s.selectedIndex=1;}
+      if(f.t==='select_currencies'){const s=document.getElementById('f_'+f.n);if(s){for(let i=0;i<s.options.length;i++)if(s.options[i].value==='USD'){s.selectedIndex=i;break;}}}
+    });
+  },50);
+}
+
+function openEditForm(tbl, id){
+  const cfg=TABLE_CONFIG[tbl];
+  if(!cfg)return;
+  const pk=cfg.cols[0];
+  try{
+    const res=DB.exec(`SELECT * FROM ${tbl} WHERE ${pk}=?`,[id]);
+    if(!res.length){toast('Record not found','error');return;}
+    const {columns,values}=res[0];
+    const existing=Object.fromEntries(columns.map((c,i)=>[c,values[0][i]]));
+    const html=buildFormHTML(tbl,existing);
+    openModal(`&#9998; Edit — ${id}`,html,
+      `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+       <button class="btn btn-primary" onclick="submitEdit('${tbl}','${id}')">&#10003; Save Changes</button>`
+    );
+    // Re-set select values after render
+    setTimeout(()=>{
+      const frmCfg=FORM_CONFIG[tbl];
+      if(frmCfg)frmCfg.fields.forEach(f=>{
+        const el=document.getElementById('f_'+f.n);
+        if(el&&existing[f.n]!==null&&existing[f.n]!==undefined){
+          if(el.tagName==='SELECT'){for(let i=0;i<el.options.length;i++)if(el.options[i].value==existing[f.n]){el.selectedIndex=i;break;}}
+          else el.value=existing[f.n]??'';
+        }
+      });
+    },50);
+  }catch(e){toast('Error opening edit form: '+e.message,'error');}
+}
+
+function getFormValues(tbl){
+  const cfg=FORM_CONFIG[tbl];
+  if(!cfg)return{};
+  const vals={};
+  cfg.fields.forEach(f=>{
+    const el=document.getElementById('f_'+f.n);
+    if(el)vals[f.n]=el.value.trim()||null;
+  });
+  return vals;
+}
+
+function validateForm(tbl){
+  const cfg=FORM_CONFIG[tbl];
+  if(!cfg)return true;
+  let valid=true;
+  cfg.fields.forEach(f=>{
+    const el=document.getElementById('f_'+f.n);
+    const err=document.getElementById('err_'+f.n);
+    if(el&&err){
+      if(f.req&&!el.value.trim()){
+        el.classList.add('invalid');err.textContent='This field is required';err.style.display='block';valid=false;
+      }else{el.classList.remove('invalid');err.style.display='none';}
+    }
+  });
+  return valid;
+}
+
+function submitAdd(tbl){
+  if(!validateForm(tbl))return;
+  const vals=getFormValues(tbl);
+  const cfg=TABLE_CONFIG[tbl];
+  const pk=cfg?.cols[0]||'id';
+
+  const prefixes={transactions:'TXN',users:'USR',payments:'PAY',wallets:'WAL',fraud_alerts:'FA',kyc_verifications:'KYC',api_keys:'AK',webhooks:'WH',products:'PROD'};
+  const newId=genId(prefixes[tbl]||'');
+  const now=new Date().toISOString();
+
+  try{
+    if(tbl==='transactions'){
+      const amt=parseFloat(vals.amount)||0;
+      const status='pending';
+      DB.run(`INSERT INTO transactions(id,user_id,payment_id,type,status,amount,currency,amount_usd,from_wallet,to_wallet,network,tx_hash,fee,risk_score,fraud_flag,route,metadata,created_at,confirmed_at)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.user_id,null,vals.type,status,amt,vals.currency,amt,vals.from_wallet,vals.to_wallet,vals.network,null,parseFloat(vals.fee)||0,0.01,0,vals.route,vals.metadata,now,null]);
+    }else if(tbl==='users'){
+      DB.run(`INSERT INTO users(id,email,full_name,phone,country,account_type,kyc_status,risk_score,created_at,last_login,is_active,tier)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.email,vals.full_name,vals.phone,vals.country,vals.account_type||'personal',vals.kyc_status||'pending',parseFloat(vals.risk_score)||0,now,now,1,vals.tier||'starter']);
+    }else if(tbl==='payments'){
+      DB.run(`INSERT INTO payments(id,user_id,amount,currency,status,payment_method,recipient_wallet,recipient_name,description,route_optimizer,scheduled_at,completed_at,created_at)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.user_id,parseFloat(vals.amount)||0,vals.currency,'pending',vals.payment_method,vals.recipient_wallet,vals.recipient_name,vals.description,parseInt(vals.route_optimizer)||1,null,null,now]);
+    }else if(tbl==='wallets'){
+      DB.run(`INSERT INTO wallets(id,user_id,currency,address,balance,balance_usd,network,wallet_type,is_primary,created_at)VALUES(?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.user_id,vals.currency,vals.address,parseFloat(vals.balance)||0,0,vals.network,vals.wallet_type||'custodial',parseInt(vals.is_primary)||0,now]);
+    }else if(tbl==='fraud_alerts'){
+      DB.run(`INSERT INTO fraud_alerts(id,transaction_id,user_id,risk_score,severity,signals,verdict,action_taken,reviewed_by,reviewed_at,created_at)VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.transaction_id,vals.user_id,parseFloat(vals.risk_score)||0,vals.severity,vals.signals,vals.verdict,vals.action_taken,null,null,now]);
+    }else if(tbl==='kyc_verifications'){
+      DB.run(`INSERT INTO kyc_verifications(id,user_id,status,doc_type,doc_country,biometric_method,verified_at,expires_at,provider,created_at)VALUES(?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.user_id,vals.status,vals.doc_type,vals.doc_country,vals.biometric_method||null,vals.status==='approved'?now:null,null,'Intellix-KYC',now]);
+    }else if(tbl==='api_keys'){
+      const prefix='ix_live_sk_'+Math.random().toString(36).slice(2,8);
+      DB.run(`INSERT INTO api_keys(id,user_id,key_hash,key_prefix,name,permissions,last_used,calls_today,is_active,created_at)VALUES(?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.user_id,'hash_'+prefix,prefix,vals.name,vals.permissions,null,0,1,now]);
+    }else if(tbl==='webhooks'){
+      DB.run(`INSERT INTO webhooks(id,user_id,url,events,secret_hash,is_active,last_triggered,success_count,fail_count,created_at)VALUES(?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.user_id,vals.url,vals.events,'whsec_'+Math.random().toString(36).slice(2,12),1,null,0,0,now]);
+    }else if(tbl==='products'){
+      DB.run(`INSERT INTO products(id,name,category,price,original_price,ai_score,rating,review_count,best_store,in_stock,created_at)VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
+        [newId,vals.name,vals.category,parseFloat(vals.price)||0,parseFloat(vals.original_price)||0,parseFloat(vals.ai_score)||0,parseFloat(vals.rating)||0,parseInt(vals.review_count)||0,vals.best_store,parseInt(vals.in_stock)||1,now]);
+    }
+
+    closeModal();
+    logAudit('INSERT',tbl,`Inserted ${newId}`);
+    updateCounts();updateTopBar();
+    renderTable(tbl,document.getElementById('mainArea'));
+    toast(`Row ${newId} inserted into ${tbl}`,'success');
+  }catch(e){toast('Insert failed: '+e.message,'error');}
+}
+
+function submitEdit(tbl, id){
+  if(!validateForm(tbl))return;
+  const vals=getFormValues(tbl);
+  const cfg=TABLE_CONFIG[tbl];
+  const pk=cfg?.cols[0]||'id';
+  const frmCfg=FORM_CONFIG[tbl];
+  if(!frmCfg)return;
+
+  try{
+    const setClauses=frmCfg.fields.map(f=>`${f.n}=?`).join(',');
+    const setVals=frmCfg.fields.map(f=>{
+      const v=vals[f.n];
+      if(f.t==='number')return parseFloat(v)||0;
+      return v;
+    });
+    DB.run(`UPDATE ${tbl} SET ${setClauses} WHERE ${pk}=?`,[...setVals,id]);
+    closeModal();
+    logAudit('UPDATE',tbl,`Updated ${pk}=${id}`);
+    updateCounts();updateTopBar();
+    renderTable(tbl,document.getElementById('mainArea'));
+    toast(`Record ${id} updated`,'success');
+  }catch(e){toast('Update failed: '+e.message,'error');}
+}
+
+// ══════════════════════════════════════════════════════════════
+// SCHEMA VIEW
+// ══════════════════════════════════════════════════════════════
+
+function renderSchema(container){
+  container.innerHTML=`
+  <div>
+    <div class="table-header">
+      <div><div class="table-title">&#9632; Database Schema</div><div class="table-sub">12 tables · Foreign keys · Indexes</div></div>
+      <div class="table-actions">
+        <button class="btn btn-ghost" onclick="exportSQLSchema()">&#8595; Export SQL</button>
+      </div>
+    </div>
+    <div class="schema-grid">
+      ${Object.entries(SCHEMA).map(([name,schema])=>`
+        <div class="schema-table">
+          <div class="schema-table-header" style="border-left:3px solid ${schema.color}">
+            <span class="schema-table-icon">${schema.icon}</span>
+            <span class="schema-table-name">${name}</span>
+            <span class="schema-table-count">${getCount(name)} rows</span>
+          </div>
+          ${schema.fields.map(f=>`
+            <div class="schema-field">
+              <span class="field-name">${f.name}</span>
+              <span class="field-type">${f.type}</span>
+              ${f.tags.map(t=>`<span class="field-badge ${t.toLowerCase()}">${t}</span>`).join('')}
+            </div>
+          `).join('')}
+          ${schema.relations?.length?`<div class="schema-relation"><span style="color:var(--cyan)">&#8644;</span> ${schema.relations.join(' · ')}</div>`:''}
+        </div>
+      `).join('')}
+    </div>
+  </div>`;
+}
+
+function exportSQLSchema(){
+  const sql=Object.entries(SCHEMA).map(([name,s])=>{
+    const fields=s.fields.map(f=>`  ${f.name} ${f.type}${f.tags.includes('NN')?' NOT NULL':''}${f.tags.includes('PK')?' PRIMARY KEY':''}`).join(',\n');
+    return`-- Table: ${name}\nCREATE TABLE ${name} (\n${fields}\n);\n`;
+  }).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(sql);
+  a.download='intellix_schema.sql';
+  a.click();
+  toast('Schema exported as SQL','success');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SQL CONSOLE
+// ══════════════════════════════════════════════════════════════
+
+const SQL_PRESETS=[
+  {label:'Top transactions',q:`SELECT id, type, amount, currency, status, risk_score\nFROM transactions\nORDER BY amount DESC\nLIMIT 10`},
+  {label:'Fraud alerts',q:`SELECT fa.id, t.type, fa.risk_score, fa.severity, fa.verdict, fa.action_taken\nFROM fraud_alerts fa\nJOIN transactions t ON fa.transaction_id = t.id\nORDER BY fa.risk_score DESC`},
+  {label:'User balances',q:`SELECT u.full_name, u.email, SUM(w.balance_usd) as total_usd\nFROM users u\nJOIN wallets w ON u.id = w.user_id\nGROUP BY u.id\nORDER BY total_usd DESC`},
+  {label:'Volume by currency',q:`SELECT currency, COUNT(*) as txns, SUM(amount_usd) as total_usd\nFROM transactions\nWHERE status = 'confirmed'\nGROUP BY currency\nORDER BY total_usd DESC`},
+  {label:'API key usage',q:`SELECT ak.key_prefix, ak.name, u.full_name, ak.calls_today\nFROM api_keys ak\nJOIN users u ON ak.user_id = u.id\nORDER BY ak.calls_today DESC`},
+  {label:'KYC summary',q:`SELECT status, COUNT(*) as count\nFROM kyc_verifications\nGROUP BY status`},
+  {label:'Recent audit log',q:`SELECT timestamp, action, table_name, details, user\nFROM audit_logs\nORDER BY timestamp DESC\nLIMIT 20`},
+  {label:'Exchange rates',q:`SELECT from_currency, to_currency, rate, source, updated_at\nFROM exchange_rates\nORDER BY from_currency`},
+];
+
+function renderSQL(container){
+  container.innerHTML=`
+  <div>
+    <div class="table-header">
+      <div><div class="table-title">&#9654; SQL Console</div><div class="table-sub">Run queries against the Intellix database</div></div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+      ${SQL_PRESETS.map((p,i)=>`<div class="chip" onclick="loadPreset(${i})">${p.label}</div>`).join('')}
+    </div>
+    <div class="sql-editor">
+      <div class="sql-toolbar">
+        <span class="sql-lang">SQL</span>
+        <button class="btn btn-primary btn-sm" onclick="runSQL()">&#9654; Run Query</button>
+        <button class="btn btn-ghost btn-sm" onclick="clearSQL()">Clear</button>
+        <button class="btn btn-ghost btn-sm" onclick="exportQueryCSV()">&#8595; Export</button>
+        <span id="sqlStatus" style="font-size:11px;color:var(--text3);margin-left:auto"></span>
+      </div>
+      <textarea class="sql-textarea" id="sqlInput" spellcheck="false">SELECT t.id, t.type, t.status, t.amount, t.currency, t.amount_usd, u.full_name, t.risk_score
+FROM transactions t
+JOIN users u ON t.user_id = u.id
+ORDER BY t.created_at DESC
+LIMIT 20</textarea>
+      <div class="sql-result">
+        <div class="sql-result-header">
+          <span>&#9654; Results</span>
+          <span id="sqlRowCount" style="margin-left:auto"></span>
+        </div>
+        <div class="sql-result-body" id="sqlResults" style="color:var(--text3);font-style:italic">Run a query to see results here</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function loadPreset(i){
+  const el=document.getElementById('sqlInput');
+  if(el)el.value=SQL_PRESETS[i].q;
+  runSQL();
+}
+function clearSQL(){const el=document.getElementById('sqlInput');if(el)el.value='';document.getElementById('sqlResults').textContent='';document.getElementById('sqlRowCount').textContent='';}
+
+function runSQL(){
+  const q=(document.getElementById('sqlInput')?.value||'').trim();
+  if(!q)return;
+  const t0=performance.now();
+  const resEl=document.getElementById('sqlResults');
+  const statusEl=document.getElementById('sqlStatus');
+  const countEl=document.getElementById('sqlRowCount');
+  try{
+    const result=DB.exec(q);
+    const ms=(performance.now()-t0).toFixed(1);
+    if(!result.length){
+      resEl.textContent='Query executed successfully. No rows returned.';
+      resEl.style.color='var(--green)';resEl.style.fontStyle='normal';
+      countEl.textContent='0 rows · '+ms+'ms';
+      statusEl.textContent='✓ '+ms+'ms';statusEl.style.color='var(--green)';
+      logAudit('SELECT','_console',q.slice(0,80));
+      return;
+    }
+    const {columns,values}=result[0];
+    const colWidths=columns.map(c=>Math.max(c.length,...values.map(r=>String(r[columns.indexOf(c)]??'').length)));
+    const header=columns.map((c,i)=>c.padEnd(colWidths[i])).join('  ');
+    const divider=colWidths.map(w=>'-'.repeat(w)).join('  ');
+    const rows=values.map(r=>r.map((v,i)=>String(v??'NULL').padEnd(colWidths[i])).join('  ')).join('\n');
+    resEl.textContent=`${header}\n${divider}\n${rows}`;
+    resEl.style.color='var(--text2)';resEl.style.fontStyle='normal';
+    countEl.textContent=values.length+' rows · '+ms+'ms';
+    statusEl.textContent='✓ '+ms+'ms';statusEl.style.color='var(--green)';
+    logAudit('SELECT','_console',q.slice(0,80));
+    updateCounts();updateTopBar();
+  }catch(e){
+    resEl.textContent='ERROR: '+e.message;
+    resEl.style.color='var(--red)';resEl.style.fontStyle='normal';
+    statusEl.textContent='✗ Error';statusEl.style.color='var(--red)';
+    countEl.textContent='';
+  }
+}
+let lastSQLResult=null;
+function exportQueryCSV(){
+  const q=(document.getElementById('sqlInput')?.value||'').trim();
+  if(!q){toast('Enter a query first','warning');return;}
+  try{
+    const result=DB.exec(q);
+    if(!result.length){toast('No results to export','warning');return;}
+    const {columns,values}=result[0];
+    const csv=[columns.join(','),...values.map(r=>r.map(v=>JSON.stringify(v??'')).join(','))].join('\n');
+    const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+    a.download='intellix_query_'+Date.now()+'.csv';a.click();
+    toast(`Exported ${values.length} rows`,'success');
+  }catch(e){toast('Export failed: '+e.message,'error');}
+}
+
+// ══════════════════════════════════════════════════════════════
+// ANALYTICS DASHBOARD
+// ══════════════════════════════════════════════════════════════
+
+function renderAnalytics(container){
+  let totalVol=0,confirmedTxns=0,flaggedTxns=0,avgRisk=0,totalUsers=0,activeUsers=0;
+  try{
+    totalVol=DB.exec(`SELECT COALESCE(SUM(amount_usd),0) FROM transactions WHERE status='confirmed'`)[0].values[0][0];
+    confirmedTxns=DB.exec(`SELECT COUNT(*) FROM transactions WHERE status='confirmed'`)[0].values[0][0];
+    flaggedTxns=DB.exec(`SELECT COUNT(*) FROM transactions WHERE fraud_flag=1`)[0].values[0][0];
+    avgRisk=DB.exec(`SELECT COALESCE(AVG(risk_score),0) FROM transactions`)[0].values[0][0];
+    totalUsers=DB.exec(`SELECT COUNT(*) FROM users`)[0].values[0][0];
+    activeUsers=DB.exec(`SELECT COUNT(*) FROM users WHERE is_active=1`)[0].values[0][0];
+  }catch(e){}
+
+  let volByCurHTML='',statusHTML='',topUsersHTML='',walletBalHTML='',rateHTML='';
+  try{
+    const vbc=DB.exec(`SELECT currency, COUNT(*) as c, COALESCE(SUM(amount_usd),0) as vol FROM transactions GROUP BY currency ORDER BY vol DESC LIMIT 6`)[0]?.values||[];
+    const maxVol=vbc.length?Math.max(...vbc.map(r=>r[2])):1;
+    volByCurHTML=vbc.map(([cur,cnt,vol])=>`
+      <div class="flex items-center gap-8" style="margin-bottom:10px">
+        <span class="badge badge-gold" style="width:50px;text-align:center">${cur}</span>
+        <div style="flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden">
+          <div style="width:${Math.round((vol/maxVol)*100)}%;height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:3px"></div>
+        </div>
+        <span class="mono fs-11" style="color:var(--text2);min-width:70px;text-align:right">$${Number(vol).toLocaleString()}</span>
+        <span class="mono fs-11" style="color:var(--text3);min-width:30px;text-align:right">${cnt}</span>
+      </div>`).join('');
+
+    const sc=DB.exec(`SELECT status, COUNT(*) as c FROM transactions GROUP BY status`)[0]?.values||[];
+    statusHTML=sc.map(([s,c])=>`<div class="flex items-center justify-between" style="padding:7px 0;border-bottom:1px solid var(--border)"><span>${statusBadge(s)}</span><span class="mono fw-600">${c}</span></div>`).join('');
+
+    const tu=DB.exec(`SELECT u.full_name, SUM(t.amount_usd) as vol, COUNT(t.id) as cnt FROM users u JOIN transactions t ON u.id=t.user_id GROUP BY u.id ORDER BY vol DESC LIMIT 5`)[0]?.values||[];
+    topUsersHTML=tu.map(([name,vol,cnt])=>`<div class="flex items-center justify-between" style="padding:8px 0;border-bottom:1px solid var(--border)"><div><div class="fw-600 fs-12">${name}</div><div class="fs-11" style="color:var(--text3)">${cnt} transactions</div></div><span class="mono text-cyan">$${Number(vol||0).toLocaleString()}</span></div>`).join('');
+
+    const wb=DB.exec(`SELECT currency, SUM(balance_usd) as total FROM wallets GROUP BY currency ORDER BY total DESC LIMIT 6`)[0]?.values||[];
+    walletBalHTML=wb.map(([cur,bal])=>`<div class="flex items-center justify-between" style="padding:7px 0;border-bottom:1px solid var(--border)"><span class="badge badge-gold">${cur}</span><span class="mono fw-600 text-cyan">$${Number(bal||0).toLocaleString()}</span></div>`).join('');
+
+    const er=DB.exec(`SELECT from_currency, to_currency, rate, updated_at FROM exchange_rates WHERE from_currency IN ('BTC','ETH','USD','EUR') ORDER BY from_currency`)[0]?.values||[];
+    rateHTML=er.map(([f,t,r,upd])=>`<div class="flex items-center justify-between" style="padding:7px 0;border-bottom:1px solid var(--border)"><span><span class="badge badge-gold">${f}</span> <span style="color:var(--text3)">→</span> <span class="badge badge-cyan">${t}</span></span><span class="mono fw-600 text-green">${Number(r).toFixed(4)}</span></div>`).join('');
+  }catch(e){console.error(e);}
+
+  container.innerHTML=`
+  <div>
+    <div class="table-header">
+      <div><div class="table-title">&#8728; Analytics Dashboard</div><div class="table-sub">Live metrics from the Intellix database</div></div>
+      <button class="btn btn-ghost" onclick="renderAnalytics(document.getElementById('mainArea'))">&#8635; Refresh</button>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card sc-cyan"><div class="stat-label">Total Volume</div><div class="stat-value text-cyan">$${Number(totalVol).toLocaleString('en',{maximumFractionDigits:0})}</div><div class="stat-delta text-green">&#9650; Confirmed transactions</div></div>
+      <div class="stat-card sc-green"><div class="stat-label">Confirmed Txns</div><div class="stat-value text-green">${confirmedTxns}</div><div class="stat-delta" style="color:var(--text3)">${getCount('transactions')} total</div></div>
+      <div class="stat-card sc-red"><div class="stat-label">Flagged Txns</div><div class="stat-value text-red">${flaggedTxns}</div><div class="stat-delta text-orange">Requires review</div></div>
+      <div class="stat-card sc-purple"><div class="stat-label">Active Users</div><div class="stat-value" style="color:var(--purple)">${activeUsers}/${totalUsers}</div><div class="stat-delta" style="color:var(--text3)">KYC approved: ${DB.exec?DB.exec(`SELECT COUNT(*) FROM kyc_verifications WHERE status='approved'`)[0].values[0][0]:0}</div></div>
+      <div class="stat-card sc-gold"><div class="stat-label">Avg Risk Score</div><div class="stat-value text-gold">${Number(avgRisk).toFixed(3)}</div><div class="stat-delta text-green">&#9660; Low platform risk</div></div>
+      <div class="stat-card sc-orange"><div class="stat-label">API Keys</div><div class="stat-value" style="color:var(--orange)">${getCount('api_keys')}</div><div class="stat-delta" style="color:var(--text3)">Active integrations</div></div>
+      <div class="stat-card sc-cyan"><div class="stat-label">Webhooks</div><div class="stat-value text-cyan">${getCount('webhooks')}</div><div class="stat-delta" style="color:var(--text3)">Event subscribers</div></div>
+      <div class="stat-card sc-green"><div class="stat-label">Wallets</div><div class="stat-value text-green">${getCount('wallets')}</div><div class="stat-delta" style="color:var(--text3)">${getCount('currencies')} currencies</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div class="card"><div class="card-title">Volume by Currency</div>${volByCurHTML||'<div class="empty-state">No data</div>'}</div>
+      <div class="card"><div class="card-title">Transaction Status</div>${statusHTML||'<div class="empty-state">No data</div>'}</div>
+      <div class="card"><div class="card-title">Exchange Rates</div>${rateHTML||'<div class="empty-state">No data</div>'}</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="card"><div class="card-title">Top Users by Volume</div>${topUsersHTML||'<div class="empty-state">No data</div>'}</div>
+      <div class="card"><div class="card-title">Wallet Balances by Currency</div>${walletBalHTML||'<div class="empty-state">No data</div>'}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">&#128196; Recent Audit Log</div>
+      <div style="display:flex;flex-direction:column">
+        ${auditBuffer.slice(0,10).map(a=>`
+          <div class="audit-item">
+            <div class="audit-icon" style="background:${{INSERT:'rgba(0,230,118,.1)',UPDATE:'rgba(255,145,0,.1)',DELETE:'rgba(255,23,68,.1)',SELECT:'rgba(0,229,255,.1)',EXPORT:'rgba(156,111,255,.1)'}[a.action]||'var(--bg3)'}">
+              ${{INSERT:'&#10010;',UPDATE:'&#9998;',DELETE:'&#9003;',SELECT:'&#9740;',EXPORT:'&#8595;'}[a.action]||'&#9670;'}
+            </div>
+            <div class="audit-body">
+              <div class="audit-action">${a.action} <span style="font-family:var(--mono);color:var(--purple)">${a.table_name}</span></div>
+              <div class="audit-detail">${a.details||''}</div>
+              <div class="audit-time">${timeAgo(a.timestamp)} · ${a.user} · ${a.ip}</div>
+            </div>
+          </div>`).join('')||'<div class="empty-state"><div class="empty-icon">&#128196;</div><div class="empty-title">No audit entries yet</div></div>'}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════════════
+// START
+// ══════════════════════════════════════════════════════════════
+initDB();
+</script>
+</div>
+
+<script>
+// ======================================================
+// INTELLIX — FULLY WIRED JAVASCRIPT
+// ======================================================
+
+// ---- TOAST NOTIFICATION ----
+function toast(msg, type='info', duration=3000){
+  let t=document.getElementById('ix-toast');
+  if(!t){
+    t=document.createElement('div');
+    t.id='ix-toast';
+    t.style.cssText='position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none';
+    document.body.appendChild(t);
+  }
+  const colors={info:'var(--cyan)',success:'var(--green)',error:'var(--red)',warning:'var(--orange)'};
+  const n=document.createElement('div');
+  n.style.cssText=`background:var(--card2);border:1px solid ${colors[type]||colors.info};border-radius:10px;padding:12px 18px;font-size:13px;color:var(--text);font-family:var(--body);min-width:220px;max-width:340px;pointer-events:auto;cursor:pointer;transition:opacity .3s;opacity:0;border-left:3px solid ${colors[type]||colors.info}`;
+  n.innerHTML=`<span style="color:${colors[type]||colors.info};margin-right:6px">&#9670;</span>${msg}`;
+  n.onclick=()=>n.remove();
+  t.appendChild(n);
+  requestAnimationFrame(()=>{n.style.opacity='1';});
+  setTimeout(()=>{n.style.opacity='0';setTimeout(()=>n.remove(),300);},duration);
+}
+
+// ---- MODAL ----
+function showModal(title, html, actions=[]){
+  let ov=document.getElementById('ix-modal');
+  if(ov)ov.remove();
+  ov=document.createElement('div');
+  ov.id='ix-modal';
+  ov.style.cssText='position:fixed;inset:0;background:rgba(6,7,13,.88);z-index:5000;display:flex;align-items:center;justify-content:center;padding:24px';
+  const btns=actions.map(a=>`<button onclick="${a.fn}" style="padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:var(--font);background:${a.primary?'linear-gradient(135deg,var(--cyan2),var(--purple2))':'var(--card2)'};color:${a.primary?'#000':'var(--text2)'};">${a.label}</button>`).join('');
+  ov.innerHTML=`<div style="background:var(--bg2);border:1px solid var(--border2);border-radius:18px;padding:32px;max-width:480px;width:100%;position:relative">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div style="font-family:var(--font);font-size:18px;font-weight:800">${title}</div>
+      <div onclick="document.getElementById('ix-modal').remove()" style="width:28px;height:28px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--text2)">&#10005;</div>
+    </div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px">${html}</div>
+    <div style="display:flex;gap:10px;justify-content:flex-end">${btns}</div>
+  </div>`;
+  ov.onclick=e=>{if(e.target===ov)ov.remove();};
+  document.body.appendChild(ov);
+}
+// closeModal already defined above
+
 // ---- NAV ----
 function showPage(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
+  const pg=document.getElementById('page-'+p);
+  if(!pg){toast('Page coming soon!','warning');return;}
+  pg.classList.add('active');
   const nl=document.getElementById('nl-'+p);
   if(nl)nl.classList.add('active');
   window.scrollTo(0,0);
-  if(p==='dashboard'){buildVolChart();setTimeout(()=>renderDashProducts(PRODUCTS),50);}
+  if(p==='dashboard'){buildVolChart();startLiveClock();setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},50);}
+  if(p==='database'&&typeof DB==='undefined'){}  // DB auto-inits
   if(p==='mobile')buildPhoneHome();
   if(p==='products')renderProducts();
 }
 
 // ---- TAB SWITCHING ----
-document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{const tr=t.closest('.tab-row');if(tr){tr.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');}});});
+document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{const tr=t.closest('.tab-row');if(tr){tr.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');if(tr.closest('#page-dashboard'))updateVolChart(t.textContent.trim());}});});
 document.querySelectorAll('.ptab').forEach(t=>{t.addEventListener('click',()=>{const tr=t.closest('.panel-tabs');if(tr){tr.querySelectorAll('.ptab').forEach(x=>x.classList.remove('active'));t.classList.add('active');}});});
 
+// ---- LIVE CLOCK ----
+function startLiveClock(){
+  const sub=document.querySelector('.dash-sub');
+  if(!sub)return;
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function tick(){
+    const n=new Date();
+    sub.textContent=`${days[n.getDay()]}, ${months[n.getMonth()]} ${n.getDate()} · ${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')} · Real-time AI payment intelligence`;
+  }
+  tick();setInterval(tick,1000);
+}
+
+// ---- LIVE VOLUME COUNTER ----
+function startLiveTicker(){
+  const pill=document.querySelector('.nav-pill');
+  if(!pill)return;
+  let base=4.2;
+  setInterval(()=>{
+    base+=(Math.random()-.4)*0.02;
+    base=Math.max(3.8,Math.min(5.0,base));
+    pill.innerHTML=`<span class="live-dot"></span>Live · $${base.toFixed(1)}M/hr`;
+  },3000);
+}
+
 // ---- DASHBOARD VOL CHART ----
+const volData={
+  '1D':{c:[38,22,45,60,55,72,88,65,92,78,84,97],f:[55,40,62,48,70,85,60,77,65,90,72,88],labels:['00','01','02','03','04','05','06','07','08','09','10','11']},
+  '7D':{c:[220,185,310,280,340,290,410],f:[310,250,380,320,400,350,480],labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun']},
+  '30D':{c:[1800,2200,1950,2600,2300,2900,2700,3100],f:[2400,2800,2600,3200,2900,3500,3200,3800],labels:['W1','W2','W3','W4','W5','W6','W7','W8']},
+  '1Y':{c:[18,22,19,28,31,26,35,38,33,42,46,51],f:[24,27,25,34,36,31,40,43,38,47,52,58],labels:['J','F','M','A','M','J','J','A','S','O','N','D']}
+};
 function buildVolChart(){
   const el=document.getElementById('volChart');
   if(!el||el.childElementCount>0)return;
-  const hrs=['00','01','02','03','04','05','06','07','08','09','10','11'];
-  const c=[38,22,45,60,55,72,88,65,92,78,84,97];
-  const f=[55,40,62,48,70,85,60,77,65,90,72,88];
-  const mx=Math.max(...c,...f);
-  hrs.forEach((h,i)=>{
+  renderVolBars('1D');
+}
+function renderVolBars(period){
+  const el=document.getElementById('volChart');
+  if(!el)return;
+  el.innerHTML='';
+  const d=volData[period]||volData['1D'];
+  const mx=Math.max(...d.c,...d.f);
+  d.labels.forEach((h,i)=>{
     const w=document.createElement('div');w.className='vol-bar-wrap';
-    const ch=Math.round((c[i]/mx)*140),fh=Math.round((f[i]/mx)*140);
-    w.innerHTML=`<div class="vol-bar crypto" style="height:${ch}px"></div><div class="vol-bar fiat" style="height:${fh}px"></div><div class="vol-label">${h}h</div>`;
+    const ch=Math.round((d.c[i]/mx)*140),fh=Math.round((d.f[i]/mx)*140);
+    w.innerHTML=`<div class="vol-bar crypto" style="height:${ch}px" title="Crypto: $${d.c[i]}K"></div><div class="vol-bar fiat" style="height:${fh}px" title="Fiat: $${d.f[i]}K"></div><div class="vol-label">${h}</div>`;
     el.appendChild(w);
   });
 }
+function updateVolChart(period){
+  const el=document.getElementById('volChart');
+  if(!el)return;
+  el.innerHTML='';
+  renderVolBars(period);
+}
+
+// ---- DASHBOARD EXPORT ----
+function exportDashboard(){
+  toast('Exporting dashboard report as PDF...','info',2000);
+  setTimeout(()=>{
+    const data='data:text/plain;charset=utf-8,Intellix Dashboard Export\n=========================\nTotal Volume: $48.7M (+12.4%)\nTransactions: 124,382\nAI Risk Score: 0.03\nFlagged: 3\n\nExported: '+new Date().toLocaleString();
+    const a=document.createElement('a');a.href=data;a.download='intellix-dashboard.txt';a.click();
+    toast('Report downloaded!','success');
+  },1500);
+}
+
+// ---- DASHBOARD SIDEBAR ITEMS ----
+function sideNav(page, label){
+  document.querySelectorAll('.side-item').forEach(s=>s.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  if(page) showPage(page);
+  else toast(`${label} — coming in the next release!`,'warning');
+}
+
+// ---- DASHBOARD NEW PAYMENT ----
+// handled by showPage('payment')
 
 // ---- PAYMENT ----
 let payAuth=false;
-function setCurP(el){document.querySelectorAll('#payCur .cur-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');calcPayFees();}
+function setCurP(el){
+  document.querySelectorAll('#payCur .cur-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  calcPayFees();
+  toast(`Currency switched to ${el.textContent}`,'info',1500);
+}
 function calcPayFees(){
   const raw=document.getElementById('payAmt').value.replace(/[^0-9.]/g,'');
   const amt=parseFloat(raw)||0;
@@ -1233,52 +3118,103 @@ function calcPayFees(){
   document.getElementById('pfeeIx').textContent='$'+(amt*0.0005).toFixed(2);
   document.getElementById('pfeeTotal').textContent='$'+(amt+0.18+amt*0.0005).toFixed(2);
   document.getElementById('payRecv').textContent=(amt*0.9965).toFixed(2)+' USD';
+  const btn=document.getElementById('paySendBtn');
+  if(btn&&!payAuth) btn.textContent='Authenticate to Send';
+  if(btn&&payAuth) btn.textContent=`Send $${amt.toLocaleString()} Now`;
 }
-function paySetBio(el){document.querySelectorAll('.bio-method').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
+function paySetBio(el){
+  document.querySelectorAll('.bio-method').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  toast(`${el.textContent} selected for authentication`,'info',1500);
+}
 function payBioScan(){
-  if(payAuth)return;
+  if(payAuth){toast('Already authenticated ✓','success',1500);return;}
   const ring=document.getElementById('payBioRing');
   const lbl=document.getElementById('payBioLabel');
   ring.classList.add('scanning');lbl.textContent='Scanning...';
+  toast('Biometric scan started...','info',1800);
   setTimeout(()=>{
     ring.classList.remove('scanning');ring.classList.add('done');
     ring.innerHTML='&#10003;';ring.style.color='var(--green)';
     lbl.textContent='Identity Verified';payAuth=true;
+    const raw=document.getElementById('payAmt').value.replace(/[^0-9.]/g,'')||'0';
     const btn=document.getElementById('paySendBtn');
-    btn.disabled=false;btn.textContent='Send $12,500 Now';
+    btn.disabled=false;btn.textContent=`Send $${parseFloat(raw).toLocaleString()||'0'} Now`;
     document.getElementById('ps3').classList.add('done');document.getElementById('pl2').classList.add('done');
+    toast('Identity verified! Ready to send.','success');
   },2000);
 }
 function paySend(){
-  if(!payAuth)return;
+  if(!payAuth){toast('Please authenticate first','error');return;}
   document.getElementById('ps4').classList.add('done');document.getElementById('pl3').classList.add('done');
   document.getElementById('paySendBtn').style.display='none';
   document.getElementById('paySuccess').classList.add('show');document.getElementById('paySuccess').style.display='flex';
+  toast('Payment sent successfully!','success',4000);
 }
 function payReset(){
   payAuth=false;
-  document.getElementById('payBioRing').className='bio-ring';document.getElementById('payBioRing').innerHTML='&#9711;';document.getElementById('payBioRing').style.color='';
+  const ring=document.getElementById('payBioRing');
+  ring.className='bio-ring';ring.innerHTML='&#9711;';ring.style.color='';
   document.getElementById('payBioLabel').textContent='Tap to authenticate';
   const btn=document.getElementById('paySendBtn');btn.disabled=true;btn.textContent='Authenticate to Send';btn.style.display='';
   document.getElementById('paySuccess').classList.remove('show');document.getElementById('paySuccess').style.display='none';
   ['ps1','ps2','ps3','ps4'].forEach((id,i)=>{const el=document.getElementById(id);el.classList.remove('done','active');if(i===0)el.classList.add('done');if(i===1)el.classList.add('active');});
   ['pl1','pl2','pl3'].forEach(id=>document.getElementById(id).classList.remove('done'));
   document.getElementById('pl1').classList.add('done');
+  document.getElementById('payAmt').value='12,500';
+  calcPayFees();
+  toast('Payment form reset','info',1500);
+}
+function selectSchedule(el, label, fee){
+  document.querySelectorAll('.sched-opt').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('pfeeNet').textContent=fee;
+  const raw=document.getElementById('payAmt').value.replace(/[^0-9.]/g,'')||'0';
+  const amt=parseFloat(raw)||0;
+  const netVal=parseFloat(fee.replace('$',''));
+  document.getElementById('pfeeTotal').textContent='$'+(amt+netVal+amt*0.0005).toFixed(2);
+  toast(`Scheduled for ${label} — fee optimized to ${fee}`,'success');
+}
+
+// ---- AI ROUTE OPTIMIZER ----
+function applyRoute(){
+  toast('AI Route applied — saving 98.5% on network fees!','success');
+  document.getElementById('pfeeNet').textContent='$0.18';
+  calcPayFees();
 }
 
 // ---- FRAUD ----
-function selFraud(el){document.querySelectorAll('.fraud-row').forEach(r=>r.classList.remove('selected'));el.classList.add('selected');}
-function fraudAction(btn,msg){const orig=btn.textContent;btn.textContent=msg;setTimeout(()=>btn.textContent=orig,2000);}
+function selFraud(el){
+  document.querySelectorAll('.fraud-row').forEach(r=>r.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function fraudAction(btn, msg){
+  const orig=btn.textContent;
+  const isBlock=msg==='Blocked!',isApprove=msg==='Approved!';
+  btn.textContent=msg;
+  if(isBlock){
+    btn.style.background='rgba(255,23,68,.3)';
+    toast('Transaction blocked and flagged for SAR filing','error',4000);
+    setTimeout(()=>{document.querySelector('.fraud-row.selected .risk-badge').textContent='BLOCKED';document.querySelector('.fraud-row.selected .risk-badge').style.background='rgba(255,23,68,.2)';},300);
+  } else if(isApprove){
+    btn.style.background='rgba(0,230,118,.3)';
+    toast('Transaction approved and released','success',3000);
+    setTimeout(()=>{document.querySelector('.fraud-row.selected .risk-badge').textContent='CLEARED';document.querySelector('.fraud-row.selected .risk-badge').style.background='rgba(0,230,118,.1)';document.querySelector('.fraud-row.selected .risk-badge').style.color='var(--green)';},300);
+  } else {
+    toast('Transaction escalated to compliance team','warning',3000);
+  }
+  setTimeout(()=>{btn.textContent=orig;btn.style.background='';},2500);
+}
 
-// ---- API ----
+// ---- API CONSOLE ----
 const eps={
-  createPay:{m:'POST',p:'v3/payments/create',b:'{\n  "amount": 12500,\n  "currency": "USD",\n  "recipient": {"wallet":"0x3f4a...","type":"eth_address"},\n  "options": {"route_optimizer":true,"fraud_check":"realtime"}\n}',r:'{\n  "success": true,\n  "payment_id": "pay_9xK2mN8pQ4",\n  "status": "processing",\n  "route": {"path":"polygon_bridge","fee":0.18},\n  "risk_score": 0.02,\n  "fraud_verdict": "approved"\n}'},
-  getPay:{m:'GET',p:'v3/payments/{id}',b:'// GET /v3/payments/pay_9xK2mN8pQ4',r:'{\n  "payment_id": "pay_9xK2mN8pQ4",\n  "status": "confirmed",\n  "tx_hash": "0x7f3a9b2c4e8d...",\n  "confirmations": 12\n}'},
-  riskScore:{m:'POST',p:'v3/ai/risk-score',b:'{\n  "amount": 84200,\n  "sender_wallet": "0xANON...",\n  "destination": "Cayman Islands",\n  "currency": "USDC"\n}',r:'{\n  "risk_score": 0.94,\n  "verdict": "HIGH_RISK",\n  "signals": [{"type":"new_wallet_high_value","weight":0.62}],\n  "recommended_action": "block"\n}'},
-  fraudCheck:{m:'POST',p:'v3/ai/fraud-check',b:'{\n  "transaction_id": "TXN-9821",\n  "realtime": true,\n  "include_explainability": true\n}',r:'{\n  "fraud_detected": true,\n  "confidence": 0.94,\n  "hold_applied": true\n}'},
-  convertCrypto:{m:'POST',p:'v3/crypto/convert',b:'{"from":"BTC","to":"USD","amount":0.482}',r:'{"converted":32100.44,"rate":66598.42,"fee":9.63}'},
-  getWallet:{m:'GET',p:'v3/crypto/wallet',b:'// GET /v3/crypto/wallet',r:'{"wallets":[{"currency":"BTC","balance":2.841,"usd_value":189197},{"currency":"ETH","balance":48.2,"usd_value":168700}]}'},
-  createWebhook:{m:'POST',p:'v3/webhooks/create',b:'{"url":"https://myapp.com/webhooks","events":["payment.confirmed","fraud.flagged"]}',r:'{"webhook_id":"wh_4mK9pQ2rT","status":"active"}'}
+  createPay:{m:'POST',p:'v3/payments/create',b:'{\n  "amount": 12500,\n  "currency": "USD",\n  "recipient": {"wallet":"0x3f4a...","type":"eth_address"},\n  "options": {"route_optimizer":true,"fraud_check":"realtime"}\n}',r:'{\n  "success": true,\n  "payment_id": "pay_9xK2mN8pQ4",\n  "status": "processing",\n  "route": {"path":"polygon_bridge","fee":0.18},\n  "risk_score": 0.02,\n  "fraud_verdict": "approved",\n  "created_at": "2026-03-16T14:32:07Z"\n}'},
+  getPay:{m:'GET',p:'v3/payments/{id}',b:'// GET /v3/payments/pay_9xK2mN8pQ4',r:'{\n  "payment_id": "pay_9xK2mN8pQ4",\n  "status": "confirmed",\n  "tx_hash": "0x7f3a9b2c4e8d...",\n  "confirmations": 12,\n  "confirmed_at": "2026-03-16T14:32:21Z"\n}'},
+  riskScore:{m:'POST',p:'v3/ai/risk-score',b:'{\n  "amount": 84200,\n  "sender_wallet": "0xANON...",\n  "destination": "Cayman Islands",\n  "currency": "USDC"\n}',r:'{\n  "risk_score": 0.94,\n  "verdict": "HIGH_RISK",\n  "signals": [{"type":"new_wallet_high_value","weight":0.62}],\n  "recommended_action": "block",\n  "model": "intellix-fraudnet-v2.1"\n}'},
+  fraudCheck:{m:'POST',p:'v3/ai/fraud-check',b:'{\n  "transaction_id": "TXN-9821",\n  "realtime": true,\n  "include_explainability": true\n}',r:'{\n  "fraud_detected": true,\n  "confidence": 0.94,\n  "hold_applied": true,\n  "explanation": "New wallet + FATF destination + velocity spike"\n}'},
+  convertCrypto:{m:'POST',p:'v3/crypto/convert',b:'{"from":"BTC","to":"USD","amount":0.482}',r:'{"converted":32100.44,"rate":66598.42,"fee":9.63,"executed_at":"2026-03-16T14:32:07Z"}'},
+  getWallet:{m:'GET',p:'v3/crypto/wallet',b:'// GET /v3/crypto/wallet',r:'{\n  "wallets": [\n    {"currency":"BTC","balance":2.841,"usd_value":189197},\n    {"currency":"ETH","balance":48.2,"usd_value":168700},\n    {"currency":"USDC","balance":540200,"usd_value":540200}\n  ],\n  "total_usd": 898097\n}'},
+  createWebhook:{m:'POST',p:'v3/webhooks/create',b:'{"url":"https://myapp.com/webhooks","events":["payment.confirmed","fraud.flagged"]}',r:'{"webhook_id":"wh_4mK9pQ2rT","status":"active","created_at":"2026-03-16T14:32:07Z"}'}
 };
 function loadEp(key,el){
   document.querySelectorAll('.ep-item').forEach(i=>i.classList.remove('selected'));el.classList.add('selected');
@@ -1290,9 +3226,14 @@ function loadEp(key,el){
   document.getElementById('apiResBody').style.color='var(--text3)';document.getElementById('apiResBody').style.fontStyle='italic';
   document.getElementById('apiResStatus').style.display='none';
 }
-function setSdk(el){document.querySelectorAll('.sdk-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+function setSdk(el){
+  document.querySelectorAll('.sdk-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  toast(`SDK switched to ${el.textContent}`,'info',1200);
+}
 function runApi(){
   const btn=document.querySelector('.run-btn');btn.textContent='Running...';btn.style.opacity='.7';
+  const ms=Math.round(30+Math.random()*60);
   setTimeout(()=>{
     const path=document.getElementById('apiPath').textContent;
     const key=Object.keys(eps).find(k=>eps[k].p===path)||'createPay';
@@ -1300,19 +3241,39 @@ function runApi(){
     rb.textContent=eps[key].r;rb.style.color='var(--text)';rb.style.fontStyle='normal';
     const rs=document.getElementById('apiResStatus');rs.style.display='flex';
     document.getElementById('apiStatusCode').textContent='200 OK';
-    document.getElementById('apiResTime').textContent=Math.round(30+Math.random()*40)+'ms';
+    document.getElementById('apiResTime').textContent=`${ms}ms · 1.1kb`;
     btn.textContent='Run Request';btn.style.opacity='1';
+    toast(`Response received in ${ms}ms`,'success',2000);
   },500+Math.random()*400);
 }
+function copyApiKey(){
+  const key='ix_live_sk_9xK2mN8pQ4rT7wL3z';
+  navigator.clipboard?.writeText(key).catch(()=>{});
+  toast('API key copied to clipboard!','success',2000);
+}
 
-// ---- MOBILE ----
+// ---- MOBILE SCREENS ----
 const mobileScreens={
-  home:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Good morning, <span style="color:#00e5ff">Alex</span></div><div style="width:24px;height:24px;border-radius:50%;background:#1c2040;display:flex;align-items:center;justify-content:center;font-size:11px;position:relative">&#9993;<div style="position:absolute;top:2px;right:2px;width:5px;height:5px;border-radius:50%;background:#ff1744"></div></div></div><div style="margin:4px 14px 0;background:linear-gradient(135deg,#0f1232,#1a0f3a);border:1px solid rgba(156,111,255,.2);border-radius:18px;padding:18px"><div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase">Total Balance</div><div style="font-size:28px;font-weight:800;color:#fff;margin:4px 0;letter-spacing:-1px;font-family:'Syne',sans-serif">$48,291</div><div style="font-size:11px;color:#00e676">&#9650; +$1,204.40 today</div><div style="display:flex;gap:6px;margin-top:12px"><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer"><div style="font-size:14px">&#8645;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Send</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer"><div style="font-size:14px">&#8644;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Receive</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer"><div style="font-size:14px">&#8652;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Swap</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer"><div style="font-size:14px">&#10010;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Top Up</div></div></div></div><div style="padding:12px 14px 6px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer"><div style="width:40px;height:40px;border-radius:12px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9783;</div><div style="font-size:9px;color:#3a4060">Split</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer"><div style="width:40px;height:40px;border-radius:12px;background:rgba(156,111,255,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9670;</div><div style="font-size:9px;color:#3a4060">Invest</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer"><div style="width:40px;height:40px;border-radius:12px;background:rgba(0,230,118,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#8635;</div><div style="font-size:9px;color:#3a4060">Recurring</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer"><div style="width:40px;height:40px;border-radius:12px;background:rgba(255,215,64,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9733;</div><div style="font-size:9px;color:#3a4060">Rewards</div></div></div><div style="padding:8px 14px"><div style="font-size:11px;font-weight:700;color:#7b82b0;margin-bottom:6px">Recent</div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="width:30px;height:30px;border-radius:9px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center">&#8383;</div><div style="flex:1"><div style="font-size:11px;font-weight:600">BTC Purchase</div><div style="font-size:9px;color:#3a4060">2 min ago</div></div><div style="font-size:11px;font-weight:700;color:#ff1744;font-family:'JetBrains Mono',monospace">-$2,400</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="width:30px;height:30px;border-radius:9px;background:rgba(0,230,118,.1);display:flex;align-items:center;justify-content:center">$</div><div style="flex:1"><div style="font-size:11px;font-weight:600">Salary Deposit</div><div style="font-size:9px;color:#3a4060">Today 09:00</div></div><div style="font-size:11px;font-weight:700;color:#00e676;font-family:'JetBrains Mono',monospace">+$8,200</div></div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;color:#00e5ff">&#9783;</div><div style="font-size:8px;color:#00e5ff">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#8645;</div><div style="font-size:8px;color:#3a4060">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9670;</div><div style="font-size:8px;color:#3a4060">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`,
-  pay:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Send <span style="color:#00e5ff">Payment</span></div></div><div style="padding:14px"><div style="font-size:10px;color:#3a4060;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px">Amount</div><div style="font-size:36px;font-weight:800;font-family:'JetBrains Mono',monospace;color:#00e5ff;margin-bottom:12px">$0.00</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px"><div style="padding:5px 10px;border-radius:14px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.2);font-size:11px;color:#00e5ff;font-family:monospace">USD</div><div style="padding:5px 10px;border-radius:14px;background:#12152a;border:1px solid rgba(255,255,255,.1);font-size:11px;color:#3a4060;font-family:monospace">BTC</div><div style="padding:5px 10px;border-radius:14px;background:#12152a;border:1px solid rgba(255,255,255,.1);font-size:11px;color:#3a4060;font-family:monospace">ETH</div></div><div style="font-size:10px;color:#3a4060;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px">To</div><div style="background:#1c2040;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:#7b82b0">Search name, wallet, email...</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:10px;overflow:hidden;margin-top:16px">${[1,2,3,4,5,6,7,8,9,'.',0,'&#9003;'].map(k=>`<div style="padding:12px;text-align:center;background:#161a2e;font-size:16px;font-weight:600;cursor:pointer">${k}</div>`).join('')}</div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9783;</div><div style="font-size:8px;color:#3a4060">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;color:#00e5ff">&#8645;</div><div style="font-size:8px;color:#00e5ff">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9670;</div><div style="font-size:8px;color:#3a4060">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`,
-  crypto:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Crypto <span style="color:#00e5ff">Wallet</span></div></div><div style="padding:10px 14px;display:flex;flex-direction:column;gap:8px"><div style="background:linear-gradient(135deg,rgba(247,147,26,.08),rgba(0,229,255,.06));border:1px solid rgba(247,147,26,.2);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:rgba(247,147,26,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">&#8383;</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Bitcoin</div><div style="font-size:10px;color:#3a4060;font-family:monospace">2.841 BTC</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$189,197</div><div style="font-size:10px;color:#00e676">+4.2%</div></div></div><div style="background:linear-gradient(135deg,rgba(156,111,255,.08),rgba(0,229,255,.06));border:1px solid rgba(156,111,255,.2);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:rgba(156,111,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">&#926;</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Ethereum</div><div style="font-size:10px;color:#3a4060;font-family:monospace">48.2 ETH</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$168,700</div><div style="font-size:10px;color:#ff1744">-1.1%</div></div></div><div style="background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(0,230,118,.06));border:1px solid rgba(0,229,255,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;border-radius:50%;background:rgba(0,229,255,.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">USDC</div><div style="flex:1"><div style="font-size:12px;font-weight:700">USD Coin</div><div style="font-size:10px;color:#3a4060;font-family:monospace">540,200 USDC</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$540,200</div><div style="font-size:10px;color:#3a4060">Stable</div></div></div><div style="padding:10px 12px;background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);border-radius:10px;font-size:11px;color:#7b82b0"><strong style="color:#00e676">AI:</strong> ETH down 1.1% — historically recovers in 6h. Auto-DCA $200?</div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9783;</div><div style="font-size:8px;color:#3a4060">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#8645;</div><div style="font-size:8px;color:#3a4060">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;color:#00e5ff">&#9670;</div><div style="font-size:8px;color:#00e5ff">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`
+  home:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Good morning, <span style="color:#00e5ff">Alex</span></div><div style="width:24px;height:24px;border-radius:50%;background:#1c2040;display:flex;align-items:center;justify-content:center;font-size:11px;position:relative;cursor:pointer" onclick="toast('3 new notifications','info')">&#9993;<div style="position:absolute;top:2px;right:2px;width:5px;height:5px;border-radius:50%;background:#ff1744"></div></div></div><div style="margin:4px 14px 0;background:linear-gradient(135deg,#0f1232,#1a0f3a);border:1px solid rgba(156,111,255,.2);border-radius:18px;padding:18px"><div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase">Total Balance</div><div style="font-size:28px;font-weight:800;color:#fff;margin:4px 0;letter-spacing:-1px;font-family:'Syne',sans-serif">$48,291</div><div style="font-size:11px;color:#00e676">&#9650; +$1,204.40 today</div><div style="display:flex;gap:6px;margin-top:12px"><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer" onclick="showPage('payment')"><div style="font-size:14px">&#8645;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Send</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer" onclick="toast('Receive address copied!','success')"><div style="font-size:14px">&#8644;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Receive</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer" onclick="switchPhone('crypto',document.querySelector('.phone-tab:nth-child(3)'))"><div style="font-size:14px">&#8652;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Swap</div></div><div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:8px;text-align:center;cursor:pointer" onclick="toast('Top Up via bank transfer or card','info')"><div style="font-size:14px">&#10010;</div><div style="font-size:9px;color:rgba(255,255,255,.6)">Top Up</div></div></div></div><div style="padding:12px 14px 6px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px"><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer" onclick="toast('AI Split Pay opened','info')"><div style="width:40px;height:40px;border-radius:12px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9783;</div><div style="font-size:9px;color:#3a4060">Split</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer" onclick="toast('Crypto invest mode coming soon','warning')"><div style="width:40px;height:40px;border-radius:12px;background:rgba(156,111,255,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9670;</div><div style="font-size:9px;color:#3a4060">Invest</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer" onclick="toast('Recurring payments set up','success')"><div style="width:40px;height:40px;border-radius:12px;background:rgba(0,230,118,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#8635;</div><div style="font-size:9px;color:#3a4060">Recurring</div></div><div style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer" onclick="toast('240 reward points available!','success')"><div style="width:40px;height:40px;border-radius:12px;background:rgba(255,215,64,.1);display:flex;align-items:center;justify-content:center;font-size:17px">&#9733;</div><div style="font-size:9px;color:#3a4060">Rewards</div></div></div><div style="padding:8px 14px"><div style="font-size:11px;font-weight:700;color:#7b82b0;margin-bottom:6px">Recent</div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer" onclick="toast('BTC Purchase — TXN-9831 confirmed','success')"><div style="width:30px;height:30px;border-radius:9px;background:rgba(0,229,255,.1);display:flex;align-items:center;justify-content:center">&#8383;</div><div style="flex:1"><div style="font-size:11px;font-weight:600">BTC Purchase</div><div style="font-size:9px;color:#3a4060">2 min ago</div></div><div style="font-size:11px;font-weight:700;color:#ff1744;font-family:monospace">-$2,400</div></div><div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer" onclick="toast('Salary from Acme Corp — confirmed','success')"><div style="width:30px;height:30px;border-radius:9px;background:rgba(0,230,118,.1);display:flex;align-items:center;justify-content:center">$</div><div style="flex:1"><div style="font-size:11px;font-weight:600">Salary Deposit</div><div style="font-size:9px;color:#3a4060">Today 09:00</div></div><div style="font-size:11px;font-weight:700;color:#00e676;font-family:monospace">+$8,200</div></div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="switchPhone('home',this.parentElement.children[0])"><div style="font-size:16px;color:#00e5ff">&#9783;</div><div style="font-size:8px;color:#00e5ff">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="switchPhone('pay',this.parentElement.children[1])"><div style="font-size:16px;opacity:.5">&#8645;</div><div style="font-size:8px;color:#3a4060">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="switchPhone('crypto',this.parentElement.children[2])"><div style="font-size:16px;opacity:.5">&#9670;</div><div style="font-size:8px;color:#3a4060">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="toast('Settings & more','info')"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`,
+  pay:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Send <span style="color:#00e5ff">Payment</span></div></div><div style="padding:14px"><div style="font-size:10px;color:#3a4060;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px">Amount</div><div id="mobilePayDisplay" style="font-size:36px;font-weight:800;font-family:'JetBrains Mono',monospace;color:#00e5ff;margin-bottom:12px">$0.00</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px"><div style="padding:5px 10px;border-radius:14px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.2);font-size:11px;color:#00e5ff;font-family:monospace;cursor:pointer">USD</div><div style="padding:5px 10px;border-radius:14px;background:#12152a;border:1px solid rgba(255,255,255,.1);font-size:11px;color:#3a4060;font-family:monospace;cursor:pointer" onclick="toast('Switched to BTC','info')">BTC</div><div style="padding:5px 10px;border-radius:14px;background:#12152a;border:1px solid rgba(255,255,255,.1);font-size:11px;color:#3a4060;font-family:monospace;cursor:pointer" onclick="toast('Switched to ETH','info')">ETH</div></div><div style="font-size:10px;color:#3a4060;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px">To</div><div style="background:#1c2040;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:12px;color:#7b82b0">Search name, wallet, email...</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border-radius:10px;overflow:hidden;margin-top:16px" id="mobileNumpad">${[1,2,3,4,5,6,7,8,9,'.','0','&#9003;'].map((k,i)=>`<div style="padding:12px;text-align:center;background:#161a2e;font-size:16px;font-weight:600;cursor:pointer" onclick="mobileNumpadTap('${k==='&#9003;'?'del':k}')">${k}</div>`).join('')}</div></div><div style="display:flex;padding:0 14px 10px"><div style="width:100%;padding:11px;border-radius:10px;background:linear-gradient(135deg,#00b8d9,#7c4fff);color:#000;font-size:13px;font-weight:700;text-align:center;cursor:pointer;font-family:var(--font)" onclick="showPage('payment')">Open Full Payment Screen</div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="switchPhone('home',this.parentElement.children[0])"><div style="font-size:16px;opacity:.5">&#9783;</div><div style="font-size:8px;color:#3a4060">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;color:#00e5ff">&#8645;</div><div style="font-size:8px;color:#00e5ff">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="switchPhone('crypto',this.parentElement.children[2])"><div style="font-size:16px;opacity:.5">&#9670;</div><div style="font-size:8px;color:#3a4060">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="toast('Settings & more','info')"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`,
+  crypto:`<div style="padding:16px 18px 8px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700">Crypto <span style="color:#00e5ff">Wallet</span></div></div><div style="padding:10px 14px;display:flex;flex-direction:column;gap:8px"><div style="background:linear-gradient(135deg,rgba(247,147,26,.08),rgba(0,229,255,.06));border:1px solid rgba(247,147,26,.2);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="toast('BTC: 2.841 · $189,197 · +4.2% today','success')"><div style="width:32px;height:32px;border-radius:50%;background:rgba(247,147,26,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">&#8383;</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Bitcoin</div><div style="font-size:10px;color:#3a4060;font-family:monospace">2.841 BTC</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$189,197</div><div style="font-size:10px;color:#00e676">+4.2%</div></div></div><div style="background:linear-gradient(135deg,rgba(156,111,255,.08),rgba(0,229,255,.06));border:1px solid rgba(156,111,255,.2);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="toast('ETH: 48.2 · $168,700 · -1.1% today','warning')"><div style="width:32px;height:32px;border-radius:50%;background:rgba(156,111,255,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">&#926;</div><div style="flex:1"><div style="font-size:12px;font-weight:700">Ethereum</div><div style="font-size:10px;color:#3a4060;font-family:monospace">48.2 ETH</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$168,700</div><div style="font-size:10px;color:#ff1744">-1.1%</div></div></div><div style="background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(0,230,118,.06));border:1px solid rgba(0,229,255,.15);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="toast('USDC: Stable · $540,200','info')"><div style="width:32px;height:32px;border-radius:50%;background:rgba(0,229,255,.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0">USDC</div><div style="flex:1"><div style="font-size:12px;font-weight:700">USD Coin</div><div style="font-size:10px;color:#3a4060;font-family:monospace">540,200 USDC</div></div><div style="text-align:right"><div style="font-size:13px;font-weight:700;font-family:monospace">$540,200</div><div style="font-size:10px;color:#3a4060">Stable</div></div></div><div style="padding:10px 12px;background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.15);border-radius:10px;font-size:11px;color:#7b82b0;cursor:pointer" onclick="toast('Auto-DCA $200 into ETH scheduled!','success')"><strong style="color:#00e676">AI:</strong> ETH down 1.1% — historically recovers in 6h. <span style="color:#00e5ff;font-weight:600">Auto-DCA $200?</span></div></div><div style="display:flex;border-top:1px solid rgba(255,255,255,.06);background:#06070d"><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="switchPhone('home',this.parentElement.children[0])"><div style="font-size:16px;opacity:.5">&#9783;</div><div style="font-size:8px;color:#3a4060">Home</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="switchPhone('pay',this.parentElement.children[1])"><div style="font-size:16px;opacity:.5">&#8645;</div><div style="font-size:8px;color:#3a4060">Pay</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer"><div style="font-size:16px;color:#00e5ff">&#9670;</div><div style="font-size:8px;color:#00e5ff">Crypto</div></div><div style="flex:1;padding:10px 0;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer" onclick="toast('Settings & more','info')"><div style="font-size:16px;opacity:.5">&#9733;</div><div style="font-size:8px;color:#3a4060">More</div></div></div>`
 };
+let mobilePayVal='';
+function mobileNumpadTap(k){
+  if(k==='del')mobilePayVal=mobilePayVal.slice(0,-1);
+  else if(k==='.'&&mobilePayVal.includes('.'))return;
+  else mobilePayVal+=k;
+  const el=document.getElementById('mobilePayDisplay');
+  if(el)el.textContent='$'+(mobilePayVal||'0');
+}
 function buildPhoneHome(){document.getElementById('phoneScreen').innerHTML=mobileScreens.home;}
-function switchPhone(s,el){document.querySelectorAll('.phone-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.getElementById('phoneScreen').innerHTML=mobileScreens[s]||mobileScreens.home;}
+function switchPhone(s,el){
+  document.querySelectorAll('.phone-tab').forEach(t=>t.classList.remove('active'));
+  if(el&&el.classList)el.classList.add('active');
+  else document.querySelectorAll('.phone-tab').forEach((t,i)=>{if(i===['home','pay','crypto'].indexOf(s))t.classList.add('active');});
+  document.getElementById('phoneScreen').innerHTML=mobileScreens[s]||mobileScreens.home;
+  mobilePayVal='';
+}
 
 // ---- AUTH ----
 let asuStep=1;
@@ -1323,56 +3284,95 @@ function switchAuth(m){
   document.getElementById('atog-signup').classList.toggle('active',m==='signup');
 }
 function doAuthLogin(){
+  const email=document.getElementById('li-email').value.trim();
+  const pw=document.getElementById('li-pw').value.trim();
+  if(!email){document.getElementById('li-email').classList.add('err');toast('Please enter your email','error');return;}
+  if(!pw){document.getElementById('li-pw').classList.add('err');toast('Please enter your password','error');return;}
+  document.getElementById('li-email').classList.remove('err');document.getElementById('li-pw').classList.remove('err');
   const btn=document.getElementById('li-btn');
   btn.textContent='Authenticating...';btn.disabled=true;btn.style.opacity='.7';
-  setTimeout(()=>{btn.style.display='none';document.getElementById('li-success').classList.add('show');},1600);
+  toast('Verifying credentials...','info',1500);
+  setTimeout(()=>{btn.style.display='none';document.getElementById('li-success').classList.add('show');toast('Welcome back! Redirecting...','success',3000);},1800);
+}
+function forgotPassword(){
+  const email=document.getElementById('li-email').value.trim();
+  if(!email){showModal('Reset Password','Enter your email address in the field above, then click reset.', [{label:'Got it',fn:'closeModal()',primary:true}]);return;}
+  showModal('Reset Password',`A password reset link has been sent to <strong style="color:var(--cyan)">${email}</strong>. Check your inbox within 2 minutes.`,[{label:'Done',fn:'closeModal()',primary:true}]);
+  toast('Reset link sent!','success');
+}
+function socialSignIn(provider){
+  toast(`Connecting to ${provider}...`,'info',1500);
+  setTimeout(()=>toast(`${provider} authentication successful!`,'success'),1800);
 }
 function checkSuPw(v){
   const fill=document.getElementById('su-pw-fill');const lbl=document.getElementById('su-pw-lbl');
   let s=0;if(v.length>=8)s++;if(/[A-Z]/.test(v))s++;if(/[0-9]/.test(v))s++;if(/[^A-Za-z0-9]/.test(v))s++;
-  const c=['','#ff1744','#ff9100','#ffd740','#00e676'];const l=['','Weak','Fair','Good','Strong'];
-  fill.style.width=(s*25)+'%';fill.style.background=c[s]||'transparent';lbl.textContent=l[s]||'';lbl.style.color=c[s]||'var(--text3)';
+  const c=['','#ff1744','#ff9100','#ffd740','#00e676'];const l=['','Weak — add uppercase','Fair — add numbers','Good — add symbols','Strong &#10003;'];
+  fill.style.width=(s*25)+'%';fill.style.background=c[s]||'transparent';lbl.innerHTML=l[s]||'8+ chars, 1 number, 1 symbol';lbl.style.color=c[s]||'var(--text3)';
 }
-function toggleAuthCb(id){document.getElementById(id).classList.toggle('checked');}
+function toggleAuthCb(id){
+  const cb=document.getElementById(id);cb.classList.toggle('checked');
+}
 function asuGoStep(n){
+  const cb=document.getElementById('su-cb');
+  if(n===2&&(!cb||!cb.classList.contains('checked'))){toast('Please agree to the Terms to continue','error');return;}
   document.getElementById('asu-s'+asuStep).style.display='none';
   document.getElementById('asu-d'+asuStep).className='sdot done';
   asuStep=n;
   document.getElementById('asu-s'+n).style.display='block';
   document.getElementById('asu-d'+n).className='sdot active';
+  if(n===3)toast('Code sent to your phone!','success');
 }
 function setAuthType(t){
   const p=document.getElementById('at-personal'),b=document.getElementById('at-business');
-  if(t==='personal'){p.style.background='rgba(0,229,255,.08)';p.style.border='1px solid rgba(0,229,255,.3)';p.querySelector('div:nth-child(2)').style.color='var(--cyan)';b.style.background='var(--card)';b.style.border='1px solid var(--border2)';b.querySelector('div:nth-child(2)').style.color='var(--text2)';}
-  else{b.style.background='rgba(0,229,255,.08)';b.style.border='1px solid rgba(0,229,255,.3)';b.querySelector('div:nth-child(2)').style.color='var(--cyan)';p.style.background='var(--card)';p.style.border='1px solid var(--border2)';p.querySelector('div:nth-child(2)').style.color='var(--text2)';}
+  if(t==='personal'){
+    p.style.background='rgba(0,229,255,.08)';p.style.border='1px solid rgba(0,229,255,.3)';p.querySelector('div:nth-child(2)').style.color='var(--cyan)';
+    b.style.background='var(--card)';b.style.border='1px solid var(--border2)';b.querySelector('div:nth-child(2)').style.color='var(--text2)';
+  } else {
+    b.style.background='rgba(0,229,255,.08)';b.style.border='1px solid rgba(0,229,255,.3)';b.querySelector('div:nth-child(2)').style.color='var(--cyan)';
+    p.style.background='var(--card)';p.style.border='1px solid var(--border2)';p.querySelector('div:nth-child(2)').style.color='var(--text2)';
+  }
+  toast(`${t.charAt(0).toUpperCase()+t.slice(1)} account selected`,'info',1200);
 }
-function checkOtp(v){if(v.length===6){document.getElementById('otp-in').classList.add('ok');}}
+function checkOtp(v){
+  if(v.length===6){
+    document.getElementById('otp-in').classList.add('ok');
+    toast('Code verified!','success');
+  }
+}
 function doSignup(){
+  const otp=document.getElementById('otp-in').value;
+  if(otp.length<6){toast('Please enter the 6-digit code','error');return;}
   const btn=document.getElementById('su-fin-btn');
   btn.textContent='Creating account...';btn.disabled=true;btn.style.opacity='.7';
-  setTimeout(()=>{btn.style.display='none';document.getElementById('su-success').classList.add('show');},1800);
+  toast('Setting up your account...','info',1800);
+  setTimeout(()=>{btn.style.display='none';document.getElementById('su-success').classList.add('show');toast('Account created! Welcome to Intellix!','success',4000);},2000);
 }
 
+// ---- PRICING / CONTACT SALES ----
+function contactSales(){
+  showModal('Contact Sales',
+    'Our enterprise team will reach out within 24 hours.<br><br><input placeholder="Your name" style="width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;margin-bottom:10px"><input placeholder="Work email" style="width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;margin-bottom:10px"><input placeholder="Company name" style="width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;font-family:var(--body);outline:none">',
+    [{label:'Cancel',fn:'closeModal()',primary:false},{label:'Send enquiry',fn:'closeModal();toast(\'Enquiry sent! We\'ll be in touch within 24h.\',\'success\',4000)',primary:true}]
+  );
+}
+
+// ---- PRIVACY / TERMS / SECURITY FOOTER LINKS ----
+function showPolicy(type){
+  const content={
+    Privacy:'Intellix collects minimal data required to process payments. We never sell your data to third parties. All data is encrypted at rest and in transit using AES-256.',
+    Terms:'By using Intellix you agree to our terms of service. Payments are processed securely and subject to applicable financial regulations in your jurisdiction.',
+    Security:'Intellix uses AES-256 encryption, biometric authentication, and AI-powered fraud detection. All infrastructure is SOC 2 Type II certified.'
+  };
+  showModal(`${type} Policy`,content[type]||'Coming soon.',[{label:'Close',fn:'closeModal()',primary:true}]);
+}
 
 // ---- SMART SHOP ----
-const PRODUCTS = [
-  {id:0,name:'Sony WH-1000XM5',category:'electronics',icon:'&#127911;',bg:'rgba(0,229,255,.06)',price:278,orig:350,rating:4.9,reviews:12847,badge:'best',aiScore:97,aiLabel:'Best Value',desc:'Industry-leading noise cancellation with 30hr battery. AI-verified best price across 8 stores.',stores:[{name:'Amazon',price:278,ship:'Free',days:2,cheapest:true},{name:'Best Buy',price:299,ship:'Free',days:1,cheapest:false},{name:'Sony.com',price:350,ship:'$9',days:5,cheapest:false},{name:'Walmart',price:289,ship:'Free',days:3,cheapest:false}],specs:['Noise Cancellation: Industry-best','Battery: 30 hours','Multipoint: 2 devices','Weight: 250g']},
-  {id:1,name:'MacBook Air M3 13"',category:'electronics',icon:'&#128187;',bg:'rgba(156,111,255,.06)',price:1099,orig:1299,rating:4.8,reviews:8432,badge:'deal',aiScore:91,aiLabel:'Great Deal',desc:'Apple M3 chip, 8GB RAM, 256GB SSD. Lowest price in 6 months detected by Intellix AI.',stores:[{name:'Apple',price:1099,ship:'Free',days:3,cheapest:true},{name:'Amazon',price:1099,ship:'Free',days:2,cheapest:true},{name:'Best Buy',price:1149,ship:'Free',days:1,cheapest:false},{name:'B&H Photo',price:1089,ship:'Free',days:4,cheapest:false}],specs:['Chip: Apple M3','RAM: 8GB','Storage: 256GB SSD','Display: 13.6" Liquid Retina']},
-  {id:2,name:'Nike Air Max 270',category:'fashion',icon:'&#128139;',bg:'rgba(255,145,0,.06)',price:99,orig:150,rating:4.7,reviews:24103,badge:'hot',aiScore:88,aiLabel:'Hot Deal',desc:'Iconic Air Max cushioning. Price dropped 34% — AI alert triggered for 4,200 watchers.',stores:[{name:'Nike.com',price:110,ship:'Free',days:4,cheapest:false},{name:'Amazon',price:99,ship:'Free',days:2,cheapest:true},{name:'Foot Locker',price:120,ship:'$8',days:3,cheapest:false},{name:'ASOS',price:105,ship:'Free',days:5,cheapest:false}],specs:['Style: Air Max 270','Upper: Mesh + synthetic','Sole: Air unit heel','Sizes: US 6–15']},
-  {id:3,name:'Dyson V15 Detect',category:'home',icon:'&#129529;',bg:'rgba(0,230,118,.06)',price:649,orig:799,rating:4.8,reviews:6291,badge:'deal',aiScore:94,aiLabel:'Top Pick',desc:'Laser dust detection, 60-min runtime. Intellix found it $150 below average retail.',stores:[{name:'Dyson',price:799,ship:'Free',days:5,cheapest:false},{name:'Amazon',price:649,ship:'Free',days:2,cheapest:true},{name:'Target',price:699,ship:'Free',days:3,cheapest:false},{name:'Costco',price:669,ship:'Free',days:4,cheapest:false}],specs:['Suction: 240 AW','Runtime: 60 min','Detection: Laser','Filter: HEPA']},
-  {id:4,name:'iPad Pro 11" M4',category:'electronics',icon:'&#128396;',bg:'rgba(0,229,255,.06)',price:999,orig:1099,rating:4.9,reviews:4821,badge:'new',aiScore:89,aiLabel:'New & Worth It',desc:'M4 chip, Ultra Retina XDR display, Apple Pencil Pro ready. Brand new — AI price-tracked from launch.',stores:[{name:'Apple',price:999,ship:'Free',days:3,cheapest:true},{name:'Amazon',price:1009,ship:'Free',days:2,cheapest:false},{name:'Costco',price:979,ship:'Free',days:5,cheapest:false},{name:'Best Buy',price:999,ship:'Free',days:1,cheapest:false}],specs:['Chip: Apple M4','Display: 11" Ultra Retina XDR','Storage: 256GB','Pencil: Pro compatible']},
-  {id:5,name:'Lululemon Align Leggings',category:'fashion',icon:'&#128084;',bg:'rgba(255,64,129,.06)',price:89,orig:128,rating:4.8,reviews:31200,badge:'deal',aiScore:85,aiLabel:'Fan Favourite',desc:'Buttery-soft Nulu fabric. AI found 30% off — lowest price since Black Friday.',stores:[{name:'Lululemon',price:128,ship:'Free',days:4,cheapest:false},{name:'Amazon',price:89,ship:'Free',days:2,cheapest:true},{name:'Nordstrom',price:98,ship:'Free',days:3,cheapest:false},{name:'eBay',price:82,ship:'$6',days:6,cheapest:false}],specs:['Fabric: Nulu','Rise: High-rise 28"','Fit: Slim','Sizes: 0–20']},
-  {id:6,name:'Theragun PRO Plus',category:'sports',icon:'&#128170;',bg:'rgba(255,215,64,.06)',price:399,orig:599,rating:4.7,reviews:9842,badge:'best',aiScore:93,aiLabel:'Best in Class',desc:'Professional-grade percussive therapy. 6 attachments, smart app control. 33% off detected.',stores:[{name:'Therabody',price:599,ship:'Free',days:4,cheapest:false},{name:'Amazon',price:399,ship:'Free',days:2,cheapest:true},{name:'Best Buy',price:449,ship:'Free',days:1,cheapest:false},{name:'GNC',price:479,ship:'$12',days:5,cheapest:false}],specs:['Speed: 1750–2400 PPM','Battery: 150 min','Depth: 16mm','App: Therabody']},
-  {id:7,name:'Nespresso Vertuo Pop',category:'home',icon:'&#9749;',bg:'rgba(156,111,255,.06)',price:79,orig:129,rating:4.6,reviews:18340,badge:'hot',aiScore:82,aiLabel:'Great Value',desc:'Barcode-reading coffee perfection. AI found best bundle price across 6 retailers.',stores:[{name:'Nespresso',price:99,ship:'Free',days:4,cheapest:false},{name:'Amazon',price:79,ship:'Free',days:2,cheapest:true},{name:'Target',price:89,ship:'Free',days:2,cheapest:false},{name:'Williams Sonoma',price:129,ship:'Free',days:5,cheapest:false}],specs:['Capacity: 1.1L','Pressure: 19 bar','Capsule: Vertuo','Colors: 5 options']},
-  {id:8,name:'Charlotte Tilbury Pillow Talk',category:'beauty',icon:'&#128144;',bg:'rgba(255,64,129,.06)',price:34,orig:45,rating:4.9,reviews:52400,badge:'best',aiScore:96,aiLabel:'#1 Rated',desc:'Iconic universally-flattering nude-pink. AI price comparison across 12 beauty retailers.',stores:[{name:'Charlotte Tilbury',price:45,ship:'Free',days:4,cheapest:false},{name:'Sephora',price:38,ship:'Free',days:2,cheapest:false},{name:'Amazon',price:34,ship:'Free',days:2,cheapest:true},{name:'ASOS',price:36,ship:'$5',days:5,cheapest:false}],specs:['Type: Matte Revolution','Shade: Pillow Talk','Volume: 3.5g','Vegan: Yes']},
-  {id:9,name:'Samsung 65" OLED 4K',category:'electronics',icon:'&#128250;',bg:'rgba(0,229,255,.06)',price:1299,orig:1999,rating:4.8,reviews:7621,badge:'deal',aiScore:92,aiLabel:'Best Price Ever',desc:'4K OLED, 144Hz gaming, Dolby Atmos. AI confirmed all-time lowest price — $700 below MSRP.',stores:[{name:'Samsung',price:1999,ship:'Free',days:7,cheapest:false},{name:'Amazon',price:1299,ship:'Free',days:2,cheapest:true},{name:'Best Buy',price:1499,ship:'Free',days:1,cheapest:false},{name:'Costco',price:1349,ship:'Free',days:5,cheapest:false}],specs:['Panel: OLED','Resolution: 4K 144Hz','HDR: Dolby Vision IQ','Audio: Dolby Atmos 4.2.2']},
-  {id:10,name:'Patagonia Nano Puff Jacket',category:'fashion',icon:'&#129449;',bg:'rgba(0,230,118,.06)',price:179,orig:249,rating:4.8,reviews:14300,badge:'deal',aiScore:87,aiLabel:'Ethical Pick',desc:'PrimaLoft insulation, recycled materials. 28% off — Intellix tracks ethical brand deals.',stores:[{name:'Patagonia',price:249,ship:'Free',days:5,cheapest:false},{name:'REI',price:199,ship:'Free',days:3,cheapest:false},{name:'Amazon',price:179,ship:'Free',days:2,cheapest:true},{name:'Backcountry',price:189,ship:'Free',days:4,cheapest:false}],specs:['Insulation: PrimaLoft Gold','Shell: Recycled polyester','Fill: 60g','Packable: Yes']},
-  {id:11,name:'Vitamix A3500 Blender',category:'home',icon:'&#129371;',bg:'rgba(255,215,64,.06)',price:449,orig:649,rating:4.9,reviews:8910,badge:'best',aiScore:95,aiLabel:'Lifetime Value',desc:'Professional-grade blending, 10-year warranty. AI calculated best cost-per-year value.',stores:[{name:'Vitamix',price:649,ship:'Free',days:5,cheapest:false},{name:'Amazon',price:449,ship:'Free',days:2,cheapest:true},{name:'Williams Sonoma',price:549,ship:'Free',days:4,cheapest:false},{name:'Costco',price:399,ship:'Free',days:6,cheapest:false}],specs:['Motor: 2.2HP','Programs: 5 presets','Container: 64oz','Warranty: 10 years']}
-];
-
-let filteredProducts=[...PRODUCTS],currentCat='all',maxPrice=2000;
+let filteredProducts=[...PRODUCTS||[]],currentCat='all',maxPrice=2000;
 
 function renderProducts(){
+  if(typeof PRODUCTS==='undefined')return;
+  if(!filteredProducts.length)filteredProducts=[...PRODUCTS];
   const grid=document.getElementById('productsGrid');
   if(!grid)return;
   const visible=filteredProducts.filter(p=>p.price<=maxPrice);
@@ -1385,12 +3385,12 @@ function renderProducts(){
     return `<div class="prod-card" onclick="openProduct(${p.id})">
       <div class="prod-img" style="background:${p.bg}">${p.icon}
         <div class="prod-badge ${badgeMap[p.badge]}">${badgeText[p.badge]}</div>
-        <div class="prod-save" onclick="event.stopPropagation();this.classList.toggle('saved')" title="Save">&#9825;</div>
+        <div class="prod-save" onclick="event.stopPropagation();toggleWatchlist(this,${p.id})" title="Watchlist">&#9825;</div>
       </div>
       <div class="prod-body">
         <div class="prod-category">${p.category}</div>
         <div class="prod-name">${p.name}</div>
-        <div class="prod-rating"><span class="prod-stars">${'&#9733;'.repeat(Math.floor(p.rating))}${p.rating%1?'&#9734;':''}</span><span class="prod-rating-count">${p.rating} (${p.reviews.toLocaleString()})</span></div>
+        <div class="prod-rating"><span class="prod-stars">${'&#9733;'.repeat(Math.floor(p.rating))}</span><span class="prod-rating-count">${p.rating} (${p.reviews.toLocaleString()})</span></div>
         <div class="prod-price-row">
           <div class="prod-price">$${p.price}</div>
           <div class="prod-orig">$${p.orig}</div>
@@ -1401,11 +3401,21 @@ function renderProducts(){
           <div class="prod-ai-bar"><div class="prod-ai-fill" style="width:${p.aiScore}%;background:${aiColor}"></div></div>
           <span class="prod-ai-label" style="color:${aiColor}">${p.aiScore}</span>
         </div>
-        <div class="prod-stores">${p.stores.slice(0,3).map(s=>`<div class="prod-store ${s.cheapest?'cheapest':''}">${s.cheapest?'&#10003; ':''}${s.name} $${s.price}</div>`).join('')}</div>
+        <div class="prod-stores">${p.stores.slice(0,3).map(s=>`<div class="prod-store ${s.cheapest?'cheapest':''}" onclick="event.stopPropagation();toast('${s.name}: $${s.price} · ${s.ship} shipping · ${s.days}d delivery','info',3000)">${s.cheapest?'&#10003; ':''}${s.name} $${s.price}</div>`).join('')}</div>
         <button class="prod-buy-btn" onclick="event.stopPropagation();buyNow(${p.id})">Buy via Intellix &rarr;</button>
       </div>
     </div>`;
   }).join('');
+}
+
+function toggleWatchlist(el,id){
+  el.classList.toggle('saved');
+  const p=PRODUCTS[id];
+  if(el.classList.contains('saved')){
+    toast(`${p.name} added to Price Watch!`,'success');
+  } else {
+    toast(`${p.name} removed from watchlist`,'info',1500);
+  }
 }
 
 function openProduct(id){
@@ -1425,7 +3435,7 @@ function openProduct(id){
           <span style="font-size:15px;color:var(--text3);text-decoration:line-through">$${p.orig}</span>
           <span style="background:rgba(0,230,118,.12);color:var(--green);font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px">Save ${savePct}%</span>
         </div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap">
           <div style="display:flex;align-items:center;gap:6px;background:var(--bg3);padding:7px 12px;border-radius:8px">
             <span style="font-size:11px;color:var(--text3)">AI Score</span>
             <span style="font-family:var(--mono);font-size:14px;font-weight:700;color:${aiColor}">${p.aiScore}/100</span>
@@ -1433,9 +3443,10 @@ function openProduct(id){
           </div>
           <div class="pay-via-badge">&#9670; Pay via Intellix</div>
         </div>
-        <div style="display:flex;gap:10px">
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="checkout-btn-large" onclick="buyNow(${p.id})">Buy Now — $${p.price}</button>
-          <button class="btn btn-ghost" onclick="document.getElementById('prodDetailOverlay').classList.remove('show')">&#9825; Watchlist</button>
+          <button class="btn btn-ghost" onclick="toggleDetailWatchlist(${p.id})">&#9825; Watchlist</button>
+          <button class="btn btn-ghost" onclick="shareProduct(${p.id})">&#8679; Share</button>
         </div>
       </div>
     </div>
@@ -1444,7 +3455,7 @@ function openProduct(id){
         <div style="font-size:13px;font-weight:700;margin-bottom:10px;font-family:var(--font)">&#9670; Price Comparison</div>
         <table class="price-compare-table">
           <thead><tr><th>Store</th><th>Price</th><th>Shipping</th><th>Delivery</th></tr></thead>
-          <tbody>${p.stores.map(s=>`<tr><td style="font-weight:${s.cheapest?700:400}">${s.cheapest?'&#9670; ':''}${s.name}</td><td class="${s.cheapest?'price-winner':'price-normal'}">$${s.price}</td><td style="color:var(--green);font-size:12px">${s.ship}</td><td style="color:var(--text3);font-size:12px">${s.days}d</td></tr>`).join('')}</tbody>
+          <tbody>${p.stores.map(s=>`<tr style="cursor:pointer" onclick="toast('Opening ${s.name} in new tab...','info',1500)"><td style="font-weight:${s.cheapest?700:400}">${s.cheapest?'&#9670; ':''}${s.name}</td><td class="${s.cheapest?'price-winner':'price-normal'}">$${s.price}</td><td style="color:var(--green);font-size:12px">${s.ship}</td><td style="color:var(--text3);font-size:12px">${s.days}d</td></tr>`).join('')}</tbody>
         </table>
       </div>
       <div>
@@ -1455,14 +3466,13 @@ function openProduct(id){
   document.getElementById('prodDetailOverlay').classList.add('show');
 }
 
-function closeProdDetail(e){if(e.target===document.getElementById('prodDetailOverlay'))document.getElementById('prodDetailOverlay').classList.remove('show');}
-
 function buyNow(id){
   document.getElementById('prodDetailOverlay').classList.remove('show');
-  showPage('payment');
   const p=PRODUCTS[id];
+  showPage('payment');
   const el=document.getElementById('payAmt');
   if(el){el.value=p.price;calcPayFees();}
+  toast(`${p.name} — $${p.price} loaded into payment screen`,'success');
 }
 
 function filterCat(cat,el){
@@ -1470,10 +3480,14 @@ function filterCat(cat,el){
   el.classList.add('active');currentCat=cat;
   filteredProducts=cat==='all'?[...PRODUCTS]:PRODUCTS.filter(p=>p.category===cat);
   renderProducts();
+  const count=filteredProducts.filter(p=>p.price<=maxPrice).length;
+  toast(`Showing ${count} ${cat==='all'?'products':cat+' products'}`,'info',1500);
 }
-
-function setPriceRange(v){maxPrice=parseInt(v);document.getElementById('priceRangeVal').textContent='$'+parseInt(v).toLocaleString();renderProducts();}
-
+function setPriceRange(v){
+  maxPrice=parseInt(v);
+  document.getElementById('priceRangeVal').textContent='$'+parseInt(v).toLocaleString();
+  renderProducts();
+}
 function setSortChip(el){
   document.querySelectorAll('.sort-chip').forEach(c=>c.classList.remove('active'));
   el.classList.add('active');
@@ -1483,20 +3497,25 @@ function setSortChip(el){
   else if(t.includes('Savings'))filteredProducts.sort((a,b)=>(b.orig-b.price)-(a.orig-a.price));
   else filteredProducts.sort((a,b)=>b.aiScore-a.aiScore);
   renderProducts();
+  toast(`Sorted by ${t}`,'info',1200);
 }
-
 function searchProducts(q){
   const lq=q.toLowerCase();
   filteredProducts=PRODUCTS.filter(p=>p.name.toLowerCase().includes(lq)||p.category.toLowerCase().includes(lq)||p.desc.toLowerCase().includes(lq));
   renderProducts();
+}
+function addToWatchlist(){
+  const q=(document.getElementById('shopSearch')||{}).value||'';
+  if(!q.trim()){toast('Enter a product name to watch','warning');return;}
+  toast(`"${q.trim()}" added to Price Watch!`,'success');
 }
 
 // ---- DASHBOARD PRODUCT FINDER ----
 let dashCat='all';
 function renderDashProducts(list){
   const el=document.getElementById('dashProdResults');
-  if(!el)return;
-  const show=list.slice(0,4);
+  if(!el||typeof PRODUCTS==='undefined')return;
+  const show=(list||PRODUCTS).slice(0,4);
   if(show.length===0){el.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--text3);font-size:13px">No products found — try a different search</div>`;return;}
   const aiColor=s=>s>=90?'var(--green)':s>=80?'var(--cyan)':'var(--orange)';
   const badgeText={best:'Best Value',deal:'Top Deal',hot:'Hot',new:'New'};
@@ -1518,22 +3537,26 @@ function renderDashProducts(list){
         <span style="font-size:10px;font-family:var(--mono);color:${aiColor(p.aiScore)};font-weight:700">${p.aiScore}</span>
       </div>
       <div style="font-size:10px;color:var(--green);margin-bottom:8px">&#10003; Best: ${p.stores.find(s=>s.cheapest)?.name||p.stores[0].name} · Free shipping</div>
-      <button style="width:100%;padding:7px;border-radius:8px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)" onclick="event.stopPropagation();showPage('products')">Pay with Intellix</button>
+      <button style="width:100%;padding:7px;border-radius:8px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)" onclick="event.stopPropagation();buyNow(${p.id})">Pay with Intellix</button>
     </div>`;
   }).join('');
 }
 function dashSearch(q){
+  if(typeof PRODUCTS==='undefined')return;
   const lq=q.toLowerCase().trim();
   let base=dashCat==='all'?[...PRODUCTS]:PRODUCTS.filter(p=>p.category===dashCat);
   const res=lq?base.filter(p=>p.name.toLowerCase().includes(lq)||p.category.includes(lq)||p.desc.toLowerCase().includes(lq)):base;
   renderDashProducts(res);
   const tip=document.getElementById('dashAiTip');
-  if(lq&&res.length>0){
-    const top=res[0];
-    const save=Math.round((1-top.price/top.orig)*100);
-    tip.innerHTML=`<strong style="color:var(--cyan)">&#9670; AI says:</strong> Best match for "<strong style="color:var(--text)">${q}</strong>" — <strong style="color:var(--text)">${top.name}</strong> at $${top.price} (${save}% off). Cheapest store: <strong style="color:var(--green)">${top.stores.find(s=>s.cheapest)?.name}</strong>. <a style="color:var(--cyan);cursor:pointer;font-weight:600" onclick="showPage('products')">Full comparison &rarr;</a>`;
-  } else if(!lq){
-    tip.innerHTML=`<strong style="color:var(--cyan)">&#9670; AI tip:</strong> Based on your recent $32K BTC purchase, you might want to celebrate — the <strong style="color:var(--text)">Sony WH-1000XM5</strong> headphones are at their lowest price in 90 days ($278, down from $350). <a style="color:var(--cyan);cursor:pointer;font-weight:600" onclick="showPage('products')">See deal &rarr;</a>`;
+  if(tip){
+    if(lq&&res.length>0){
+      const top=res[0];const save=Math.round((1-top.price/top.orig)*100);
+      tip.innerHTML=`<strong style="color:var(--cyan)">&#9670; AI says:</strong> Best match for "<strong style="color:var(--text)">${q}</strong>" — <strong style="color:var(--text)">${top.name}</strong> at $${top.price} (${save}% off). Cheapest: <strong style="color:var(--green)">${top.stores.find(s=>s.cheapest)?.name}</strong>. <a style="color:var(--cyan);cursor:pointer;font-weight:600" onclick="showPage('products')">Full comparison &rarr;</a>`;
+    } else if(!lq){
+      tip.innerHTML=`<strong style="color:var(--cyan)">&#9670; AI tip:</strong> Based on your recent $32K BTC purchase — the <strong style="color:var(--text)">Sony WH-1000XM5</strong> is at its lowest price in 90 days ($278, down from $350). <a style="color:var(--cyan);cursor:pointer;font-weight:600" onclick="showPage('products')">See deal &rarr;</a>`;
+    } else {
+      tip.innerHTML=`<strong style="color:var(--cyan)">&#9670; AI says:</strong> No exact matches found. Try a broader search or browse all products.`;
+    }
   }
 }
 function dashFilterCat(cat,el){
@@ -1544,10 +3567,27 @@ function dashFilterCat(cat,el){
   dashSearch(q);
 }
 
-// Init
+function toggleDetailWatchlist(id){
+  const p=PRODUCTS[id];
+  toast(`${p.name} added to Price Watch! Alert at target price.`,'success');
+}
+function shareProduct(id){
+  const p=PRODUCTS[id];
+  const text=`Check out ${p.name} at $${p.price} (save ${Math.round((1-p.price/p.orig)*100)}%) via Intellix`;
+  navigator.clipboard?.writeText(text).catch(()=>{});
+  toast('Product link copied to clipboard!','success');
+}
+function closeProdDetail(e){
+  if(e.target===document.getElementById('prodDetailOverlay'))
+    document.getElementById('prodDetailOverlay').classList.remove('show');
+}
+
+// ---- FINAL INIT ----
 buildVolChart();
 buildPhoneHome();
-setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},100);
+startLiveTicker();
+startLiveClock();
+setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},120);
 </script>
 </body>
 </html>
