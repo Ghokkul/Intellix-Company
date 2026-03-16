@@ -838,8 +838,33 @@ function showPage(p){
   }
 }
 function scrollTo(sel){
+  // If not on home page, switch first then scroll
+  const homePage=document.getElementById('page-home');
+  if(!homePage||!homePage.classList.contains('active')){
+    document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+    homePage.classList.add('active');
+    const nlHome=document.getElementById('nl-home');if(nlHome)nlHome.classList.add('active');
+    window.scrollTo(0,0);
+    const sup=document.getElementById('supportLinks');if(sup)sup.style.display='flex';
+    setTimeout(()=>_scrollToEl(sel),120);
+  } else {
+    _scrollToEl(sel);
+  }
+}
+function _scrollToEl(sel){
   const el=document.querySelector(sel);
-  if(el)el.scrollIntoView({behavior:'smooth'});
+  if(el){
+    const offset=110;
+    const top=el.getBoundingClientRect().top+window.pageYOffset-offset;
+    window.scrollTo({top,behavior:'smooth'});
+    // Highlight active nav link
+    const map={'#features':'nl-features','#platform':'nl-platform','#developers':'nl-developers'};
+    const nlId=map[sel];
+    document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+    const nlHome=document.getElementById('nl-home');if(nlHome)nlHome.classList.add('active');
+    const nlEl=document.getElementById(nlId);if(nlEl)nlEl.classList.add('active');
+  }
 }
 
 // ── TOAST ──
@@ -1304,6 +1329,32 @@ function switchDevLang(lang, el){
 
 // ── START ──
 buildTicker();
+
+// ── SCROLL SPY — highlights nav tab as user scrolls ──
+function initScrollSpy(){
+  const sections=[
+    {id:'features', nav:'nl-features'},
+    {id:'platform',  nav:'nl-platform'},
+    {id:'developers',nav:'nl-developers'},
+  ];
+  const NAV_HEIGHT=110;
+  window.addEventListener('scroll',()=>{
+    // Only run on home page
+    const hp=document.getElementById('page-home');
+    if(!hp||!hp.classList.contains('active'))return;
+    const scrollY=window.pageYOffset+NAV_HEIGHT+40;
+    let current='nl-home';
+    sections.forEach(s=>{
+      const el=document.getElementById(s.id);
+      if(el&&el.offsetTop<=scrollY) current=s.nav;
+    });
+    document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+    const a=document.getElementById(current);if(a)a.classList.add('active');
+  },{passive:true});
+}
+initScrollSpy();
+
+
 setInterval(()=>{
   const live=document.getElementById('navLive');
   if(live){let v=4.1+Math.random()*.3;live.textContent=`Live · $${v.toFixed(1)}M/hr`;}
