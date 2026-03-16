@@ -69,8 +69,8 @@ nav{position:fixed;top:34px;left:0;right:0;z-index:1000;height:62px;background:r
 .nav-link.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:16px;height:2px;background:var(--cyan);border-radius:2px}
 .nav-link.nl-social.active{color:var(--pink)}
 .nav-link.nl-social.active::after{background:var(--pink)}
-.nav-link.nl-about.active{color:var(--text)}
-.nav-link.nl-about.active::after{background:var(--text2)}
+.nav-link.nl-about.active{color:var(--text);font-weight:600}
+.nav-link.nl-about.active::after{background:var(--text);width:20px}
 .nav-link.nl-social{background:linear-gradient(135deg,rgba(255,64,129,.15),rgba(156,111,255,.12));border:1px solid rgba(255,64,129,.4);color:var(--pink);font-weight:700}
 .nav-link.nl-social:hover{background:linear-gradient(135deg,rgba(255,64,129,.25),rgba(156,111,255,.2))}
 .nav-space{flex:1}
@@ -464,6 +464,15 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
 .feat-cta-banner{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:18px;padding:48px;text-align:center;margin:0 48px 60px;max-width:calc(1200px - 96px);margin-left:auto;margin-right:auto}
 .feat-back-btn{display:inline-flex;align-items:center;gap:7px;color:var(--text2);font-size:13px;cursor:pointer;margin-bottom:28px;transition:color .15s;border:none;background:none;font-family:var(--body);padding:0}
 .feat-back-btn:hover{color:var(--cyan)}
+
+/* ── SOCIAL OVERLAY PANEL ── */
+.social-overlay{position:fixed;inset:0;z-index:8000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(4,5,10,.75);backdrop-filter:blur(12px)}
+.social-overlay.open{display:flex}
+.social-panel{background:var(--bg);border:1px solid var(--border2);border-radius:20px;width:100%;max-width:920px;height:85vh;max-height:720px;display:grid;grid-template-columns:240px 1fr 260px;overflow:hidden;box-shadow:0 0 80px rgba(255,64,129,.2),0 0 40px rgba(0,0,0,.6);position:relative;animation:panelSlideUp .25s ease}
+@keyframes panelSlideUp{from{transform:translateY(24px);opacity:0}to{transform:translateY(0);opacity:1}}
+.sov-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--text2);z-index:10;transition:all .15s}
+.sov-close:hover{background:var(--card2);color:var(--text);border-color:var(--pink)}
+/* Reuse existing social CSS classes inside overlay */
 </style>
 </head>
 <body>
@@ -492,8 +501,8 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
     <button class="nav-link" id="nl-features"      onclick="scrollTo('#features')" title="View all core technologies">Features</button>
     <button class="nav-link" id="nl-platform"      onclick="scrollTo('#platform')" title="View the Intellix Platform">Platform</button>
     <button class="nav-link" id="nl-developers"    onclick="scrollTo('#developers')" title="API docs & SDKs">Developers</button>
-    <button class="nav-link" id="nl-about"          onclick="showPage('about')">About</button>
-    <button class="nav-link" id="nl-social"        onclick="showPage('social')">&#9829; Social</button>
+    <button class="nav-link" id="nl-about"          onclick="showPage('about')" style="color:var(--text2)">About</button>
+    <button class="nav-link" id="nl-social"        onclick="openSocialOverlay()">&#9829; Social</button>
   </div>
   <div class="nav-space"></div>
   <div class="nav-pill"><span class="live-dot"></span><span id="navLive">Live · $4.2M/hr</span></div>
@@ -529,7 +538,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
       <div class="cta-row">
         <button class="cta-primary" onclick="openSignUp()">Get Started &rarr;</button>
         <button class="cta-ghost" onclick="scrollTo('#features')">View Features</button>
-        <button class="cta-ghost" onclick="showPage('social')">&#9829; Join Social</button>
+        <button class="cta-ghost" onclick="openSocialOverlay()">&#9829; Join Social</button>
       </div>
       <div class="hero-sub-note">Founded November 2025 &nbsp;·&nbsp; <strong>Alpha Live</strong> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/ghokkul-muhunthan" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">&#128101; Ghokkul Muhunthan</a></div>
     </div>
@@ -542,7 +551,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
         <hr class="mini-divider">
         <strong style="color:var(--text);font-size:13px;font-weight:700;display:block;margin-bottom:12px">Quick Actions</strong>
         <div class="mini-btns">
-          <button class="mini-btn-p" onclick="showPage('social')">&#9829; Social</button>
+          <button class="mini-btn-p" onclick="openSocialOverlay()">&#9829; Social</button>
           <button class="mini-btn-g" onclick="scrollTo('#platform')">View Platform</button>
         </div>
       </div>
@@ -579,7 +588,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
           <div style="display:flex;align-items:center;gap:10px;font-size:13px"><span style="color:var(--green);font-size:16px">&#10003;</span> <span style="color:var(--text2)">Split bills across groups, auto-settled by AI</span></div>
           <div style="display:flex;align-items:center;gap:10px;font-size:13px"><span style="color:var(--green);font-size:16px">&#10003;</span> <span style="color:var(--text2)">USD, EUR, GBP, BTC, ETH, USDC — all currencies</span></div>
         </div>
-        <button class="cta-primary" style="font-size:13px;padding:11px 24px" onclick="showPage('social')">&#9829; Open Social &rarr;</button>
+        <button class="cta-primary" style="font-size:13px;padding:11px 24px" onclick="openSocialOverlay()">&#9829; Open Social &rarr;</button>
       </div>
       <div class="social-preview-mockup">
         <!-- Mini social preview -->
@@ -588,7 +597,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
             <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#9c6fff,#00e5ff);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#000">PR</div>
             <div><div style="font-family:var(--font);font-size:13px;font-weight:700">Priya Rao</div><div style="font-size:10px;color:var(--green)">● Online</div></div>
             <div style="margin-left:auto;display:flex;gap:5px">
-              <div style="background:linear-gradient(135deg,var(--cyan2),var(--purple2));padding:5px 12px;border-radius:7px;font-size:11px;font-weight:700;color:#000;cursor:pointer" onclick="showPage('social')">&#9670; Send</div>
+              <div style="background:linear-gradient(135deg,var(--cyan2),var(--purple2));padding:5px 12px;border-radius:7px;font-size:11px;font-weight:700;color:#000;cursor:pointer" onclick="openSocialOverlay()">&#9670; Send</div>
             </div>
           </div>
           <div style="padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)">
@@ -598,7 +607,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
           </div>
           <div style="padding:10px 14px;background:var(--bg2);border-top:1px solid var(--border);display:flex;align-items:center;gap:8px">
             <div style="flex:1;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:8px 12px;font-size:11px;color:var(--text3)">Message or send money...</div>
-            <div style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--pink),var(--purple2));display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;cursor:pointer" onclick="showPage('social')">&#10148;</div>
+            <div style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--pink),var(--purple2));display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;cursor:pointer" onclick="openSocialOverlay()">&#10148;</div>
           </div>
         </div>
       </div>
@@ -614,7 +623,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
       <div class="feat-grid">
         <div class="feat-card fc-cyan" onclick="showPage('feat-pay')"><div class="feat-icon" style="background:rgba(0,229,255,.08);font-size:22px">&#9670;</div><div class="feat-title">Intellix Pay</div><p class="feat-desc">Accept payments globally with a single API — cards, crypto, wallets, local rails.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--cyan)">Explore &rarr;</div></div>
         <div class="feat-card fc-purple" onclick="showPage('feat-fraud')"><div class="feat-icon" style="background:rgba(156,111,255,.08);font-size:22px">&#9656;</div><div class="feat-title">Intellix AI Fraud Shield</div><p class="feat-desc">Real-time fraud detection powered by FraudNet v2.1 — 99.8% accuracy.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--purple)">Explore &rarr;</div></div>
-        <div class="feat-card fc-pink" onclick="showPage('social')"><div class="feat-icon" style="background:rgba(255,64,129,.08);font-size:22px">&#9829;</div><div class="feat-title">&#9829; Intellix Social</div><p class="feat-desc">Chat, send money and request payments between friends — all in one feed.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--pink)">Open Social &rarr;</div></div>
+        <div class="feat-card fc-pink" onclick="openSocialOverlay()"><div class="feat-icon" style="background:rgba(255,64,129,.08);font-size:22px">&#9829;</div><div class="feat-title">&#9829; Intellix Social</div><p class="feat-desc">Chat, send money and request payments between friends — all in one feed.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--pink)">Open Social &rarr;</div></div>
         <div class="feat-card fc-green" onclick="showPage('feat-payouts')"><div class="feat-icon" style="background:rgba(0,230,118,.08);font-size:22px">&#9889;</div><div class="feat-title">Instant Payouts</div><p class="feat-desc">Send funds anywhere in seconds via Polygon, ACH, SWIFT, or direct transfer.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--green)">Explore &rarr;</div></div>
         <div class="feat-card fc-gold" onclick="showPage('feat-connect')"><div class="feat-icon" style="background:rgba(255,215,64,.08);font-size:22px">&#8741;</div><div class="feat-title">Intellix Connect</div><p class="feat-desc">Payment infrastructure for marketplaces — split payments, escrow, payouts.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--gold)">Explore &rarr;</div></div>
         <div class="feat-card fc-blue" onclick="showPage('feat-global')"><div class="feat-icon" style="background:rgba(58,170,255,.08);font-size:22px">&#127760;</div><div class="feat-title">Global Infrastructure</div><p class="feat-desc">135+ currencies, 150+ countries, 99.999% uptime, enterprise-grade SLA.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--blue)">Explore &rarr;</div></div>
@@ -746,7 +755,7 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
       <p class="cta-sub">Join 2.4M+ users and 12,000 businesses already using Intellix. Free to start, no credit card required.</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
         <button class="cta-primary" onclick="openSignUp()">Start Building &rarr;</button>
-        <button class="cta-ghost" onclick="showPage('social')">&#9829; Join Social</button>
+        <button class="cta-ghost" onclick="openSocialOverlay()">&#9829; Join Social</button>
         <button class="cta-ghost" onclick="scrollTo('#developers')">View API Docs</button>
       </div>
     </div>
@@ -879,13 +888,7 @@ function showPage(p){
   const sup=document.getElementById('supportLinks');
   const homePages=['home','about'];
   if(sup)sup.style.display=homePages.includes(p)?'flex':'none';
-  if(p==='social'){
-    setTimeout(()=>{
-      renderFriendsList();
-      const first=FRIENDS_DATA.find(f=>f.unread>0)||FRIENDS_DATA[0];
-      openChat(first.id);
-    },60);
-  }
+  if(p==='social'){openSocialOverlay();return;}
 }
 function scrollTo(sel){
   // If not on home page, switch first then scroll
@@ -1412,6 +1415,300 @@ function initScrollSpy(){
 initScrollSpy();
 
 
+// ══════════════════════════════════════════════════════════
+// SOCIAL OVERLAY — big popup panel
+// ══════════════════════════════════════════════════════════
+let sovActiveFriendId=null, sovSocialTab='chats', sovSmpCur='USD', sovSmpType='send', sovModalCur='USD';
+
+function openSocialOverlay(){
+  const ov=document.getElementById('socialOverlay');
+  if(!ov)return;
+  ov.classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{
+    sovRenderFriends();
+    const first=FRIENDS_DATA.find(f=>f.unread>0)||FRIENDS_DATA[0];
+    sovOpenChat(first.id);
+  },60);
+}
+function closeSocialOverlay(){
+  const ov=document.getElementById('socialOverlay');
+  if(ov)ov.classList.remove('open');
+  document.body.style.overflow='';
+}
+// ESC key closes overlay
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSocialOverlay();});
+
+function sovRenderFriends(filter=''){
+  const el=document.getElementById('sovFriendsList');if(!el)return;
+  const q=filter.toLowerCase();
+  if(sovSocialTab==='requests'){
+    el.innerHTML=FRIEND_REQUESTS.filter(r=>!q||r.name.toLowerCase().includes(q)).map(r=>`
+      <div class="fi">
+        <div class="fi-av"><div class="fi-av-img" style="background:${r.color};width:30px;height:30px;font-size:10px">${r.init}</div></div>
+        <div class="fi-info"><div class="fi-name" style="font-size:11px">${r.name}</div><div class="fi-last">${r.mutualFriends} mutual</div>
+          <div class="req-actions"><button class="freq-accept" style="font-size:10px;padding:3px 8px" onclick="sovAcceptReq('${r.id}','${r.name}')">Accept</button><button class="freq-decline" style="font-size:10px;padding:3px 8px" onclick="sovDeclineReq('${r.id}')">Decline</button></div>
+        </div>
+      </div>`).join('')||'<div style="padding:16px;text-align:center;color:var(--text3);font-size:11px">No pending requests</div>';
+    return;
+  }
+  const list=FRIENDS_DATA.filter(f=>!q||f.name.toLowerCase().includes(q)||f.handle.includes(q));
+  if(sovSocialTab==='friends'){
+    el.innerHTML=list.map(f=>`
+      <div class="fi${f.id===sovActiveFriendId?' active':''}" onclick="sovOpenChat('${f.id}')">
+        <div class="fi-av"><div class="fi-av-img" style="background:${f.color};width:30px;height:30px;font-size:10px">${f.init}</div><div class="fi-dot st-${f.status}"></div></div>
+        <div class="fi-info"><div class="fi-name" style="font-size:11px">${f.name}</div><div class="fi-last">${f.handle}</div></div>
+        <div class="fi-meta"><span style="font-size:9px;color:${f.status==='online'?'var(--green)':f.status==='away'?'var(--orange)':'var(--text3)'}">${f.status==='online'?'● Online':f.status==='away'?'● Away':'● Offline'}</span></div>
+      </div>`).join('');
+    return;
+  }
+  el.innerHTML=list.sort((a,b)=>b.unread-a.unread).map(f=>`
+    <div class="fi${f.id===sovActiveFriendId?' active':''}" onclick="sovOpenChat('${f.id}')">
+      <div class="fi-av"><div class="fi-av-img" style="background:${f.color};width:30px;height:30px;font-size:10px">${f.init}</div><div class="fi-dot st-${f.status}"></div></div>
+      <div class="fi-info"><div class="fi-name" style="font-size:11px">${f.name}</div><div class="fi-last">${f.lastMsg}</div></div>
+      <div class="fi-meta"><div class="fi-time">${f.lastTime}</div>${f.unread?`<div class="fi-badge" style="font-size:8px">${f.unread}</div>`:''}</div>
+    </div>`).join('');
+}
+function sovSwitchTab(tab,el){
+  sovSocialTab=tab;
+  document.querySelectorAll('#socialOverlay .ftab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  sovRenderFriends();
+}
+function sovSearchFriends(q){sovRenderFriends(q);}
+function sovAcceptReq(id,name){const idx=FRIEND_REQUESTS.findIndex(r=>r.id===id);if(idx>-1)FRIEND_REQUESTS.splice(idx,1);const b=document.getElementById('sovReqBadge');if(b)b.textContent=FRIEND_REQUESTS.length||'';sovRenderFriends();toast(`${name} added!`,'success');}
+function sovDeclineReq(id){const idx=FRIEND_REQUESTS.findIndex(r=>r.id===id);if(idx>-1)FRIEND_REQUESTS.splice(idx,1);sovRenderFriends();toast('Declined','info',1200);}
+
+function sovOpenChat(fid){
+  sovActiveFriendId=fid;
+  const f=FRIENDS_DATA.find(x=>x.id===fid);if(!f)return;
+  f.unread=0;sovRenderFriends();
+
+  const hdr=document.getElementById('sovChatHeader');
+  hdr.style.display='flex';
+  hdr.innerHTML=`
+    <div class="chat-hdr-av" style="background:${f.color};width:32px;height:32px;font-size:11px">${f.init}
+      <div class="fi-dot st-${f.status}" style="position:absolute;bottom:0;right:0;border-color:var(--bg2)"></div>
+    </div>
+    <div>
+      <div class="chat-hdr-name" style="font-size:13px">${f.name}</div>
+      <div class="chat-hdr-sub" style="font-size:10px">${f.handle} · <span style="color:${f.status==='online'?'var(--green)':f.status==='away'?'var(--orange)':'var(--text3)'}">${f.status==='online'?'● Online':f.status==='away'?'● Away':'● Offline'}</span></div>
+    </div>
+    <div class="chat-hdr-btns">
+      <div class="hdr-btn" onclick="sovOpenPayRequest()" title="Send Money" style="width:26px;height:26px;font-size:11px">&#9670;</div>
+      <div class="hdr-btn" onclick="sovOpenRequestMoney()" title="Request" style="width:26px;height:26px;font-size:11px">&#8645;</div>
+      <div class="hdr-btn" onclick="toast('Voice call coming soon!','info',1500)" style="width:26px;height:26px;font-size:11px">&#9742;</div>
+    </div>`;
+
+  document.getElementById('sovChatEmpty').style.display='none';
+  const msgs=document.getElementById('sovChatMsgs');
+  msgs.style.display='flex';
+  sovRenderMessages(f);
+  document.getElementById('sovChatInputArea').style.display='block';
+  document.getElementById('sovChatInput').focus();
+  sovRenderRightProfile(f);
+
+  const history=CHAT_HISTORY[fid]||[];
+  if(f.status==='online'&&history.length>0&&history[history.length-1].from==='me'){
+    setTimeout(()=>sovShowTyping(f),1200);
+  }
+}
+
+function sovRenderMessages(f){
+  const msgs=document.getElementById('sovChatMsgs');
+  const history=CHAT_HISTORY[f.id]||[];
+  if(!history.length){
+    msgs.innerHTML=`<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text3);padding:30px 0"><div style="font-size:32px">👋</div><div style="font-size:13px;font-weight:700;color:var(--text2)">Say hi to ${f.name}!</div></div>`;
+    return;
+  }
+  msgs.innerHTML=history.map(m=>{
+    const isMe=m.from==='me';
+    if(m.type==='payment_sent'||m.type==='payment_request'){
+      const pr=m.payReq;const isPending=m.type==='payment_request'&&!isMe&&pr.status==='pending';
+      return `<div class="msg-wrap${isMe?' mine':''}">
+        ${!isMe?`<div class="msg-av" style="background:${f.color};font-size:8px">${f.init}</div>`:''}
+        <div><div class="pay-bubble" style="min-width:170px;padding:11px 13px">
+          <div class="pay-bubble-hdr" style="margin-bottom:7px"><div class="pay-bubble-icon" style="width:24px;height:24px;font-size:10px">${m.type==='payment_sent'?'&#10003;':'&#9670;'}</div><div><div class="pay-bubble-title" style="font-size:10px">${m.type==='payment_sent'?'Payment sent':'Request'}</div><div class="pay-bubble-sub">${isMe?'You':f.name} ${m.type==='payment_sent'?'sent':'requested'}</div></div></div>
+          <div class="pay-bubble-amount" style="font-size:18px">${pr.currency==='USD'?'$':''}${pr.amount} ${pr.currency}</div>
+          <div class="pay-bubble-note" style="font-size:11px">${pr.note}</div>
+          ${isPending?`<div class="pay-bubble-btns"><button class="pay-now-btn" style="font-size:10px;padding:6px" onclick="sovAcceptPayReq(${pr.amount},'${pr.currency}','${pr.note}',this.closest('.pay-bubble'))">Pay &#9670;</button><button class="pay-decline-btn" style="font-size:10px;padding:6px" onclick="sovDeclinePayReq(this.closest('.pay-bubble'))">Decline</button></div>`:`<span class="pay-status-badge ${pr.status==='sent'?'badge-paid':'badge-pending'}" style="font-size:9px">${pr.status==='sent'?'✓ Paid':'⏳ Pending'}</span>`}
+        </div><div class="msg-time">${m.time}</div></div>
+        ${isMe?`<div class="msg-av" style="background:linear-gradient(135deg,var(--pink),var(--purple2));font-size:7px">You</div>`:''}
+      </div>`;
+    }
+    return `<div class="msg-wrap${isMe?' mine':''}">
+      ${!isMe?`<div class="msg-av" style="background:${f.color};font-size:8px">${f.init}</div>`:''}
+      <div><div class="msg-bubble" style="font-size:12px">${m.text}</div><div class="msg-time">${m.time}</div></div>
+      ${isMe?`<div class="msg-av" style="background:linear-gradient(135deg,var(--pink),var(--purple2));font-size:7px">You</div>`:''}
+    </div>`;
+  }).join('');
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function sovShowTyping(f){
+  const wrap=document.getElementById('sovTypingWrap');
+  if(!wrap||sovActiveFriendId!==f.id)return;
+  document.getElementById('sovTypingAv').style.background=f.color;
+  document.getElementById('sovTypingAv').textContent=f.init;
+  document.getElementById('sovTypingName').textContent=f.name+' is typing...';
+  wrap.style.display='block';
+  setTimeout(()=>{
+    if(sovActiveFriendId!==f.id)return;
+    wrap.style.display='none';
+    const replies=["Got it! 👍","Thanks 🙏","Sure, sending now! 🚀","❤️","💸💸","On it!","Perfect 🔥","Done ✅"];
+    const reply=replies[Math.floor(Math.random()*replies.length)];
+    const hist=CHAT_HISTORY[f.id]||(CHAT_HISTORY[f.id]=[]);
+    hist.push({from:'them',text:reply,time:'Just now',type:'text'});
+    f.lastMsg=reply;f.lastTime='Just now';
+    sovRenderMessages(f);sovRenderFriends();
+  },2000);
+}
+
+function sovSendMessage(){
+  const inp=document.getElementById('sovChatInput');
+  const text=inp.value.trim();if(!text||!sovActiveFriendId)return;
+  inp.value='';inp.style.height='';
+  const f=FRIENDS_DATA.find(x=>x.id===sovActiveFriendId);if(!f)return;
+  const hist=CHAT_HISTORY[sovActiveFriendId]||(CHAT_HISTORY[sovActiveFriendId]=[]);
+  hist.push({from:'me',text,time:'Now',type:'text'});
+  f.lastMsg=text;f.lastTime='Now';
+  sovRenderMessages(f);sovRenderFriends();
+  if(f.status==='online')setTimeout(()=>sovShowTyping(f),700+Math.random()*900);
+}
+function sovHandleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sovSendMessage();}}
+function sovInsertEmoji(e){const inp=document.getElementById('sovChatInput');if(inp){inp.value+=e;inp.focus();}}
+
+function sovAcceptPayReq(amount,currency,note,bubble){
+  bubble.querySelector('.pay-bubble-btns').remove();
+  const badge=document.createElement('span');badge.className='pay-status-badge badge-paid';badge.style.fontSize='9px';badge.innerHTML='✓ Paid';
+  bubble.querySelector('.pay-bubble-note').after(badge);
+  toast(`$${amount} ${currency} paid!`,'success',3000);
+}
+function sovDeclinePayReq(bubble){
+  const btns=bubble.querySelector('.pay-bubble-btns');if(btns)btns.remove();
+  const badge=document.createElement('span');badge.className='pay-status-badge badge-declined';badge.style.fontSize='9px';badge.innerHTML='Declined';
+  bubble.querySelector('.pay-bubble-note').after(badge);
+  toast('Declined','info',1200);
+}
+
+function sovOpenPayRequest(){
+  const f=FRIENDS_DATA.find(x=>x.id===sovActiveFriendId);if(!f)return;
+  sovModalCur='USD';
+  openModal(`&#9670; Send to ${f.name}`,
+    `<div style="text-align:center;margin-bottom:14px">
+      <div style="width:46px;height:46px;border-radius:50%;background:${f.color};margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#000">${f.init}</div>
+      <div style="font-family:var(--font);font-size:14px;font-weight:800">${f.name}</div>
+    </div>
+    <input id="sovPayAmt" type="number" placeholder="0.00" class="ix-input" style="font-size:22px;color:var(--cyan);font-family:var(--mono);font-weight:800" oninput="sovCalcFee()">
+    <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap" id="sovCurPills">
+      ${['USD','EUR','GBP','BTC','ETH','USDC'].map(c=>`<div onclick="sovSetCur('${c}',this)" style="padding:4px 11px;border-radius:13px;border:1px solid ${c==='USD'?'var(--pink)':'var(--border2)'};background:${c==='USD'?'rgba(255,64,129,.1)':'var(--bg3)'};color:${c==='USD'?'var(--pink)':'var(--text2)'};font-size:10px;font-family:var(--mono);font-weight:600;cursor:pointer">${c}</div>`).join('')}
+    </div>
+    <input id="sovPayNote" placeholder="Add a note..." class="ix-input">
+    <div id="sovFeeBox" style="background:var(--bg3);border-radius:8px;padding:7px 11px;font-size:11px;color:var(--text3)">Enter amount to see fees</div>`,
+    `<button class="ix-btn ix-btn-ghost" onclick="closeModal()">Cancel</button><button class="ix-btn ix-btn-primary" onclick="sovConfirmSend()">&#9670; Send Now</button>`
+  );
+}
+function sovSetCur(cur,el){sovModalCur=cur;document.querySelectorAll('#sovCurPills>div').forEach(d=>{d.style.border='1px solid var(--border2)';d.style.background='var(--bg3)';d.style.color='var(--text2)';});el.style.border='1px solid var(--pink)';el.style.background='rgba(255,64,129,.1)';el.style.color='var(--pink)';sovCalcFee();}
+function sovCalcFee(){const amt=parseFloat(document.getElementById('sovPayAmt')?.value)||0;const box=document.getElementById('sovFeeBox');if(box&&amt>0){const ix=(amt*0.0005).toFixed(2);box.innerHTML=`Network: $0.18 · Intellix: $${ix} · Total: $${(amt+0.18+parseFloat(ix)).toFixed(2)} · 14s`;}}
+function sovConfirmSend(){
+  const amt=parseFloat(document.getElementById('sovPayAmt')?.value)||0;
+  const note=(document.getElementById('sovPayNote')?.value)||'';
+  if(!amt||amt<=0){toast('Enter a valid amount','error');return;}
+  const f=FRIENDS_DATA.find(x=>x.id===sovActiveFriendId);if(!f)return;
+  closeModal();
+  const hist=CHAT_HISTORY[sovActiveFriendId]||(CHAT_HISTORY[sovActiveFriendId]=[]);
+  hist.push({from:'me',payReq:{amount:amt,currency:sovModalCur,note:note||'Payment via Intellix',status:'sent'},time:'Just now',type:'payment_sent'});
+  f.lastMsg=`💸 Sent $${amt}`;f.lastTime='Just now';
+  sovRenderMessages(f);sovRenderFriends();
+  toast(`$${amt} ${sovModalCur} sent to ${f.name}!`,'success',3000);
+}
+function sovOpenRequestMoney(){
+  const f=FRIENDS_DATA.find(x=>x.id===sovActiveFriendId);if(!f)return;
+  openModal(`&#8645; Request from ${f.name}`,
+    `<input id="sovReqAmt" type="number" placeholder="Amount" class="ix-input" style="font-size:22px;color:var(--purple);font-family:var(--mono);font-weight:700">
+     <input id="sovReqNote" placeholder="What's it for?" class="ix-input">`,
+    `<button class="ix-btn ix-btn-ghost" onclick="closeModal()">Cancel</button><button class="ix-btn ix-btn-pink" onclick="sovConfirmRequest()">Send Request</button>`
+  );
+}
+function sovConfirmRequest(){
+  const amt=parseFloat(document.getElementById('sovReqAmt')?.value)||0;
+  const note=(document.getElementById('sovReqNote')?.value)||'';
+  if(!amt||amt<=0){toast('Enter a valid amount','error');return;}
+  const f=FRIENDS_DATA.find(x=>x.id===sovActiveFriendId);if(!f)return;
+  closeModal();
+  const hist=CHAT_HISTORY[sovActiveFriendId]||(CHAT_HISTORY[sovActiveFriendId]=[]);
+  hist.push({from:'me',payReq:{amount:amt,currency:'USD',note:note||'Payment request',status:'pending'},time:'Just now',type:'payment_request'});
+  f.lastMsg=`💸 Requested $${amt}`;f.lastTime='Just now';
+  sovRenderMessages(f);sovRenderFriends();
+  toast(`Request sent to ${f.name}`,'info',2000);
+}
+
+function sovRenderRightProfile(f){
+  const empty=document.getElementById('sovRightEmpty');
+  const profile=document.getElementById('sovRightProfile');
+  if(empty)empty.style.display='none';
+  if(!profile)return;
+  profile.style.display='block';
+  profile.innerHTML=`
+    <div class="profile-card" style="padding:14px 12px">
+      <div class="profile-av" style="background:${f.color};width:52px;height:52px;font-size:17px">${f.init}<div class="profile-av-ring"></div></div>
+      <div class="profile-name" style="font-size:13px">${f.name}</div>
+      <div class="profile-handle" style="font-size:10px">${f.handle}</div>
+      <div class="profile-stats" style="margin-top:9px">
+        <div class="ps" style="padding:7px 3px"><div class="ps-val" style="color:var(--cyan);font-size:12px">47</div><div class="ps-lbl">Txns</div></div>
+        <div class="ps" style="padding:7px 3px"><div class="ps-val" style="color:var(--green);font-size:12px">$${(f.balance/1000).toFixed(0)}K</div><div class="ps-lbl">Sent</div></div>
+        <div class="ps" style="padding:7px 3px"><div class="ps-val" style="color:var(--purple);font-size:12px">12</div><div class="ps-lbl">Friends</div></div>
+      </div>
+      <div class="profile-badges" style="margin-top:8px">
+        <span class="p-badge" style="background:rgba(0,229,255,.1);color:var(--cyan);font-size:9px">&#10003; KYC</span>
+        <span class="p-badge" style="background:rgba(0,230,118,.1);color:var(--green);font-size:9px">&#9670; Verified</span>
+        ${f.status==='online'?'<span class="p-badge" style="background:rgba(0,230,118,.08);color:var(--green);font-size:9px">● Online</span>':''}
+      </div>
+    </div>
+    <div class="send-panel" style="padding:12px">
+      <div class="sp-title" style="font-size:11px">&#9670; Send Money</div>
+      <input class="sp-amt" id="sovSmpAmt" type="number" placeholder="0.00" style="font-size:22px" oninput="sovCalcSmpFee()">
+      <div class="sp-curs" style="gap:4px;margin-bottom:8px">${['USD','EUR','GBP','BTC','ETH'].map(c=>`<div class="sp-cur${c==='USD'?' active':''}" onclick="sovSetSmpCur('${c}',this)" style="font-size:9px;padding:3px 8px">${c}</div>`).join('')}</div>
+      <div class="sp-types" style="gap:4px;margin-bottom:8px">
+        <div class="sp-type active" onclick="sovSetSmpType('send',this)" style="font-size:9px;padding:5px 3px">&#9670; Send</div>
+        <div class="sp-type" onclick="sovSetSmpType('request',this)" style="font-size:9px;padding:5px 3px">&#8645; Request</div>
+        <div class="sp-type" onclick="sovSetSmpType('split',this)" style="font-size:9px;padding:5px 3px">&#9783; Split</div>
+      </div>
+      <div class="sp-fee" id="sovSmpFeeBox" style="font-size:9px;margin-bottom:8px">Enter amount</div>
+      <button class="sp-send" style="font-size:11px;padding:8px;margin-bottom:5px" onclick="sovDoSmpAction()">&#9670; Send</button>
+      <button class="sp-req" style="font-size:11px;padding:8px" onclick="sovOpenRequestMoney()">&#8645; Request</button>
+    </div>
+    <div class="recent-txns" style="padding:10px 12px">
+      <div class="rt-title" style="font-size:10px">Recent with ${f.name}</div>
+      ${(f.txHistory&&f.txHistory.length)?f.txHistory.map(t=>`<div class="rtxn" style="font-size:10px;padding:6px 0"><div class="rtxn-ico" style="font-size:12px">${t.dir==='sent'?'↗':'↘'}</div><div class="rtxn-info"><div class="rtxn-name">${t.note}</div><div class="rtxn-sub">${t.time}</div></div><div style="font-family:var(--mono);font-weight:700;color:${t.dir==='sent'?'var(--red)':'var(--green)'};font-size:10px">${t.dir==='sent'?'-':'+'} ${t.amt}</div></div>`).join(''):'<div style="font-size:10px;color:var(--text3);text-align:center;padding:10px 0">No transactions yet</div>'}
+    </div>`;
+}
+function sovSetSmpCur(cur,el){sovSmpCur=cur;document.querySelectorAll('#sovRightProfile .sp-cur').forEach(c=>c.classList.remove('active'));el.classList.add('active');sovCalcSmpFee();}
+function sovSetSmpType(type,el){sovSmpType=type;document.querySelectorAll('#sovRightProfile .sp-type').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+function sovCalcSmpFee(){const amt=parseFloat(document.getElementById('sovSmpAmt')?.value)||0;const box=document.getElementById('sovSmpFeeBox');if(!box)return;if(!amt){box.textContent='Enter amount';return;}const ix=(amt*0.0005).toFixed(2);box.innerHTML=`Net: $0.18 · IX: $${ix} · Total: $${(amt+0.18+parseFloat(ix)).toFixed(2)}`;}
+function sovDoSmpAction(){
+  const amt=parseFloat(document.getElementById('sovSmpAmt')?.value)||0;
+  if(!amt||amt<=0){toast('Enter a valid amount','error');return;}
+  const f=FRIENDS_DATA.find(x=>x.id===sovActiveFriendId);if(!f)return;
+  if(sovSmpType==='send'){
+    const hist=CHAT_HISTORY[sovActiveFriendId]||(CHAT_HISTORY[sovActiveFriendId]=[]);
+    hist.push({from:'me',payReq:{amount:amt,currency:sovSmpCur,note:'Payment via Intellix',status:'sent'},time:'Just now',type:'payment_sent'});
+    f.lastMsg=`💸 Sent $${amt}`;f.lastTime='Just now';
+    sovRenderMessages(f);sovRenderFriends();
+    document.getElementById('sovSmpAmt').value='';
+    toast(`$${amt} ${sovSmpCur} sent to ${f.name}!`,'success',3000);
+  } else if(sovSmpType==='request'){sovOpenRequestMoney();}
+  else{toast('Split bill — coming soon','info',2000);}
+}
+
+// ── WIRE: Social nav button opens OVERLAY (not full page switch) ──
+// Override the nl-social button behaviour
+function navSocialClick(){
+  // If already on home page → open overlay
+  // If on any other page → open overlay on top
+  openSocialOverlay();
+}
+
 // scroll spy already initialised above
 
 
@@ -1429,7 +1726,25 @@ setInterval(()=>{
     <div style="padding:60px 0 48px">
       <div class="section-label">&#9829; OUR STORY</div>
       <div style="font-family:var(--font);font-size:46px;font-weight:900;letter-spacing:-2px;margin-bottom:16px;line-height:1.05">Built with a clear vision<br>for <span style="background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">intelligent payments.</span></div>
-      <p style="font-size:17px;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:40px">Intellix was founded in November 2025 with a single belief — payments should be fast, intelligent, and social. Not just infrastructure. An experience.</p>
+      <p style="font-size:17px;color:var(--text2);max-width:600px;line-height:1.7;margin-bottom:36px">Intellix was founded in November 2025 with a single belief — payments should be fast, intelligent, and social. Not just infrastructure. An experience.</p>
+
+      <!-- FOUNDER QUOTE -->
+      <div style="position:relative;background:linear-gradient(135deg,rgba(0,229,255,.04),rgba(156,111,255,.06));border:1px solid rgba(0,229,255,.15);border-left:3px solid var(--cyan);border-radius:0 14px 14px 0;padding:28px 32px 28px 36px;max-width:700px;margin-bottom:0">
+        <div style="position:absolute;top:-16px;left:24px;font-size:52px;color:var(--cyan);opacity:.25;font-family:Georgia,serif;line-height:1">&ldquo;</div>
+        <p style="font-family:var(--font);font-size:20px;font-weight:600;line-height:1.65;color:var(--text);margin-bottom:18px;position:relative;z-index:1">
+          Payments today are broken — slow, expensive, and invisible until something goes wrong.
+          I built Intellix because every person and every business deserves a financial system
+          that works as fast as their ambitions. One that thinks ahead, catches threats before they happen,
+          and makes sending money feel as natural as sending a message.
+        </p>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--purple));display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:13px;font-weight:800;color:#000;flex-shrink:0">GM</div>
+          <div>
+            <div style="font-family:var(--font);font-size:14px;font-weight:800;color:var(--text)">Ghokkul Muhunthan</div>
+            <div style="font-size:12px;color:var(--text3)">Founder &amp; CEO · Intellix · November 2025</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Founder -->
@@ -2462,6 +2777,82 @@ setInterval(()=>{
       <p style="color:var(--text2);font-size:15px;margin-bottom:24px">From first transaction to billions in volume — the same API, the same SLA.</p>
       <button class="cta-primary" onclick="openSignUp()">Get started globally &rarr;</button>
     </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     SOCIAL OVERLAY (big popup from dashboard)
+══════════════════════════════════════════ -->
+<div class="social-overlay" id="socialOverlay" onclick="if(event.target===this)closeSocialOverlay()">
+  <div class="social-panel">
+    <div class="sov-close" onclick="closeSocialOverlay()">&#10005;</div>
+
+    <!-- LEFT: FRIENDS LIST -->
+    <div class="s-left" style="border-right:1px solid var(--border)">
+      <div class="s-left-hdr" style="padding:12px 12px 8px">
+        <div class="s-left-title" style="font-size:13px;margin-bottom:8px">&#9829; Social</div>
+        <div class="s-search">
+          <span class="s-search-icon">&#9740;</span>
+          <input id="sovFriendSearch" placeholder="Search friends..." oninput="sovSearchFriends(this.value)" style="font-size:11px;padding:7px 12px 7px 28px">
+        </div>
+      </div>
+      <div class="ftabs" style="font-size:10px">
+        <div class="ftab active" id="sovTab-chats"    onclick="sovSwitchTab('chats',this)">Chats</div>
+        <div class="ftab" id="sovTab-friends"         onclick="sovSwitchTab('friends',this)">Friends</div>
+        <div class="ftab" id="sovTab-requests"        onclick="sovSwitchTab('requests',this)">Requests&nbsp;<span id="sovReqBadge" style="background:var(--pink);color:#fff;font-size:8px;padding:1px 4px;border-radius:6px">2</span></div>
+      </div>
+      <div class="friends-list" id="sovFriendsList" style="padding:4px"></div>
+      <div class="add-friend-wrap" style="padding:8px 10px">
+        <button class="add-friend-btn" style="font-size:11px;padding:7px" onclick="openAddFriend()">&#43; Add Friend</button>
+      </div>
+    </div>
+
+    <!-- CENTER: CHAT -->
+    <div class="s-center" style="display:flex;flex-direction:column">
+      <div id="sovChatHeader" style="display:none" class="chat-hdr" style="padding:10px 14px"></div>
+      <div id="sovChatEmpty" class="chat-empty" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--text3)">
+        <div style="font-size:40px;opacity:.35">&#128172;</div>
+        <div style="font-family:var(--font);font-size:14px;font-weight:700;color:var(--text2)">Pick a conversation</div>
+        <div style="font-size:12px;text-align:center;max-width:220px;line-height:1.6;color:var(--text3)">Chat, send money and request payments — all in one place.</div>
+      </div>
+      <div id="sovChatMsgs" class="chat-msgs" style="display:none;flex:1;overflow-y:auto;padding:14px;flex-direction:column;gap:10px"></div>
+      <div class="typing-wrap" id="sovTypingWrap" style="display:none;padding:0 14px 4px">
+        <div class="typing-inner">
+          <div class="msg-av" id="sovTypingAv" style="background:#999;font-size:8px">?</div>
+          <div class="typing-dots"><div class="t-dot2"></div><div class="t-dot2"></div><div class="t-dot2"></div></div>
+          <span style="font-size:10px;color:var(--text3)" id="sovTypingName">typing...</span>
+        </div>
+      </div>
+      <div id="sovChatInputArea" style="display:none;padding:10px 12px;border-top:1px solid var(--border);background:var(--bg2)">
+        <div style="display:flex;gap:6px;margin-bottom:6px;font-size:14px">
+          <span class="emoji-btn" onclick="sovInsertEmoji('👍')">👍</span>
+          <span class="emoji-btn" onclick="sovInsertEmoji('❤️')">❤️</span>
+          <span class="emoji-btn" onclick="sovInsertEmoji('🔥')">🔥</span>
+          <span class="emoji-btn" onclick="sovInsertEmoji('💸')">💸</span>
+          <span class="emoji-btn" onclick="sovInsertEmoji('✅')">✅</span>
+          <span class="emoji-btn" onclick="sovInsertEmoji('🚀')">🚀</span>
+        </div>
+        <div style="display:flex;gap:7px;align-items:flex-end">
+          <div style="display:flex;gap:4px">
+            <div class="input-tool" onclick="sovOpenPayRequest()" title="Send Money" style="width:28px;height:28px;font-size:12px">&#9670;</div>
+          </div>
+          <textarea class="chat-textarea" id="sovChatInput" placeholder="Message..." rows="1" style="font-size:12px;min-height:36px;padding:8px 11px"
+            onkeydown="sovHandleKey(event)" oninput="autoResizeInput(this)"></textarea>
+          <button class="chat-send-btn" onclick="sovSendMessage()" style="width:32px;height:32px;font-size:14px">&#10148;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: PROFILE + SEND -->
+    <div class="s-right" style="border-left:1px solid var(--border)">
+      <div id="sovRightEmpty" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px;color:var(--text3);text-align:center">
+        <div style="font-size:34px;opacity:.3">&#128100;</div>
+        <div style="font-size:12px;line-height:1.6">Select a friend to see their profile</div>
+      </div>
+      <div id="sovRightProfile" style="display:none;overflow-y:auto;height:100%"></div>
+    </div>
+
   </div>
 </div>
 
