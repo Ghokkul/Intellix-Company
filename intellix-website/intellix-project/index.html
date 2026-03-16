@@ -958,6 +958,43 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
         </div>
       </div>
       <div class="bot-row" id="dashBotRow">
+        <!-- ❤️ SOCIAL WIDGET — dashboard preview -->
+        <div class="card" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(255,64,129,.04),rgba(156,111,255,.04));border-color:rgba(255,64,129,.2)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="background:linear-gradient(135deg,rgba(255,64,129,.2),rgba(156,111,255,.2));border:1px solid rgba(255,64,129,.35);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:var(--pink);font-family:var(--font)">&#9829; SOCIAL</div>
+              <div>
+                <div class="card-title" style="font-size:14px">Friends Activity</div>
+                <div class="card-sub">Messages, payment requests &amp; online friends</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost" style="font-size:11px;padding:5px 12px" onclick="showPage('social')">Open Social &rarr;</button>
+            </div>
+          </div>
+          <!-- Friends online strip -->
+          <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+            <div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.8px;align-self:center;white-space:nowrap">Online now</div>
+            <div id="dashOnlineFriends" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+            <div style="margin-left:auto">
+              <button class="btn btn-ghost" style="font-size:11px;padding:5px 12px" onclick="openAddFriend()">&#43; Add Friend</button>
+            </div>
+          </div>
+          <!-- Recent messages + payment requests -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <!-- Recent messages -->
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Recent Messages</div>
+              <div id="dashRecentMessages" style="display:flex;flex-direction:column;gap:0"></div>
+            </div>
+            <!-- Pending payment requests -->
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Payment Requests</div>
+              <div id="dashPayRequests" style="display:flex;flex-direction:column;gap:8px"></div>
+            </div>
+          </div>
+        </div>
+        <!-- existing cards below -->
         <div class="card">
           <div class="flex justify-between align-center mb-16">
             <div><div class="card-title">Live Transactions</div><div class="card-sub">Updated every 3 seconds</div></div>
@@ -3752,7 +3789,7 @@ function showPage(p){
   const nl=document.getElementById('nl-'+p);
   if(nl)nl.classList.add('active');
   window.scrollTo(0,0);
-  if(p==='dashboard'){buildVolChart();startLiveClock();setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},50);}
+  if(p==='dashboard'){buildVolChart();startLiveClock();setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);renderDashSocial();},50);}
   if(p==='database'&&typeof DB==='undefined'){}  // DB auto-inits
   if(p==='mobile')buildPhoneHome();
   if(p==='products')renderProducts();
@@ -4837,13 +4874,111 @@ function doSmpAction(){
   else{toast('Split bill — enter amounts for each friend','info',2500);}
 }
 
+// ── DASHBOARD SOCIAL WIDGET ──
+function renderDashSocial(){
+  // Online friends strip
+  const onlineEl=document.getElementById('dashOnlineFriends');
+  if(onlineEl&&typeof FRIENDS_DATA!=='undefined'){
+    const online=FRIENDS_DATA.filter(f=>f.status==='online');
+    onlineEl.innerHTML=online.map(f=>`
+      <div onclick="showPage('social');setTimeout(()=>openChat('${f.id}'),80)" style="display:flex;align-items:center;gap:7px;padding:6px 12px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;transition:all .15s" onmouseenter="this.style.borderColor='rgba(255,64,129,.4)'" onmouseleave="this.style.borderColor='var(--border)'">
+        <div style="position:relative">
+          <div style="width:28px;height:28px;border-radius:50%;background:${f.color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#000">${f.init}</div>
+          <div style="position:absolute;bottom:0;right:0;width:8px;height:8px;border-radius:50%;background:var(--green);border:1.5px solid var(--bg)"></div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;white-space:nowrap">${f.name.split(' ')[0]}</div>
+          ${f.unread?`<div style="font-size:10px;color:var(--pink);font-weight:600">${f.unread} new</div>`:'<div style="font-size:10px;color:var(--green)">● Online</div>'}
+        </div>
+      </div>`).join('');
+  }
+
+  // Recent messages list
+  const msgsEl=document.getElementById('dashRecentMessages');
+  if(msgsEl&&typeof FRIENDS_DATA!=='undefined'){
+    const withMsgs=FRIENDS_DATA.filter(f=>f.lastMsg).slice(0,4);
+    msgsEl.innerHTML=withMsgs.map(f=>`
+      <div onclick="showPage('social');setTimeout(()=>openChat('${f.id}'),80)" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:padding .1s" onmouseenter="this.style.paddingLeft='4px'" onmouseleave="this.style.paddingLeft='0'">
+        <div style="position:relative;flex-shrink:0">
+          <div style="width:32px;height:32px;border-radius:50%;background:${f.color};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#000">${f.init}</div>
+          <div style="position:absolute;bottom:0;right:0;width:8px;height:8px;border-radius:50%;background:${f.status==='online'?'var(--green)':f.status==='away'?'var(--orange)':'var(--text3)'};border:1.5px solid var(--bg)"></div>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:12px;font-weight:600">${f.name}</div>
+          <div style="font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">${f.lastMsg}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0">
+          <div style="font-size:10px;color:var(--text3);font-family:var(--mono)">${f.lastTime}</div>
+          ${f.unread?`<div style="background:var(--pink);color:#fff;font-size:9px;font-weight:700;border-radius:10px;padding:1px 6px">${f.unread}</div>`:''}
+        </div>
+      </div>`).join('');
+  }
+
+  // Payment requests panel
+  const reqEl=document.getElementById('dashPayRequests');
+  if(reqEl&&typeof CHAT_HISTORY!=='undefined'){
+    const requests=[];
+    Object.entries(CHAT_HISTORY).forEach(([fid,msgs])=>{
+      if(!msgs) return;
+      msgs.forEach(m=>{
+        if(m.type==='payment_request'&&m.from==='them'&&m.payReq?.status==='pending'){
+          const f=typeof FRIENDS_DATA!=='undefined'?FRIENDS_DATA.find(x=>x.id===fid):null;
+          if(f) requests.push({f,pr:m.payReq,time:m.time});
+        }
+      });
+    });
+
+    if(requests.length===0){
+      reqEl.innerHTML=`<div style="text-align:center;padding:16px 0;color:var(--text3);font-size:12px">
+        <div style="font-size:24px;margin-bottom:6px">&#9829;</div>
+        No pending requests
+      </div>`;
+    } else {
+      reqEl.innerHTML=requests.map(({f,pr,time})=>`
+        <div style="background:var(--card);border:1px solid rgba(255,64,129,.2);border-radius:12px;padding:12px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:28px;height:28px;border-radius:50%;background:${f.color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#000;flex-shrink:0">${f.init}</div>
+            <div style="flex:1">
+              <div style="font-size:12px;font-weight:600">${f.name} <span style="color:var(--text3);font-weight:400">requested</span></div>
+              <div style="font-size:11px;color:var(--text3)">${time}</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:15px;font-weight:700;color:var(--pink)">${pr.currency==='USD'?'$':''}${pr.amount} ${pr.currency}</div>
+          </div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:10px;padding:0 2px">${pr.note}</div>
+          <div style="display:flex;gap:7px">
+            <button onclick="dashPayNow(${pr.amount},'${pr.currency}','${pr.note}','${f.id}',this.parentElement.parentElement)" style="flex:1;padding:7px;border-radius:8px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)">&#9670; Pay $${pr.amount}</button>
+            <button onclick="dashDeclineReq(this.parentElement.parentElement)" style="padding:7px 12px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:11px;cursor:pointer">Decline</button>
+          </div>
+        </div>`).join('');
+    }
+  }
+}
+
+function dashPayNow(amount, currency, note, fid, card){
+  card.innerHTML=`<div style="text-align:center;padding:12px 0"><div style="font-size:20px;margin-bottom:4px;color:var(--green)">&#10003;</div><div style="font-size:12px;font-weight:600;color:var(--green)">Paid $${amount} ${currency}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${note}</div></div>`;
+  const f=FRIENDS_DATA.find(x=>x.id===fid);
+  if(f&&CHAT_HISTORY[fid]){
+    const m=CHAT_HISTORY[fid].find(x=>x.type==='payment_request'&&x.payReq?.status==='pending');
+    if(m)m.payReq.status='sent';
+  }
+  toast(`$${amount} ${currency} sent successfully!`,'success',3000);
+}
+
+function dashDeclineReq(card){
+  card.innerHTML=`<div style="text-align:center;padding:12px 0;color:var(--text3);font-size:12px">Request declined</div>`;
+  toast('Payment request declined','info',1500);
+}
+
 // ---- FINAL INIT ----
 buildVolChart();
 buildPhoneHome();
 startLiveTicker();
 startLiveClock();
 buildCurrencyTicker();
-setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},120);
+setTimeout(()=>{
+  if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);
+  renderDashSocial();
+},120);
 </script>
 </body>
 </html>
