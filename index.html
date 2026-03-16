@@ -21,13 +21,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:14
 /* GLOBAL GRID BG */
 .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;padding:0 32px;gap:20px}
+/* nav spacing already set in .nav-link above */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;padding:0 20px;gap:10px}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
 .nav-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:14px;font-weight:800;color:#000}
 .nav-name{font-family:var(--font);font-size:18px;font-weight:800;background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.nav-links{display:flex;gap:4px;margin-left:24px}
-.nav-link{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;text-decoration:none;background:transparent;border:none;font-family:var(--body)}
+.nav-links{display:flex;gap:2px;margin-left:12px}
+.nav-link{padding:6px 11px;border-radius:8px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;text-decoration:none;background:transparent;border:none;font-family:var(--body)}
 .nav-link:hover{color:var(--text);background:rgba(255,255,255,.04)}
 .nav-link.active{color:var(--cyan)}
 .nl-products-btn{background:linear-gradient(135deg,rgba(0,229,255,.12),rgba(156,111,255,.12)) !important;border:1px solid rgba(0,229,255,.25) !important;color:var(--cyan) !important;font-weight:700 !important;letter-spacing:.2px}
@@ -710,11 +710,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
     <button class="nav-link" id="nl-api" onclick="showPage('api')">API</button>
     <button class="nav-link" id="nl-mobile" onclick="showPage('mobile')">Mobile</button>
     <button class="nav-link" id="nl-languages" onclick="showPage('languages')" style="background:rgba(255,215,64,.08);border:1px solid rgba(255,215,64,.2);color:var(--gold);font-weight:700">&lt;/&gt; Code</button>
+    <button class="nav-link" id="nl-social" onclick="showPage('social')" style="background:linear-gradient(135deg,rgba(255,64,129,.18),rgba(156,111,255,.15));border:1px solid rgba(255,64,129,.45);color:#ff4081;font-weight:700;letter-spacing:.2px">&#9829; Social</button>
     <button class="nav-link nl-products-btn" id="nl-products" onclick="showPage('products')" style="display:none"></button>
     <button class="nav-link" id="nl-database" onclick="showPage('database')" style="display:none"></button>
   </div>
   <div class="nav-space"></div>
-  <div class="nav-pill"><span class="live-dot"></span>Live · $4.2M/hr</div>
+  <div class="nav-pill"><span class="live-dot"></span><span id="navLivePill">Live · $4.2M/hr</span></div>
   <button class="nav-btn nav-btn-ghost" onclick="showPage('auth')">Sign in</button>
   <button class="nav-btn nav-btn-primary" onclick="showPage('auth')">Get started</button>
 </nav>
@@ -957,6 +958,43 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
         </div>
       </div>
       <div class="bot-row" id="dashBotRow">
+        <!-- ❤️ SOCIAL WIDGET — dashboard preview -->
+        <div class="card" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(255,64,129,.04),rgba(156,111,255,.04));border-color:rgba(255,64,129,.2)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="background:linear-gradient(135deg,rgba(255,64,129,.2),rgba(156,111,255,.2));border:1px solid rgba(255,64,129,.35);border-radius:8px;padding:5px 10px;font-size:11px;font-weight:700;color:var(--pink);font-family:var(--font)">&#9829; SOCIAL</div>
+              <div>
+                <div class="card-title" style="font-size:14px">Friends Activity</div>
+                <div class="card-sub">Messages, payment requests &amp; online friends</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost" style="font-size:11px;padding:5px 12px" onclick="showPage('social')">Open Social &rarr;</button>
+            </div>
+          </div>
+          <!-- Friends online strip -->
+          <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+            <div style="font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:.8px;align-self:center;white-space:nowrap">Online now</div>
+            <div id="dashOnlineFriends" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+            <div style="margin-left:auto">
+              <button class="btn btn-ghost" style="font-size:11px;padding:5px 12px" onclick="openAddFriend()">&#43; Add Friend</button>
+            </div>
+          </div>
+          <!-- Recent messages + payment requests -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <!-- Recent messages -->
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Recent Messages</div>
+              <div id="dashRecentMessages" style="display:flex;flex-direction:column;gap:0"></div>
+            </div>
+            <!-- Pending payment requests -->
+            <div>
+              <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Payment Requests</div>
+              <div id="dashPayRequests" style="display:flex;flex-direction:column;gap:8px"></div>
+            </div>
+          </div>
+        </div>
+        <!-- existing cards below -->
         <div class="card">
           <div class="flex justify-between align-center mb-16">
             <div><div class="card-title">Live Transactions</div><div class="card-sub">Updated every 3 seconds</div></div>
@@ -1528,7 +1566,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
 <div class="lang-shell">
   <div class="lang-hero">
     <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 16px;border-radius:20px;background:rgba(255,215,64,.08);border:1px solid rgba(255,215,64,.2);font-size:11px;font-weight:700;color:var(--gold);margin-bottom:20px;font-family:var(--font)">&#9670; OPEN SOURCE · MULTI-LANGUAGE</div>
-    <div class="lang-hero-title">Intellix is built across<br><span style="background:linear-gradient(90deg,var(--cyan),var(--purple),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent">8 languages</span></div>
+    <div class="lang-hero-title">Intellix is built across<br><span style="background:linear-gradient(90deg,var(--cyan),var(--purple),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent">6 languages</span></div>
     <div class="lang-hero-sub">From the AI fraud engine in Python, to the real-time blockchain listener in Go, to the React Native mobile app — every layer of Intellix speaks a different language.</div>
     <div class="lang-tabs" id="langTabs">
       <div class="lang-tab active" onclick="filterLang('all',this)" style="background:linear-gradient(135deg,var(--cyan2),var(--purple2))">All</div>
@@ -1536,30 +1574,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
       <div class="lang-tab" onclick="filterLang('typescript',this)" style="--lc:#3178C6">TypeScript</div>
       <div class="lang-tab" onclick="filterLang('go',this)" style="--lc:#00ADD8">Go</div>
       <div class="lang-tab" onclick="filterLang('rust',this)" style="--lc:#CE422B">Rust</div>
-      <div class="lang-tab" onclick="filterLang('solidity',this)" style="--lc:#363636">Solidity</div>
       <div class="lang-tab" onclick="filterLang('sql',this)" style="--lc:#F29111">SQL</div>
       <div class="lang-tab" onclick="filterLang('swift',this)" style="--lc:#FA7343">Swift</div>
-      <div class="lang-tab" onclick="filterLang('kotlin',this)" style="--lc:#A97BFF">Kotlin</div>
     </div>
   </div>
 
   <div class="lang-stat-row">
-    <div class="lang-stat"><div class="lang-stat-val text-cyan">8</div><div class="lang-stat-lbl">Languages</div></div>
-    <div class="lang-stat"><div class="lang-stat-val text-green">47K</div><div class="lang-stat-lbl">Lines of code</div></div>
+    <div class="lang-stat"><div class="lang-stat-val text-cyan">6</div><div class="lang-stat-lbl">Languages</div></div>
+    <div class="lang-stat"><div class="lang-stat-val text-green">32K</div><div class="lang-stat-lbl">Lines of code</div></div>
     <div class="lang-stat"><div class="lang-stat-val" style="color:var(--purple)">12</div><div class="lang-stat-lbl">Repositories</div></div>
     <div class="lang-stat"><div class="lang-stat-val" style="color:var(--gold)">340</div><div class="lang-stat-lbl">Commits</div></div>
   </div>
 
   <div class="contrib-bar">
     <div class="contrib-title">Language distribution</div>
-    <div class="lang-bar-row"><div class="lang-bar-name">Python</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:28%;background:#3776AB"></div></div><div class="lang-bar-pct">28%</div></div>
-    <div class="lang-bar-row"><div class="lang-bar-name">TypeScript</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:24%;background:#3178C6"></div></div><div class="lang-bar-pct">24%</div></div>
-    <div class="lang-bar-row"><div class="lang-bar-name">Go</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:18%;background:#00ADD8"></div></div><div class="lang-bar-pct">18%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">Python</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:32%;background:#3776AB"></div></div><div class="lang-bar-pct">32%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">TypeScript</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:28%;background:#3178C6"></div></div><div class="lang-bar-pct">28%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">Go</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:20%;background:#00ADD8"></div></div><div class="lang-bar-pct">20%</div></div>
     <div class="lang-bar-row"><div class="lang-bar-name">Rust</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:12%;background:#CE422B"></div></div><div class="lang-bar-pct">12%</div></div>
-    <div class="lang-bar-row"><div class="lang-bar-name">Solidity</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:8%;background:#363636"></div></div><div class="lang-bar-pct">8%</div></div>
     <div class="lang-bar-row"><div class="lang-bar-name">SQL</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:5%;background:#F29111"></div></div><div class="lang-bar-pct">5%</div></div>
     <div class="lang-bar-row"><div class="lang-bar-name">Swift</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:3%;background:#FA7343"></div></div><div class="lang-bar-pct">3%</div></div>
-    <div class="lang-bar-row"><div class="lang-bar-name">Kotlin</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:2%;background:#A97BFF"></div></div><div class="lang-bar-pct">2%</div></div>
   </div>
 
   <div class="lang-grid" id="langGrid">
@@ -1721,43 +1755,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
 }</div>
     </div>
 
-    <!-- SOLIDITY -->
-    <div class="lang-card" data-lang="solidity">
-      <div class="lang-card-header">
-        <div class="lang-dot" style="background:#363636"></div>
-        <div class="lang-dot" style="background:#FFC107"></div>
-        <div class="lang-dot" style="background:#4CAF50"></div>
-        <span class="lang-name">IntelixVault.sol</span>
-        <span class="lang-badge" style="background:rgba(54,54,54,.2);color:#aaa;border:1px solid #444">Solidity 0.8.24</span>
-      </div>
-      <div class="lang-code"><span class="c-cmt">// SPDX-License-Identifier: MIT</span>
-<span class="c-cmt">// Intellix Smart Vault — multi-sig custody</span>
-<span class="c-kw">pragma solidity</span> ^<span class="c-num">0.8.24</span>;
-
-<span class="c-kw">contract</span> <span class="c-type">IntelixVault</span> {
-    <span class="c-kw">mapping</span>(<span class="c-type">address</span> <span class="c-op">=&gt;</span> <span class="c-type">uint256</span>) <span class="c-kw">public</span> balances;
-    <span class="c-kw">uint256 public</span> threshold = <span class="c-num">2</span>; <span class="c-cmt">// 2-of-3 multisig</span>
-
-    <span class="c-kw">event</span> <span class="c-fn">Transfer</span>(
-        <span class="c-type">address indexed</span> from,
-        <span class="c-type">address indexed</span> to,
-        <span class="c-type">uint256</span> amount
-    );
-
-    <span class="c-kw">function</span> <span class="c-fn">deposit</span>() <span class="c-kw">external payable</span> {
-        balances[msg.sender] += msg.value;
-        <span class="c-kw">emit</span> <span class="c-fn">Transfer</span>(<span class="c-type">address</span>(<span class="c-num">0</span>), msg.sender, msg.value);
-    }
-
-    <span class="c-kw">function</span> <span class="c-fn">withdraw</span>(<span class="c-type">uint256</span> amount) <span class="c-kw">external</span> {
-        <span class="c-kw">require</span>(balances[msg.sender] <span class="c-op">&gt;=</span> amount, <span class="c-str">"Insufficient"</span>);
-        balances[msg.sender] <span class="c-op">-=</span> amount;
-        <span class="c-kw">payable</span>(msg.sender).<span class="c-fn">transfer</span>(amount);
-        <span class="c-kw">emit</span> <span class="c-fn">Transfer</span>(msg.sender, <span class="c-type">address</span>(<span class="c-num">0</span>), amount);
-    }
-}</div>
-    </div>
-
     <!-- SQL -->
     <div class="lang-card" data-lang="sql">
       <div class="lang-card-header">
@@ -1825,41 +1822,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
 }</div>
     </div>
 
-    <!-- KOTLIN -->
-    <div class="lang-card" data-lang="kotlin">
-      <div class="lang-card-header">
-        <div class="lang-dot" style="background:#A97BFF"></div>
-        <div class="lang-dot" style="background:#FFC107"></div>
-        <div class="lang-dot" style="background:#4CAF50"></div>
-        <span class="lang-name">PaymentViewModel.kt</span>
-        <span class="lang-badge" style="background:rgba(169,123,255,.15);color:#A97BFF">Kotlin / Android</span>
-      </div>
-      <div class="lang-code"><span class="c-cmt">// Intellix Android — Payment ViewModel</span>
-<span class="c-kw">import</span> androidx.lifecycle.ViewModel
-<span class="c-kw">import</span> kotlinx.coroutines.flow.*
-
-<span class="c-kw">class</span> <span class="c-type">PaymentViewModel</span>(
-    <span class="c-kw">private val</span> repo: <span class="c-type">PaymentRepository</span>
-) : <span class="c-type">ViewModel</span>() {
-
-    <span class="c-kw">private val</span> _state = <span class="c-fn">MutableStateFlow</span>(<span class="c-type">PaymentState</span>())
-    <span class="c-kw">val</span> state: <span class="c-type">StateFlow</span>&lt;<span class="c-type">PaymentState</span>&gt; = _state.<span class="c-fn">asStateFlow</span>()
-
-    <span class="c-kw">fun</span> <span class="c-fn">send</span>(intent: <span class="c-type">PaymentIntent</span>) {
-        <span class="c-fn">viewModelScope</span>.<span class="c-fn">launch</span> {
-            _state.<span class="c-fn">update</span> { it.<span class="c-fn">copy</span>(loading = <span class="c-kw">true</span>) }
-            <span class="c-kw">val</span> result = repo.<span class="c-fn">createPayment</span>(intent)
-            _state.<span class="c-fn">update</span> {
-                it.<span class="c-fn">copy</span>(
-                    loading = <span class="c-kw">false</span>,
-                    txHash = result.txHash,
-                    status = <span class="c-type">Status</span>.CONFIRMED
-                )
-            }
-        }
-    }
-}</div>
-    </div>
   </div>
 
   <div class="github-card">
@@ -1873,6 +1835,241 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
   </div>
 </div>
 </div>
+
+<!-- ======================== SOCIAL PAGE ======================== -->
+<div class="page" id="page-social">
+<style>
+/* ── SOCIAL LAYOUT ── */
+.social-shell{display:grid;grid-template-columns:300px 1fr 320px;min-height:calc(100vh - 100px)}
+
+/* ── LEFT: FRIENDS SIDEBAR ── */
+.social-left{background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.social-left-hdr{padding:18px 16px 12px;border-bottom:1px solid var(--border)}
+.social-left-title{font-family:var(--font);font-size:15px;font-weight:800;margin-bottom:10px}
+.social-search{position:relative}
+.social-search input{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:9px 14px 9px 34px;color:var(--text);font-size:12px;font-family:var(--body);outline:none;transition:border-color .2s}
+.social-search input:focus{border-color:var(--cyan)}
+.social-search input::placeholder{color:var(--text3)}
+.social-search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text3)}
+.friends-tabs{display:flex;gap:2px;padding:10px 10px 0;border-bottom:1px solid var(--border)}
+.ftab{flex:1;padding:7px 6px;border-radius:8px 8px 0 0;font-size:11px;font-weight:600;cursor:pointer;text-align:center;color:var(--text3);transition:all .15s;border-bottom:2px solid transparent}
+.ftab.active{color:var(--cyan);border-bottom-color:var(--cyan);background:rgba(0,229,255,.04)}
+.friends-list{flex:1;overflow-y:auto;padding:8px 8px}
+.friends-list::-webkit-scrollbar{width:3px}.friends-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.friend-item{display:flex;align-items:center;gap:10px;padding:10px 10px;border-radius:10px;cursor:pointer;transition:all .15s;position:relative}
+.friend-item:hover{background:var(--card)}
+.friend-item.active{background:linear-gradient(90deg,rgba(0,229,255,.08),transparent);border-left:2px solid var(--cyan)}
+.friend-av{position:relative;flex-shrink:0}
+.friend-av-img{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#000}
+.friend-status{position:absolute;bottom:0;right:0;width:10px;height:10px;border-radius:50%;border:2px solid var(--bg2)}
+.st-online{background:var(--green)}
+.st-away{background:var(--orange)}
+.st-offline{background:var(--text3)}
+.friend-info{flex:1;min-width:0}
+.friend-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.friend-last{font-size:11px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.friend-meta{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.friend-time{font-size:10px;color:var(--text3);font-family:var(--mono)}
+.friend-badge{background:var(--cyan);color:#000;font-size:9px;font-weight:800;border-radius:10px;padding:2px 6px;min-width:18px;text-align:center}
+.friend-request-actions{display:flex;gap:5px;margin-top:4px}
+.freq-btn{padding:4px 10px;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;border:none;font-family:var(--font)}
+.freq-accept{background:rgba(0,230,118,.15);color:var(--green)}
+.freq-accept:hover{background:rgba(0,230,118,.25)}
+.freq-decline{background:var(--bg3);color:var(--text3)}
+.freq-decline:hover{background:var(--card2);color:var(--text2)}
+.add-friend-box{padding:12px;border-top:1px solid var(--border)}
+.add-friend-btn{width:100%;padding:9px;border-radius:10px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .15s}
+.add-friend-btn:hover{opacity:.9}
+
+/* ── CENTER: CHAT ── */
+.social-center{display:flex;flex-direction:column;background:var(--bg)}
+.chat-header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--bg2)}
+.chat-hdr-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#000;flex-shrink:0;position:relative}
+.chat-hdr-name{font-family:var(--font);font-size:15px;font-weight:800}
+.chat-hdr-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.chat-hdr-actions{margin-left:auto;display:flex;gap:8px}
+.chat-action-btn{width:32px;height:32px;border-radius:8px;background:var(--card);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--text2);transition:all .15s}
+.chat-action-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.chat-messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.chat-messages::-webkit-scrollbar{width:4px}.chat-messages::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.chat-date-divider{text-align:center;font-size:10px;color:var(--text3);font-family:var(--mono);background:var(--bg3);padding:3px 12px;border-radius:10px;width:fit-content;margin:4px auto}
+.msg-wrap{display:flex;gap:8px;align-items:flex-end;max-width:75%}
+.msg-wrap.mine{align-self:flex-end;flex-direction:row-reverse}
+.msg-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#000;flex-shrink:0}
+.msg-bubble{padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;position:relative;word-break:break-word}
+.msg-wrap:not(.mine) .msg-bubble{background:var(--card2);border:1px solid var(--border);border-radius:4px 16px 16px 16px}
+.msg-wrap.mine .msg-bubble{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000;border-radius:16px 4px 16px 16px}
+.msg-time{font-size:9px;color:var(--text3);margin-top:4px;text-align:right;font-family:var(--mono)}
+.msg-wrap:not(.mine) .msg-time{text-align:left}
+/* Payment request bubble */
+.pay-bubble{background:var(--card);border:1px solid rgba(0,229,255,.25);border-radius:14px;padding:14px 16px;min-width:220px}
+.pay-bubble-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.pay-bubble-icon{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--cyan2),var(--purple2));display:flex;align-items:center;justify-content:center;font-size:14px}
+.pay-bubble-title{font-size:12px;font-weight:700;font-family:var(--font)}
+.pay-bubble-sub{font-size:10px;color:var(--text3)}
+.pay-bubble-amount{font-family:var(--font);font-size:22px;font-weight:800;color:var(--cyan);margin-bottom:6px}
+.pay-bubble-note{font-size:11px;color:var(--text2);margin-bottom:10px}
+.pay-bubble-btns{display:flex;gap:7px}
+.pay-accept{flex:1;padding:8px;border-radius:8px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.pay-decline{flex:1;padding:8px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer}
+.pay-sent-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:10px;font-size:11px;font-weight:700}
+.pay-sent-badge.paid{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.2)}
+.pay-sent-badge.pending{background:rgba(255,145,0,.1);color:var(--orange);border:1px solid rgba(255,145,0,.2)}
+/* Typing indicator */
+.typing-indicator{display:flex;align-items:center;gap:8px;padding:8px 0}
+.typing-dots{display:flex;gap:3px}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--text3);animation:typingBounce 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+/* Chat input */
+.chat-input-area{padding:14px 16px;border-top:1px solid var(--border);background:var(--bg2)}
+.chat-input-row{display:flex;align-items:flex-end;gap:10px}
+.chat-input-box{flex:1;background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:10px 14px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;transition:border-color .2s;resize:none;max-height:120px;min-height:42px;line-height:1.5}
+.chat-input-box:focus{border-color:var(--cyan)}
+.chat-input-box::placeholder{color:var(--text3)}
+.chat-tool-btns{display:flex;gap:6px;margin-bottom:2px}
+.chat-tool{width:34px;height:34px;border-radius:9px;background:var(--card);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;color:var(--text2);transition:all .15s}
+.chat-tool:hover{border-color:var(--cyan);color:var(--cyan)}
+.chat-send{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#000;transition:all .15s;flex-shrink:0}
+.chat-send:hover{opacity:.9;transform:scale(1.05)}
+.emoji-row{display:flex;gap:8px;padding:6px 0 0;font-size:16px}
+.emoji-btn{cursor:pointer;border-radius:6px;padding:2px 4px;transition:background .15s}
+.emoji-btn:hover{background:var(--card2)}
+
+/* ── RIGHT: PROFILE + SEND MONEY ── */
+.social-right{background:var(--bg2);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto}
+.social-right::-webkit-scrollbar{width:3px}.social-right::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.profile-card{padding:20px 18px;border-bottom:1px solid var(--border);text-align:center}
+.profile-av-lg{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#000;margin:0 auto 10px;position:relative}
+.profile-av-ring{position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--cyan);animation:ringPulse 2s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.05)}}
+.profile-name{font-family:var(--font);font-size:15px;font-weight:800;margin-bottom:2px}
+.profile-handle{font-size:12px;color:var(--text3);font-family:var(--mono)}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:12px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.profile-stat{padding:10px 6px;text-align:center;border-right:1px solid var(--border)}
+.profile-stat:last-child{border-right:none}
+.profile-stat-val{font-family:var(--font);font-size:14px;font-weight:800}
+.profile-stat-lbl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:1px}
+.profile-badges{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.p-badge{padding:3px 9px;border-radius:8px;font-size:10px;font-weight:700}
+/* Send Money Panel */
+.send-money-panel{padding:16px 18px;border-bottom:1px solid var(--border)}
+.smp-title{font-family:var(--font);font-size:13px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.smp-amount{font-family:var(--mono);font-size:32px;font-weight:800;color:var(--cyan);border:none;background:transparent;width:100%;outline:none;padding:4px 0 8px;border-bottom:1px solid var(--border);margin-bottom:12px}
+.smp-amount::placeholder{color:var(--text3)}
+.smp-cur-row{display:flex;gap:5px;margin-bottom:12px;flex-wrap:wrap}
+.smp-cur{padding:4px 11px;border-radius:14px;border:1px solid var(--border2);background:var(--bg3);font-size:11px;font-family:var(--mono);font-weight:600;cursor:pointer;transition:all .15s;color:var(--text2)}
+.smp-cur:hover{border-color:var(--border3)}
+.smp-cur.active{background:rgba(0,229,255,.12);border-color:var(--cyan);color:var(--cyan)}
+.smp-note{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;color:var(--text);font-size:12px;font-family:var(--body);outline:none;transition:border-color .2s;margin-bottom:12px}
+.smp-note:focus{border-color:var(--cyan)}
+.smp-note::placeholder{color:var(--text3)}
+.smp-type-row{display:flex;gap:6px;margin-bottom:12px}
+.smp-type{flex:1;padding:8px;border-radius:8px;border:1px solid var(--border2);background:var(--bg3);font-size:11px;font-weight:600;text-align:center;cursor:pointer;transition:all .15s;color:var(--text2)}
+.smp-type.active{background:rgba(0,229,255,.1);border-color:var(--cyan);color:var(--cyan)}
+.smp-fee{font-size:11px;color:var(--text3);background:var(--bg3);border-radius:7px;padding:6px 10px;margin-bottom:12px;line-height:1.6}
+.smp-send-btn{width:100%;padding:11px;border-radius:10px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:13px;font-weight:800;cursor:pointer;font-family:var(--font);transition:all .2s}
+.smp-send-btn:hover{opacity:.9;transform:translateY(-1px)}
+.smp-request-btn{width:100%;padding:11px;border-radius:10px;background:transparent;border:1px solid rgba(156,111,255,.3);color:var(--purple);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:7px}
+.smp-request-btn:hover{background:rgba(156,111,255,.08)}
+/* Recent Transactions */
+.recent-txns{padding:14px 18px}
+.recent-title{font-family:var(--font);font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px}
+.rtxn{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px}
+.rtxn:last-child{border-bottom:none}
+.rtxn-icon{font-size:16px;flex-shrink:0;width:28px;text-align:center}
+.rtxn-info{flex:1}
+.rtxn-name{font-weight:600}
+.rtxn-sub{font-size:10px;color:var(--text3);margin-top:1px}
+.rtxn-amt{font-family:var(--mono);font-weight:700}
+/* Empty state */
+.chat-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--text3)}
+.chat-empty-icon{font-size:48px;opacity:.4}
+.chat-empty-title{font-family:var(--font);font-size:16px;font-weight:700;color:var(--text2)}
+.chat-empty-sub{font-size:13px;text-align:center;max-width:260px;line-height:1.6}
+</style>
+
+<div class="social-shell">
+  <!-- LEFT SIDEBAR: FRIENDS -->
+  <div class="social-left">
+    <div class="social-left-hdr">
+      <div class="social-left-title">&#9829; Social</div>
+      <div class="social-search">
+        <span class="social-search-icon">&#9740;</span>
+        <input id="friendSearch" placeholder="Search friends..." oninput="searchFriends(this.value)">
+      </div>
+    </div>
+    <div class="friends-tabs">
+      <div class="ftab active" id="ftab-chats" onclick="switchFriendTab('chats',this)">Chats</div>
+      <div class="ftab" id="ftab-friends" onclick="switchFriendTab('friends',this)">Friends</div>
+      <div class="ftab" id="ftab-requests" onclick="switchFriendTab('requests',this)">
+        Requests <span id="reqBadge" style="background:var(--pink);color:#fff;font-size:9px;font-weight:700;border-radius:8px;padding:1px 5px;margin-left:2px">2</span>
+      </div>
+    </div>
+    <div class="friends-list" id="friendsList"></div>
+    <div class="add-friend-box">
+      <button class="add-friend-btn" onclick="openAddFriend()">&#43; Add Friend</button>
+    </div>
+  </div>
+
+  <!-- CENTER: CHAT -->
+  <div class="social-center">
+    <div id="chatHeader" class="chat-header" style="display:none"></div>
+    <div id="chatEmpty" class="chat-empty">
+      <div class="chat-empty-icon">&#128172;</div>
+      <div class="chat-empty-title">Select a conversation</div>
+      <div class="chat-empty-sub">Chat with friends, request money, and pay instantly through Intellix.</div>
+    </div>
+    <div id="chatMessages" class="chat-messages" style="display:none"></div>
+    <div id="chatTyping" style="display:none;padding:0 20px 8px">
+      <div class="typing-indicator">
+        <div class="msg-av" id="typingAv" style="background:#888;font-size:9px">?</div>
+        <div class="typing-dots">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+        <span style="font-size:11px;color:var(--text3)" id="typingName">typing...</span>
+      </div>
+    </div>
+    <div id="chatInputArea" class="chat-input-area" style="display:none">
+      <div class="emoji-row" id="emojiRow">
+        <span class="emoji-btn" onclick="insertEmoji('👍')">👍</span>
+        <span class="emoji-btn" onclick="insertEmoji('❤️')">❤️</span>
+        <span class="emoji-btn" onclick="insertEmoji('🎉')">🎉</span>
+        <span class="emoji-btn" onclick="insertEmoji('🔥')">🔥</span>
+        <span class="emoji-btn" onclick="insertEmoji('💸')">💸</span>
+        <span class="emoji-btn" onclick="insertEmoji('✅')">✅</span>
+        <span class="emoji-btn" onclick="insertEmoji('😂')">😂</span>
+        <span class="emoji-btn" onclick="insertEmoji('🚀')">🚀</span>
+      </div>
+      <div class="chat-input-row">
+        <div class="chat-tool-btns">
+          <div class="chat-tool" onclick="openPayRequest()" title="Send / Request Money">&#9670;</div>
+          <div class="chat-tool" onclick="insertEmoji('📎')" title="Attach">&#128206;</div>
+          <div class="chat-tool" onclick="insertEmoji('🖼️')" title="Image">&#128444;</div>
+        </div>
+        <textarea class="chat-input-box" id="chatInput" placeholder="Message..." rows="1"
+          onkeydown="handleChatKey(event)" oninput="autoResizeInput(this)"></textarea>
+        <button class="chat-send" onclick="sendMessage()">&#10148;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: PROFILE + SEND MONEY -->
+  <div class="social-right" id="socialRight">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:28px;color:var(--text3)" id="rightEmpty">
+      <div style="font-size:40px;opacity:.3">&#128100;</div>
+      <div style="font-size:13px;text-align:center">Select a friend to see their profile and send money</div>
+    </div>
+    <div id="rightProfile" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ADD FRIEND MODAL (reuses ix-modal via showModal) -->
+</div>
+<!-- END SOCIAL PAGE -->
 
 <!-- ======================== AUTH PAGE ======================== -->
 <div class="page" id="page-auth">
@@ -3592,11 +3789,12 @@ function showPage(p){
   const nl=document.getElementById('nl-'+p);
   if(nl)nl.classList.add('active');
   window.scrollTo(0,0);
-  if(p==='dashboard'){buildVolChart();startLiveClock();setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},50);}
+  if(p==='dashboard'){buildVolChart();startLiveClock();setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);renderDashSocial();},50);}
   if(p==='database'&&typeof DB==='undefined'){}  // DB auto-inits
   if(p==='mobile')buildPhoneHome();
   if(p==='products')renderProducts();
   if(p==='payment'){setTimeout(initPaymentScreen,60);}
+  if(p==='social'){setTimeout(initSocialPage,60);}
   if(p==='languages'){setTimeout(()=>document.querySelectorAll('.lang-bar-fill').forEach(b=>{const w=b.style.width;b.style.width='0';setTimeout(()=>b.style.width=w,50);}),100);}
 }
 
@@ -4399,13 +4597,388 @@ function buildCurrencyTicker() {
   }, 3000);
 }
 
+// ══════════════════════════════════════════════════════════
+// SOCIAL PLATFORM — Friends, Chat & Payments
+// ══════════════════════════════════════════════════════════
+
+const FRIENDS_DATA = [
+  {id:'F1',name:'Priya Rao',handle:'@priya.rao',init:'PR',color:'linear-gradient(135deg,#9c6fff,#00e5ff)',status:'online',wallet:'GBP-NVP-001',balance:12400,currency:'GBP',unread:3,lastMsg:'Hey, can you send me the $500?',lastTime:'2m',txHistory:[{dir:'recv',amt:'$2,400',note:'Dinner split',time:'Yesterday'},{dir:'sent',amt:'$500',note:'Coffee',time:'3d ago'}]},
+  {id:'F2',name:'Marcus Kim',handle:'@m.kim',init:'MK',color:'linear-gradient(135deg,#ff4081,#9c6fff)',status:'online',wallet:'0xdefi1234',balance:84000,currency:'ETH',unread:1,lastMsg:'That BTC trade was 🔥🔥',lastTime:'14m',txHistory:[{dir:'sent',amt:'$1,200',note:'BTC split',time:'2d ago'}]},
+  {id:'F3',name:'Alex Owen',handle:'@alex.owen',init:'AO',color:'linear-gradient(135deg,#00e676,#00e5ff)',status:'online',wallet:'USD-AOW-001',balance:48291,currency:'USD',unread:0,lastMsg:'Payment sent ✅',lastTime:'1h',txHistory:[{dir:'recv',amt:'$8,200',note:'Salary',time:'Today'}]},
+  {id:'F4',name:'Sarah Reeves',handle:'@sarah.r',init:'SR',color:'linear-gradient(135deg,#ffd740,#ff9100)',status:'away',wallet:'USD-SAR-001',balance:25000,currency:'USD',unread:0,lastMsg:'Thanks for the payment!',lastTime:'3h',txHistory:[{dir:'sent',amt:'$340',note:'Nobu dinner split',time:'2d ago'}]},
+  {id:'F5',name:'Jamie Kimura',handle:'@jamie.k',init:'JK',color:'linear-gradient(135deg,#00b8d9,#00e676)',status:'offline',wallet:'JPY-JMK-001',balance:200000,currency:'JPY',unread:0,lastMsg:'Will settle up tomorrow',lastTime:'1d',txHistory:[]},
+  {id:'F6',name:'Nina Torsten',handle:'@nina.t',init:'NT',color:'linear-gradient(135deg,#ff1744,#ff4081)',status:'away',wallet:'EUR-NIN-001',balance:32000,currency:'EUR',unread:2,lastMsg:'Request for €200 🙏',lastTime:'2d',txHistory:[{dir:'recv',amt:'€800',note:'Rent',time:'1w ago'}]},
+  {id:'F7',name:'Dev Tester',handle:'@dev.test',init:'DT',color:'linear-gradient(135deg,#7c4fff,#00e5ff)',status:'online',wallet:'USD-DEV-001',balance:500,currency:'USD',unread:0,lastMsg:'API test complete ✅',lastTime:'2d',txHistory:[]},
+];
+const FRIEND_REQUESTS=[
+  {id:'R1',name:'Aisha Johnson',handle:'@aisha.j',init:'AJ',color:'linear-gradient(135deg,#ff9100,#ffd740)',mutualFriends:3},
+  {id:'R2',name:'Max Silva',handle:'@max.silva',init:'MS',color:'linear-gradient(135deg,#00e5ff,#00e676)',mutualFriends:1},
+];
+const CHAT_HISTORY={
+  F1:[
+    {from:'them',text:"Hey! Can you send me $500 for the project?",time:"2:14 PM",type:'text'},
+    {from:'me',text:"Sure! Let me send it now 👍",time:"2:15 PM",type:'text'},
+    {from:'me',payReq:{amount:500,currency:'USD',note:'Project payment',status:'sent'},time:"2:15 PM",type:'payment_sent'},
+    {from:'them',text:"Received! Thanks so much 🙏🔥",time:"2:16 PM",type:'text'},
+    {from:'them',text:"Hey, can you send me the $500?",time:"2:31 PM",type:'text'},
+  ],
+  F2:[
+    {from:'them',text:"Did you see BTC pump today?! 🚀",time:"Yesterday",type:'text'},
+    {from:'me',text:"Yeah crazy gains! Up 8% in 4h",time:"Yesterday",type:'text'},
+    {from:'them',text:"I just bought 0.5 BTC on the dip 💎",time:"Yesterday",type:'text'},
+    {from:'me',text:"Smart move, I went ETH",time:"Yesterday",type:'text'},
+    {from:'them',text:"That BTC trade was 🔥🔥",time:"14m ago",type:'text'},
+  ],
+  F3:[
+    {from:'them',payReq:{amount:340,currency:'USD',note:'Nobu dinner split 🍣',status:'pending'},time:"Today 9:00 AM",type:'payment_request'},
+    {from:'me',text:"Paying now!",time:"Today 9:01 AM",type:'text'},
+    {from:'me',payReq:{amount:340,currency:'USD',note:'Nobu dinner ✅',status:'sent'},time:"Today 9:01 AM",type:'payment_sent'},
+    {from:'them',text:"Payment sent ✅",time:"Today 9:02 AM",type:'text'},
+  ],
+  F4:[],F5:[],
+  F6:[{from:'them',payReq:{amount:200,currency:'EUR',note:'Share of utilities bill',status:'pending'},time:"2 days ago",type:'payment_request'}],
+  F7:[],
+};
+let activeFriendId=null,socialTab='chats',smpCurrency='USD',smpType='send',_modalCur='USD';
+
+function initSocialPage(){renderFriendsList();const first=FRIENDS_DATA.find(f=>f.unread>0)||FRIENDS_DATA[0];openChat(first.id);}
+
+function renderFriendsList(filter=''){
+  const el=document.getElementById('friendsList');if(!el)return;
+  const q=filter.toLowerCase();
+  if(socialTab==='requests'){
+    el.innerHTML=FRIEND_REQUESTS.filter(r=>!q||r.name.toLowerCase().includes(q)).map(r=>`<div class="friend-item"><div class="friend-av"><div class="friend-av-img" style="background:${r.color}">${r.init}</div></div><div class="friend-info"><div class="friend-name">${r.name}</div><div class="friend-last">${r.mutualFriends} mutual friends</div><div class="friend-request-actions"><button class="freq-btn freq-accept" onclick="acceptFriendReq('${r.id}','${r.name}')">Accept</button><button class="freq-btn freq-decline" onclick="declineFriendReq('${r.id}')">Decline</button></div></div></div>`).join('')||'<div style="padding:20px;text-align:center;color:var(--text3);font-size:12px">No pending requests</div>';return;
+  }
+  const list=FRIENDS_DATA.filter(f=>!q||f.name.toLowerCase().includes(q)||f.handle.includes(q));
+  if(socialTab==='friends'){
+    el.innerHTML=list.map(f=>`<div class="friend-item${f.id===activeFriendId?' active':''}" onclick="openChat('${f.id}')"><div class="friend-av"><div class="friend-av-img" style="background:${f.color}">${f.init}</div><div class="friend-status st-${f.status}"></div></div><div class="friend-info"><div class="friend-name">${f.name}</div><div class="friend-last">${f.handle}</div></div><div class="friend-meta"><span style="font-size:10px;color:${f.status==='online'?'var(--green)':f.status==='away'?'var(--orange)':'var(--text3)'}">${f.status==='online'?'● Online':f.status==='away'?'● Away':'● Offline'}</span></div></div>`).join('');return;
+  }
+  el.innerHTML=list.sort((a,b)=>b.unread-a.unread).map(f=>`<div class="friend-item${f.id===activeFriendId?' active':''}" onclick="openChat('${f.id}')"><div class="friend-av"><div class="friend-av-img" style="background:${f.color}">${f.init}</div><div class="friend-status st-${f.status}"></div></div><div class="friend-info"><div class="friend-name">${f.name}</div><div class="friend-last">${f.lastMsg}</div></div><div class="friend-meta"><div class="friend-time">${f.lastTime}</div>${f.unread?`<div class="friend-badge">${f.unread}</div>`:''}</div></div>`).join('');
+}
+function switchFriendTab(tab,el){socialTab=tab;document.querySelectorAll('.ftab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderFriendsList();}
+function searchFriends(q){renderFriendsList(q);}
+
+function openChat(fid){
+  activeFriendId=fid;
+  const f=FRIENDS_DATA.find(x=>x.id===fid);if(!f)return;
+  f.unread=0;renderFriendsList();
+  const hdr=document.getElementById('chatHeader');
+  hdr.style.display='flex';
+  hdr.innerHTML=`<div class="chat-hdr-av" style="background:${f.color}">${f.init}<div class="friend-status st-${f.status}" style="position:absolute;bottom:1px;right:1px;border-color:var(--bg2)"></div></div><div><div class="chat-hdr-name">${f.name}</div><div class="chat-hdr-sub">${f.handle} · ${f.status==='online'?'<span style="color:var(--green)">● Online</span>':f.status==='away'?'<span style="color:var(--orange)">● Away</span>':'<span style="color:var(--text3)">● Offline</span>'}</div></div><div class="chat-hdr-actions"><div class="chat-action-btn" onclick="openPayRequest()" title="Send Money">&#9670;</div><div class="chat-action-btn" onclick="openRequestMoney()" title="Request Money">&#8645;</div><div class="chat-action-btn" onclick="toast('Voice call coming soon!','info',1500)" title="Call">&#9742;</div></div>`;
+  document.getElementById('chatEmpty').style.display='none';
+  const msgs=document.getElementById('chatMessages');msgs.style.display='flex';
+  renderMessages(f);
+  document.getElementById('chatInputArea').style.display='block';
+  document.getElementById('chatInput').focus();
+  renderRightProfile(f);
+  const history=CHAT_HISTORY[fid]||[];
+  if(f.status==='online'&&history.length>0&&history[history.length-1].from==='me'){setTimeout(()=>showTyping(f),1500);}
+}
+
+function renderMessages(f){
+  const msgs=document.getElementById('chatMessages');
+  const history=CHAT_HISTORY[f.id]||[];
+  msgs.innerHTML=(history.length===0?`<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--text3);padding:40px 0"><div style="font-size:40px">👋</div><div style="font-size:14px;font-weight:600;color:var(--text2)">Say hi to ${f.name}!</div><div style="font-size:12px;text-align:center">Start a conversation or send money instantly.</div></div>`:'')+
+  history.map(m=>{
+    const isMe=m.from==='me';
+    if(m.type==='payment_request'||m.type==='payment_sent'){
+      const pr=m.payReq;
+      return `<div class="msg-wrap${isMe?' mine':''}">
+        ${!isMe?`<div class="msg-av" style="background:${f.color};font-size:10px">${f.init}</div>`:''}
+        <div>
+          <div class="pay-bubble">
+            <div class="pay-bubble-hdr"><div class="pay-bubble-icon">${m.type==='payment_sent'?'&#10003;':'&#9670;'}</div><div><div class="pay-bubble-title">${m.type==='payment_sent'?'Payment Sent':'Payment Request'}</div><div class="pay-bubble-sub">${isMe?'You':f.name} ${m.type==='payment_sent'?'sent':'requested'}</div></div></div>
+            <div class="pay-bubble-amount">${pr.currency==='USD'?'$':''}${pr.amount} ${pr.currency}</div>
+            <div class="pay-bubble-note">${pr.note}</div>
+            ${m.type==='payment_request'&&!isMe&&pr.status==='pending'?`<div class="pay-bubble-btns"><button class="pay-accept" onclick="acceptPayRequest(${pr.amount},'${pr.currency}','${pr.note}','${f.id}',this.closest('.pay-bubble'))">Pay Now &#9670;</button><button class="pay-decline" onclick="declinePayRequest(this.closest('.pay-bubble'))">Decline</button></div>`:`<div><span class="pay-sent-badge ${pr.status==='sent'?'paid':'pending'}">${pr.status==='sent'?'✓ Paid':'⏳ Pending'}</span></div>`}
+          </div>
+          <div class="msg-time">${m.time}</div>
+        </div>
+        ${isMe?`<div class="msg-av" style="background:linear-gradient(135deg,var(--cyan2),var(--purple2));font-size:9px">You</div>`:''}
+      </div>`;
+    }
+    return `<div class="msg-wrap${isMe?' mine':''}">
+      ${!isMe?`<div class="msg-av" style="background:${f.color};font-size:10px">${f.init}</div>`:''}
+      <div><div class="msg-bubble">${m.text}</div><div class="msg-time">${m.time}</div></div>
+      ${isMe?`<div class="msg-av" style="background:linear-gradient(135deg,var(--cyan2),var(--purple2));font-size:9px">You</div>`:''}
+    </div>`;
+  }).join('');
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function showTyping(f){
+  const typing=document.getElementById('chatTyping');
+  if(!typing||activeFriendId!==f.id)return;
+  const av=document.getElementById('typingAv'),name=document.getElementById('typingName');
+  av.style.background=f.color;av.textContent=f.init;
+  name.textContent=f.name+' is typing...';
+  typing.style.display='block';
+  setTimeout(()=>{
+    if(activeFriendId!==f.id)return;
+    typing.style.display='none';
+    const replies=["Got it! 👍","Thanks 🙏","Sounds good!","Let me check...","Sure, sending now!","On it 🚀","❤️","💸💸","Appreciate it!","Will do!","Perfect 🔥"];
+    const reply=replies[Math.floor(Math.random()*replies.length)];
+    const hist=CHAT_HISTORY[f.id]||(CHAT_HISTORY[f.id]=[]);
+    hist.push({from:'them',text:reply,time:'Just now',type:'text'});
+    f.lastMsg=reply;f.lastTime='Just now';
+    renderMessages(f);renderFriendsList();
+  },2200);
+}
+function sendMessage(){
+  const inp=document.getElementById('chatInput');
+  const text=inp.value.trim();
+  if(!text||!activeFriendId)return;
+  inp.value='';inp.style.height='';
+  const f=FRIENDS_DATA.find(x=>x.id===activeFriendId);if(!f)return;
+  const hist=CHAT_HISTORY[activeFriendId]||(CHAT_HISTORY[activeFriendId]=[]);
+  hist.push({from:'me',text,time:'Now',type:'text'});
+  f.lastMsg=text;f.lastTime='Now';
+  renderMessages(f);renderFriendsList();
+  if(f.status==='online')setTimeout(()=>showTyping(f),800+Math.random()*1200);
+}
+function handleChatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
+function autoResizeInput(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+function insertEmoji(e){const inp=document.getElementById('chatInput');if(inp){inp.value+=e;inp.focus();}}
+
+function openPayRequest(){
+  const f=FRIENDS_DATA.find(x=>x.id===activeFriendId);if(!f){toast('Select a friend first','warning');return;}
+  _modalCur='USD';
+  showModal(`&#9670; Send Money to ${f.name}`,
+    `<div style="text-align:center;margin-bottom:16px"><div style="width:52px;height:52px;border-radius:50%;background:${f.color};margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#000">${f.init}</div><div style="font-family:var(--font);font-size:14px;font-weight:700">${f.name}</div><div style="font-size:12px;color:var(--text3)">${f.handle}</div></div>
+    <label style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px">Amount</label>
+    <input id="modalPayAmt" type="number" placeholder="0.00" style="width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:12px 16px;color:var(--cyan);font-size:22px;font-family:var(--mono);font-weight:800;outline:none;margin-bottom:12px" oninput="calcModalFee()">
+    <div style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap" id="modalCurPills">${['USD','EUR','GBP','BTC','ETH','USDC'].map(c=>`<div onclick="setModalCur('${c}',this)" style="padding:5px 12px;border-radius:14px;border:1px solid ${c==='USD'?'var(--cyan)':'var(--border2)'};background:${c==='USD'?'rgba(0,229,255,.1)':'var(--bg3)'};color:${c==='USD'?'var(--cyan)':'var(--text2)'};font-size:11px;font-family:var(--mono);font-weight:600;cursor:pointer">${c}</div>`).join('')}</div>
+    <input id="modalPayNote" placeholder="Add a note (optional)" style="width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;margin-bottom:10px">
+    <div id="modalFeeBox" style="background:var(--bg3);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--text3)">Enter amount to see fees</div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="confirmSendMoney()">&#9670; Send Now</button>`
+  );
+}
+function setModalCur(cur,el){_modalCur=cur;document.querySelectorAll('#modalCurPills>div').forEach(d=>{d.style.border='1px solid var(--border2)';d.style.background='var(--bg3)';d.style.color='var(--text2)';});el.style.border='1px solid var(--cyan)';el.style.background='rgba(0,229,255,.1)';el.style.color='var(--cyan)';calcModalFee();}
+function calcModalFee(){const amt=parseFloat(document.getElementById('modalPayAmt')?.value)||0;const box=document.getElementById('modalFeeBox');if(box&&amt>0){const ix=(amt*0.0005).toFixed(2);box.innerHTML=`Network: $0.18 &nbsp;·&nbsp; Intellix: $${ix} &nbsp;·&nbsp; Total: $${(amt+0.18+parseFloat(ix)).toFixed(2)} &nbsp;·&nbsp; ETA: 14s`;};}
+function confirmSendMoney(){
+  const amt=parseFloat(document.getElementById('modalPayAmt')?.value)||0;
+  const note=(document.getElementById('modalPayNote')?.value)||'';
+  if(!amt||amt<=0){toast('Enter a valid amount','error');return;}
+  const f=FRIENDS_DATA.find(x=>x.id===activeFriendId);if(!f)return;
+  closeModal();
+  const hist=CHAT_HISTORY[activeFriendId]||(CHAT_HISTORY[activeFriendId]=[]);
+  hist.push({from:'me',payReq:{amount:amt,currency:_modalCur,note:note||'Payment via Intellix',status:'sent'},time:'Just now',type:'payment_sent'});
+  f.lastMsg=`💸 Sent ${_modalCur==='USD'?'$':''}${amt} ${_modalCur}`;f.lastTime='Just now';
+  renderMessages(f);renderFriendsList();
+  toast(`$${amt} ${_modalCur} sent to ${f.name}!`,'success',3000);
+}
+function openRequestMoney(){
+  const f=FRIENDS_DATA.find(x=>x.id===activeFriendId);if(!f){toast('Select a friend first','warning');return;}
+  showModal(`&#8645; Request from ${f.name}`,
+    `<div style="text-align:center;margin-bottom:14px"><div style="width:48px;height:48px;border-radius:50%;background:${f.color};margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#000">${f.init}</div><div style="font-family:var(--font);font-size:14px;font-weight:700">${f.name}</div></div>
+    <input id="modalReqAmt" type="number" placeholder="Amount to request" style="width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:12px 16px;color:var(--purple);font-size:20px;font-family:var(--mono);font-weight:700;outline:none;margin-bottom:12px">
+    <input id="modalReqNote" placeholder="What's it for?" style="width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;">`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Cancel</button><button class="btn btn-primary" style="background:linear-gradient(135deg,var(--purple2),var(--pink));color:#fff" onclick="confirmRequestMoney()">Send Request</button>`
+  );
+}
+function confirmRequestMoney(){
+  const amt=parseFloat(document.getElementById('modalReqAmt')?.value)||0;
+  const note=(document.getElementById('modalReqNote')?.value)||'';
+  if(!amt||amt<=0){toast('Enter a valid amount','error');return;}
+  const f=FRIENDS_DATA.find(x=>x.id===activeFriendId);if(!f)return;
+  closeModal();
+  const hist=CHAT_HISTORY[activeFriendId]||(CHAT_HISTORY[activeFriendId]=[]);
+  hist.push({from:'me',payReq:{amount:amt,currency:'USD',note:note||'Payment request',status:'pending'},time:'Just now',type:'payment_request'});
+  f.lastMsg=`💸 Requested $${amt}`;f.lastTime='Just now';
+  renderMessages(f);renderFriendsList();
+  toast(`Payment request sent to ${f.name}`,'info',2500);
+}
+function acceptPayRequest(amount,currency,note,fid,bubble){
+  bubble.innerHTML=`<div style="text-align:center;padding:8px"><div style="font-size:18px;margin-bottom:4px">&#10003;</div><div style="color:var(--green);font-weight:700;font-size:12px">Paid $${amount} ${currency}</div><div style="font-size:10px;color:var(--text3);margin-top:2px">${note}</div></div>`;
+  toast(`$${amount} ${currency} sent successfully!`,'success',3000);
+  setTimeout(()=>{showPage('payment');const el=document.getElementById('payAmt');if(el){el.value=amount;calcPayFees();}},500);
+}
+function declinePayRequest(bubble){
+  const btns=bubble.querySelector('.pay-bubble-btns');if(btns)btns.remove();
+  const badge=document.createElement('div');
+  badge.innerHTML='<span class="pay-sent-badge" style="background:rgba(255,23,68,.1);color:var(--red);border:1px solid rgba(255,23,68,.2)">Declined</span>';
+  bubble.appendChild(badge);
+  toast('Payment request declined','info',1500);
+}
+function acceptFriendReq(id,name){const idx=FRIEND_REQUESTS.findIndex(r=>r.id===id);if(idx>-1)FRIEND_REQUESTS.splice(idx,1);const b=document.getElementById('reqBadge');if(b)b.textContent=FRIEND_REQUESTS.length||'';renderFriendsList();toast(`${name} added to your friends!`,'success');}
+function declineFriendReq(id){const idx=FRIEND_REQUESTS.findIndex(r=>r.id===id);if(idx>-1)FRIEND_REQUESTS.splice(idx,1);renderFriendsList();toast('Friend request declined','info',1500);}
+function openAddFriend(){
+  showModal('&#43; Add Friend',
+    `<div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Search by name, handle, email or Intellix ID.</div>
+    <input id="addFriendInput" placeholder="@handle, name or email..." style="width:100%;background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:11px 14px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;margin-bottom:12px;transition:border-color .2s" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='var(--border2)'" oninput="searchAddFriend(this.value)">
+    <div id="addFriendResults" style="display:flex;flex-direction:column;gap:8px"></div>`,
+    `<button class="btn btn-ghost" onclick="closeModal()">Close</button>`
+  );
+}
+function searchAddFriend(q){
+  const res=document.getElementById('addFriendResults');if(!q.trim()){res.innerHTML='';return;}
+  const suggestions=[{name:'Jordan Lee',handle:'@jordan.lee',init:'JL',color:'linear-gradient(135deg,#00e5ff,#9c6fff)'},{name:'River Chen',handle:'@river.c',init:'RC',color:'linear-gradient(135deg,#ffd740,#ff9100)'},{name:'Taylor Park',handle:'@taylor.p',init:'TP',color:'linear-gradient(135deg,#00e676,#00b8d9)'}].filter(s=>s.name.toLowerCase().includes(q.toLowerCase())||s.handle.includes(q.toLowerCase()));
+  res.innerHTML=suggestions.length?suggestions.map(s=>`<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--card);border:1px solid var(--border);border-radius:10px"><div style="width:34px;height:34px;border-radius:50%;background:${s.color};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#000">${s.init}</div><div style="flex:1"><div style="font-size:13px;font-weight:600">${s.name}</div><div style="font-size:11px;color:var(--text3)">${s.handle}</div></div><button onclick="toast('Friend request sent to ${s.name}!','success');this.textContent='Sent ✓';this.disabled=true;this.style.opacity='.5'" style="padding:6px 14px;border-radius:8px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)">Add</button></div>`).join(''):`<div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">No users found for "${q}"</div>`;
+}
+function renderRightProfile(f){
+  const rEmpty=document.getElementById('rightEmpty'),rProfile=document.getElementById('rightProfile');
+  if(rEmpty)rEmpty.style.display='none';
+  if(!rProfile)return;
+  rProfile.style.display='block';
+  rProfile.innerHTML=`
+    <div class="profile-card">
+      <div class="profile-av-lg" style="background:${f.color}">${f.init}<div class="profile-av-ring"></div></div>
+      <div class="profile-name">${f.name}</div>
+      <div class="profile-handle">${f.handle}</div>
+      <div class="profile-stats">
+        <div class="profile-stat"><div class="profile-stat-val text-cyan">47</div><div class="profile-stat-lbl">Txns</div></div>
+        <div class="profile-stat"><div class="profile-stat-val text-green">$${(f.balance/1000).toFixed(0)}K</div><div class="profile-stat-lbl">Sent</div></div>
+        <div class="profile-stat"><div class="profile-stat-val" style="color:var(--purple)">12</div><div class="profile-stat-lbl">Friends</div></div>
+      </div>
+      <div class="profile-badges">
+        <span class="p-badge" style="background:rgba(0,229,255,.1);color:var(--cyan)">&#10003; KYC</span>
+        <span class="p-badge" style="background:rgba(0,230,118,.1);color:var(--green)">&#9670; Verified</span>
+        ${f.status==='online'?'<span class="p-badge" style="background:rgba(0,230,118,.08);color:var(--green)">● Online</span>':''}
+      </div>
+    </div>
+    <div class="send-money-panel">
+      <div class="smp-title">&#9670; Send Money</div>
+      <input class="smp-amount" id="smpAmt" type="number" placeholder="0.00" oninput="calcSmpFee()">
+      <div class="smp-cur-row">${['USD','EUR','GBP','BTC','ETH','USDC'].map(c=>`<div class="smp-cur${c==='USD'?' active':''}" onclick="setSmpCur('${c}',this)">${c}</div>`).join('')}</div>
+      <div class="smp-type-row">
+        <div class="smp-type active" onclick="setSmpType('send',this)">&#9670; Send</div>
+        <div class="smp-type" onclick="setSmpType('request',this)">&#8645; Request</div>
+        <div class="smp-type" onclick="setSmpType('split',this)">&#9783; Split</div>
+      </div>
+      <input id="smpNote" class="smp-note" placeholder="Add a note...">
+      <div class="smp-fee" id="smpFeeBox">Enter amount to calculate fees</div>
+      <button class="smp-send-btn" onclick="doSmpAction()">&#9670; Send Money</button>
+      <button class="smp-request-btn" onclick="openRequestMoney()">&#8645; Request Money</button>
+    </div>
+    <div class="recent-txns">
+      <div class="recent-title">Recent with ${f.name}</div>
+      ${(f.txHistory&&f.txHistory.length)?f.txHistory.map(t=>`<div class="rtxn"><div class="rtxn-icon">${t.dir==='sent'?'&#8599;':'&#8600;'}</div><div class="rtxn-info"><div class="rtxn-name">${t.note}</div><div class="rtxn-sub">${t.time}</div></div><div class="rtxn-amt" style="color:${t.dir==='sent'?'var(--red)':'var(--green)'}">${t.dir==='sent'?'-':'+'} ${t.amt}</div></div>`).join(''):'<div style="font-size:11px;color:var(--text3);text-align:center;padding:12px 0">No transactions yet</div>'}
+    </div>`;
+}
+function setSmpCur(cur,el){smpCurrency=cur;document.querySelectorAll('.smp-cur').forEach(c=>c.classList.remove('active'));el.classList.add('active');calcSmpFee();}
+function setSmpType(type,el){smpType=type;document.querySelectorAll('.smp-type').forEach(t=>t.classList.remove('active'));el.classList.add('active');}
+function calcSmpFee(){const amt=parseFloat(document.getElementById('smpAmt')?.value)||0;const box=document.getElementById('smpFeeBox');if(!box)return;if(!amt){box.textContent='Enter amount to calculate fees';return;}const ix=(amt*0.0005).toFixed(2);box.innerHTML=`Network: $0.18 · Intellix: $${ix} · Total: $${(amt+0.18+parseFloat(ix)).toFixed(2)} · 14s via Polygon`;}
+function doSmpAction(){
+  const amt=parseFloat(document.getElementById('smpAmt')?.value)||0;
+  const note=(document.getElementById('smpNote')?.value)||'';
+  if(!amt||amt<=0){toast('Enter a valid amount','error');return;}
+  const f=FRIENDS_DATA.find(x=>x.id===activeFriendId);if(!f)return;
+  if(smpType==='send'){
+    const hist=CHAT_HISTORY[activeFriendId]||(CHAT_HISTORY[activeFriendId]=[]);
+    hist.push({from:'me',payReq:{amount:amt,currency:smpCurrency,note:note||'Payment via Intellix',status:'sent'},time:'Just now',type:'payment_sent'});
+    f.lastMsg=`💸 Sent $${amt}`;f.lastTime='Just now';
+    renderMessages(f);renderFriendsList();
+    document.getElementById('smpAmt').value='';
+    toast(`$${amt} ${smpCurrency} sent to ${f.name}!`,'success',3000);
+  } else if(smpType==='request'){openRequestMoney();}
+  else{toast('Split bill — enter amounts for each friend','info',2500);}
+}
+
+// ── DASHBOARD SOCIAL WIDGET ──
+function renderDashSocial(){
+  // Online friends strip
+  const onlineEl=document.getElementById('dashOnlineFriends');
+  if(onlineEl&&typeof FRIENDS_DATA!=='undefined'){
+    const online=FRIENDS_DATA.filter(f=>f.status==='online');
+    onlineEl.innerHTML=online.map(f=>`
+      <div onclick="showPage('social');setTimeout(()=>openChat('${f.id}'),80)" style="display:flex;align-items:center;gap:7px;padding:6px 12px;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;transition:all .15s" onmouseenter="this.style.borderColor='rgba(255,64,129,.4)'" onmouseleave="this.style.borderColor='var(--border)'">
+        <div style="position:relative">
+          <div style="width:28px;height:28px;border-radius:50%;background:${f.color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#000">${f.init}</div>
+          <div style="position:absolute;bottom:0;right:0;width:8px;height:8px;border-radius:50%;background:var(--green);border:1.5px solid var(--bg)"></div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:600;white-space:nowrap">${f.name.split(' ')[0]}</div>
+          ${f.unread?`<div style="font-size:10px;color:var(--pink);font-weight:600">${f.unread} new</div>`:'<div style="font-size:10px;color:var(--green)">● Online</div>'}
+        </div>
+      </div>`).join('');
+  }
+
+  // Recent messages list
+  const msgsEl=document.getElementById('dashRecentMessages');
+  if(msgsEl&&typeof FRIENDS_DATA!=='undefined'){
+    const withMsgs=FRIENDS_DATA.filter(f=>f.lastMsg).slice(0,4);
+    msgsEl.innerHTML=withMsgs.map(f=>`
+      <div onclick="showPage('social');setTimeout(()=>openChat('${f.id}'),80)" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:padding .1s" onmouseenter="this.style.paddingLeft='4px'" onmouseleave="this.style.paddingLeft='0'">
+        <div style="position:relative;flex-shrink:0">
+          <div style="width:32px;height:32px;border-radius:50%;background:${f.color};display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#000">${f.init}</div>
+          <div style="position:absolute;bottom:0;right:0;width:8px;height:8px;border-radius:50%;background:${f.status==='online'?'var(--green)':f.status==='away'?'var(--orange)':'var(--text3)'};border:1.5px solid var(--bg)"></div>
+        </div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:12px;font-weight:600">${f.name}</div>
+          <div style="font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px">${f.lastMsg}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0">
+          <div style="font-size:10px;color:var(--text3);font-family:var(--mono)">${f.lastTime}</div>
+          ${f.unread?`<div style="background:var(--pink);color:#fff;font-size:9px;font-weight:700;border-radius:10px;padding:1px 6px">${f.unread}</div>`:''}
+        </div>
+      </div>`).join('');
+  }
+
+  // Payment requests panel
+  const reqEl=document.getElementById('dashPayRequests');
+  if(reqEl&&typeof CHAT_HISTORY!=='undefined'){
+    const requests=[];
+    Object.entries(CHAT_HISTORY).forEach(([fid,msgs])=>{
+      if(!msgs) return;
+      msgs.forEach(m=>{
+        if(m.type==='payment_request'&&m.from==='them'&&m.payReq?.status==='pending'){
+          const f=typeof FRIENDS_DATA!=='undefined'?FRIENDS_DATA.find(x=>x.id===fid):null;
+          if(f) requests.push({f,pr:m.payReq,time:m.time});
+        }
+      });
+    });
+
+    if(requests.length===0){
+      reqEl.innerHTML=`<div style="text-align:center;padding:16px 0;color:var(--text3);font-size:12px">
+        <div style="font-size:24px;margin-bottom:6px">&#9829;</div>
+        No pending requests
+      </div>`;
+    } else {
+      reqEl.innerHTML=requests.map(({f,pr,time})=>`
+        <div style="background:var(--card);border:1px solid rgba(255,64,129,.2);border-radius:12px;padding:12px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:28px;height:28px;border-radius:50%;background:${f.color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#000;flex-shrink:0">${f.init}</div>
+            <div style="flex:1">
+              <div style="font-size:12px;font-weight:600">${f.name} <span style="color:var(--text3);font-weight:400">requested</span></div>
+              <div style="font-size:11px;color:var(--text3)">${time}</div>
+            </div>
+            <div style="font-family:var(--mono);font-size:15px;font-weight:700;color:var(--pink)">${pr.currency==='USD'?'$':''}${pr.amount} ${pr.currency}</div>
+          </div>
+          <div style="font-size:11px;color:var(--text2);margin-bottom:10px;padding:0 2px">${pr.note}</div>
+          <div style="display:flex;gap:7px">
+            <button onclick="dashPayNow(${pr.amount},'${pr.currency}','${pr.note}','${f.id}',this.parentElement.parentElement)" style="flex:1;padding:7px;border-radius:8px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:11px;font-weight:700;cursor:pointer;font-family:var(--font)">&#9670; Pay $${pr.amount}</button>
+            <button onclick="dashDeclineReq(this.parentElement.parentElement)" style="padding:7px 12px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:11px;cursor:pointer">Decline</button>
+          </div>
+        </div>`).join('');
+    }
+  }
+}
+
+function dashPayNow(amount, currency, note, fid, card){
+  card.innerHTML=`<div style="text-align:center;padding:12px 0"><div style="font-size:20px;margin-bottom:4px;color:var(--green)">&#10003;</div><div style="font-size:12px;font-weight:600;color:var(--green)">Paid $${amount} ${currency}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">${note}</div></div>`;
+  const f=FRIENDS_DATA.find(x=>x.id===fid);
+  if(f&&CHAT_HISTORY[fid]){
+    const m=CHAT_HISTORY[fid].find(x=>x.type==='payment_request'&&x.payReq?.status==='pending');
+    if(m)m.payReq.status='sent';
+  }
+  toast(`$${amount} ${currency} sent successfully!`,'success',3000);
+}
+
+function dashDeclineReq(card){
+  card.innerHTML=`<div style="text-align:center;padding:12px 0;color:var(--text3);font-size:12px">Request declined</div>`;
+  toast('Payment request declined','info',1500);
+}
+
 // ---- FINAL INIT ----
 buildVolChart();
 buildPhoneHome();
 startLiveTicker();
 startLiveClock();
 buildCurrencyTicker();
-setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},120);
+setTimeout(()=>{
+  if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);
+  renderDashSocial();
+},120);
 </script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+{
+  "name": "intellix-payment-service",
+  "version": "1.0.0",
+  "description": "Intellix Payment Processing Service — TypeScript",
+  "main": "dist/payment.service.js",
+  "scripts": {
+    "dev": "ts-node payment.service.ts",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "reflect-metadata": "^0.2.1",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

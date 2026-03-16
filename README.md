@@ -55,6 +55,22 @@ The Payments page is a fully working transaction engine:
 
 Full CRUD · SQL Console · Schema Viewer · Analytics Dashboard · CSV export · Auto audit log
 
+## Deploy
+
+```bash
+# Netlify Drop — drag index.html to netlify.com/drop
+
+# Vercel
+npx vercel --yes
+
+# GitHub Pages — push to repo, enable Pages in Settings
+```
+
+## Stack
+
+Pure **HTML5 + CSS3 + Vanilla JS** — no npm, no build step.
+External: `sql.js` (SQLite WASM) · Google Fonts · all via CDN.
+
 ---
 
 MIT © 2026 Intellix · [github.com/Ghokkul/Intellix-Company](https://github.com/Ghokkul/Intellix-Company)
