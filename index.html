@@ -69,8 +69,9 @@ nav{position:fixed;top:34px;left:0;right:0;z-index:1000;height:62px;background:r
 .nav-link.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:16px;height:2px;background:var(--cyan);border-radius:2px}
 .nav-link.nl-social.active{color:var(--pink)}
 .nav-link.nl-social.active::after{background:var(--pink)}
-.nav-link.nl-about.active{color:var(--text);font-weight:600}
-.nav-link.nl-about.active::after{background:var(--text);width:20px}
+.nav-link.nl-about.active{color:var(--gold);font-weight:700}
+.nav-link.nl-about.active::after{background:var(--gold);width:20px}
+.nav-link#nl-about:hover{color:var(--gold)}
 .nav-link.nl-social{background:linear-gradient(135deg,rgba(255,64,129,.15),rgba(156,111,255,.12));border:1px solid rgba(255,64,129,.4);color:var(--pink);font-weight:700}
 .nav-link.nl-social:hover{background:linear-gradient(135deg,rgba(255,64,129,.25),rgba(156,111,255,.2))}
 .nav-space{flex:1}
@@ -865,14 +866,20 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
 
 // ── PAGE ROUTER ──
 function showPage(p){
+  // Social uses overlay — never switch pages for it
+  if(p==='social'){openSocialOverlay();return;}
+
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+
   const pageEl=document.getElementById('page-'+p);
-  if(!pageEl){console.warn('Page not found:',p);return;}
+  if(!pageEl){console.warn('Page not found: page-'+p);return;}
   pageEl.classList.add('active');
-  // Map feature sub-pages back to their parent nav item
+
+  // Map sub-pages to their parent nav highlight
   const navMap={
-    'home':'nl-home','about':'nl-about','social':'nl-social',
+    'home':'nl-home',
+    'about':'nl-about',
     'login':'nl-home','signup':'nl-home',
     'support':'nl-home','terms':'nl-home','privacy':'nl-home',
     'feat-ai-engine':'nl-features','feat-dispute':'nl-features',
@@ -883,12 +890,12 @@ function showPage(p){
     'feat-global':'nl-platform',
   };
   const nlId=navMap[p]||('nl-'+p);
-  const nl=document.getElementById(nlId);if(nl)nl.classList.add('active');
+  const nl=document.getElementById(nlId);
+  if(nl)nl.classList.add('active');
+
   window.scrollTo(0,0);
   const sup=document.getElementById('supportLinks');
-  const homePages=['home','about'];
-  if(sup)sup.style.display=homePages.includes(p)?'flex':'none';
-  if(p==='social'){openSocialOverlay();return;}
+  if(sup)sup.style.display=['home','about'].includes(p)?'flex':'none';
 }
 function scrollTo(sel){
   // If not on home page, switch first then scroll
@@ -1201,7 +1208,7 @@ function handleSocialAuth(provider){
   toast(`Connecting to ${provider}...`,'info',1200);
   setTimeout(()=>{
     toast(`${provider} auth successful! Welcome to Intellix ✓`,'success',3000);
-    setTimeout(()=>showPage('social'),1800);
+    setTimeout(()=>{showPage('home');setTimeout(openSocialOverlay,200);},1800);
   },1400);
 }
 
@@ -1213,7 +1220,7 @@ function handleLogin(){
   toast('Signing in...','info',1000);
   setTimeout(()=>{
     toast(`Welcome back! Redirecting to Social... ✓`,'success',2500);
-    setTimeout(()=>showPage('social'),1600);
+    setTimeout(()=>{showPage('home');setTimeout(openSocialOverlay,200);},1600);
   },1200);
 }
 
@@ -1229,7 +1236,7 @@ function handleSignUp(){
   toast('Creating your account...','info',1200);
   setTimeout(()=>{
     toast(`Account created! Welcome to Intellix, ${first}! ✓`,'success',3000);
-    setTimeout(()=>showPage('social'),1800);
+    setTimeout(()=>{showPage('home');setTimeout(openSocialOverlay,200);},1800);
   },1400);
 }
 
