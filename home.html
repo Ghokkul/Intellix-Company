@@ -65,7 +65,12 @@ nav{position:fixed;top:34px;left:0;right:0;z-index:1000;height:62px;background:r
 .nav-links{display:flex;gap:2px;margin-left:16px}
 .nav-link{padding:6px 12px;border-radius:8px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:all .15s;text-decoration:none;background:transparent;border:none;font-family:var(--body)}
 .nav-link:hover{color:var(--text);background:rgba(255,255,255,.04)}
-.nav-link.active{color:var(--cyan)}
+.nav-link.active{color:var(--cyan);position:relative}
+.nav-link.active::after{content:'';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);width:16px;height:2px;background:var(--cyan);border-radius:2px}
+.nav-link.nl-social.active{color:var(--pink)}
+.nav-link.nl-social.active::after{background:var(--pink)}
+.nav-link.nl-about.active{color:var(--text)}
+.nav-link.nl-about.active::after{background:var(--text2)}
 .nav-link.nl-social{background:linear-gradient(135deg,rgba(255,64,129,.15),rgba(156,111,255,.12));border:1px solid rgba(255,64,129,.4);color:var(--pink);font-weight:700}
 .nav-link.nl-social:hover{background:linear-gradient(135deg,rgba(255,64,129,.25),rgba(156,111,255,.2))}
 .nav-space{flex:1}
@@ -484,9 +489,9 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
   </a>
   <div class="nav-links">
     <button class="nav-link active" id="nl-home"   onclick="showPage('home')">Home</button>
-    <button class="nav-link" id="nl-features"      onclick="scrollTo('#features')">Features</button>
-    <button class="nav-link" id="nl-platform"      onclick="scrollTo('#platform')">Platform</button>
-    <button class="nav-link" id="nl-developers"    onclick="scrollTo('#developers')">Developers</button>
+    <button class="nav-link" id="nl-features"      onclick="scrollTo('#features')" title="View all core technologies">Features</button>
+    <button class="nav-link" id="nl-platform"      onclick="scrollTo('#platform')" title="View the Intellix Platform">Platform</button>
+    <button class="nav-link" id="nl-developers"    onclick="scrollTo('#developers')" title="API docs & SDKs">Developers</button>
     <button class="nav-link" id="nl-about"          onclick="showPage('about')">About</button>
     <button class="nav-link" id="nl-social"        onclick="showPage('social')">&#9829; Social</button>
   </div>
@@ -853,8 +858,23 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
 function showPage(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  const nl=document.getElementById('nl-'+p);if(nl)nl.classList.add('active');
+  const pageEl=document.getElementById('page-'+p);
+  if(!pageEl){console.warn('Page not found:',p);return;}
+  pageEl.classList.add('active');
+  // Map feature sub-pages back to their parent nav item
+  const navMap={
+    'home':'nl-home','about':'nl-about','social':'nl-social',
+    'login':'nl-home','signup':'nl-home',
+    'support':'nl-home','terms':'nl-home','privacy':'nl-home',
+    'feat-ai-engine':'nl-features','feat-dispute':'nl-features',
+    'feat-finder':'nl-features','feat-methods':'nl-features',
+    'feat-security':'nl-features','feat-insights':'nl-features',
+    'feat-pay':'nl-platform','feat-fraud':'nl-platform',
+    'feat-payouts':'nl-platform','feat-connect':'nl-platform',
+    'feat-global':'nl-platform',
+  };
+  const nlId=navMap[p]||('nl-'+p);
+  const nl=document.getElementById(nlId);if(nl)nl.classList.add('active');
   window.scrollTo(0,0);
   const sup=document.getElementById('supportLinks');
   const homePages=['home','about'];
@@ -888,12 +908,11 @@ function _scrollToEl(sel){
     const offset=110;
     const top=el.getBoundingClientRect().top+window.pageYOffset-offset;
     window.scrollTo({top,behavior:'smooth'});
-    // Highlight active nav link
     const map={'#features':'nl-features','#platform':'nl-platform','#developers':'nl-developers'};
     const nlId=map[sel];
     document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
     const nlHome=document.getElementById('nl-home');if(nlHome)nlHome.classList.add('active');
-    const nlEl=document.getElementById(nlId);if(nlEl)nlEl.classList.add('active');
+    const nlEl=document.getElementById(nlId);if(nlEl){nlEl.classList.add('active');}
   }
 }
 
@@ -1360,29 +1379,40 @@ function switchDevLang(lang, el){
 // ── START ──
 buildTicker();
 
-// ── SCROLL SPY — highlights nav tab as user scrolls ──
+// ── SCROLL SPY — highlight nav as user scrolls through home sections ──
 function initScrollSpy(){
   const sections=[
-    {id:'features', nav:'nl-features'},
-    {id:'platform',  nav:'nl-platform'},
-    {id:'developers',nav:'nl-developers'},
+    {id:'features',nl:'nl-features'},
+    {id:'platform',nl:'nl-platform'},
+    {id:'developers',nl:'nl-developers'},
   ];
-  const NAV_HEIGHT=110;
-  window.addEventListener('scroll',()=>{
-    // Only run on home page
-    const hp=document.getElementById('page-home');
-    if(!hp||!hp.classList.contains('active'))return;
-    const scrollY=window.pageYOffset+NAV_HEIGHT+40;
-    let current='nl-home';
-    sections.forEach(s=>{
-      const el=document.getElementById(s.id);
-      if(el&&el.offsetTop<=scrollY) current=s.nav;
+  const observer=new IntersectionObserver(entries=>{
+    if(!document.getElementById('page-home')?.classList.contains('active'))return;
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+        const nlHome=document.getElementById('nl-home');if(nlHome)nlHome.classList.add('active');
+        const nlId=sections.find(s=>s.id===entry.target.id)?.nl;
+        const nl=document.getElementById(nlId);if(nl)nl.classList.add('active');
+      }
     });
-    document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
-    const a=document.getElementById(current);if(a)a.classList.add('active');
+  },{threshold:0.15,rootMargin:'-100px 0px -60% 0px'});
+  sections.forEach(s=>{
+    const el=document.getElementById(s.id);if(el)observer.observe(el);
+  });
+  // Reset to Home when at top
+  window.addEventListener('scroll',()=>{
+    if(!document.getElementById('page-home')?.classList.contains('active'))return;
+    if(window.scrollY<200){
+      document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+      const nlHome=document.getElementById('nl-home');if(nlHome)nlHome.classList.add('active');
+    }
   },{passive:true});
 }
 initScrollSpy();
+
+
+// scroll spy already initialised above
 
 
 setInterval(()=>{
@@ -1692,7 +1722,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-ai-engine">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -1762,7 +1792,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-dispute">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -1834,7 +1864,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-finder">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -1903,7 +1933,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-methods">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -1966,7 +1996,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-security">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -2034,7 +2064,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-insights">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -2099,7 +2129,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-pay">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -2165,7 +2195,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-fraud">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -2235,7 +2265,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-payouts">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -2303,7 +2333,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-connect">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -2370,7 +2400,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-global">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
