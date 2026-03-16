@@ -125,7 +125,7 @@ nav{position:fixed;top:34px;left:0;right:0;z-index:1000;height:62px;background:r
 
 /* FEATURE CARDS */
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;transition:all .2s;position:relative;overflow:hidden;cursor:default}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;transition:all .2s;position:relative;overflow:hidden;cursor:pointer}
 .feat-card:hover{border-color:var(--border2);transform:translateY(-4px)}
 .feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity .2s}
 .feat-card:hover::before{opacity:1}
@@ -429,6 +429,36 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
 .founder-role{font-size:13px;color:var(--text3);margin-bottom:14px}
 .founder-linkedin{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;border-radius:8px;background:rgba(10,102,194,.15);border:1px solid rgba(10,102,194,.4);color:#5ba4f5;font-size:12px;font-weight:700;text-decoration:none;transition:all .15s}
 .founder-linkedin:hover{background:rgba(10,102,194,.25);color:#8bc4ff}
+
+/* ── FEATURE DETAIL PAGES ── */
+.feat-page{padding-top:96px;min-height:100vh}
+.feat-page-hero{padding:70px 48px 60px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.feat-page-badge{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:16px;font-family:var(--font);letter-spacing:.5px}
+.feat-page-title{font-family:var(--font);font-size:44px;font-weight:900;letter-spacing:-2px;line-height:1.08;margin-bottom:18px}
+.feat-page-lead{font-size:17px;color:var(--text2);line-height:1.75;margin-bottom:30px;max-width:520px}
+.feat-page-btns{display:flex;gap:12px;flex-wrap:wrap}
+.feat-visual{border-radius:18px;overflow:hidden;border:1px solid var(--border2);box-shadow:0 0 60px rgba(0,0,0,.4)}
+.feat-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:40px 48px;max-width:1200px;margin:0 auto;border-bottom:1px solid var(--border)}
+.feat-stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px}
+.feat-stat-val{font-family:var(--font);font-size:32px;font-weight:900;letter-spacing:-1px;margin-bottom:4px}
+.feat-stat-lbl{font-size:13px;color:var(--text2)}
+.feat-stat-sub{font-size:11px;color:var(--text3);margin-top:4px}
+.feat-body{max-width:1200px;margin:0 auto;padding:60px 48px}
+.feat-body-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-bottom:60px}
+.feat-body-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;color:var(--text3)}
+.feat-body-title{font-family:var(--font);font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:14px}
+.feat-body-text{font-size:15px;color:var(--text2);line-height:1.8;margin-bottom:20px}
+.feat-checklist{display:flex;flex-direction:column;gap:10px}
+.feat-check{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text2);line-height:1.6}
+.feat-check-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px}
+.feat-how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:60px}
+.feat-how-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:22px;position:relative}
+.feat-how-num{font-family:var(--font);font-size:11px;font-weight:800;color:var(--text3);margin-bottom:12px}
+.feat-how-title{font-family:var(--font);font-size:15px;font-weight:700;margin-bottom:8px}
+.feat-how-desc{font-size:13px;color:var(--text2);line-height:1.7}
+.feat-cta-banner{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:18px;padding:48px;text-align:center;margin:0 48px 60px;max-width:calc(1200px - 96px);margin-left:auto;margin-right:auto}
+.feat-back-btn{display:inline-flex;align-items:center;gap:7px;color:var(--text2);font-size:13px;cursor:pointer;margin-bottom:28px;transition:color .15s;border:none;background:none;font-family:var(--body);padding:0}
+.feat-back-btn:hover{color:var(--cyan)}
 </style>
 </head>
 <body>
@@ -521,12 +551,12 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
       <div class="section-title">Built for the future</div>
       <p class="section-sub">Every layer of Intellix is engineered for speed, security, and intelligence.</p>
       <div class="feat-grid">
-        <div class="feat-card fc-cyan"><div class="feat-icon" style="background:rgba(0,229,255,.1);font-size:22px">&#9670;</div><div class="feat-title">AI Payment Engine</div><p class="feat-desc">Routes every transaction globally for the lowest cost and highest approval rate using real-time ML optimization.</p></div>
-        <div class="feat-card fc-purple"><div class="feat-icon" style="background:rgba(156,111,255,.1);font-size:22px">&#9888;</div><div class="feat-title">Dispute Automation</div><p class="feat-desc">AI builds evidence packages instantly to resolve chargebacks before they escalate — zero manual work.</p></div>
-        <div class="feat-card fc-green"><div class="feat-icon" style="background:rgba(0,230,118,.1);font-size:22px">&#9740;</div><div class="feat-title">Global Finder</div><p class="feat-desc">Compare prices anywhere in the world with real-time currency conversion and AI deal scoring.</p></div>
-        <div class="feat-card fc-gold"><div class="feat-icon" style="background:rgba(255,215,64,.1);font-size:22px">&#8644;</div><div class="feat-title">340+ Global Methods</div><p class="feat-desc">Cards, bank transfers, wallets, local rails, and crypto — every payment method, one integration.</p></div>
-        <div class="feat-card fc-pink"><div class="feat-icon" style="background:rgba(255,64,129,.1);font-size:22px">&#9711;</div><div class="feat-title">Military-grade Security</div><p class="feat-desc">End-to-end encryption, tokenization, behavioral biometrics, and zero-knowledge fraud detection.</p></div>
-        <div class="feat-card fc-blue"><div class="feat-icon" style="background:rgba(58,170,255,.1);font-size:22px">&#8728;</div><div class="feat-title">Real-time Insights</div><p class="feat-desc">Predictive analytics, anomaly alerts, and AI-powered forecasting delivered in under a second.</p></div>
+        <div class="feat-card fc-cyan" onclick="showPage('feat-ai-engine')"><div class="feat-icon" style="background:rgba(0,229,255,.1);font-size:22px">&#9670;</div><div class="feat-title">AI Payment Engine</div><p class="feat-desc">Routes every transaction globally for the lowest cost and highest approval rate using real-time ML optimization.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--cyan)">Learn more &rarr;</div></div>
+        <div class="feat-card fc-purple" onclick="showPage('feat-dispute')"><div class="feat-icon" style="background:rgba(156,111,255,.1);font-size:22px">&#9888;</div><div class="feat-title">Dispute Automation</div><p class="feat-desc">AI builds evidence packages instantly to resolve chargebacks before they escalate — zero manual work.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--purple)">Learn more &rarr;</div></div>
+        <div class="feat-card fc-green" onclick="showPage('feat-finder')"><div class="feat-icon" style="background:rgba(0,230,118,.1);font-size:22px">&#9740;</div><div class="feat-title">Global Finder</div><p class="feat-desc">Compare prices anywhere in the world with real-time currency conversion and AI deal scoring.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--green)">Learn more &rarr;</div></div>
+        <div class="feat-card fc-gold" onclick="showPage('feat-methods')"><div class="feat-icon" style="background:rgba(255,215,64,.1);font-size:22px">&#8644;</div><div class="feat-title">340+ Global Methods</div><p class="feat-desc">Cards, bank transfers, wallets, local rails, and crypto — every payment method, one integration.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--gold)">Learn more &rarr;</div></div>
+        <div class="feat-card fc-pink" onclick="showPage('feat-security')"><div class="feat-icon" style="background:rgba(255,64,129,.1);font-size:22px">&#9711;</div><div class="feat-title">Military-grade Security</div><p class="feat-desc">End-to-end encryption, tokenization, behavioral biometrics, and zero-knowledge fraud detection.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--pink)">Learn more &rarr;</div></div>
+        <div class="feat-card fc-blue" onclick="showPage('feat-insights')"><div class="feat-icon" style="background:rgba(58,170,255,.1);font-size:22px">&#8728;</div><div class="feat-title">Real-time Insights</div><p class="feat-desc">Predictive analytics, anomaly alerts, and AI-powered forecasting delivered in under a second.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--blue)">Learn more &rarr;</div></div>
       </div>
     </div>
   </div>
@@ -577,12 +607,12 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
       <div class="section-title">Everything you need</div>
       <p class="section-sub">A complete financial infrastructure stack for modern businesses.</p>
       <div class="feat-grid">
-        <div class="feat-card fc-cyan"><div class="feat-title">Intellix Pay</div><p class="feat-desc">Accept payments globally with a single API — cards, crypto, wallets, local rails.</p></div>
-        <div class="feat-card fc-purple"><div class="feat-title">Intellix AI Fraud Shield</div><p class="feat-desc">Real-time fraud detection powered by FraudNet v2.1 — 99.8% accuracy.</p></div>
-        <div class="feat-card fc-pink"><div class="feat-title">&#9829; Intellix Social</div><p class="feat-desc">Chat, send money and request payments between friends — all in one feed.</p></div>
-        <div class="feat-card fc-green"><div class="feat-title">Instant Payouts</div><p class="feat-desc">Send funds anywhere in seconds via Polygon, ACH, SWIFT, or direct transfer.</p></div>
-        <div class="feat-card fc-gold"><div class="feat-title">Intellix Connect</div><p class="feat-desc">Payment infrastructure for marketplaces — split payments, escrow, payouts.</p></div>
-        <div class="feat-card fc-blue"><div class="feat-title">Global Infrastructure</div><p class="feat-desc">135+ currencies, 150+ countries, 99.999% uptime, enterprise-grade SLA.</p></div>
+        <div class="feat-card fc-cyan" onclick="showPage('feat-pay')"><div class="feat-icon" style="background:rgba(0,229,255,.08);font-size:22px">&#9670;</div><div class="feat-title">Intellix Pay</div><p class="feat-desc">Accept payments globally with a single API — cards, crypto, wallets, local rails.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--cyan)">Explore &rarr;</div></div>
+        <div class="feat-card fc-purple" onclick="showPage('feat-fraud')"><div class="feat-icon" style="background:rgba(156,111,255,.08);font-size:22px">&#9656;</div><div class="feat-title">Intellix AI Fraud Shield</div><p class="feat-desc">Real-time fraud detection powered by FraudNet v2.1 — 99.8% accuracy.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--purple)">Explore &rarr;</div></div>
+        <div class="feat-card fc-pink" onclick="showPage('social')"><div class="feat-icon" style="background:rgba(255,64,129,.08);font-size:22px">&#9829;</div><div class="feat-title">&#9829; Intellix Social</div><p class="feat-desc">Chat, send money and request payments between friends — all in one feed.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--pink)">Open Social &rarr;</div></div>
+        <div class="feat-card fc-green" onclick="showPage('feat-payouts')"><div class="feat-icon" style="background:rgba(0,230,118,.08);font-size:22px">&#9889;</div><div class="feat-title">Instant Payouts</div><p class="feat-desc">Send funds anywhere in seconds via Polygon, ACH, SWIFT, or direct transfer.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--green)">Explore &rarr;</div></div>
+        <div class="feat-card fc-gold" onclick="showPage('feat-connect')"><div class="feat-icon" style="background:rgba(255,215,64,.08);font-size:22px">&#8741;</div><div class="feat-title">Intellix Connect</div><p class="feat-desc">Payment infrastructure for marketplaces — split payments, escrow, payouts.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--gold)">Explore &rarr;</div></div>
+        <div class="feat-card fc-blue" onclick="showPage('feat-global')"><div class="feat-icon" style="background:rgba(58,170,255,.08);font-size:22px">&#127760;</div><div class="feat-title">Global Infrastructure</div><p class="feat-desc">135+ currencies, 150+ countries, 99.999% uptime, enterprise-grade SLA.</p><div style="margin-top:12px;font-size:11px;font-weight:700;color:var(--blue)">Explore &rarr;</div></div>
       </div>
     </div>
   </div>
@@ -1652,6 +1682,755 @@ setInterval(()=>{
     <div class="legal-section">
       <h2>7. Contact</h2>
       <p>For privacy inquiries, email <a href="mailto:privacy@intellix.io">privacy@intellix.io</a> or contact our founder <a href="https://www.linkedin.com/in/ghokkul-muhunthan" target="_blank">Ghokkul Muhunthan on LinkedIn</a>.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     FEATURE: AI PAYMENT ENGINE
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-ai-engine">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25);color:var(--cyan)">&#9670; CORE TECHNOLOGY</div>
+      <div class="feat-page-title">The world's most intelligent <span style="background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent">payment routing engine.</span></div>
+      <p class="feat-page-lead">Every millisecond, Intellix's AI evaluates hundreds of network paths, fees, and risk signals to route your payment along the fastest, cheapest, and safest possible route — automatically, in real time.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start for free &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollTo('#feat-ai-how')">How it works</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:24px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Live Route Optimization</div>
+      ${["Direct ETH","Polygon Bridge","ACH Transfer","SWIFT Wire"].map((r,i)=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;margin-bottom:8px;background:${i===1?'rgba(0,229,255,.06)':'var(--bg3)'};border:1px solid ${i===1?'rgba(0,229,255,.25)':'var(--border)'}">
+        <div style="width:8px;height:8px;border-radius:50%;background:${i===1?'var(--cyan)':'var(--text3)'}"></div>
+        <span style="flex:1;font-size:13px;color:${i===1?'var(--text)':'var(--text2)'}">${r}</span>
+        <span style="font-family:var(--mono);font-size:12px;color:${i===1?'var(--cyan)':'var(--text3)'}">${["$12.40","$0.18","$0.00","$25.00"][i]}</span>
+        ${i===1?'<span style="background:rgba(0,229,255,.15);color:var(--cyan);font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px">BEST</span>':''}
+      </div>`).join('')}
+      <div style="margin-top:14px;padding:12px;background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.2);border-radius:10px;font-size:12px;color:var(--green);font-weight:600">&#9670; AI saved you $12.22 on this transaction (98.5%)</div>
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">98.5%</div><div class="feat-stat-lbl">Average fee reduction</div><div class="feat-stat-sub">vs direct network routing</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">14s</div><div class="feat-stat-lbl">Average settlement time</div><div class="feat-stat-sub">via Polygon Bridge</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--purple)">47+</div><div class="feat-stat-lbl">Network paths evaluated</div><div class="feat-stat-sub">per transaction in real time</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--cyan)">&#9670; What it does</div>
+        <div class="feat-body-title">Routing intelligence that pays for itself.</div>
+        <p class="feat-body-text">Traditional payment processors take a fixed cut and send your money along a predetermined path. Intellix's AI Payment Engine is different — it continuously monitors network conditions, gas prices, bridge liquidity, and exchange rates to find the optimal path for every single transaction, before it's processed.</p>
+        <p class="feat-body-text">The result? An average fee reduction of 98.5% on crypto transactions, and significantly lower costs on cross-border fiat payments — all without any configuration from you.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--cyan)">&#10003; What you get</div>
+        <div class="feat-checklist">
+          ${[
+            ["Multi-network arbitrage — ETH, Polygon, BSC, Solana evaluated simultaneously","var(--cyan)"],
+            ["Real-time gas oracle integration — avoids peak-fee windows automatically","var(--cyan)"],
+            ["Fiat rail optimization — ACH vs SWIFT vs local rails chosen per destination","var(--green)"],
+            ["Scheduled payments — delay by hours to hit the lowest-fee window","var(--green)"],
+            ["Route transparency — every decision explained in plain English","var(--blue)"],
+            ["Zero configuration required — works out of the box on every payment","var(--purple)"],
+          ].map(([t,c])=>`<div class="feat-check"><div class="feat-check-icon" style="background:${c}22;color:${c}">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div id="feat-ai-how" style="margin-bottom:20px"><div class="feat-body-label" style="color:var(--cyan);margin-bottom:20px">&#9654; HOW IT WORKS</div></div>
+    <div class="feat-how-grid">
+      <div class="feat-how-card"><div class="feat-how-num">01</div><div class="feat-how-title">Transaction received</div><div class="feat-how-desc">Your API call arrives at Intellix. Amount, currency, recipient, and destination are parsed in under 1ms.</div></div>
+      <div class="feat-how-card" style="border-color:rgba(0,229,255,.25)"><div class="feat-how-num" style="color:var(--cyan)">02</div><div class="feat-how-title" style="color:var(--cyan)">AI evaluates all paths</div><div class="feat-how-desc">47+ network routes are scored simultaneously — factoring in fees, speed, liquidity, and fraud risk.</div></div>
+      <div class="feat-how-card"><div class="feat-how-num">03</div><div class="feat-how-title">Optimal path selected</div><div class="feat-how-desc">The route with the best cost-speed-security tradeoff is chosen. The result is shown to you before confirmation.</div></div>
+    </div>
+    <div class="feat-cta-banner" style="background:linear-gradient(135deg,rgba(0,229,255,.05),rgba(58,170,255,.05));border-color:rgba(0,229,255,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Start saving on every payment.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">Free to start. No credit card. Route optimizer enabled by default.</p>
+      <button class="cta-primary" onclick="openSignUp()">Create free account &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     FEATURE: DISPUTE AUTOMATION
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-dispute">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(156,111,255,.1);border:1px solid rgba(156,111,255,.25);color:var(--purple)">&#9656; AI AUTOMATION</div>
+      <div class="feat-page-title">Chargebacks resolved <span style="background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">before you even know they exist.</span></div>
+      <p class="feat-page-lead">Intellix's Dispute Automation engine monitors every transaction for chargeback signals, builds a complete evidence package using AI, and submits it to the card network — all without a single click from your team.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start for free &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="toast('See a sample dispute package','info')">View sample package</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:24px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Dispute Intelligence</div>
+      <div style="background:var(--bg3);border:1px solid rgba(0,230,118,.2);border-radius:12px;padding:14px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:12px;font-weight:700">Case #DIS-4821</span><span style="background:rgba(0,230,118,.15);color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px">WON</span></div>
+        <div style="font-size:11px;color:var(--text2)">$2,400 · VISA · Friendly fraud claimed</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">Evidence submitted in 4 minutes · No human involvement</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid rgba(156,111,255,.2);border-radius:12px;padding:14px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font-size:12px;font-weight:700">Case #DIS-4819</span><span style="background:rgba(255,145,0,.12);color:var(--orange);font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px">IN REVIEW</span></div>
+        <div style="font-size:11px;color:var(--text2)">$890 · Mastercard · Subscription dispute</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">AI building evidence package...</div>
+      </div>
+      <div style="padding:12px;background:rgba(156,111,255,.06);border:1px solid rgba(156,111,255,.2);border-radius:10px;font-size:12px;color:var(--purple);font-weight:600">&#9670; Win rate: 94% across 3,241 cases this month</div>
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--purple)">94%</div><div class="feat-stat-lbl">Dispute win rate</div><div class="feat-stat-sub">across all card networks</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">&lt;5min</div><div class="feat-stat-lbl">Evidence submission</div><div class="feat-stat-sub">from detection to filing</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">0</div><div class="feat-stat-lbl">Manual steps required</div><div class="feat-stat-sub">fully automated end-to-end</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--purple)">&#9656; The problem</div>
+        <div class="feat-body-title">Chargebacks cost the industry $125B per year.</div>
+        <p class="feat-body-text">Traditional dispute resolution is slow, manual, and expensive. Teams spend hours collecting screenshots, shipping records, and IP logs — only to lose 40% of cases because the evidence wasn't comprehensive enough or filed in time.</p>
+        <p class="feat-body-text">Intellix changes this entirely. Our AI monitors every transaction from the moment it's created, building a real-time evidence portfolio that covers every angle a card network might question — before a dispute is even filed.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--purple)">&#10003; Evidence collected automatically</div>
+        <div class="feat-checklist">
+          ${[
+            "Device fingerprint, IP address, and geolocation at time of purchase",
+            "Complete session recording with mouse movements and checkout flow",
+            "Email delivery confirmation and recipient engagement logs",
+            "Shipping confirmation, tracking number, and delivery proof",
+            "Previous successful purchases from the same customer",
+            "Terms of service acceptance with timestamp and IP signature",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(156,111,255,.15);color:var(--purple)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-how-grid">
+      <div class="feat-how-card"><div class="feat-how-num">01</div><div class="feat-how-title">Dispute signal detected</div><div class="feat-how-desc">Card network notifies Intellix of a chargeback. Our system identifies it within seconds of filing.</div></div>
+      <div class="feat-how-card" style="border-color:rgba(156,111,255,.3)"><div class="feat-how-num" style="color:var(--purple)">02</div><div class="feat-how-title" style="color:var(--purple)">AI assembles evidence</div><div class="feat-how-desc">All transaction data, device data, and delivery records are compiled into a formatted evidence package.</div></div>
+      <div class="feat-how-card"><div class="feat-how-num">03</div><div class="feat-how-title">Auto-submitted & tracked</div><div class="feat-how-desc">The response is submitted to the card network and tracked to resolution. You're notified of the outcome.</div></div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(156,111,255,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Stop losing money to chargebacks.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">Dispute Automation is included in all Intellix plans. Zero setup required.</p>
+      <button class="cta-primary" onclick="openSignUp()">Protect your revenue &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     FEATURE: GLOBAL FINDER
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-finder">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);color:var(--green)">&#9740; GLOBAL TOOL</div>
+      <div class="feat-page-title">Find the best price <span style="background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent">anywhere on earth.</span></div>
+      <p class="feat-page-lead">Intellix Global Finder combines live currency conversion with AI-powered price comparison across 150+ countries, giving you — and your customers — the most accurate, real-time purchasing intelligence available.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start for free &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="toast('Global Finder demo opening...','info')">Live demo</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:24px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Sony WH-1000XM5 — Global Price Check</div>
+      ${[
+        {flag:"🇺🇸",country:"United States",price:"$299",usd:"$299",best:false},
+        {flag:"🇬🇧",country:"United Kingdom",price:"£249",usd:"$316",best:false},
+        {flag:"🇯🇵",country:"Japan",price:"¥34,980",usd:"$233",best:true},
+        {flag:"🇸🇬",country:"Singapore",price:"S$389",usd:"$290",best:false},
+      ].map(r=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:9px;border-radius:9px;margin-bottom:6px;background:${r.best?'rgba(0,230,118,.06)':'var(--bg3)'};border:1px solid ${r.best?'rgba(0,230,118,.2)':'var(--border)'}">
+        <span style="font-size:18px">${r.flag}</span>
+        <div style="flex:1"><div style="font-size:12px;font-weight:600">${r.country}</div><div style="font-size:10px;color:var(--text3)">${r.usd} after conversion</div></div>
+        <span style="font-family:var(--mono);font-size:13px;font-weight:700;color:${r.best?'var(--green)':'var(--text2)'}">${r.price}</span>
+        ${r.best?'<span style="background:rgba(0,230,118,.15);color:var(--green);font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px">BEST</span>':''}
+      </div>`).join('')}
+      <div style="margin-top:10px;padding:10px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:9px;font-size:11px;color:var(--cyan)">&#9670; AI: Japan price saves $66 vs US after import costs</div>
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">150+</div><div class="feat-stat-lbl">Countries tracked</div><div class="feat-stat-sub">with live pricing data</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">135+</div><div class="feat-stat-lbl">Currencies converted</div><div class="feat-stat-sub">in real time</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--gold)">AI</div><div class="feat-stat-lbl">Deal scoring engine</div><div class="feat-stat-sub">factors in import duties & shipping</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--green)">&#9740; How it works</div>
+        <div class="feat-body-title">Real-time intelligence across every market.</div>
+        <p class="feat-body-text">Global Finder isn't just a currency converter — it's a full purchasing intelligence layer. It tracks live prices from thousands of retailers across 150+ countries, applies real exchange rates, and factors in shipping costs and import duties to give you the true landed cost of any product anywhere.</p>
+        <p class="feat-body-text">For businesses, it means your customers always see the right price in their currency. For individuals, it means never overpaying because you didn't know a better deal existed elsewhere.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--green)">&#10003; Key features</div>
+        <div class="feat-checklist">
+          ${[
+            "Live cross-border price comparison with true landed cost calculation",
+            "Real-time exchange rates updated every 30 seconds from 15 sources",
+            "AI deal scoring — ranks results by value, not just raw price",
+            "Import duty & VAT estimator per destination country",
+            "Price history charts — see if today's price is actually a deal",
+            "Instant Intellix Pay integration — buy globally in one click",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(0,230,118,.15);color:var(--green)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(0,230,118,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Never overpay again.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">Global Finder is available to all Intellix users. Start finding better deals today.</p>
+      <button class="cta-primary" onclick="openSignUp()">Try Global Finder &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     FEATURE: 340+ GLOBAL METHODS
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-methods">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(255,215,64,.1);border:1px solid rgba(255,215,64,.25);color:var(--gold)">&#8644; GLOBAL COVERAGE</div>
+      <div class="feat-page-title">340+ payment methods. <span style="background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent">One integration.</span></div>
+      <p class="feat-page-lead">Cards, bank transfers, mobile wallets, local rails, crypto — Intellix connects to every major payment method across 150+ countries through a single unified API, so you never have to build a new integration again.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start for free &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollTo('#feat-methods-list')">View all methods</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:22px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Payment Method Coverage</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        ${[
+          ["&#9670; Cards","Visa · MC · Amex · UnionPay","var(--cyan)"],
+          ["&#9674; Crypto","BTC · ETH · USDC · SOL · 40+","var(--purple)"],
+          ["&#8644; Bank Transfer","ACH · SEPA · SWIFT · BACS","var(--green)"],
+          ["&#128241; Wallets","PayPal · Apple Pay · GrabPay","var(--gold)"],
+          ["&#9889; Local Rails","PIX · UPI · Paynow · OSKO","var(--orange)"],
+          ["&#9650; Buy Now Pay Later","Klarna · Afterpay · Affirm","var(--pink)"],
+        ].map(([icon,desc,c])=>`<div style="padding:10px;background:var(--bg3);border-radius:9px;border:1px solid var(--border)"><div style="font-size:12px;font-weight:700;color:${c};margin-bottom:3px">${icon}</div><div style="font-size:10px;color:var(--text3)">${desc}</div></div>`).join('')}
+      </div>
+      <div style="margin-top:12px;text-align:center;font-size:12px;color:var(--text3)">+ 300 more methods across 150 countries</div>
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--gold)">340+</div><div class="feat-stat-lbl">Payment methods</div><div class="feat-stat-sub">supported globally</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">150+</div><div class="feat-stat-lbl">Countries covered</div><div class="feat-stat-sub">with local rail access</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">1</div><div class="feat-stat-lbl">API integration</div><div class="feat-stat-sub">to access everything</div></div>
+  </div>
+  <div class="feat-body">
+    <div id="feat-methods-list" style="margin-bottom:30px">
+      <div class="feat-body-label" style="color:var(--gold);margin-bottom:20px">&#8644; ALL PAYMENT CATEGORIES</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        ${[
+          {title:"Card Payments",items:["Visa, Mastercard, Amex","UnionPay, Discover, JCB","3D Secure 2.0 built-in","Virtual card generation"],c:"var(--cyan)"},
+          {title:"Crypto & DeFi",items:["Bitcoin, Ethereum, Solana","USDC, USDT, MATIC","40+ ERC-20 tokens","Uniswap V3 routing"],c:"var(--purple)"},
+          {title:"Bank Transfers",items:["ACH (US) · SEPA (EU)","SWIFT (global)","BACS (UK) · OSKO (AU)","Real-time bank auth"],c:"var(--green)"},
+          {title:"Mobile Wallets",items:["Apple Pay · Google Pay","PayPal · Venmo","GrabPay · WeChat Pay","Alipay · Paytm"],c:"var(--gold)"},
+          {title:"Local Rails",items:["PIX (Brazil)","UPI (India)","PayNow (Singapore)","iDEAL (Netherlands)"],c:"var(--orange)"},
+          {title:"Buy Now Pay Later",items:["Klarna · Afterpay","Affirm · Sezzle","Zip · Laybuy","Risk-assessed by AI"],c:"var(--pink)"},
+        ].map(({title,items,c})=>`
+        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px">
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:${c}">${title}</div>
+          ${items.map(i=>`<div style="font-size:12px;color:var(--text2);padding:4px 0;border-bottom:1px solid var(--border)">${i}</div>`).join('')}
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(255,215,64,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Accept every payment. Everywhere.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">One integration. 340+ methods. Start accepting payments globally today.</p>
+      <button class="cta-primary" onclick="openSignUp()">Get started free &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     FEATURE: MILITARY-GRADE SECURITY
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-security">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(255,64,129,.1);border:1px solid rgba(255,64,129,.25);color:var(--pink)">&#9711; ENTERPRISE SECURITY</div>
+      <div class="feat-page-title">Security that was <span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">built in, not bolted on.</span></div>
+      <p class="feat-page-lead">From the moment a transaction is initiated to the moment funds are settled, every byte of data is protected by multiple independent layers of military-grade cryptography, behavioral analysis, and zero-knowledge verification.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start secure today &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="toast('Security whitepaper downloading...','info')">Security whitepaper</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:24px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Security Layer Status</div>
+      ${[
+        ["TLS 1.3 Encryption","All data in transit","var(--green)","&#9679; Active"],
+        ["AES-256 at Rest","Database encryption","var(--green)","&#9679; Active"],
+        ["Biometric Auth","Face ID / Touch ID","var(--green)","&#9679; Active"],
+        ["Zero-Knowledge Proofs","Private key operations","var(--cyan)","&#9679; Active"],
+        ["PCI-DSS Level 1","Card data handling","var(--gold)","&#10003; Certified"],
+        ["ISO 27001","Security management","var(--gold)","&#10003; Certified"],
+      ].map(([title,sub,c,status])=>`
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;margin-bottom:6px;background:var(--bg3);border:1px solid var(--border)">
+        <div style="flex:1"><div style="font-size:12px;font-weight:600">${title}</div><div style="font-size:10px;color:var(--text3)">${sub}</div></div>
+        <span style="font-size:11px;font-weight:700;color:${c}">${status}</span>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--pink)">AES-256</div><div class="feat-stat-lbl">Encryption standard</div><div class="feat-stat-sub">all data at rest and in transit</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">0</div><div class="feat-stat-lbl">Breaches since launch</div><div class="feat-stat-sub">November 2025 to present</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--gold)">PCI L1</div><div class="feat-stat-lbl">Compliance level</div><div class="feat-stat-sub">highest card data security tier</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--pink)">&#9711; Security architecture</div>
+        <div class="feat-body-title">Five independent layers of protection.</div>
+        <p class="feat-body-text">Most payment platforms apply security as an afterthought — adding compliance certifications on top of legacy infrastructure. Intellix was architected with security as the foundation. Every component, from the API gateway to the vault contract, was designed with zero-trust principles from day one.</p>
+        <p class="feat-body-text">Private keys never leave your device. Card numbers are tokenised on the client side before reaching our servers. Biometric verification happens through Apple's and Google's secure enclaves — we never see your biometric data.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--pink)">&#10003; Security features</div>
+        <div class="feat-checklist">
+          ${[
+            "End-to-end TLS 1.3 encryption — zero unencrypted data in transit",
+            "AES-256 encryption for all stored data, with rotating keys every 24h",
+            "Behavioral biometrics — detects account takeover by analyzing typing patterns",
+            "Zero-knowledge architecture — private keys never leave the user's device",
+            "Smart contract multi-sig — large withdrawals require 2-of-3 signer approval",
+            "Real-time anomaly detection — flags unusual patterns before they escalate",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(255,64,129,.15);color:var(--pink)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(255,64,129,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Your funds are safe with Intellix.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">PCI-DSS Level 1 · ISO 27001 · SOC 2 Type II · Zero breaches since launch.</p>
+      <button class="cta-primary" onclick="openSignUp()">Start securely &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     FEATURE: REAL-TIME INSIGHTS
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-insights">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#features')">&#8592; Back to Features</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(58,170,255,.1);border:1px solid rgba(58,170,255,.25);color:var(--blue)">&#8728; ANALYTICS</div>
+      <div class="feat-page-title">Intelligence that arrives <span style="background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent">before you ask for it.</span></div>
+      <p class="feat-page-lead">Intellix's analytics engine processes millions of data points in real time, surfacing anomalies, predicting volume surges, and delivering actionable insights directly to your dashboard — without any configuration.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start for free &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="toast('Live dashboard preview loading...','info')">View live demo</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:22px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">AI Insight Feed</div>
+      ${[
+        {badge:"ANOMALY",badgeC:"var(--orange)",badgeBg:"rgba(255,145,0,.12)",text:"APAC velocity +38% above baseline in last 2h. Predictive model forecasts $2.1M surge in 4h."},
+        {badge:"PREDICTION",badgeC:"var(--cyan)",badgeBg:"rgba(0,229,255,.1)",text:"Tomorrow's projected volume: $92.4M — 18% above 7-day average. Peak window: 14:00 UTC."},
+        {badge:"RISK",badgeC:"var(--red)",badgeBg:"rgba(255,23,68,.12)",text:"TXN-9821 flagged: new wallet, $84K USDC, Cayman destination, VPN detected. Risk: 0.94."},
+      ].map(i=>`
+      <div style="padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px"><span style="background:${i.badgeBg};color:${i.badgeC};font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px">${i.badge}</span></div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6">${i.text}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--blue)">&lt;1s</div><div class="feat-stat-lbl">Insight delivery</div><div class="feat-stat-sub">from event to dashboard</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">99.2%</div><div class="feat-stat-lbl">Forecast accuracy</div><div class="feat-stat-sub">24-hour volume predictions</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">24/7</div><div class="feat-stat-lbl">Continuous monitoring</div><div class="feat-stat-sub">zero blind spots</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--blue)">&#8728; What's included</div>
+        <div class="feat-body-title">From raw data to decisions in under a second.</div>
+        <p class="feat-body-text">Intellix's real-time analytics layer processes every transaction, API call, and user action as it happens. Unlike traditional analytics platforms that batch-process overnight, our engine delivers insights the moment they become relevant — often before a problem becomes visible to human operators.</p>
+        <p class="feat-body-text">The AI insight feed prioritises what matters: anomalies, predictions, and risks — ranked by urgency and business impact, not just chronological order.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--blue)">&#10003; Analytics capabilities</div>
+        <div class="feat-checklist">
+          ${[
+            "Real-time transaction volume tracking with 1-second granularity",
+            "Predictive volume forecasting — 4h, 24h, and 7-day models",
+            "Anomaly detection — velocity spikes, geo-shifts, pattern breaks",
+            "Currency pair flow analysis — see where money moves globally",
+            "API usage analytics — latency, error rates, endpoint performance",
+            "Custom webhooks — push any insight to your systems in real time",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(58,170,255,.15);color:var(--blue)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(58,170,255,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">See everything. Instantly.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">Real-time Insights dashboard included with every Intellix account.</p>
+      <button class="cta-primary" onclick="openSignUp()">View your dashboard &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PLATFORM: INTELLIX PAY
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-pay">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25);color:var(--cyan)">&#9670; INTELLIX PAY</div>
+      <div class="feat-page-title">Global payments. <span style="background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent">One API call.</span></div>
+      <p class="feat-page-lead">Intellix Pay is the fastest way to accept money from anyone, anywhere on earth. Cards, crypto, wallets, bank transfers, and local rails — all accessible through a single unified API with built-in routing, fraud detection, and instant settlement.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start accepting payments &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollTo('#developers')">View API docs</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:24px;font-family:var(--mono);font-size:13px">
+      <div style="font-size:10px;color:var(--text3);margin-bottom:10px">TypeScript — create a payment</div>
+      <div style="color:#c792ea">const</div>
+      <div style="margin-left:14px;color:var(--text)">payment = <span style="color:#82aaff">await</span> intellix.payments.<span style="color:#82aaff">create</span>({</div>
+      <div style="margin-left:28px;color:#ffcb6b">amount: <span style="color:#f78c6c">5000</span>,</div>
+      <div style="margin-left:28px;color:#ffcb6b">currency: <span style="color:#c3e88d">"USD"</span>,</div>
+      <div style="margin-left:28px;color:#ffcb6b">recipient: <span style="color:#c3e88d">"0x3f4a..."</span>,</div>
+      <div style="margin-left:28px;color:#ffcb6b">methods: <span style="color:#c3e88d">["card","crypto","wallet"]</span>,</div>
+      <div style="margin-left:28px;color:#ffcb6b">fraudCheck: <span style="color:#c3e88d">"realtime"</span>,</div>
+      <div style="margin-left:14px;color:var(--text)">})</div>
+      <div style="margin-top:10px;color:#546e7a">// 14 seconds. $0.18. Confirmed.</div>
+      <div style="margin-top:4px;color:#82aaff">console.<span style="color:#82aaff">log</span>(<span style="color:#c3e88d">"✓"</span>, payment.id) <span style="color:#546e7a">// PAY_9xK2...</span></div>
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">$0.18</div><div class="feat-stat-lbl">Average transaction fee</div><div class="feat-stat-sub">via Polygon Bridge routing</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">99.7%</div><div class="feat-stat-lbl">Payment success rate</div><div class="feat-stat-sub">across all methods & regions</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--purple)">340+</div><div class="feat-stat-lbl">Payment methods</div><div class="feat-stat-sub">available from day one</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--cyan)">&#9670; Why Intellix Pay</div>
+        <div class="feat-body-title">The last payment integration you'll ever need.</div>
+        <p class="feat-body-text">Building payment infrastructure is hard. You need to integrate with dozens of providers, maintain compliance across jurisdictions, handle failures, reconcile across currencies, and build fraud protection from scratch. Intellix Pay handles all of this — under one roof, through one API.</p>
+        <p class="feat-body-text">From the first API call to global scale, Intellix Pay grows with you. Start on the Free plan with no minimums, and access enterprise volume pricing with 99.999% uptime SLA as you scale.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--cyan)">&#10003; Included with Intellix Pay</div>
+        <div class="feat-checklist">
+          ${[
+            "340+ payment methods — cards, crypto, wallets, local rails",
+            "AI route optimizer — automatically picks the cheapest path",
+            "Real-time fraud check on every transaction — 99.8% accuracy",
+            "Instant settlement via Polygon — 14 second confirmation",
+            "Multi-currency support — 135+ currencies with live FX",
+            "Webhooks, reconciliation exports, and full audit trail",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(0,229,255,.15);color:var(--cyan)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(0,229,255,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Start accepting payments in minutes.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">Free plan · No card required · 1,000 free transactions/month.</p>
+      <button class="cta-primary" onclick="openSignUp()">Create free account &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PLATFORM: FRAUD SHIELD
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-fraud">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(156,111,255,.1);border:1px solid rgba(156,111,255,.25);color:var(--purple)">&#9656; FRAUDNET V2.1</div>
+      <div class="feat-page-title">Fraud detection that thinks <span style="background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent">faster than fraudsters.</span></div>
+      <p class="feat-page-lead">FraudNet v2.1 is Intellix's proprietary AI fraud engine — a hybrid of machine learning and explainable rule-based signals that scores every transaction in under 1ms with 99.8% accuracy, and tells you exactly why.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Protect your business &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="toast('FraudNet technical whitepaper downloading...','info')">Technical whitepaper</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:22px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">FraudNet Risk Analysis — TXN-9821</div>
+      <div style="background:rgba(255,23,68,.06);border:1px solid rgba(255,23,68,.2);border-radius:10px;padding:14px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;font-weight:700">Risk Score</span><span style="font-family:var(--mono);font-size:18px;font-weight:800;color:var(--red)">0.9400</span></div>
+        <div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:8px">DETECTED SIGNALS</div>
+        ${[
+          ["+0.62","new_wallet_high_value","Wallet 6d old, first txn $84,200","var(--red)"],
+          ["+0.19","fatf_jurisdiction","Cayman Islands — risk 0.75","var(--orange)"],
+          ["+0.12","vpn_detected","IP obfuscation via commercial VPN","var(--orange)"],
+        ].map(([w,n,d,c])=>`<div style="display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:11px"><span style="font-family:var(--mono);color:${c};font-weight:700;flex-shrink:0">${w}</span><span style="color:var(--text);flex-shrink:0">${n}</span><span style="color:var(--text3)">${d}</span></div>`).join('')}
+      </div>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1;padding:8px;background:rgba(255,23,68,.1);border-radius:8px;text-align:center;font-size:12px;font-weight:700;color:var(--red);cursor:pointer" onclick="toast('Transaction blocked ✓','success')">Block</div>
+        <div style="flex:1;padding:8px;background:rgba(255,145,0,.1);border-radius:8px;text-align:center;font-size:12px;font-weight:700;color:var(--orange);cursor:pointer" onclick="toast('Escalated to compliance team','info')">Escalate</div>
+        <div style="flex:1;padding:8px;background:rgba(0,230,118,.1);border-radius:8px;text-align:center;font-size:12px;font-weight:700;color:var(--green);cursor:pointer" onclick="toast('Transaction approved and processed','success')">Approve</div>
+      </div>
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--purple)">99.8%</div><div class="feat-stat-lbl">Detection accuracy</div><div class="feat-stat-sub">across all transaction types</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">&lt;1ms</div><div class="feat-stat-lbl">Scoring latency</div><div class="feat-stat-sub">per transaction</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">8+</div><div class="feat-stat-lbl">Signal categories</div><div class="feat-stat-sub">velocity · geo · identity · regulatory</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--purple)">&#9656; How FraudNet works</div>
+        <div class="feat-body-title">AI that explains itself.</div>
+        <p class="feat-body-text">Most fraud systems are black boxes — they tell you a transaction was declined, but not why. FraudNet is different. Our hybrid approach combines an Isolation Forest ML model with 8 categories of explainable rule-based signals, so every risk score comes with a full breakdown of what triggered it.</p>
+        <p class="feat-body-text">This explainability matters operationally. When a legitimate transaction is flagged, your team can see exactly why, override with confidence, and feed that decision back into the model to improve future accuracy.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--purple)">&#10003; Signal categories</div>
+        <div class="feat-checklist">
+          ${[
+            "Velocity signals — transaction frequency against user baseline",
+            "Geo signals — IP vs device vs billing address mismatch detection",
+            "Identity signals — new device, VPN, behavioural biometric drift",
+            "Regulatory signals — FATF jurisdiction risk, stablecoin routing patterns",
+            "Behavioral signals — new wallet + high value, first-transaction flags",
+            "Historical signals — positive account history reduces risk score",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(156,111,255,.15);color:var(--purple)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(156,111,255,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Stop fraud before it starts.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">FraudNet v2.1 is active on every Intellix transaction. No setup required.</p>
+      <button class="cta-primary" onclick="openSignUp()">Activate fraud protection &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PLATFORM: INSTANT PAYOUTS
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-payouts">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);color:var(--green)">&#9889; INSTANT PAYOUTS</div>
+      <div class="feat-page-title">Funds arrive in <span style="background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent">14 seconds.</span> Not 3 days.</div>
+      <p class="feat-page-lead">Intellix Instant Payouts eliminates the 1–3 business day wait that plagues traditional payment rails. Using Polygon Bridge, ACH same-day, and direct SWIFT routing, funds land in the recipient's account in seconds — regardless of currency or country.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Send money instantly &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="toast('Payout speed comparison chart','info')">Compare speeds</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:24px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Settlement Speed Comparison</div>
+      ${[
+        {method:"Polygon Bridge",time:"14 seconds",cost:"$0.18",color:"var(--green)",best:true},
+        {method:"ACH Same-Day",time:"~4 hours",cost:"Free",color:"var(--cyan)",best:false},
+        {method:"SWIFT Express",time:"~4 hours",cost:"$12–25",color:"var(--gold)",best:false},
+        {method:"Standard ACH",time:"1–2 days",cost:"Free",color:"var(--text3)",best:false},
+        {method:"Traditional Wire",time:"1–3 days",cost:"$25–45",color:"var(--text3)",best:false},
+      ].map(r=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;margin-bottom:6px;background:${r.best?'rgba(0,230,118,.06)':'var(--bg3)'};border:1px solid ${r.best?'rgba(0,230,118,.2)':'var(--border)'}">
+        <div style="flex:1"><div style="font-size:12px;font-weight:600;color:${r.color}">${r.method}</div></div>
+        <span style="font-size:12px;font-weight:700;color:${r.color};font-family:var(--mono)">${r.time}</span>
+        <span style="font-size:11px;color:var(--text3);font-family:var(--mono);width:50px;text-align:right">${r.cost}</span>
+        ${r.best?'<span style="background:rgba(0,230,118,.15);color:var(--green);font-size:9px;font-weight:700;padding:2px 7px;border-radius:5px">FASTEST</span>':''}
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">14s</div><div class="feat-stat-lbl">Fastest settlement</div><div class="feat-stat-sub">via Polygon Bridge</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">$0.18</div><div class="feat-stat-lbl">Typical payout cost</div><div class="feat-stat-sub">vs $25+ for traditional wire</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--gold)">135+</div><div class="feat-stat-lbl">Destination currencies</div><div class="feat-stat-sub">no manual FX conversion needed</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--green)">&#9889; Payout rails</div>
+        <div class="feat-body-title">The right rail, automatically chosen.</div>
+        <p class="feat-body-text">Intellix doesn't ask you to choose a payout method — it chooses for you. Based on the destination country, currency, and amount, our router selects the fastest available rail that meets your cost requirements. Polygon for crypto, ACH for US dollars, SEPA for euros, and SWIFT for everything else.</p>
+        <p class="feat-body-text">For marketplace operators and gig platforms, this means your sellers and contractors get paid within minutes of a completed job — not at the end of the week. That's a competitive advantage you can advertise.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--green)">&#10003; Payout features</div>
+        <div class="feat-checklist">
+          ${[
+            "Polygon Bridge — crypto payouts in 14 seconds, $0.18 fee",
+            "ACH Same-Day — US bank transfers in under 4 hours",
+            "SEPA Instant — euro payouts across 36 European countries",
+            "SWIFT — 150+ country coverage for international fiat",
+            "Batch payouts — send to 1,000 recipients in one API call",
+            "Multi-currency — pay in recipient's local currency automatically",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(0,230,118,.15);color:var(--green)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(0,230,118,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Pay your people instantly.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">Instant Payouts available on all Intellix plans. Start disbursing in minutes.</p>
+      <button class="cta-primary" onclick="openSignUp()">Start paying out &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PLATFORM: INTELLIX CONNECT
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-connect">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(255,215,64,.1);border:1px solid rgba(255,215,64,.25);color:var(--gold)">&#8741; INTELLIX CONNECT</div>
+      <div class="feat-page-title">The payment stack <span style="background:linear-gradient(135deg,var(--gold),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent">for marketplaces.</span></div>
+      <p class="feat-page-lead">Intellix Connect is a complete payment infrastructure layer designed for two-sided platforms — marketplaces, SaaS, and gig economy apps. Split payments, escrow, automated payouts, and compliance — all handled without building custom logic.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start building &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="toast('Connect demo loading...','info')">View demo</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:22px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Marketplace Payment Flow</div>
+      ${[
+        {label:"Customer pays",amt:"$1,000",color:"var(--cyan)"},
+        {label:"Platform fee deducted",amt:"-$30 (3%)",color:"var(--text3)"},
+        {label:"Escrow held (delivery)",amt:"$970 held",color:"var(--orange)"},
+        {label:"Delivery confirmed",amt:"✓ Released",color:"var(--green)"},
+        {label:"Seller receives",amt:"+$970",color:"var(--green)"},
+      ].map((r,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;margin-bottom:6px;background:var(--bg3);border:1px solid var(--border)">
+        <div style="width:20px;height:20px;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text3);flex-shrink:0">${i+1}</div>
+        <span style="flex:1;font-size:12px;color:var(--text2)">${r.label}</span>
+        <span style="font-family:var(--mono);font-size:12px;font-weight:700;color:${r.color}">${r.amt}</span>
+      </div>`).join('')}
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--gold)">0.05%</div><div class="feat-stat-lbl">Platform fee</div><div class="feat-stat-sub">on all processed volume</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">Auto</div><div class="feat-stat-lbl">Escrow management</div><div class="feat-stat-sub">release on condition or timer</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">1000</div><div class="feat-stat-lbl">Batch split payouts</div><div class="feat-stat-sub">per API call</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--gold)">&#8741; Built for two-sided platforms</div>
+        <div class="feat-body-title">Everything a marketplace needs. Nothing it doesn't.</div>
+        <p class="feat-body-text">Running a marketplace means handling money for two parties simultaneously — a buyer paying, a seller receiving, with your platform taking a fee in the middle. That's three separate financial operations that traditional payment processors were not built to handle atomically.</p>
+        <p class="feat-body-text">Intellix Connect handles all of it in a single API call: charging the buyer, holding funds in escrow, taking your platform fee, and releasing to the seller — all programmable, all instant, all with a full audit trail.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--gold)">&#10003; Connect features</div>
+        <div class="feat-checklist">
+          ${[
+            "Split payments — automatically divide funds between multiple parties",
+            "Smart escrow — hold funds and release on delivery confirmation",
+            "Programmable platform fees — fixed or percentage, per transaction",
+            "Seller onboarding — KYC and bank account verification via API",
+            "Dispute arbitration — AI-assisted resolution for buyer/seller disputes",
+            "Compliance — tax reporting, 1099s, and AML checks automated",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(255,215,64,.15);color:var(--gold)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(255,215,64,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Build a marketplace that pays itself.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">Intellix Connect — split payments, escrow, and payouts in one API.</p>
+      <button class="cta-primary" onclick="openSignUp()">Start building &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     PLATFORM: GLOBAL INFRASTRUCTURE
+════════════════════════════════════════════════ -->
+<div class="page feat-page" id="page-feat-global">
+  <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
+    <button class="feat-back-btn" onclick="showPage('home');scrollTo('#platform')">&#8592; Back to Platform</button>
+  </div>
+  <div class="feat-page-hero">
+    <div>
+      <div class="feat-page-badge" style="background:rgba(58,170,255,.1);border:1px solid rgba(58,170,255,.25);color:var(--blue)">&#127760; GLOBAL INFRASTRUCTURE</div>
+      <div class="feat-page-title">Built to power <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">every payment on earth.</span></div>
+      <p class="feat-page-lead">Intellix's global infrastructure spans 150+ countries, processes 135+ currencies, and maintains 99.999% uptime backed by an enterprise SLA. From a startup's first transaction to a billion-dollar enterprise's daily volume — the same infrastructure scales seamlessly.</p>
+      <div class="feat-page-btns">
+        <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start building globally &rarr;</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="toast('System status: All systems operational ✓','success')">System status</button>
+      </div>
+    </div>
+    <div class="feat-visual" style="background:var(--bg2);padding:22px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Infrastructure Status</div>
+      ${[
+        {region:"North America",status:"Operational",lat:"8ms",col:"var(--green)"},
+        {region:"Europe",status:"Operational",lat:"12ms",col:"var(--green)"},
+        {region:"Asia Pacific",status:"Operational",lat:"14ms",col:"var(--green)"},
+        {region:"Middle East",status:"Operational",lat:"18ms",col:"var(--green)"},
+        {region:"Latin America",status:"Operational",lat:"22ms",col:"var(--green)"},
+        {region:"Africa",status:"Operational",lat:"28ms",col:"var(--green)"},
+      ].map(r=>`<div style="display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;margin-bottom:5px;background:var(--bg3);border:1px solid var(--border);font-size:12px">
+        <div style="width:6px;height:6px;border-radius:50%;background:${r.col}"></div>
+        <span style="flex:1;color:var(--text2)">${r.region}</span>
+        <span style="color:${r.col};font-weight:700">${r.status}</span>
+        <span style="font-family:var(--mono);color:var(--text3)">${r.lat}</span>
+      </div>`).join('')}
+      <div style="margin-top:10px;text-align:center;font-size:11px;color:var(--green);font-weight:700">&#9679; 99.999% uptime · All regions nominal</div>
+    </div>
+  </div>
+  <div class="feat-stats">
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--blue)">150+</div><div class="feat-stat-lbl">Countries supported</div><div class="feat-stat-sub">with local payment rails</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--green)">99.999%</div><div class="feat-stat-lbl">Uptime SLA</div><div class="feat-stat-sub">enterprise guarantee</div></div>
+    <div class="feat-stat"><div class="feat-stat-val" style="color:var(--cyan)">135+</div><div class="feat-stat-lbl">Currencies</div><div class="feat-stat-sub">fiat + crypto + stablecoins</div></div>
+  </div>
+  <div class="feat-body">
+    <div class="feat-body-grid">
+      <div>
+        <div class="feat-body-label" style="color:var(--blue)">&#127760; Infrastructure design</div>
+        <div class="feat-body-title">Enterprise reliability. Developer simplicity.</div>
+        <p class="feat-body-text">Intellix's infrastructure was designed to meet the demands of the most regulated, highest-volume payment environments on earth — while remaining simple enough for a solo developer to integrate in an afternoon.</p>
+        <p class="feat-body-text">Our multi-region architecture processes transactions locally where possible to minimise latency, with automatic failover to the nearest region in case of any node failure. The result is sub-30ms response times globally, with no single point of failure.</p>
+      </div>
+      <div>
+        <div class="feat-body-label" style="color:var(--blue)">&#10003; Infrastructure specs</div>
+        <div class="feat-checklist">
+          ${[
+            "6 global processing regions — NA, EU, APAC, ME, LATAM, Africa",
+            "Sub-30ms API response times from any region globally",
+            "99.999% uptime SLA — less than 5 minutes downtime per year",
+            "ISO 27001 & SOC 2 Type II certified data centres",
+            "PCI-DSS Level 1 compliant across all regions",
+            "GDPR, CCPA, and MAS TRM compliant data handling",
+          ].map(t=>`<div class="feat-check"><div class="feat-check-icon" style="background:rgba(58,170,255,.15);color:var(--blue)">&#10003;</div><span>${t}</span></div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="feat-cta-banner" style="border-color:rgba(58,170,255,.2)">
+      <div style="font-family:var(--font);font-size:30px;font-weight:800;margin-bottom:12px">Infrastructure that scales with you.</div>
+      <p style="color:var(--text2);font-size:15px;margin-bottom:24px">From first transaction to billions in volume — the same API, the same SLA.</p>
+      <button class="cta-primary" onclick="openSignUp()">Get started globally &rarr;</button>
     </div>
   </div>
 </div>
