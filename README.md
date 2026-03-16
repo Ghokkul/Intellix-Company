@@ -55,13 +55,6 @@ The Payments page is a fully working transaction engine:
 
 Full CRUD · SQL Console · Schema Viewer · Analytics Dashboard · CSV export · Auto audit log
 
-## Deploy
-
-```bash
-# Netlify Drop — drag index.html to netlify.com/drop
-
-# Vercel
-npx vercel --yes
 
 # GitHub Pages — push to repo, enable Pages in Settings
 ```
