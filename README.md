@@ -1,74 +1,76 @@
 # Intellix — AI Payment Engine
 
-> The world's most intelligent payment platform, complete with a fully integrated live database system.
+> The most intelligent payment platform ever built.
 
 ![Intellix](https://img.shields.io/badge/Intellix-AI%20Payment%20Engine-00e5ff?style=for-the-badge)
-![Version](https://img.shields.io/badge/version-4.0.0-9c6fff?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-00e676?style=for-the-badge)
+![Languages](https://img.shields.io/badge/languages-8-9c6fff?style=for-the-badge)
+![Version](https://img.shields.io/badge/version-4.1.0-00e676?style=for-the-badge)
+![License](https://img.shields.io/badge/license-MIT-ffd740?style=for-the-badge)
 
-## Overview
+## Live Demo
 
-Intellix is a full-stack AI-powered payment platform. Everything runs in a single HTML file — no server, no build step, no dependencies beyond CDN scripts. Open it in a browser and you have a complete, working payment company system.
+Open `index.html` in any browser — zero setup, zero dependencies beyond CDN scripts.
 
 ## Pages
 
 | Screen | Description |
 |--------|-------------|
-| 🏠 **Home** | Landing page with features, pricing, CTA |
-| 📊 **Dashboard** | Live KPIs, volume charts, AI insights, product finder |
-| 💸 **Payments** | Full send flow with biometric auth & AI routing |
-| 🛡️ **Fraud AI** | Investigation workspace with explainable AI |
-| ⚡ **API Console** | Interactive API docs with live request execution |
-| 📱 **Mobile** | Mobile app preview + 3 viral features |
-| 🔍 **Find Products** | AI-powered product price comparison (12 products, 24 stores) |
-| 🔐 **Auth** | Login & 3-step signup with KYC + biometrics |
-| 🗄️ **Database** | Full live SQLite database — 12 tables, CRUD, SQL console, analytics |
+| 🏠 **Home** | Landing page · pricing · features · CTA |
+| 📊 **Dashboard** | Live KPIs · volume charts · AI fraud shield · predictive analytics |
+| 💸 **Payments** | Send · Receive · Swap · Batch · live transaction history · biometric auth |
+| 🛡️ **Fraud AI** | Investigation workspace · explainable AI · block/approve/escalate |
+| ⚡ **API** | Interactive console · 7 endpoints · live responses · SDK switcher |
+| 📱 **Mobile** | Mobile app preview · 3 viral features |
+| 🔍 **Smart Shop** | AI product finder · 12 products · 24 stores · price comparison |
+| 🔐 **Auth** | Login · 3-step signup · KYC · biometric setup |
+| 🗄️ **Database** | Live SQLite · 12 tables · full CRUD · SQL console · analytics |
+| `</>`  **Code** | Multi-language showcase · Python · TS · Go · Rust · Solidity · SQL · Swift · Kotlin |
 
-## Database System (SQLite WASM)
+## Payment System
 
-The Database page runs a real in-memory SQLite engine powered by sql.js:
+The Payments page is a fully working transaction engine:
 
-| Table | Records | Description |
-|-------|---------|-------------|
-| transactions | 15 | Payment transactions with risk scores |
-| users | 10 | User profiles, KYC status, tiers |
-| payments | 12 | Payment intents with method & routing |
-| wallets | 12 | Crypto + fiat wallet balances |
-| fraud_alerts | 5 | Flagged transactions with AI signals |
-| kyc_verifications | 10 | Identity verification records |
-| currencies | 14 | BTC, ETH, USDC, USD, EUR + more |
-| api_keys | 6 | API keys with permissions & usage |
-| webhooks | 5 | Event subscriptions |
-| exchange_rates | 12 | Live FX + crypto rates |
-| audit_logs | Auto | Every DB operation logged |
-| products | 12 | Smart Shop AI-scored products |
+- **Send** — 7 currencies (USD, BTC, ETH, USDC, EUR, GBP, SOL), AI Route Optimizer, biometric auth, smart scheduling
+- **Receive** — wallet address + QR code per currency
+- **Swap** — live rate calculation across any currency pair via Uniswap V3
+- **Batch** — multi-recipient single transaction with reduced fees
+- **Transaction History** — live feed with filter tabs (All / Confirmed / Pending / Flagged)
 
-**Features:** Full CRUD on every table · SQL Console with 8 presets · Schema viewer · Analytics dashboard · CSV export · Auto audit log
+## Languages
 
-## Deployment
+| Language | Component | Purpose |
+|----------|-----------|---------|
+| Python 3.12 | `fraud_engine.py` | AI fraud detection with IsolationForest |
+| TypeScript 5.3 | `payment.service.ts` | NestJS payment processing service |
+| Go 1.22 | `blockchain_listener.go` | Real-time Ethereum block subscription |
+| Rust 1.76 | `crypto_engine.rs` | High-performance transaction signing |
+| Solidity 0.8.24 | `IntelixVault.sol` | Multi-sig smart contract vault |
+| PostgreSQL SQL | `analytics.sql` | Fraud analytics with CTEs + window functions |
+| Swift 5.9 | `BiometricAuth.swift` | iOS Face ID / Touch ID authentication |
+| Kotlin | `PaymentViewModel.kt` | Android payment ViewModel with coroutines |
 
-### GitHub Pages (auto-deploy on push)
-The `.github/workflows/deploy.yml` file handles this automatically.
+## Database (SQLite WASM)
 
-### Netlify Drop
-Drag `index.html` to [netlify.com/drop](https://netlify.com/drop)
+12 live tables — transactions, users, payments, wallets, fraud_alerts, kyc_verifications, currencies, api_keys, webhooks, exchange_rates, audit_logs, products.
 
-### Vercel
+Full CRUD · SQL Console · Schema Viewer · Analytics Dashboard · CSV export · Auto audit log
+
+## Deploy
+
 ```bash
+# Netlify Drop — drag index.html to netlify.com/drop
+
+# Vercel
 npx vercel --yes
+
+# GitHub Pages — push to repo, enable Pages in Settings
 ```
 
-### Local
-```bash
-open index.html   # macOS
-start index.html  # Windows
-```
+## Stack
 
-## Tech Stack
-- **Pure HTML5 + CSS3 + Vanilla JS** — zero npm, zero build
-- **sql.js** — SQLite compiled to WebAssembly (CDN)
-- **Google Fonts** — Syne, JetBrains Mono, Inter
-- Single `index.html` file, fully self-contained
+Pure **HTML5 + CSS3 + Vanilla JS** — no npm, no build step.
+External: `sql.js` (SQLite WASM) · Google Fonts · all via CDN.
 
-## License
-MIT © 2026 Intellix
+---
+
+MIT © 2026 Intellix · [github.com/Ghokkul/Intellix-Company](https://github.com/Ghokkul/Intellix-Company)

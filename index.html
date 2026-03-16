@@ -44,11 +44,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.85)
 .nav-btn-primary:hover{opacity:.9}
 
 /* PAGES */
-.page{display:none;min-height:100vh;padding-top:64px;position:relative;z-index:1}
+.page{display:none;min-height:100vh;padding-top:100px;position:relative;z-index:1}
 .page.active{display:block}
 
 /* ===================== LANDING PAGE ===================== */
-.hero{min-height:calc(100vh - 64px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 32px;position:relative;overflow:hidden}
+.hero{min-height:calc(100vh - 100px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 32px;position:relative;overflow:hidden}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);font-size:12px;font-weight:600;color:var(--cyan);margin-bottom:28px;font-family:var(--font)}
 .hero-title{font-family:var(--font);font-size:72px;font-weight:800;line-height:1.05;letter-spacing:-3px;margin-bottom:24px;max-width:800px}
 .hero-title .grad{background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -116,8 +116,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.85)
 .cta-sub{font-size:16px;color:var(--text2);margin-bottom:32px;line-height:1.6}
 
 /* ===================== DASHBOARD ===================== */
-.dash-shell{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px)}
-.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:20px 0;display:flex;flex-direction:column;gap:2px;position:sticky;top:64px;height:calc(100vh - 64px);overflow-y:auto}
+.dash-shell{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 100px)}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:20px 0;display:flex;flex-direction:column;gap:2px;position:sticky;top:100px;height:calc(100vh - 100px);overflow-y:auto}
 .nav-section-label{padding:8px 20px 4px;font-size:10px;font-weight:600;color:var(--text3);letter-spacing:1px;text-transform:uppercase}
 .side-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;transition:all .15s;color:var(--text2);font-size:13px;font-weight:500;border-left:2px solid transparent;margin:0 8px;border-radius:6px}
 .side-item:hover{background:var(--card);color:var(--text)}
@@ -189,7 +189,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.85)
 .rb-l{background:rgba(0,230,118,.15);color:var(--green)}
 
 /* ===================== PAYMENT SCREEN ===================== */
-.pay-wrap{display:grid;grid-template-columns:1fr 360px;min-height:calc(100vh - 64px);gap:0}
+.pay-wrap{display:grid;grid-template-columns:1fr 360px;min-height:calc(100vh - 100px);gap:0}
 .pay-left{background:var(--bg2);border-right:1px solid var(--border);padding:36px}
 .pay-right{background:var(--bg);padding:36px;display:flex;flex-direction:column;gap:18px}
 .pay-title{font-family:var(--font);font-size:20px;font-weight:800;margin-bottom:24px}
@@ -239,7 +239,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.85)
 .sched-opt-fee{font-size:11px;color:var(--green);margin-top:3px}
 
 /* ===================== FRAUD WORKSPACE ===================== */
-.fraud-wrap{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 64px)}
+.fraud-wrap{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 100px)}
 .fraud-sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:0}
 .fraud-header{padding:18px 18px 14px;border-bottom:1px solid var(--border)}
 .fraud-list{overflow-y:auto}
@@ -266,7 +266,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(6,7,13,.85)
 .btn-escalate{background:rgba(255,145,0,.1);color:var(--orange);border:1px solid rgba(255,145,0,.2)}
 
 /* ===================== API CONSOLE ===================== */
-.api-wrap{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 64px)}
+.api-wrap{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 100px)}
 .api-sidebar{background:var(--bg2);border-right:1px solid var(--border)}
 .api-sidebar-hdr{padding:16px;border-bottom:1px solid var(--border)}
 .ep-group-lbl{padding:8px 16px 4px;font-size:10px;font-weight:700;color:var(--text3);letter-spacing:1px;text-transform:uppercase}
@@ -319,7 +319,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
 .viral-desc{font-size:12px;color:var(--text2);line-height:1.6}
 
 /* ===================== AUTH PAGES ===================== */
-.auth-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px)}
+.auth-wrap{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 100px)}
 .auth-brand{background:var(--bg2);border-right:1px solid var(--border);padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
 .auth-brand-grid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
 .auth-brand-content{position:relative;z-index:1}
@@ -362,7 +362,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
 .fpill-icon-auth{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
 
 /* ===================== SMART SHOP ===================== */
-.shop-wrap{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 64px)}
+.shop-wrap{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 100px)}
 .shop-sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:0;display:flex;flex-direction:column}
 .shop-sidebar-hdr{padding:20px;border-bottom:1px solid var(--border)}
 .shop-sidebar-title{font-family:var(--font);font-size:15px;font-weight:800;margin-bottom:4px}
@@ -481,7 +481,7 @@ textarea.code-area:focus{border-color:var(--cyan)}
    (scoped to #page-database)
    ══════════════════════════════════════ */
 #page-database .grid-bg{display:none}
-#page-database{padding-top:0!important;min-height:calc(100vh - 64px)}
+#page-database{padding-top:0!important;min-height:calc(100vh - 100px)}
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -508,10 +508,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
 .topbar-stat{font-size:11px;font-family:var(--mono);padding:4px 12px;border-radius:16px;background:var(--card);border:1px solid var(--border2)}
 
 /* ── LAYOUT ── */
-.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;padding-top:58px}
+.shell{display:grid;grid-template-columns:240px 1fr;min-height:100vh;padding-top:0}
 
 /* ── SIDEBAR ── */
-.sidebar{background:var(--bg2);border-right:1px solid var(--border);position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto;display:flex;flex-direction:column}
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);position:sticky;top:100px;height:calc(100vh - 100px);overflow-y:auto;display:flex;flex-direction:column}
 .sidebar::-webkit-scrollbar{width:3px}.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 .db-info{padding:16px;border-bottom:1px solid var(--border)}
 .db-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:12px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);font-size:10px;font-weight:700;color:var(--cyan);margin-bottom:8px;font-family:var(--font)}
@@ -709,8 +709,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
     <button class="nav-link" id="nl-fraud" onclick="showPage('fraud')">Fraud AI</button>
     <button class="nav-link" id="nl-api" onclick="showPage('api')">API</button>
     <button class="nav-link" id="nl-mobile" onclick="showPage('mobile')">Mobile</button>
-    <button class="nav-link nl-products-btn" id="nl-products" onclick="showPage('products')">&#9670; Find Products</button>
-    <button class="nav-link" id="nl-database" onclick="showPage('database')" style="background:rgba(156,111,255,.1);border:1px solid rgba(156,111,255,.25);color:var(--purple);font-weight:700">&#9632; Database</button>
+    <button class="nav-link" id="nl-languages" onclick="showPage('languages')" style="background:rgba(255,215,64,.08);border:1px solid rgba(255,215,64,.2);color:var(--gold);font-weight:700">&lt;/&gt; Code</button>
+    <button class="nav-link nl-products-btn" id="nl-products" onclick="showPage('products')" style="display:none"></button>
+    <button class="nav-link" id="nl-database" onclick="showPage('database')" style="display:none"></button>
   </div>
   <div class="nav-space"></div>
   <div class="nav-pill"><span class="live-dot"></span>Live · $4.2M/hr</div>
@@ -718,7 +719,34 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
   <button class="nav-btn nav-btn-primary" onclick="showPage('auth')">Get started</button>
 </nav>
 
-<!-- ======================== LANDING PAGE ======================== -->
+<!-- ======================== CURRENCY TICKER ======================== -->
+<style>
+.ticker-wrap{position:fixed;top:64px;left:0;right:0;height:36px;z-index:999;overflow:hidden;background:linear-gradient(90deg,#1a0a3a,#0a1a3a,#0d1a2e,#12052a,#0a1a3a,#1a0a3a);border-bottom:1px solid rgba(156,111,255,.25);border-top:1px solid rgba(0,229,255,.15)}
+.ticker-glow{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,229,255,.06),rgba(156,111,255,.08),rgba(0,229,255,.04));pointer-events:none}
+.ticker-fade-l{position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(90deg,rgba(10,6,26,1),transparent);z-index:2;pointer-events:none}
+.ticker-fade-r{position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(270deg,rgba(10,6,26,1),transparent);z-index:2;pointer-events:none}
+.ticker-track{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 38s linear infinite}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-item{display:inline-flex;align-items:center;gap:7px;padding:0 22px;height:100%;cursor:default;transition:background .2s;border-right:1px solid rgba(255,255,255,.05)}
+.ticker-item:hover{background:rgba(255,255,255,.05)}
+.ticker-code{font-family:'JetBrains Mono','Courier New',monospace;font-size:11px;font-weight:700;letter-spacing:.5px}
+.ticker-price{font-family:'JetBrains Mono','Courier New',monospace;font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.2px}
+.ticker-delta{font-family:'JetBrains Mono','Courier New',monospace;font-size:10px;font-weight:700;padding:1px 5px;border-radius:4px}
+.ticker-delta.up{color:#00e676;background:rgba(0,230,118,.12)}
+.ticker-delta.down{color:#ff5252;background:rgba(255,82,82,.12)}
+.ticker-sep{width:4px;height:4px;border-radius:50%;background:rgba(156,111,255,.5);flex-shrink:0}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+</style>
+
+<div class="ticker-wrap" id="tickerWrap">
+  <div class="ticker-glow"></div>
+  <div class="ticker-fade-l"></div>
+  <div class="ticker-fade-r"></div>
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+<!-- END TICKER -->
+
+
 <div class="page active" id="page-landing">
   <!-- Hero -->
   <div class="hero">
@@ -928,41 +956,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
           </div>
         </div>
       </div>
-      <div class="bot-row">
-        <!-- AI PRODUCT FINDER WIDGET on dashboard -->
-        <div class="card" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(0,229,255,.04),rgba(156,111,255,.04));border-color:rgba(0,229,255,.15)">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
-            <div style="display:flex;align-items:center;gap:10px">
-              <div class="ai-chip">AI PRODUCT FINDER</div>
-              <div>
-                <div class="card-title" style="font-size:15px">Find the best product for the best price</div>
-                <div class="card-sub">Intellix scans 24+ stores in real time — pay instantly with zero fees</div>
-              </div>
-            </div>
-            <button class="btn btn-primary" onclick="showPage('products')" style="font-size:12px;padding:8px 18px">Browse all &rarr;</button>
-          </div>
-          <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-            <div style="flex:1;position:relative;min-width:220px">
-              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--text3)">&#9740;</span>
-              <input id="dashProdSearch" style="width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:11px 16px 11px 38px;color:var(--text);font-size:13px;font-family:var(--body);outline:none;transition:border-color .2s" placeholder="Search any product — AI finds the best price..." oninput="dashSearch(this.value)" onfocus="this.style.borderColor='var(--cyan)'" onblur="this.style.borderColor='var(--border2)'">
-            </div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap" id="dashCatPills">
-              <div class="cur-btn active" style="font-size:11px" onclick="dashFilterCat('all',this)">All</div>
-              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('electronics',this)">&#9729; Electronics</div>
-              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('fashion',this)">&#9673; Fashion</div>
-              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('home',this)">&#8962; Home</div>
-              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('sports',this)">&#9971; Sports</div>
-              <div class="cur-btn" style="font-size:11px" onclick="dashFilterCat('beauty',this)">&#10024; Beauty</div>
-            </div>
-          </div>
-          <!-- Quick results strip -->
-          <div id="dashProdResults" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px"></div>
-          <!-- AI recommendation row -->
-          <div id="dashAiTip" style="margin-top:12px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.12);border-radius:8px;font-size:12px;color:var(--text2);line-height:1.5">
-            <strong style="color:var(--cyan)">&#9670; AI tip:</strong> Based on your recent $32K BTC purchase, you might want to celebrate — the <strong style="color:var(--text)">Sony WH-1000XM5</strong> headphones are at their lowest price in 90 days ($278, down from $350). <a style="color:var(--cyan);cursor:pointer;font-weight:600" onclick="showPage('products')">See deal &rarr;</a>
-          </div>
-        </div>
-      </div>
       <div class="bot-row" id="dashBotRow">
         <div class="card">
           <div class="flex justify-between align-center mb-16">
@@ -996,10 +989,86 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
 
 <!-- ======================== PAYMENT SCREEN ======================== -->
 <div class="page" id="page-payment">
-  <div class="pay-wrap">
-    <div class="pay-left">
-      <div class="pay-title">Send Payment</div>
-      <div class="progress-steps">
+<style>
+.pay-shell{display:grid;grid-template-columns:1fr 400px;min-height:calc(100vh - 100px)}
+.pay-left{background:var(--bg2);border-right:1px solid var(--border);padding:32px;overflow-y:auto}
+.pay-right{background:var(--bg);padding:28px;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+.pay-seg{display:flex;background:var(--bg3);border-radius:10px;padding:3px;margin-bottom:24px;border:1px solid var(--border)}
+.pay-seg-btn{flex:1;padding:8px;border-radius:8px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;color:var(--text3);transition:all .2s;font-family:var(--font)}
+.pay-seg-btn.active{background:linear-gradient(135deg,var(--cyan2),var(--purple2));color:#000}
+.amt-display{font-family:var(--mono);font-size:48px;font-weight:800;color:var(--cyan);letter-spacing:-2px;border:none;background:transparent;width:100%;outline:none;padding:8px 0 4px}
+.amt-display::placeholder{color:var(--text3)}
+.cur-pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+.cur-pill{padding:6px 14px;border-radius:20px;border:1px solid var(--border2);background:var(--card);color:var(--text2);font-size:12px;font-family:var(--mono);font-weight:600;cursor:pointer;transition:all .15s}
+.cur-pill:hover{border-color:var(--border3);color:var(--text)}
+.cur-pill.active{background:linear-gradient(135deg,var(--cyan2),var(--purple2));border-color:transparent;color:#000}
+.recv-contacts{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.recv-card{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s}
+.recv-card:hover,.recv-card.selected{border-color:rgba(0,229,255,.35);background:rgba(0,229,255,.04)}
+.recv-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0}
+.recv-info{flex:1}
+.recv-name{font-size:13px;font-weight:600}
+.recv-addr{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.recv-verified{font-size:10px;color:var(--green);font-weight:700;margin-top:2px}
+.pay-section-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.fee-box2{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:16px}
+.fee-row2{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.fee-row2:last-child{border-bottom:none;padding-top:10px}
+.route-box{background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.18);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:16px;cursor:pointer;transition:all .15s}
+.route-box:hover{background:rgba(0,229,255,.09)}
+.bio-area{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.bio-ring2{width:80px;height:80px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:30px;user-select:none}
+.bio-ring2.scanning{border-color:var(--cyan);animation:scanRing 1.5s ease-in-out infinite}
+.bio-ring2.done{border-color:var(--green)}
+.bio-meths{display:flex;gap:7px}
+.bio-meth{padding:5px 13px;border-radius:16px;border:1px solid var(--border2);background:var(--bg3);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;color:var(--text2)}
+.bio-meth.active{background:rgba(0,229,255,.1);border-color:var(--cyan);color:var(--cyan)}
+.send-btn2{width:100%;padding:15px;border-radius:12px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:15px;font-weight:800;cursor:pointer;font-family:var(--font);transition:all .2s;letter-spacing:.2px}
+.send-btn2:hover:not(:disabled){opacity:.9;transform:translateY(-2px)}
+.send-btn2:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.success-card{display:none;flex-direction:column;align-items:center;gap:12px;padding:24px;background:rgba(0,230,118,.04);border:1px solid rgba(0,230,118,.2);border-radius:14px;text-align:center}
+.success-card.show{display:flex}
+.check-anim{width:56px;height:56px;border-radius:50%;background:rgba(0,230,118,.15);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:24px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275)}
+/* Transaction history panel */
+.txn-list{display:flex;flex-direction:column;gap:0}
+.txn-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;border-radius:8px;margin-bottom:2px}
+.txn-row:hover{background:var(--card2)}
+.txn-row:last-child{border-bottom:none}
+.txn-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.txn-info{flex:1;min-width:0}
+.txn-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.txn-sub{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.txn-amount{font-size:13px;font-weight:700;font-family:var(--mono);text-align:right;white-space:nowrap}
+.txn-status{font-size:10px;font-weight:600;text-align:right;margin-top:2px}
+.filter-tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
+.filter-tab{padding:5px 12px;border-radius:16px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border2);color:var(--text3);background:var(--bg3);transition:all .15s}
+.filter-tab.active{background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.3);color:var(--cyan)}
+.txn-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.txn-stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.txn-stat-val{font-family:var(--font);font-size:16px;font-weight:800;margin-bottom:2px}
+.txn-stat-lbl{font-size:10px;color:var(--text3)}
+</style>
+<div class="pay-shell">
+  <!-- LEFT: SEND FORM -->
+  <div class="pay-left">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div style="font-family:var(--font);font-size:20px;font-weight:800">Payments</div>
+      <div style="display:flex;gap:8px">
+        <div style="display:flex;align-items:center;gap:5px;padding:4px 12px;border-radius:16px;background:var(--card);border:1px solid var(--border2);font-size:11px;color:var(--text2);font-family:var(--mono)"><span style="width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite"></span>ETH 14s</div>
+        <div style="display:flex;align-items:center;gap:5px;padding:4px 12px;border-radius:16px;background:var(--card);border:1px solid var(--border2);font-size:11px;color:var(--text2);font-family:var(--mono)"><span style="width:5px;height:5px;border-radius:50%;background:var(--orange)"></span>BTC ~10m</div>
+      </div>
+    </div>
+    <div class="pay-seg">
+      <div class="pay-seg-btn active" id="seg-send" onclick="paySegment('send',this)">Send</div>
+      <div class="pay-seg-btn" id="seg-receive" onclick="paySegment('receive',this)">Receive</div>
+      <div class="pay-seg-btn" id="seg-swap" onclick="paySegment('swap',this)">Swap</div>
+      <div class="pay-seg-btn" id="seg-batch" onclick="paySegment('batch',this)">Batch</div>
+    </div>
+
+    <!-- SEND FORM -->
+    <div id="payFormSend">
+      <!-- Progress steps -->
+      <div class="progress-steps" style="margin-bottom:22px">
         <div class="pstep"><div class="pstep-circle done" id="ps1">1</div><div class="pstep-label">Amount</div></div>
         <div class="pstep-line done" id="pl1"></div>
         <div class="pstep"><div class="pstep-circle active" id="ps2">2</div><div class="pstep-label">Recipient</div></div>
@@ -1008,66 +1077,188 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
         <div class="pstep-line" id="pl3"></div>
         <div class="pstep"><div class="pstep-circle" id="ps4">4</div><div class="pstep-label">Confirm</div></div>
       </div>
-      <label class="input-label">You send</label>
-      <input class="big-amount" id="payAmt" placeholder="0.00" value="12,500" oninput="calcPayFees()">
-      <div class="cur-row" id="payCur">
-        <div class="cur-btn active" onclick="setCurP(this)">USD</div>
-        <div class="cur-btn" onclick="setCurP(this)">BTC</div>
-        <div class="cur-btn" onclick="setCurP(this)">ETH</div>
-        <div class="cur-btn" onclick="setCurP(this)">USDC</div>
-        <div class="cur-btn" onclick="setCurP(this)">EUR</div>
+
+      <div class="pay-section-label">Amount</div>
+      <input class="amt-display" id="payAmt" placeholder="0.00" value="12,500" oninput="calcPayFees()" type="text">
+      <div class="cur-pills" id="payCur">
+        <div class="cur-pill active" onclick="setCurP(this,'USD','$','0.9965')">USD</div>
+        <div class="cur-pill" onclick="setCurP(this,'BTC','₿','0.0000150')">BTC</div>
+        <div class="cur-pill" onclick="setCurP(this,'ETH','Ξ','0.00356')">ETH</div>
+        <div class="cur-pill" onclick="setCurP(this,'USDC','$','1.0000')">USDC</div>
+        <div class="cur-pill" onclick="setCurP(this,'EUR','€','0.9254')">EUR</div>
+        <div class="cur-pill" onclick="setCurP(this,'GBP','£','0.7892')">GBP</div>
+        <div class="cur-pill" onclick="setCurP(this,'SOL','◎','0.00710')">SOL</div>
       </div>
-      <label class="input-label">Recipient receives</label>
-      <div class="fx-input" id="payRecv" style="color:var(--green);font-weight:700;font-family:var(--mono)">12,456.25 USD</div>
-      <label class="input-label">Send to</label>
-      <input class="fx-input" placeholder="Wallet address, email, or account number">
-      <div class="ai-route-box" onclick="applyRoute()" style="cursor:pointer"><strong>AI Route Optimizer:</strong> Cheapest path via <strong>Polygon Bridge → ETH</strong>. Fee <strong>$0.18</strong> vs $12.40 direct. Saves 98.5%. <span style="color:var(--cyan);font-weight:600">Click to apply &rarr;</span></div>
-      <div class="fee-box">
-        <div class="fee-row"><span style="color:var(--text2)">Network fee</span><span class="font-mono" id="pfeeNet">$0.18</span></div>
-        <div class="fee-row"><span style="color:var(--text2)">Intellix fee (0.05%)</span><span class="font-mono" id="pfeeIx">$6.25</span></div>
-        <div class="fee-row"><span style="color:var(--text2)">FX rate</span><span class="font-mono">1 USD = 0.9965 EUR</span></div>
-        <div class="fee-row" style="border:none;padding-top:10px"><span class="fw-700">Total deducted</span><span class="font-mono fee-total" id="pfeeTotal">$12,506.43</span></div>
-      </div>
-    </div>
-    <div class="pay-right">
-      <div style="font-family:var(--font);font-size:16px;font-weight:700">Authorization</div>
-      <div class="bio-section">
-        <div class="bio-ring" id="payBioRing" onclick="payBioScan()">&#9711;</div>
-        <div style="font-size:13px;font-weight:600" id="payBioLabel">Tap to authenticate</div>
-        <div style="font-size:11px;color:var(--text3)">Required for payments over $10,000</div>
-        <div class="bio-methods">
-          <div class="bio-method active" onclick="paySetBio(this)">Fingerprint</div>
-          <div class="bio-method" onclick="paySetBio(this)">Face ID</div>
-          <div class="bio-method" onclick="paySetBio(this)">Voice</div>
+
+      <div class="pay-section-label">Recipient receives</div>
+      <div id="payRecv" style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--green);padding:10px 0 18px;border-bottom:1px solid var(--border);margin-bottom:18px">12,456.25 USD</div>
+
+      <div class="pay-section-label">Send to</div>
+      <div class="recv-contacts" id="recvContacts">
+        <div class="recv-card selected" onclick="selectRecipient(this,'NovaPay Corp','0x3f4a...9b2c','ETH')">
+          <div class="recv-av" style="background:linear-gradient(135deg,var(--cyan),var(--purple))">NP</div>
+          <div class="recv-info">
+            <div class="recv-name">NovaPay Corp</div>
+            <div class="recv-addr">0x3f4a...9b2c · ETH</div>
+            <div class="recv-verified">&#10003; Verified Entity</div>
+          </div>
+          <div style="font-size:10px;color:var(--text3)">Recent</div>
+        </div>
+        <div class="recv-card" onclick="selectRecipient(this,'Alex Owen','USD-AOW-001','ACH')">
+          <div class="recv-av" style="background:linear-gradient(135deg,var(--green),var(--cyan))">AO</div>
+          <div class="recv-info">
+            <div class="recv-name">Alex Owen</div>
+            <div class="recv-addr">USD-AOW-001 · ACH</div>
+            <div class="recv-verified">&#10003; KYC Approved</div>
+          </div>
+          <div style="font-size:10px;color:var(--text3)">Contact</div>
+        </div>
+        <div class="recv-card" onclick="selectRecipient(this,'Marcus Kim','0xdefi1234','ETH')">
+          <div class="recv-av" style="background:linear-gradient(135deg,var(--purple),var(--pink))">MK</div>
+          <div class="recv-info">
+            <div class="recv-name">Marcus Kim</div>
+            <div class="recv-addr">0xdefi1234 · ETH</div>
+            <div class="recv-verified">&#10003; KYC Approved</div>
+          </div>
+          <div style="font-size:10px;color:var(--text3)">Contact</div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-title mb-12">AI Risk Assessment</div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div><div class="flex justify-between mb-12" style="margin-bottom:4px"><span class="fs-12" style="color:var(--text2)">Transaction risk</span><span class="fs-12 font-mono text-green">LOW · 0.02</span></div><div style="height:4px;background:var(--bg3);border-radius:2px"><div style="width:5%;height:100%;background:var(--green);border-radius:2px"></div></div></div>
-          <div><div class="flex justify-between" style="margin-bottom:4px"><span class="fs-12" style="color:var(--text2)">Recipient trust</span><span class="fs-12 font-mono text-cyan">98%</span></div><div style="height:4px;background:var(--bg3);border-radius:2px"><div style="width:98%;height:100%;background:var(--cyan);border-radius:2px"></div></div></div>
-        </div>
+      <input class="fx-input" id="payAddrInput" placeholder="Or paste wallet address / email / account..." style="margin-bottom:16px" oninput="if(this.value.length>4){document.querySelectorAll('.recv-card').forEach(c=>c.classList.remove('selected'));document.getElementById('payRecipientName').textContent=this.value;}">
+
+      <div class="route-box" onclick="applyRoute()" id="routeBox">
+        <strong style="color:var(--cyan)">&#9670; AI Route Optimizer:</strong> Cheapest path via <strong>Polygon Bridge → ETH</strong>. Fee <strong>$0.18</strong> vs $12.40 direct. Saves 98.5%. <span style="color:var(--cyan);font-weight:600">Click to apply →</span>
       </div>
-      <div class="card">
+
+      <div class="fee-box2">
+        <div class="fee-row2"><span style="color:var(--text2)">Network fee</span><span class="font-mono" id="pfeeNet">$0.18</span></div>
+        <div class="fee-row2"><span style="color:var(--text2)">Intellix fee (0.05%)</span><span class="font-mono" id="pfeeIx">$6.25</span></div>
+        <div class="fee-row2"><span style="color:var(--text2)">Exchange rate</span><span class="font-mono" id="pfeeRate">1 USD = 0.9965 EUR</span></div>
+        <div class="fee-row2"><span class="fw-700" style="font-size:13px">Total deducted</span><span class="font-mono fee-total" id="pfeeTotal" style="font-size:14px;color:var(--cyan)">$12,506.43</span></div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
         <div class="card-title mb-12">Smart Scheduling</div>
-        <div class="schedule-grid">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
           <div class="sched-opt active" onclick="selectSchedule(this,'Now','$6.43')"><div class="sched-opt-time">NOW</div><div class="sched-opt-fee">$6.43</div></div>
           <div class="sched-opt" onclick="selectSchedule(this,'14:00 UTC','$1.20')"><div class="sched-opt-time">14:00</div><div class="sched-opt-fee">$1.20</div></div>
           <div class="sched-opt" onclick="selectSchedule(this,'22:00 UTC','$0.18')"><div class="sched-opt-time">22:00</div><div class="sched-opt-fee">$0.18</div></div>
         </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:8px">AI recommends 22:00 — lowest fee window</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:8px">&#9670; AI recommends 22:00 UTC — lowest congestion predicted</div>
       </div>
-      <button class="send-btn" id="paySendBtn" onclick="paySend()" disabled>Authenticate to Send</button>
-      <div class="confirm-success" id="paySuccess">
-        <div class="check-ring">&#10003;</div>
-        <div style="font-family:var(--font);font-size:20px;font-weight:800;color:var(--green)">Payment Sent!</div>
-        <div style="font-size:13px;color:var(--text2)">To NovaPay Corp · via Polygon<br>Estimated arrival: 14 seconds</div>
-        <div style="font-size:10px;color:var(--text3);font-family:var(--mono);background:var(--bg3);padding:8px 12px;border-radius:6px">TX: 0x7f3a9b2c4e8d1f6a...</div>
-        <button class="send-btn" onclick="payReset()">New Payment</button>
+    </div>
+
+    <!-- RECEIVE FORM -->
+    <div id="payFormReceive" style="display:none">
+      <div class="pay-section-label">Your receive address</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;margin-bottom:16px">
+        <div style="font-size:10px;color:var(--text3);margin-bottom:10px">WALLET ADDRESS</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--cyan);word-break:break-all;margin-bottom:14px">0x3f4a9b2c8e1d4f6a3b2c1d4e5f6a7b8c9d0e1f2a</div>
+        <div style="width:140px;height:140px;margin:0 auto;background:var(--bg3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:60px;margin-bottom:14px">&#9638;</div>
+        <div style="font-size:11px;color:var(--text3)">Scan QR or share address above</div>
       </div>
-      <div style="font-size:11px;color:var(--text3);text-align:center">Protected by Intellix-Shield · AES-256</div>
+      <div class="cur-pills" id="recvCur">
+        <div class="cur-pill active">ETH</div><div class="cur-pill">BTC</div><div class="cur-pill">USDC</div><div class="cur-pill">USD</div>
+      </div>
+      <button class="send-btn2" onclick="toast('Address copied to clipboard!','success')">Copy Address</button>
+    </div>
+
+    <!-- SWAP FORM -->
+    <div id="payFormSwap" style="display:none">
+      <div class="pay-section-label">Swap From</div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
+        <input class="fx-input" placeholder="Amount" value="1.0" id="swapFromAmt" oninput="calcSwap()" style="margin-bottom:0;font-family:var(--mono);font-size:16px;font-weight:700">
+        <select class="fx-input" id="swapFrom" onchange="calcSwap()" style="margin-bottom:0;width:100px;flex-shrink:0"><option>ETH</option><option>BTC</option><option>USDC</option><option>SOL</option></select>
+      </div>
+      <div style="text-align:center;font-size:20px;color:var(--cyan);cursor:pointer;margin-bottom:14px" onclick="swapFlip()">&#8645;</div>
+      <div class="pay-section-label">Swap To</div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
+        <div class="fx-input" id="swapToAmt" style="margin-bottom:0;font-family:var(--mono);font-size:16px;font-weight:700;color:var(--green)">3,502.18</div>
+        <select class="fx-input" id="swapTo" onchange="calcSwap()" style="margin-bottom:0;width:100px;flex-shrink:0"><option>USD</option><option>ETH</option><option>BTC</option><option>EUR</option></select>
+      </div>
+      <div class="route-box" style="margin-bottom:16px"><strong style="color:var(--cyan)">Route:</strong> ETH → USDC → USD via Uniswap V3 · Slippage 0.3%</div>
+      <button class="send-btn2" onclick="doSwap()">Execute Swap</button>
+    </div>
+
+    <!-- BATCH FORM -->
+    <div id="payFormBatch" style="display:none">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Send to multiple recipients in one transaction. CSV import or add manually.</div>
+      <div id="batchRows" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div class="recv-card"><div class="recv-av" style="background:linear-gradient(135deg,var(--cyan),var(--purple))">NP</div><div class="recv-info"><div class="recv-name">NovaPay Corp</div><div class="recv-addr">0x3f4a...9b2c</div></div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--cyan)">$5,000</div></div>
+        <div class="recv-card"><div class="recv-av" style="background:linear-gradient(135deg,var(--green),var(--cyan))">AO</div><div class="recv-info"><div class="recv-name">Alex Owen</div><div class="recv-addr">USD-AOW-001</div></div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--cyan)">$3,200</div></div>
+        <div class="recv-card"><div class="recv-av" style="background:linear-gradient(135deg,var(--purple),var(--pink))">MK</div><div class="recv-info"><div class="recv-name">Marcus Kim</div><div class="recv-addr">0xdefi1234</div></div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--cyan)">$4,300</div></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <button class="btn btn-ghost" onclick="addBatchRow()" style="flex:1">+ Add Recipient</button>
+        <button class="btn btn-ghost" onclick="toast('CSV import opened','info')" style="flex:1">&#8681; Import CSV</button>
+      </div>
+      <div class="fee-box2">
+        <div class="fee-row2"><span style="color:var(--text2)">Total amount</span><span class="font-mono text-cyan">$12,500</span></div>
+        <div class="fee-row2"><span style="color:var(--text2)">Recipients</span><span class="font-mono" id="batchCount">3</span></div>
+        <div class="fee-row2"><span style="color:var(--text2)">Batch fee (0.03%)</span><span class="font-mono text-green">$3.75</span></div>
+      </div>
+      <button class="send-btn2" onclick="doBatchSend()">Send Batch Payment</button>
     </div>
   </div>
+
+  <!-- RIGHT: AUTH + HISTORY -->
+  <div class="pay-right">
+    <!-- Auth card -->
+    <div style="font-family:var(--font);font-size:15px;font-weight:800;margin-bottom:4px">Authorization</div>
+    <div class="bio-area">
+      <div class="bio-ring2" id="payBioRing" onclick="payBioScan()">&#9711;</div>
+      <div style="font-size:13px;font-weight:600;text-align:center" id="payBioLabel">Tap to authenticate</div>
+      <div style="font-size:11px;color:var(--text3);text-align:center">Required for payments over $10,000</div>
+      <div class="bio-meths">
+        <div class="bio-meth active" onclick="paySetBio(this)">Fingerprint</div>
+        <div class="bio-meth" onclick="paySetBio(this)">Face ID</div>
+        <div class="bio-meth" onclick="paySetBio(this)">Voice</div>
+      </div>
+    </div>
+
+    <!-- AI Risk -->
+    <div class="card">
+      <div class="card-title mb-12">AI Risk Assessment</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:var(--text2)">Transaction risk</span><span style="font-size:12px;font-family:var(--mono);color:var(--green)" id="riskLabel">LOW · 0.02</span></div><div style="height:4px;background:var(--bg3);border-radius:2px"><div style="width:5%;height:100%;background:var(--green);border-radius:2px" id="riskBar"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:12px;color:var(--text2)">Recipient trust</span><span style="font-size:12px;font-family:var(--mono);color:var(--cyan)">98%</span></div><div style="height:4px;background:var(--bg3);border-radius:2px"><div style="width:98%;height:100%;background:var(--cyan);border-radius:2px"></div></div></div>
+      </div>
+    </div>
+
+    <!-- Send button / confirm -->
+    <button class="send-btn2" id="paySendBtn" onclick="paySend()" disabled>Authenticate to Send</button>
+    <div style="font-size:11px;color:var(--text3);text-align:center">&#9670; Protected by Intellix-Shield · AES-256 · End-to-end encrypted</div>
+
+    <!-- Success state -->
+    <div class="success-card" id="paySuccess">
+      <div class="check-anim">&#10003;</div>
+      <div style="font-family:var(--font);font-size:18px;font-weight:800;color:var(--green)">Payment Sent!</div>
+      <div style="font-size:13px;color:var(--text2);text-align:center" id="paySuccessDetail">To NovaPay Corp · via Polygon<br>Estimated arrival: 14 seconds</div>
+      <div style="font-size:10px;color:var(--text3);font-family:var(--mono);background:var(--bg3);padding:8px 12px;border-radius:6px;word-break:break-all" id="payTxHash">TX: 0x7f3a9b2c4e8d1f6a...</div>
+      <button class="send-btn2" onclick="payReset()">New Payment</button>
+    </div>
+
+    <!-- DIVIDER -->
+    <div style="display:flex;align-items:center;gap:10px;margin:4px 0"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.8px">Transaction History</span><div style="flex:1;height:1px;background:var(--border)"></div></div>
+
+    <!-- Stats -->
+    <div class="txn-stat-grid">
+      <div class="txn-stat"><div class="txn-stat-val text-cyan" id="statTotalSent">$487K</div><div class="txn-stat-lbl">Total sent</div></div>
+      <div class="txn-stat"><div class="txn-stat-val text-green" id="statConfirmed">12</div><div class="txn-stat-lbl">Confirmed</div></div>
+      <div class="txn-stat"><div class="txn-stat-val" style="color:var(--gold)" id="statSaved">$2,840</div><div class="txn-stat-lbl">Fees saved</div></div>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs" id="txnFilterTabs">
+      <div class="filter-tab active" onclick="filterTxns('all',this)">All</div>
+      <div class="filter-tab" onclick="filterTxns('confirmed',this)">&#9679; Confirmed</div>
+      <div class="filter-tab" onclick="filterTxns('pending',this)">&#9680; Pending</div>
+      <div class="filter-tab" onclick="filterTxns('flagged',this)">&#9888; Flagged</div>
+    </div>
+
+    <!-- Live transaction list -->
+    <div class="txn-list" id="txnHistoryList"></div>
+  </div>
+</div>
 </div>
 
 <!-- ======================== FRAUD WORKSPACE ======================== -->
@@ -1297,6 +1488,392 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
   </div>
 </div>
 
+<!-- ======================== LANGUAGES SHOWCASE ======================== -->
+<div class="page" id="page-languages">
+<style>
+.lang-shell{max-width:1100px;margin:0 auto;padding:36px 28px}
+.lang-hero{text-align:center;padding:40px 0 48px}
+.lang-hero-title{font-family:var(--font);font-size:48px;font-weight:800;letter-spacing:-2px;margin-bottom:14px;line-height:1.1}
+.lang-hero-sub{font-size:16px;color:var(--text2);max-width:520px;margin:0 auto 32px;line-height:1.7}
+.lang-tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+.lang-tab{padding:8px 18px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border2);color:var(--text2);background:var(--card);transition:all .15s;font-family:var(--mono)}
+.lang-tab:hover{border-color:var(--border3);color:var(--text)}
+.lang-tab.active{border-color:transparent;color:#000}
+.lang-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:40px}
+.lang-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .2s}
+.lang-card:hover{border-color:var(--border2)}
+.lang-card-header{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--bg3);border-bottom:1px solid var(--border)}
+.lang-dot{width:10px;height:10px;border-radius:50%}
+.lang-name{font-size:12px;font-weight:700;font-family:var(--mono)}
+.lang-badge{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:700}
+.lang-code{padding:16px 18px;font-family:var(--mono);font-size:12px;line-height:1.8;overflow-x:auto;white-space:pre}
+.c-kw{color:#c792ea}.c-fn{color:#82aaff}.c-str{color:#c3e88d}.c-num{color:#f78c6c}
+.c-cmt{color:#546e7a;font-style:italic}.c-type{color:#ffcb6b}.c-op{color:#89ddff}
+.c-dec{color:#80cbc4}.c-self{color:#f07178}
+.lang-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:40px}
+.lang-stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.lang-stat-val{font-family:var(--font);font-size:22px;font-weight:800;margin-bottom:4px}
+.lang-stat-lbl{font-size:11px;color:var(--text3)}
+.contrib-bar{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px}
+.contrib-title{font-family:var(--font);font-size:16px;font-weight:700;margin-bottom:16px}
+.lang-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.lang-bar-name{font-size:12px;font-family:var(--mono);width:90px;flex-shrink:0}
+.lang-bar-track{flex:1;height:8px;background:var(--bg3);border-radius:4px;overflow:hidden}
+.lang-bar-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.lang-bar-pct{font-size:11px;font-family:var(--mono);color:var(--text3);width:36px;text-align:right}
+.github-card{background:linear-gradient(135deg,rgba(0,229,255,.05),rgba(156,111,255,.05));border:1px solid rgba(0,229,255,.2);border-radius:16px;padding:28px;text-align:center}
+.github-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;background:linear-gradient(135deg,var(--cyan2),var(--purple2));border:none;color:#000;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--font);transition:all .2s;margin-top:14px}
+.github-btn:hover{opacity:.9;transform:translateY(-2px)}
+</style>
+<div class="lang-shell">
+  <div class="lang-hero">
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 16px;border-radius:20px;background:rgba(255,215,64,.08);border:1px solid rgba(255,215,64,.2);font-size:11px;font-weight:700;color:var(--gold);margin-bottom:20px;font-family:var(--font)">&#9670; OPEN SOURCE · MULTI-LANGUAGE</div>
+    <div class="lang-hero-title">Intellix is built across<br><span style="background:linear-gradient(90deg,var(--cyan),var(--purple),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent">8 languages</span></div>
+    <div class="lang-hero-sub">From the AI fraud engine in Python, to the real-time blockchain listener in Go, to the React Native mobile app — every layer of Intellix speaks a different language.</div>
+    <div class="lang-tabs" id="langTabs">
+      <div class="lang-tab active" onclick="filterLang('all',this)" style="background:linear-gradient(135deg,var(--cyan2),var(--purple2))">All</div>
+      <div class="lang-tab" onclick="filterLang('python',this)" style="--lc:#3776AB">Python</div>
+      <div class="lang-tab" onclick="filterLang('typescript',this)" style="--lc:#3178C6">TypeScript</div>
+      <div class="lang-tab" onclick="filterLang('go',this)" style="--lc:#00ADD8">Go</div>
+      <div class="lang-tab" onclick="filterLang('rust',this)" style="--lc:#CE422B">Rust</div>
+      <div class="lang-tab" onclick="filterLang('solidity',this)" style="--lc:#363636">Solidity</div>
+      <div class="lang-tab" onclick="filterLang('sql',this)" style="--lc:#F29111">SQL</div>
+      <div class="lang-tab" onclick="filterLang('swift',this)" style="--lc:#FA7343">Swift</div>
+      <div class="lang-tab" onclick="filterLang('kotlin',this)" style="--lc:#A97BFF">Kotlin</div>
+    </div>
+  </div>
+
+  <div class="lang-stat-row">
+    <div class="lang-stat"><div class="lang-stat-val text-cyan">8</div><div class="lang-stat-lbl">Languages</div></div>
+    <div class="lang-stat"><div class="lang-stat-val text-green">47K</div><div class="lang-stat-lbl">Lines of code</div></div>
+    <div class="lang-stat"><div class="lang-stat-val" style="color:var(--purple)">12</div><div class="lang-stat-lbl">Repositories</div></div>
+    <div class="lang-stat"><div class="lang-stat-val" style="color:var(--gold)">340</div><div class="lang-stat-lbl">Commits</div></div>
+  </div>
+
+  <div class="contrib-bar">
+    <div class="contrib-title">Language distribution</div>
+    <div class="lang-bar-row"><div class="lang-bar-name">Python</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:28%;background:#3776AB"></div></div><div class="lang-bar-pct">28%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">TypeScript</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:24%;background:#3178C6"></div></div><div class="lang-bar-pct">24%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">Go</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:18%;background:#00ADD8"></div></div><div class="lang-bar-pct">18%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">Rust</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:12%;background:#CE422B"></div></div><div class="lang-bar-pct">12%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">Solidity</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:8%;background:#363636"></div></div><div class="lang-bar-pct">8%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">SQL</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:5%;background:#F29111"></div></div><div class="lang-bar-pct">5%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">Swift</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:3%;background:#FA7343"></div></div><div class="lang-bar-pct">3%</div></div>
+    <div class="lang-bar-row"><div class="lang-bar-name">Kotlin</div><div class="lang-bar-track"><div class="lang-bar-fill" style="width:2%;background:#A97BFF"></div></div><div class="lang-bar-pct">2%</div></div>
+  </div>
+
+  <div class="lang-grid" id="langGrid">
+
+    <!-- PYTHON -->
+    <div class="lang-card" data-lang="python">
+      <div class="lang-card-header">
+        <div class="lang-dot" style="background:#3776AB"></div>
+        <div class="lang-dot" style="background:#FFC107"></div>
+        <div class="lang-dot" style="background:#4CAF50"></div>
+        <span class="lang-name">fraud_engine.py</span>
+        <span class="lang-badge" style="background:rgba(55,118,171,.15);color:#3776AB">Python 3.12</span>
+      </div>
+      <div class="lang-code"><span class="c-cmt"># Intellix FraudNet v2.1 — Real-time risk scoring</span>
+<span class="c-kw">import</span> numpy <span class="c-kw">as</span> np
+<span class="c-kw">from</span> sklearn.ensemble <span class="c-kw">import</span> IsolationForest
+<span class="c-kw">from</span> dataclasses <span class="c-kw">import</span> dataclass
+<span class="c-kw">from</span> typing <span class="c-kw">import</span> <span class="c-type">List</span>, <span class="c-type">Dict</span>
+
+<span class="c-dec">@dataclass</span>
+<span class="c-kw">class</span> <span class="c-type">Transaction</span>:
+    amount: <span class="c-type">float</span>
+    wallet_age_days: <span class="c-type">int</span>
+    destination_risk: <span class="c-type">float</span>
+    velocity_score: <span class="c-type">float</span>
+    currency: <span class="c-type">str</span>
+
+<span class="c-kw">class</span> <span class="c-type">IntelixFraudNet</span>:
+    <span class="c-kw">def</span> <span class="c-fn">__init__</span>(<span class="c-self">self</span>):
+        <span class="c-self">self</span>.model = IsolationForest(contamination=<span class="c-num">0.05</span>)
+        <span class="c-self">self</span>.thresholds = {<span class="c-str">"critical"</span>: <span class="c-num">0.85</span>, <span class="c-str">"high"</span>: <span class="c-num">0.60</span>}
+
+    <span class="c-kw">def</span> <span class="c-fn">score</span>(<span class="c-self">self</span>, txn: <span class="c-type">Transaction</span>) <span class="c-op">-&gt;</span> <span class="c-type">Dict</span>:
+        features = <span class="c-self">self</span>._extract(txn)
+        raw = <span class="c-self">self</span>.model.decision_function([features])[<span class="c-num">0</span>]
+        score = <span class="c-num">1</span> <span class="c-op">-</span> (raw <span class="c-op">+</span> <span class="c-num">0.5</span>)
+        <span class="c-kw">return</span> {
+            <span class="c-str">"risk_score"</span>: <span class="c-fn">round</span>(<span class="c-fn">max</span>(<span class="c-num">0</span>, <span class="c-fn">min</span>(<span class="c-num">1</span>, score)), <span class="c-num">4</span>),
+            <span class="c-str">"signals"</span>: <span class="c-self">self</span>._signals(txn, score),
+            <span class="c-str">"verdict"</span>: <span class="c-self">self</span>._verdict(score),
+            <span class="c-str">"model"</span>: <span class="c-str">"intellix-fraudnet-v2.1"</span>
+        }</div>
+    </div>
+
+    <!-- TYPESCRIPT -->
+    <div class="lang-card" data-lang="typescript">
+      <div class="lang-card-header">
+        <div class="lang-dot" style="background:#3178C6"></div>
+        <div class="lang-dot" style="background:#FFC107"></div>
+        <div class="lang-dot" style="background:#4CAF50"></div>
+        <span class="lang-name">payment.service.ts</span>
+        <span class="lang-badge" style="background:rgba(49,120,198,.15);color:#3178C6">TypeScript 5.3</span>
+      </div>
+      <div class="lang-code"><span class="c-cmt">// Intellix Payment Service — core transaction engine</span>
+<span class="c-kw">import</span> { Injectable } <span class="c-kw">from</span> <span class="c-str">'@nestjs/common'</span>
+<span class="c-kw">import</span> { InjectRepository } <span class="c-kw">from</span> <span class="c-str">'@nestjs/typeorm'</span>
+
+<span class="c-kw">interface</span> <span class="c-type">PaymentIntent</span> {
+  amount: <span class="c-type">number</span>
+  currency: <span class="c-type">string</span>
+  recipient: <span class="c-type">string</span>
+  routeOptimizer: <span class="c-type">boolean</span>
+}
+
+<span class="c-dec">@Injectable</span>()
+<span class="c-kw">export class</span> <span class="c-type">PaymentService</span> {
+  <span class="c-kw">constructor</span>(
+    <span class="c-kw">private readonly</span> fraudEngine: <span class="c-type">FraudService</span>,
+    <span class="c-kw">private readonly</span> routeOptimizer: <span class="c-type">RouteService</span>,
+    <span class="c-kw">private readonly</span> db: <span class="c-type">Repository</span>&lt;<span class="c-type">Transaction</span>&gt;
+  ) {}
+
+  <span class="c-kw">async</span> <span class="c-fn">create</span>(intent: <span class="c-type">PaymentIntent</span>): <span class="c-type">Promise</span>&lt;<span class="c-type">Payment</span>&gt; {
+    <span class="c-kw">const</span> risk = <span class="c-kw">await</span> <span class="c-self">this</span>.fraudEngine.<span class="c-fn">score</span>(intent)
+    <span class="c-kw">if</span> (risk.score <span class="c-op">&gt;</span> <span class="c-num">0.85</span>) <span class="c-kw">throw new</span> <span class="c-type">FraudException</span>(risk)
+    <span class="c-kw">const</span> route = intent.routeOptimizer
+      <span class="c-op">?</span> <span class="c-kw">await</span> <span class="c-self">this</span>.routeOptimizer.<span class="c-fn">cheapest</span>(intent)
+      <span class="c-op">:</span> <span class="c-str">'direct'</span>
+    <span class="c-kw">return</span> <span class="c-self">this</span>.db.<span class="c-fn">save</span>({ ...intent, route, status: <span class="c-str">'processing'</span> })
+  }
+}</div>
+    </div>
+
+    <!-- GO -->
+    <div class="lang-card" data-lang="go">
+      <div class="lang-card-header">
+        <div class="lang-dot" style="background:#00ADD8"></div>
+        <div class="lang-dot" style="background:#FFC107"></div>
+        <div class="lang-dot" style="background:#4CAF50"></div>
+        <span class="lang-name">blockchain_listener.go</span>
+        <span class="lang-badge" style="background:rgba(0,173,216,.15);color:#00ADD8">Go 1.22</span>
+      </div>
+      <div class="lang-code"><span class="c-cmt">// Intellix — Real-time Ethereum event listener</span>
+<span class="c-kw">package</span> blockchain
+
+<span class="c-kw">import</span> (
+    <span class="c-str">"context"</span>
+    <span class="c-str">"log"</span>
+    ethereum <span class="c-str">"github.com/ethereum/go-ethereum"</span>
+    <span class="c-str">"github.com/intellix/core/fraud"</span>
+)
+
+<span class="c-kw">type</span> <span class="c-type">Listener</span> <span class="c-kw">struct</span> {
+    client    *ethclient.<span class="c-type">Client</span>
+    fraudSvc  *fraud.<span class="c-type">Service</span>
+    txnChan   <span class="c-kw">chan</span> *<span class="c-type">Transaction</span>
+}
+
+<span class="c-kw">func</span> (<span class="c-self">l</span> *<span class="c-type">Listener</span>) <span class="c-fn">Watch</span>(ctx <span class="c-type">context.Context</span>) <span class="c-kw">error</span> {
+    headers := <span class="c-kw">make</span>(<span class="c-kw">chan</span> *types.<span class="c-type">Header</span>)
+    sub, _ := <span class="c-self">l</span>.client.<span class="c-fn">SubscribeNewHead</span>(ctx, headers)
+    <span class="c-kw">for</span> {
+        <span class="c-kw">select</span> {
+        <span class="c-kw">case</span> err := &lt;-sub.<span class="c-fn">Err</span>():
+            <span class="c-kw">return</span> err
+        <span class="c-kw">case</span> header := &lt;-headers:
+            <span class="c-fn">go</span> <span class="c-self">l</span>.<span class="c-fn">processBlock</span>(ctx, header.Hash)
+        <span class="c-kw">case</span> &lt;-ctx.<span class="c-fn">Done</span>():
+            <span class="c-kw">return</span> <span class="c-fn">nil</span>
+        }
+    }
+}</div>
+    </div>
+
+    <!-- RUST -->
+    <div class="lang-card" data-lang="rust">
+      <div class="lang-card-header">
+        <div class="lang-dot" style="background:#CE422B"></div>
+        <div class="lang-dot" style="background:#FFC107"></div>
+        <div class="lang-dot" style="background:#4CAF50"></div>
+        <span class="lang-name">crypto_engine.rs</span>
+        <span class="lang-badge" style="background:rgba(206,66,43,.15);color:#CE422B">Rust 1.76</span>
+      </div>
+      <div class="lang-code"><span class="c-cmt">// Intellix — High-performance transaction signing</span>
+<span class="c-kw">use</span> secp256k1::{<span class="c-type">Secp256k1</span>, <span class="c-type">Message</span>, <span class="c-type">SecretKey</span>};
+<span class="c-kw">use</span> sha3::{<span class="c-type">Digest</span>, <span class="c-type">Keccak256</span>};
+<span class="c-kw">use</span> serde::{<span class="c-type">Deserialize</span>, <span class="c-type">Serialize</span>};
+
+<span class="c-dec">#[derive(Debug, Serialize, Deserialize)]</span>
+<span class="c-kw">pub struct</span> <span class="c-type">SignedTx</span> {
+    <span class="c-kw">pub</span> hash: <span class="c-type">String</span>,
+    <span class="c-kw">pub</span> signature: <span class="c-type">Vec</span>&lt;<span class="c-type">u8</span>&gt;,
+    <span class="c-kw">pub</span> gas_price: <span class="c-type">u64</span>,
+}
+
+<span class="c-kw">pub fn</span> <span class="c-fn">sign_transaction</span>(
+    raw_tx: &amp;[<span class="c-type">u8</span>],
+    secret_key: &amp;<span class="c-type">SecretKey</span>,
+) -&gt; <span class="c-type">Result</span>&lt;<span class="c-type">SignedTx</span>, <span class="c-type">CryptoError</span>&gt; {
+    <span class="c-kw">let</span> secp = <span class="c-type">Secp256k1</span>::<span class="c-fn">new</span>();
+    <span class="c-kw">let</span> hash = <span class="c-type">Keccak256</span>::<span class="c-fn">digest</span>(raw_tx);
+    <span class="c-kw">let</span> msg = <span class="c-type">Message</span>::<span class="c-fn">from_slice</span>(&amp;hash)?;
+    <span class="c-kw">let</span> sig = secp.<span class="c-fn">sign_ecdsa</span>(&amp;msg, secret_key);
+    <span class="c-type">Ok</span>(<span class="c-type">SignedTx</span> {
+        hash: <span class="c-fn">hex::encode</span>(hash),
+        signature: sig.<span class="c-fn">serialize_compact</span>().<span class="c-fn">to_vec</span>(),
+        gas_price: <span class="c-fn">estimate_gas</span>(raw_tx),
+    })
+}</div>
+    </div>
+
+    <!-- SOLIDITY -->
+    <div class="lang-card" data-lang="solidity">
+      <div class="lang-card-header">
+        <div class="lang-dot" style="background:#363636"></div>
+        <div class="lang-dot" style="background:#FFC107"></div>
+        <div class="lang-dot" style="background:#4CAF50"></div>
+        <span class="lang-name">IntelixVault.sol</span>
+        <span class="lang-badge" style="background:rgba(54,54,54,.2);color:#aaa;border:1px solid #444">Solidity 0.8.24</span>
+      </div>
+      <div class="lang-code"><span class="c-cmt">// SPDX-License-Identifier: MIT</span>
+<span class="c-cmt">// Intellix Smart Vault — multi-sig custody</span>
+<span class="c-kw">pragma solidity</span> ^<span class="c-num">0.8.24</span>;
+
+<span class="c-kw">contract</span> <span class="c-type">IntelixVault</span> {
+    <span class="c-kw">mapping</span>(<span class="c-type">address</span> <span class="c-op">=&gt;</span> <span class="c-type">uint256</span>) <span class="c-kw">public</span> balances;
+    <span class="c-kw">uint256 public</span> threshold = <span class="c-num">2</span>; <span class="c-cmt">// 2-of-3 multisig</span>
+
+    <span class="c-kw">event</span> <span class="c-fn">Transfer</span>(
+        <span class="c-type">address indexed</span> from,
+        <span class="c-type">address indexed</span> to,
+        <span class="c-type">uint256</span> amount
+    );
+
+    <span class="c-kw">function</span> <span class="c-fn">deposit</span>() <span class="c-kw">external payable</span> {
+        balances[msg.sender] += msg.value;
+        <span class="c-kw">emit</span> <span class="c-fn">Transfer</span>(<span class="c-type">address</span>(<span class="c-num">0</span>), msg.sender, msg.value);
+    }
+
+    <span class="c-kw">function</span> <span class="c-fn">withdraw</span>(<span class="c-type">uint256</span> amount) <span class="c-kw">external</span> {
+        <span class="c-kw">require</span>(balances[msg.sender] <span class="c-op">&gt;=</span> amount, <span class="c-str">"Insufficient"</span>);
+        balances[msg.sender] <span class="c-op">-=</span> amount;
+        <span class="c-kw">payable</span>(msg.sender).<span class="c-fn">transfer</span>(amount);
+        <span class="c-kw">emit</span> <span class="c-fn">Transfer</span>(msg.sender, <span class="c-type">address</span>(<span class="c-num">0</span>), amount);
+    }
+}</div>
+    </div>
+
+    <!-- SQL -->
+    <div class="lang-card" data-lang="sql">
+      <div class="lang-card-header">
+        <div class="lang-dot" style="background:#F29111"></div>
+        <div class="lang-dot" style="background:#FFC107"></div>
+        <div class="lang-dot" style="background:#4CAF50"></div>
+        <span class="lang-name">analytics.sql</span>
+        <span class="lang-badge" style="background:rgba(242,145,17,.15);color:#F29111">PostgreSQL 16</span>
+      </div>
+      <div class="lang-code"><span class="c-cmt">-- Intellix analytics — fraud detection report</span>
+<span class="c-kw">WITH</span> risk_buckets <span class="c-kw">AS</span> (
+  <span class="c-kw">SELECT</span>
+    u.full_name,
+    t.currency,
+    <span class="c-fn">COUNT</span>(*) <span class="c-kw">AS</span> txn_count,
+    <span class="c-fn">SUM</span>(t.amount_usd) <span class="c-kw">AS</span> total_volume,
+    <span class="c-fn">AVG</span>(t.risk_score) <span class="c-kw">AS</span> avg_risk,
+    <span class="c-fn">SUM</span>(t.fraud_flag) <span class="c-kw">AS</span> flagged_count,
+    <span class="c-fn">PERCENTILE_CONT</span>(<span class="c-num">0.95</span>)
+      <span class="c-kw">WITHIN GROUP</span> (<span class="c-kw">ORDER BY</span> t.amount_usd)
+      <span class="c-kw">AS</span> p95_amount
+  <span class="c-kw">FROM</span> transactions t
+  <span class="c-kw">JOIN</span> users u <span class="c-kw">ON</span> t.user_id = u.id
+  <span class="c-kw">WHERE</span> t.created_at <span class="c-op">&gt;</span> <span class="c-fn">NOW</span>() <span class="c-op">-</span> <span class="c-fn">INTERVAL</span> <span class="c-str">'30 days'</span>
+  <span class="c-kw">GROUP BY</span> u.full_name, t.currency
+)
+<span class="c-kw">SELECT</span> *, flagged_count <span class="c-op">/</span> txn_count::float <span class="c-kw">AS</span> fraud_rate
+<span class="c-kw">FROM</span> risk_buckets
+<span class="c-kw">ORDER BY</span> avg_risk <span class="c-kw">DESC</span>
+<span class="c-kw">LIMIT</span> <span class="c-num">25</span>;</div>
+    </div>
+
+    <!-- SWIFT -->
+    <div class="lang-card" data-lang="swift">
+      <div class="lang-card-header">
+        <div class="lang-dot" style="background:#FA7343"></div>
+        <div class="lang-dot" style="background:#FFC107"></div>
+        <div class="lang-dot" style="background:#4CAF50"></div>
+        <span class="lang-name">BiometricAuth.swift</span>
+        <span class="lang-badge" style="background:rgba(250,115,67,.15);color:#FA7343">Swift 5.9 / iOS 17</span>
+      </div>
+      <div class="lang-code"><span class="c-cmt">// Intellix iOS — Biometric authentication module</span>
+<span class="c-kw">import</span> LocalAuthentication
+<span class="c-kw">import</span> CryptoKit
+
+<span class="c-kw">final class</span> <span class="c-type">BiometricAuthService</span> {
+    <span class="c-kw">private let</span> context = LAContext()
+
+    <span class="c-kw">func</span> <span class="c-fn">authenticate</span>(
+        reason: <span class="c-type">String</span>,
+        amount: <span class="c-type">Decimal</span>
+    ) <span class="c-kw">async throws</span> -&gt; <span class="c-type">AuthToken</span> {
+        <span class="c-kw">guard</span> context.<span class="c-fn">canEvaluatePolicy</span>(
+            .deviceOwnerAuthenticationWithBiometrics,
+            error: <span class="c-fn">nil</span>
+        ) <span class="c-kw">else</span> { <span class="c-kw">throw</span> <span class="c-type">AuthError</span>.biometricUnavailable }
+
+        <span class="c-kw">let</span> result = <span class="c-kw">try await</span> context.<span class="c-fn">evaluatePolicy</span>(
+            .deviceOwnerAuthenticationWithBiometrics,
+            localizedReason: reason
+        )
+        <span class="c-kw">guard</span> result <span class="c-kw">else</span> { <span class="c-kw">throw</span> <span class="c-type">AuthError</span>.denied }
+        <span class="c-kw">return</span> <span class="c-fn">generateToken</span>(amount: amount)
+    }
+}</div>
+    </div>
+
+    <!-- KOTLIN -->
+    <div class="lang-card" data-lang="kotlin">
+      <div class="lang-card-header">
+        <div class="lang-dot" style="background:#A97BFF"></div>
+        <div class="lang-dot" style="background:#FFC107"></div>
+        <div class="lang-dot" style="background:#4CAF50"></div>
+        <span class="lang-name">PaymentViewModel.kt</span>
+        <span class="lang-badge" style="background:rgba(169,123,255,.15);color:#A97BFF">Kotlin / Android</span>
+      </div>
+      <div class="lang-code"><span class="c-cmt">// Intellix Android — Payment ViewModel</span>
+<span class="c-kw">import</span> androidx.lifecycle.ViewModel
+<span class="c-kw">import</span> kotlinx.coroutines.flow.*
+
+<span class="c-kw">class</span> <span class="c-type">PaymentViewModel</span>(
+    <span class="c-kw">private val</span> repo: <span class="c-type">PaymentRepository</span>
+) : <span class="c-type">ViewModel</span>() {
+
+    <span class="c-kw">private val</span> _state = <span class="c-fn">MutableStateFlow</span>(<span class="c-type">PaymentState</span>())
+    <span class="c-kw">val</span> state: <span class="c-type">StateFlow</span>&lt;<span class="c-type">PaymentState</span>&gt; = _state.<span class="c-fn">asStateFlow</span>()
+
+    <span class="c-kw">fun</span> <span class="c-fn">send</span>(intent: <span class="c-type">PaymentIntent</span>) {
+        <span class="c-fn">viewModelScope</span>.<span class="c-fn">launch</span> {
+            _state.<span class="c-fn">update</span> { it.<span class="c-fn">copy</span>(loading = <span class="c-kw">true</span>) }
+            <span class="c-kw">val</span> result = repo.<span class="c-fn">createPayment</span>(intent)
+            _state.<span class="c-fn">update</span> {
+                it.<span class="c-fn">copy</span>(
+                    loading = <span class="c-kw">false</span>,
+                    txHash = result.txHash,
+                    status = <span class="c-type">Status</span>.CONFIRMED
+                )
+            }
+        }
+    }
+}</div>
+    </div>
+  </div>
+
+  <div class="github-card">
+    <div style="font-family:var(--font);font-size:24px;font-weight:800;margin-bottom:10px">Star us on GitHub</div>
+    <div style="font-size:14px;color:var(--text2);margin-bottom:6px">Intellix is open source. Every line of code — from the Rust crypto engine to the Solidity vault — lives on GitHub.</div>
+    <div style="font-size:13px;color:var(--text3)">github.com/Ghokkul/Intellix-Company</div>
+    <button class="github-btn" onclick="window.open('https://github.com/Ghokkul/Intellix-Company','_blank')">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      View on GitHub
+    </button>
+  </div>
+</div>
+</div>
+
 <!-- ======================== AUTH PAGE ======================== -->
 <div class="page" id="page-auth">
   <div class="auth-wrap">
@@ -1410,7 +1987,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:13
 <div class="page" id="page-database">
 
 <!-- DB SUB-HEADER -->
-<div class="db-subheader" style="display:flex;align-items:center;height:52px;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;gap:16px;position:sticky;top:64px;z-index:100">
+<div class="db-subheader" style="display:flex;align-items:center;height:52px;background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;gap:16px;position:sticky;top:100px;z-index:100">
   <div style="font-family:var(--font);font-size:14px;font-weight:800;color:var(--purple)">&#9632; Database System</div><span style="font-size:11px;color:var(--text3)">intellix_production · SQLite WASM · 12 tables</span>
   <div class="topbar-space"></div>
   <div class="live-badge"><span class="ldot"></span>SQLite In-Memory</div>
@@ -3019,6 +3596,8 @@ function showPage(p){
   if(p==='database'&&typeof DB==='undefined'){}  // DB auto-inits
   if(p==='mobile')buildPhoneHome();
   if(p==='products')renderProducts();
+  if(p==='payment'){setTimeout(initPaymentScreen,60);}
+  if(p==='languages'){setTimeout(()=>document.querySelectorAll('.lang-bar-fill').forEach(b=>{const w=b.style.width;b.style.width='0';setTimeout(()=>b.style.width=w,50);}),100);}
 }
 
 // ---- TAB SWITCHING ----
@@ -3105,23 +3684,9 @@ function sideNav(page, label){
 
 // ---- PAYMENT ----
 let payAuth=false;
-function setCurP(el){
-  document.querySelectorAll('#payCur .cur-btn').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  calcPayFees();
-  toast(`Currency switched to ${el.textContent}`,'info',1500);
-}
-function calcPayFees(){
-  const raw=document.getElementById('payAmt').value.replace(/[^0-9.]/g,'');
-  const amt=parseFloat(raw)||0;
-  document.getElementById('pfeeNet').textContent='$0.18';
-  document.getElementById('pfeeIx').textContent='$'+(amt*0.0005).toFixed(2);
-  document.getElementById('pfeeTotal').textContent='$'+(amt+0.18+amt*0.0005).toFixed(2);
-  document.getElementById('payRecv').textContent=(amt*0.9965).toFixed(2)+' USD';
-  const btn=document.getElementById('paySendBtn');
-  if(btn&&!payAuth) btn.textContent='Authenticate to Send';
-  if(btn&&payAuth) btn.textContent=`Send $${amt.toLocaleString()} Now`;
-}
+// setCurP: defined in payment extended block
+// calcPayFees: defined in PAYMENT SCREEN extended block
+
 function paySetBio(el){
   document.querySelectorAll('.bio-method').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
@@ -3582,11 +4147,264 @@ function closeProdDetail(e){
     document.getElementById('prodDetailOverlay').classList.remove('show');
 }
 
+// ══════════════════════════════════════════════════════════
+// PAYMENT SCREEN — EXTENDED FUNCTIONS
+// ══════════════════════════════════════════════════════════
+
+// Transaction data store (persists across page switches)
+const TRANSACTIONS = [
+  {id:'TXN9831',name:'Stripe → Crypto Vault',sub:'BTC · 0.482 · via Polygon',amount:'+$32,100',color:'var(--cyan)',icon:'₿',bg:'rgba(0,229,255,.1)',status:'confirmed',type:'crypto_buy'},
+  {id:'TXN9830',name:'MetaMask · DeFi Swap',sub:'ETH · 14.2 · Uniswap V3',amount:'+$28,440',color:'var(--purple)',icon:'Ξ',bg:'rgba(156,111,255,.1)',status:'confirmed',type:'defi_swap'},
+  {id:'TXN9829',name:'Acme Corp · Wire',sub:'USD · ACH · Q1 Settlement',amount:'+$142,000',color:'var(--green)',icon:'$',bg:'rgba(0,230,118,.1)',status:'confirmed',type:'wire'},
+  {id:'TXN9828',name:'PayPal FX Conversion',sub:'EUR → USD · FX Engine',amount:'€18,600',color:'var(--orange)',icon:'€',bg:'rgba(255,145,0,.1)',status:'processing',type:'fx'},
+  {id:'TXN9821',name:'Anon Wallet · SG',sub:'USDC · Velocity Spike',amount:'$84,200',color:'var(--red)',icon:'⚠',bg:'rgba(255,23,68,.1)',status:'flagged',type:'crypto_transfer'},
+  {id:'TXN9820',name:'Geo-mismatch · DE→RU',sub:'EUR · IP mismatch detected',amount:'€12,400',color:'var(--orange)',icon:'⚠',bg:'rgba(255,145,0,.1)',status:'flagged',type:'crypto_buy'},
+  {id:'TXN9815',name:'Wallet Top-Up · ACH',sub:'USD · Bank Transfer',amount:'+$5,000',color:'var(--green)',icon:'$',bg:'rgba(0,230,118,.1)',status:'confirmed',type:'topup'},
+  {id:'TXN9810',name:'Sarah Reeves · Wire',sub:'USD · ACH · Settlement',amount:'+$142,000',color:'var(--cyan)',icon:'$',bg:'rgba(0,229,255,.1)',status:'confirmed',type:'wire'},
+  {id:'TXN9805',name:'API Test Payment',sub:'USD · ix_test_sk · Dev',amount:'+$500',color:'var(--green)',icon:'⚡',bg:'rgba(0,230,118,.1)',status:'confirmed',type:'api'},
+  {id:'TXN9800',name:'BTC Sell → USD',sub:'BTC · Polygon Bridge',amount:'+$2,400',color:'var(--cyan)',icon:'₿',bg:'rgba(0,229,255,.1)',status:'confirmed',type:'crypto_sell'},
+];
+
+let txnFilter = 'all';
+
+// Segment switching
+function paySegment(seg, el) {
+  document.querySelectorAll('.pay-seg-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  ['send','receive','swap','batch'].forEach(s=>{
+    const f=document.getElementById('payForm'+s.charAt(0).toUpperCase()+s.slice(1));
+    if(f) f.style.display = s===seg?'block':'none';
+  });
+  if(seg==='receive') toast('Showing your receive address','info',1500);
+  if(seg==='batch') toast('Batch payments — send to 3 recipients for a single reduced fee','info',3000);
+}
+
+// Recipient selection
+function selectRecipient(el, name, addr, network) {
+  document.querySelectorAll('.recv-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('payAddrInput').value='';
+  window._payRecipientName = name;
+  // Update risk bar based on recipient
+  const risk = name.includes('Corp')||name.includes('KYC')||name.includes('Owen')||name.includes('Kim') ? 0.02 : 0.45;
+  const riskBar = document.getElementById('riskBar');
+  const riskLabel = document.getElementById('riskLabel');
+  if(riskBar) {riskBar.style.width=(risk*100)+'%'; riskBar.style.background=risk<0.1?'var(--green)':risk<0.5?'var(--orange)':'var(--red)';}
+  if(riskLabel) {riskLabel.textContent=risk<0.1?`LOW · ${risk}`:`MED · ${risk}`; riskLabel.style.color=risk<0.1?'var(--green)':'var(--orange)';}
+  toast(`Recipient: ${name} (${network})`, 'info', 1500);
+}
+
+// Currency with exchange rates
+const RATES={'USD':{'label':'$','rate':1},'BTC':{'label':'₿','rate':66598},'ETH':{'label':'Ξ','rate':3502},'USDC':{'label':'$','rate':1},'EUR':{'label':'€','rate':0.9254},'GBP':{'label':'£','rate':0.7892},'SOL':{'label':'◎','rate':142.3}};
+let _payCur='USD';
+function setCurP(el, cur, sym, rate){
+  document.querySelectorAll('#payCur .cur-pill').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  _payCur=cur;
+  calcPayFees();
+  document.getElementById('pfeeRate').textContent=`1 ${cur} = ${RATES[cur]?.rate||1} USD`;
+  toast(`Currency: ${cur}`, 'info', 1000);
+}
+function calcPayFees(){
+  const raw=(document.getElementById('payAmt')||{value:'0'}).value.replace(/[^0-9.]/g,'');
+  const amt=parseFloat(raw)||0;
+  const rateObj=RATES[_payCur]||{rate:1};
+  const usdAmt=_payCur==='USD'?amt:amt*rateObj.rate;
+  const net=0.18, ix=(usdAmt*0.0005);
+  const el=n=>document.getElementById(n);
+  if(el('pfeeNet')) el('pfeeNet').textContent='$'+net.toFixed(2);
+  if(el('pfeeIx')) el('pfeeIx').textContent='$'+ix.toFixed(2);
+  if(el('pfeeTotal')) el('pfeeTotal').textContent='$'+(usdAmt+net+ix).toFixed(2);
+  if(el('payRecv')) el('payRecv').textContent=(usdAmt*0.9965).toFixed(2)+' USD';
+  const btn=el('paySendBtn');
+  if(btn&&payAuth) btn.textContent=`Send ${_payCur==='USD'?'$':''}${amt.toLocaleString()} ${_payCur} Now`;
+}
+
+// Swap
+function calcSwap(){
+  const from=document.getElementById('swapFrom')?.value||'ETH';
+  const to=document.getElementById('swapTo')?.value||'USD';
+  const amt=parseFloat(document.getElementById('swapFromAmt')?.value||1)||1;
+  const fromRate=RATES[from]?.rate||1;
+  const toRate=RATES[to]?.rate||1;
+  const result=(amt*fromRate/toRate).toFixed(to==='BTC'?8:2);
+  const el=document.getElementById('swapToAmt');
+  if(el) el.textContent=result;
+}
+function swapFlip(){
+  const f=document.getElementById('swapFrom'), t=document.getElementById('swapTo');
+  if(!f||!t) return;
+  [f.value, t.value]=[t.value, f.value];
+  calcSwap();
+  toast('Swap direction flipped','info',1000);
+}
+function doSwap(){
+  toast('Swap executing via Uniswap V3...','info',1500);
+  setTimeout(()=>toast('Swap confirmed! Check your wallet.','success',3000),1800);
+}
+function doBatchSend(){
+  toast('Batch payment authenticated — sending to 3 recipients...','info',2000);
+  setTimeout(()=>{
+    toast('Batch complete! 3 payments confirmed in 1 transaction. Saved $8.25 vs individual sends.','success',5000);
+  },2200);
+}
+function addBatchRow(){
+  const rows=document.getElementById('batchRows');
+  if(!rows) return;
+  const names=[['JR','Jamie Rivera','0xjr5678','ETH','$1,800'],['PR','Priya Rao','GBP-NVP-001','ACH','$2,200']];
+  const n=rows.children.length%names.length;
+  const [init,name,addr,net,amt]=names[n];
+  const colors=['linear-gradient(135deg,var(--gold),var(--orange))','linear-gradient(135deg,var(--cyan),var(--green))'];
+  const div=document.createElement('div');
+  div.className='recv-card';
+  div.innerHTML=`<div class="recv-av" style="background:${colors[n]}">${init}</div><div class="recv-info"><div class="recv-name">${name}</div><div class="recv-addr">${addr} · ${net}</div></div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--cyan)">${amt}</div>`;
+  rows.appendChild(div);
+  const cnt=document.getElementById('batchCount');
+  if(cnt) cnt.textContent=rows.children.length;
+  toast(`${name} added to batch`,'success',1500);
+}
+
+// Transaction history filter & render
+function filterTxns(filter, el){
+  txnFilter=filter;
+  document.querySelectorAll('#txnFilterTabs .filter-tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  renderTxnHistory();
+}
+function renderTxnHistory(){
+  const list=document.getElementById('txnHistoryList');
+  if(!list) return;
+  let txns=filter=>TRANSACTIONS.filter(t=>filter==='all'||t.status===filter);
+  const visible=txns(txnFilter);
+  list.innerHTML=visible.map(t=>`
+    <div class="txn-row" onclick="viewTxn('${t.id}')">
+      <div class="txn-icon" style="background:${t.bg}">${t.icon}</div>
+      <div class="txn-info">
+        <div class="txn-name">${t.name}</div>
+        <div class="txn-sub">${t.sub}</div>
+      </div>
+      <div>
+        <div class="txn-amount" style="color:${t.color}">${t.amount}</div>
+        <div class="txn-status" style="color:${{confirmed:'var(--green)',processing:'var(--orange)',flagged:'var(--red)'}[t.status]}">${{confirmed:'● Confirmed',processing:'○ Processing',flagged:'⚠ Flagged'}[t.status]}</div>
+      </div>
+    </div>`).join('');
+}
+function viewTxn(id){
+  const t=TRANSACTIONS.find(x=>x.id===id);
+  if(!t) return;
+  if(t.status==='flagged') showPage('fraud');
+  else toast(`${t.id}: ${t.name} — ${t.amount} · ${t.status}`,'info',3000);
+}
+
+// Initialize payment screen
+function initPaymentScreen(){
+  renderTxnHistory();
+  calcSwap();
+}
+
+// ══════════════════════════════════════════════════════════
+// LANGUAGES PAGE FUNCTIONS
+// ══════════════════════════════════════════════════════════
+function filterLang(lang, el){
+  document.querySelectorAll('.lang-tab').forEach(t=>{t.classList.remove('active');t.style.background='';t.style.color='';});
+  el.classList.add('active');
+  if(lang==='all'){el.style.background='linear-gradient(135deg,var(--cyan2),var(--purple2))';el.style.color='#000';}
+  else{el.style.background=`color-mix(in srgb, ${el.style.getPropertyValue('--lc')||'var(--cyan)'} 15%, transparent)`;el.style.color=el.style.getPropertyValue('--lc')||'var(--cyan)';}
+  document.querySelectorAll('.lang-card').forEach(c=>{
+    c.style.display=(lang==='all'||c.dataset.lang===lang)?'block':'none';
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// CURRENCY TICKER — live animated price feed
+// ══════════════════════════════════════════════════════════
+
+const TICKER_DATA = [
+  {code:'BTC',  name:'Bitcoin',        price:66598.42, delta:+2.14, color:'#f7931a'},
+  {code:'ETH',  name:'Ethereum',       price:3502.18,  delta:-1.08, color:'#627eea'},
+  {code:'USD',  name:'US Dollar',      price:1.0000,   delta:0,     color:'#00e676'},
+  {code:'EUR',  name:'Euro',           price:0.9254,   delta:+0.12, color:'#003399'},
+  {code:'GBP',  name:'British Pound',  price:0.7892,   delta:+0.08, color:'#cf142b'},
+  {code:'JPY',  name:'Japanese Yen',   price:149.82,   delta:-0.34, color:'#bc002d'},
+  {code:'AUD',  name:'Australian Dollar', price:1.5234, delta:+0.21, color:'#00843d'},
+  {code:'NZD',  name:'New Zealand Dollar',price:1.6412, delta:+0.15, color:'#000000'},
+  {code:'CAD',  name:'Canadian Dollar',price:1.3678,   delta:-0.09, color:'#ff0000'},
+  {code:'SGD',  name:'Singapore Dollar',price:1.3412,  delta:+0.06, color:'#ef3340'},
+  {code:'AED',  name:'UAE Dirham',     price:3.6725,   delta:0,     color:'#009e49'},
+  {code:'CHF',  name:'Swiss Franc',    price:0.9012,   delta:+0.11, color:'#ff0000'},
+  {code:'HKD',  name:'Hong Kong Dollar',price:7.8241,  delta:-0.03, color:'#de2910'},
+  {code:'USDC', name:'USD Coin',       price:1.0001,   delta:0,     color:'#2775ca'},
+  {code:'SOL',  name:'Solana',         price:142.30,   delta:+5.82, color:'#9945ff'},
+  {code:'BNB',  name:'BNB',            price:608.15,   delta:+1.23, color:'#f3ba2f'},
+  {code:'MATIC',name:'Polygon',        price:0.8420,   delta:+3.41, color:'#8247e5'},
+  {code:'USDT', name:'Tether',         price:0.9999,   delta:0,     color:'#26a17b'},
+];
+
+function buildCurrencyTicker() {
+  const track = document.getElementById('tickerTrack');
+  if (!track) return;
+
+  function fmt(v, code) {
+    if (['BTC','ETH','SOL','BNB'].includes(code)) return '$' + v.toLocaleString('en', {minimumFractionDigits:2, maximumFractionDigits:2});
+    if (code === 'JPY' || code === 'HKD') return v.toFixed(2);
+    if (['USDC','USDT'].includes(code)) return '$' + v.toFixed(4);
+    if (v >= 1000) return '$' + v.toLocaleString('en', {minimumFractionDigits:2});
+    return v.toFixed(4);
+  }
+
+  function buildItems(data) {
+    return data.map(item => {
+      const isUp = item.delta > 0;
+      const isFlat = item.delta === 0;
+      const deltaStr = isFlat ? 'flat' : (isUp ? '+' : '') + item.delta.toFixed(2) + '%';
+      const deltaClass = isFlat ? 'up' : (isUp ? 'up' : 'down');
+      return `<div class="ticker-item" title="${item.name}">
+        <div class="ticker-sep" style="background:${item.color};opacity:.8"></div>
+        <span class="ticker-code" style="color:${item.color}">${item.code}</span>
+        <span class="ticker-price">${fmt(item.price, item.code)}</span>
+        <span class="ticker-delta ${deltaClass}">${deltaStr}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Duplicate the items so the scroll loops seamlessly
+  const html = buildItems(TICKER_DATA) + buildItems(TICKER_DATA);
+  track.innerHTML = html;
+
+  // Adjust animation duration based on content width
+  // Each item is roughly 140px — 18 items × 2 = 36 items
+  const totalW = TICKER_DATA.length * 148;
+  track.style.animation = `tickerScroll ${TICKER_DATA.length * 2.1}s linear infinite`;
+
+  // Live price simulation — nudge prices every 3 seconds
+  setInterval(() => {
+    TICKER_DATA.forEach(item => {
+      if (['USD','AED'].includes(item.code)) return; // pegged
+      if (['USDC','USDT'].includes(item.code)) {
+        item.price = 1 + (Math.random() - 0.5) * 0.001;
+        return;
+      }
+      const volatility = ['BTC','ETH','SOL','BNB','MATIC'].includes(item.code) ? 0.0015 : 0.0004;
+      const change = item.price * volatility * (Math.random() - 0.48);
+      item.price = Math.max(item.price + change, 0.0001);
+      item.delta = parseFloat(((change / (item.price - change)) * 100).toFixed(2));
+    });
+
+    // Re-render items with updated prices
+    const newHtml = buildItems(TICKER_DATA) + buildItems(TICKER_DATA);
+    // Preserve animation state by updating innerHTML smoothly
+    const animState = track.style.animationPlayState;
+    track.innerHTML = newHtml;
+    track.style.animationPlayState = animState;
+  }, 3000);
+}
+
 // ---- FINAL INIT ----
 buildVolChart();
 buildPhoneHome();
 startLiveTicker();
 startLiveClock();
+buildCurrencyTicker();
 setTimeout(()=>{if(typeof PRODUCTS!=='undefined')renderDashProducts(PRODUCTS);},120);
 </script>
 </body>
