@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ghokkul\\Desktop\\Github Desktop Projects\\Intellix Company\\Intellix Company.csproj": {}
+    "C:\\Users\\Ghokkul\\Documents\\GitHub\\Intellix-Company\\Intellix Company.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ghokkul\\Desktop\\Github Desktop Projects\\Intellix Company\\Intellix Company.csproj": {
+    "C:\\Users\\Ghokkul\\Documents\\GitHub\\Intellix-Company\\Intellix Company.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ghokkul\\Desktop\\Github Desktop Projects\\Intellix Company\\Intellix Company.csproj",
+        "projectUniqueName": "C:\\Users\\Ghokkul\\Documents\\GitHub\\Intellix-Company\\Intellix Company.csproj",
         "projectName": "Intellix Company",
-        "projectPath": "C:\\Users\\Ghokkul\\Desktop\\Github Desktop Projects\\Intellix Company\\Intellix Company.csproj",
+        "projectPath": "C:\\Users\\Ghokkul\\Documents\\GitHub\\Intellix-Company\\Intellix Company.csproj",
         "packagesPath": "C:\\Users\\Ghokkul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ghokkul\\Desktop\\Github Desktop Projects\\Intellix Company\\obj\\",
+        "outputPath": "C:\\Users\\Ghokkul\\Documents\\GitHub\\Intellix-Company\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ghokkul\\AppData\\Roaming\\NuGet\\NuGet.Config"
