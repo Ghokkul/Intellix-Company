@@ -1434,7 +1434,7 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
       <div class="blog-header">
         <div class="blog-header-left">
           <div class="blog-eyebrow">Intellix Journal</div>
-          <h2>Insights. Updates.<br><em>Deep dives.</em></h2>
+          <h2>The story<br>behind <em>Intellix.</em></h2>
         </div>
         <button class="blog-view-all" onclick="showPage('blog')">
           View all posts
@@ -1445,27 +1445,21 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
       <!-- Category Filter -->
       <div class="blog-filters" id="blogFilters">
         <button class="blog-filter-pill active" onclick="filterBlog('all',this)">All Posts</button>
-        <button class="blog-filter-pill" onclick="filterBlog('product',this)">Product</button>
-        <button class="blog-filter-pill" onclick="filterBlog('engineering',this)">Engineering</button>
-        <button class="blog-filter-pill" onclick="filterBlog('payments',this)">Payments</button>
-        <button class="blog-filter-pill" onclick="filterBlog('security',this)">Security</button>
-        <button class="blog-filter-pill" onclick="filterBlog('founder',this)">Founder</button>
+        <button class="blog-filter-pill" onclick="filterBlog('founder',this)">Founder Story</button>
       </div>
 
       <!-- Featured Post -->
-      <div class="blog-featured" onclick="openBlogPost('featured')" id="blogFeatured">
+      <div class="blog-featured" onclick="openBlogPost('history')" id="blogFeatured">
         <div class="blog-feat-visual">
-          <div class="blog-feat-bg" style="background:linear-gradient(135deg,#0a0f2e 0%,#1a0a3a 30%,#0d1a3a 60%,#050a1a 100%);position:absolute;inset:0">
-            <!-- Abstract animated visual -->
-            <svg width="100%" height="100%" viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;opacity:.6">
+          <div class="blog-feat-bg" style="background:linear-gradient(135deg,#0a0c1a 0%,#1a1400 40%,#2a1e00 70%,#0a0c1a 100%);position:absolute;inset:0">
+            <svg width="100%" height="100%" viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;opacity:.7">
               <defs>
-                <radialGradient id="fg1" cx="30%" cy="40%"><stop offset="0%" stop-color="#7c4fff" stop-opacity=".5"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-                <radialGradient id="fg2" cx="70%" cy="60%"><stop offset="0%" stop-color="#00e5ff" stop-opacity=".3"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+                <radialGradient id="hg1" cx="35%" cy="45%"><stop offset="0%" stop-color="#ffd740" stop-opacity=".4"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+                <radialGradient id="hg2" cx="72%" cy="55%"><stop offset="0%" stop-color="#ff9100" stop-opacity=".25"/><stop offset="100%" stop-color="transparent"/></radialGradient>
               </defs>
-              <ellipse cx="180" cy="152" rx="240" ry="200" fill="url(#fg1)"/>
-              <ellipse cx="420" cy="228" rx="200" ry="160" fill="url(#fg2)"/>
-              <!-- Grid lines -->
-              <g stroke="rgba(255,255,255,.06)" stroke-width="1">
+              <ellipse cx="210" cy="171" rx="260" ry="200" fill="url(#hg1)"/>
+              <ellipse cx="432" cy="209" rx="210" ry="160" fill="url(#hg2)"/>
+              <g stroke="rgba(255,255,255,.04)" stroke-width="1">
                 <line x1="0" y1="60" x2="600" y2="60"/><line x1="0" y1="120" x2="600" y2="120"/>
                 <line x1="0" y1="180" x2="600" y2="180"/><line x1="0" y1="240" x2="600" y2="240"/>
                 <line x1="0" y1="300" x2="600" y2="300"/>
@@ -1473,45 +1467,44 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
                 <line x1="300" y1="0" x2="300" y2="380"/><line x1="400" y1="0" x2="400" y2="380"/>
                 <line x1="500" y1="0" x2="500" y2="380"/>
               </g>
-              <!-- Hexagonal nodes -->
-              <circle cx="150" cy="120" r="4" fill="#9c6fff" opacity=".8"/>
-              <circle cx="300" cy="190" r="6" fill="#00e5ff" opacity=".9"/>
-              <circle cx="450" cy="140" r="4" fill="#ff4081" opacity=".7"/>
-              <circle cx="200" cy="260" r="5" fill="#00e676" opacity=".7"/>
-              <circle cx="500" cy="250" r="4" fill="#ffd740" opacity=".7"/>
-              <!-- Connection lines -->
-              <line x1="150" y1="120" x2="300" y2="190" stroke="#9c6fff" stroke-width="1" opacity=".4"/>
-              <line x1="300" y1="190" x2="450" y2="140" stroke="#00e5ff" stroke-width="1" opacity=".4"/>
-              <line x1="300" y1="190" x2="200" y2="260" stroke="#00e5ff" stroke-width="1" opacity=".3"/>
-              <line x1="450" y1="140" x2="500" y2="250" stroke="#ff4081" stroke-width="1" opacity=".3"/>
-              <!-- Central label -->
-              <text x="300" y="200" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="9" fill="rgba(255,255,255,.25)" letter-spacing="2">AI PAYMENT ENGINE v3.0</text>
+              <!-- Quote mark -->
+              <text x="80" y="230" font-family="Georgia,serif" font-size="180" fill="rgba(255,215,64,.07)" font-weight="700">&ldquo;</text>
+              <!-- Floating words -->
+              <text x="160" y="120" font-family="'Syne',sans-serif" font-size="13" fill="rgba(255,215,64,.5)" font-weight="700" letter-spacing="2">FREEDOM</text>
+              <text x="330" y="160" font-family="'Syne',sans-serif" font-size="10" fill="rgba(255,145,0,.4)" font-weight="600" letter-spacing="1.5">NOVEMBER 2025</text>
+              <text x="200" y="290" font-family="'Syne',sans-serif" font-size="11" fill="rgba(255,215,64,.35)" font-weight="600" letter-spacing="1">INTELLIX · FOUNDED</text>
+              <!-- GM initials -->
+              <circle cx="480" cy="100" r="32" fill="rgba(255,215,64,.08)" stroke="rgba(255,215,64,.2)" stroke-width="1"/>
+              <text x="480" y="107" text-anchor="middle" font-family="'Syne',sans-serif" font-size="16" fill="rgba(255,215,64,.6)" font-weight="800">GM</text>
             </svg>
           </div>
           <div class="blog-feat-overlay"></div>
-          <div class="blog-feat-badge" style="background:rgba(0,229,255,.15);border:1px solid rgba(0,229,255,.4);color:var(--cyan)">&#9670; FEATURED</div>
+          <div class="blog-feat-badge" style="background:rgba(255,215,64,.15);border:1px solid rgba(255,215,64,.4);color:var(--gold)">&#9829; FOUNDER STORY</div>
         </div>
         <div class="blog-feat-content">
           <div>
             <div class="blog-feat-meta">
-              <span class="blog-tag" style="background:rgba(0,229,255,.1);color:var(--cyan);border:1px solid rgba(0,229,255,.2)">Engineering</span>
-              <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">Mar 12, 2026</span>
+              <span class="blog-tag" style="background:rgba(255,215,64,.1);color:var(--gold);border:1px solid rgba(255,215,64,.3)">Founder Story</span>
+              <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">November 2025</span>
             </div>
-            <div class="blog-feat-title">How we built FraudNet v2.1: an ML model that scores 10 million transactions per day in under 1ms</div>
-            <div class="blog-feat-excerpt">A deep dive into the architecture behind Intellix's real-time fraud detection engine — from Isolation Forest to explainable AI, and why we chose a hybrid approach over a pure black-box model. Includes the exact signal weights we use in production.</div>
+            <div class="blog-feat-title">The History of Intellix: Why I Built This Platform and What It Means to Me</div>
+            <div class="blog-feat-excerpt">I did not build Intellix because a VC told me to. I built it because I was tired of the 9 to 5 routine and knew there had to be another way — a way to build something of my own that could one day give me the freedom I was looking for.</div>
           </div>
           <div class="blog-feat-author">
-            <div class="blog-author-av" style="background:linear-gradient(135deg,var(--cyan),var(--purple))">GM</div>
+            <div class="blog-author-av" style="background:linear-gradient(135deg,var(--gold),var(--orange))">GM</div>
             <div>
               <div class="blog-author-name">Ghokkul Muhunthan</div>
               <div class="blog-author-date">Founder &amp; CEO · Intellix</div>
             </div>
-            <span class="blog-read-time">12 min read</span>
+            <span class="blog-read-time">5 min read</span>
           </div>
         </div>
       </div>
 
-      <!-- 3-Column Card Grid -->
+      <!-- No grid — single post only -->
+      <div id="blogGrid"></div>
+
+
       <div class="blog-grid" id="blogGrid">
 
         <!-- Card 1 -->
@@ -2402,100 +2395,33 @@ function switchDevLang(lang, el){
 
 // ── BLOG FUNCTIONS ──
 const BLOG_POSTS = {
-  featured: {
-    tag:'Engineering', tagColor:'var(--cyan)', tagBg:'rgba(0,229,255,.1)', tagBorder:'rgba(0,229,255,.2)',
-    date:'Mar 12, 2026', readTime:'12 min read',
-    title:'How we built FraudNet v2.1: an ML model that scores 10 million transactions per day in under 1ms',
-    excerpt:'A deep dive into the architecture behind Intellix\'s real-time fraud detection engine.',
-    body:`<h2>The problem with black-box fraud detection</h2>
-<p>When we started building Intellix in November 2025, we knew fraud detection would be our biggest engineering challenge. Most payment processors either rely on static rule systems ("block transactions over $10,000 from new accounts") or opaque ML models that return a score with zero explanation. Neither approach was acceptable for us.</p>
-<p>We needed something different: a hybrid model that could score a transaction in under 1 millisecond, achieve 99.8% accuracy, and — critically — explain every single decision in plain English.</p>
-<blockquote>The explainability wasn't a nice-to-have. It was a requirement. When a legitimate transaction gets flagged, your ops team needs to know exactly why — and override with confidence.</blockquote>
-<h2>The architecture: Isolation Forest + 8 signal categories</h2>
-<p>FraudNet v2.1 uses an Isolation Forest ML model as its core scoring engine, layered on top of 8 categories of rule-based signal detectors. The ML model handles the complex, non-linear patterns; the rule layer provides the explainability signals that get surfaced to operators.</p>
-<p>The 8 signal categories are: velocity (transaction frequency vs user baseline), geo (IP vs device vs billing address mismatch), identity (new device, VPN, behavioural biometric drift), regulatory (FATF jurisdiction risk, stablecoin routing), behavioral (new wallet + high value, first-transaction flags), temporal (time-of-day patterns), network (graph analysis of connected accounts), and historical (positive account history reduces score).</p>
-<h2>Why under 1ms matters</h2>
-<p>Most fraud systems operate asynchronously — they score the transaction after it's processed. We score before. This means our latency budget is the difference between an acceptable checkout time and a timeout error. At 1ms per transaction, we have headroom to process 10 million transactions per day on current infrastructure without adding meaningful latency to the payment flow.</p>
-<p>We achieved this through aggressive model quantization, in-memory feature store lookups, and batching signal calculations that share computation across concurrent requests. The full technical architecture is open for review on our GitHub — we believe in radical transparency about how our security systems work.</p>`
-  },
-  social: {
-    tag:'Product', tagColor:'var(--pink)', tagBg:'rgba(255,64,129,.1)', tagBorder:'rgba(255,64,129,.2)',
-    date:'Mar 8, 2026', readTime:'8 min read',
-    title:'Introducing Intellix Social: payments that live inside your conversations',
-    excerpt:'Why we built a messaging layer into a payment platform.',
-    body:`<h2>The insight that started it all</h2>
-<p>In late 2025, I was testing a competitor's payment app when I noticed something absurd. To pay a friend back for dinner, I had to: open the payment app, navigate to "send money", search for their handle, enter an amount, add a note, confirm, then switch back to WhatsApp to let them know I'd sent it. Seven steps to do something that should take one.</p>
-<p>The conversation and the payment were completely disconnected. That felt like a fundamental design failure — not a feature gap, but a wrong assumption about what a payment product is.</p>
-<blockquote>Intellix Social is built on a different premise: the conversation IS the transaction record. Messages and payments are the same kind of event — communication between two people — and they should live together.</blockquote>
-<h2>How it works technically</h2>
-<p>Every payment in a Social thread creates a "payment card" — a structured message object that contains the amount, currency, note, status, and a set of action buttons (Pay Now / Decline). These cards are rendered inline in the chat thread using the same rendering pipeline as text messages. The payment state is stored on-chain (for crypto) or in our database (for fiat) and the card updates in real time as the status changes.</p>
-<p>Settlement happens the same way as any Intellix payment — through the AI route optimizer, via Polygon Bridge for crypto or ACH/SWIFT for fiat. The Social layer is purely UI; the payment rails are identical to our enterprise product.</p>`
-  },
-  routes: {
-    tag:'Engineering', tagColor:'var(--cyan)', tagBg:'rgba(0,229,255,.1)', tagBorder:'rgba(0,229,255,.2)',
-    date:'Feb 28, 2026', readTime:'10 min read',
-    title:'The AI route optimizer: how we save merchants 98.5% on fees automatically',
-    excerpt:'Real-time ML scoring of 47+ network paths per transaction.',
-    body:`<h2>The problem with static payment routing</h2>
-<p>Traditional payment processors route transactions along a predetermined path. They have relationships with specific networks, and every transaction goes through those networks regardless of whether it's the cheapest or fastest option. The merchant pays whatever fees those networks charge, and has no visibility into whether a better route existed.</p>
-<p>Our AI route optimizer takes a different approach: for every transaction, it evaluates 47+ possible network paths in real time — factoring in current gas prices, bridge liquidity, exchange rates, and approval rate data — and selects the optimal route before the transaction is executed.</p>
-<h2>The data behind 98.5%</h2>
-<p>The 98.5% figure is our average fee reduction on crypto transactions compared to direct Ethereum mainnet transfers during peak fee periods. During off-peak periods, the savings are lower (60-80%) but the optimizer still consistently outperforms direct routing by selecting between Polygon, BSC, and Arbitrum based on real-time conditions.</p>
-<blockquote>The optimizer has saved our merchant base a combined $2.1M in fees since alpha launch in March 2026. That's money that would otherwise have gone to network miners and validators.</blockquote>`
-  },
-  global: {
-    tag:'Payments', tagColor:'var(--blue)', tagBg:'rgba(58,170,255,.1)', tagBorder:'rgba(58,170,255,.2)',
-    date:'Feb 15, 2026', readTime:'9 min read',
-    title:'Building global payment infrastructure from day one: lessons from 150+ countries',
-    excerpt:'What we learned shipping to 150 countries simultaneously.',
-    body:`<h2>Why we went global on day one</h2>
-<p>Most fintechs start in one country, get product-market fit, then slowly expand. This approach has a clean logic to it — focus, learn, scale. We did the opposite, and I want to explain why, and what it cost us.</p>
-<p>The core reason was that payments are inherently global. If you're building a platform where people send money to other people, you immediately hit the reality that those people are in different countries. Restricting Intellix to a single geography would have made the product fundamentally less useful from day one.</p>
-<blockquote>The compliance work for 150 countries was brutal. We spent 40% of our first three months on legal structure, regulatory licensing, and AML/KYC frameworks. But it was the right call.</blockquote>
-<h2>The hardest markets</h2>
-<p>Southeast Asia was technically the hardest region. Each country has its own payment rails — GrabPay in Singapore, QR code standards in Thailand, OVO in Indonesia — and the regulatory frameworks are completely different. We had to build 12 separate integrations to cover 6 countries, and each required a separate compliance review.</p>
-<p>Latin America was surprising in a different way. PIX in Brazil is genuinely one of the best real-time payment systems in the world — it has 150M+ users and processes more transactions per day than most European countries. We treated it as a first-class rail rather than an afterthought, which paid off.</p>`
-  },
-  security: {
-    tag:'Security', tagColor:'var(--pink)', tagBg:'rgba(255,64,129,.1)', tagBorder:'rgba(255,64,129,.2)',
-    date:'Feb 1, 2026', readTime:'11 min read',
-    title:'Zero breaches since launch: the security architecture behind Intellix',
-    excerpt:'How we designed a zero-trust architecture from day one.',
-    body:`<h2>Why most payment security is security theatre</h2>
-<p>I want to start with a controversial claim: most payment security is compliance-driven, not threat-driven. Companies acquire PCI-DSS certification because they have to, not because it's the most effective way to secure cardholder data. The certification process is rigorous but backwards-looking — it tests against known attack patterns from years ago.</p>
-<p>Real security requires thinking about current and future threats, not the threats from 2015 that the compliance frameworks were written to address. At Intellix, we designed our security architecture to be threat-driven first, compliance-driven second.</p>
-<blockquote>Private keys never leave the user's device. Card numbers are tokenised before reaching our servers. We have never had access to your actual card number — by design.</blockquote>
-<h2>The five layers</h2>
-<p>Layer 1 is transport security: TLS 1.3 for all data in transit, with certificate pinning in our mobile SDKs to prevent MITM attacks. Layer 2 is storage security: AES-256 encryption for all data at rest, with keys stored in HSMs and rotated every 24 hours. Layer 3 is application security: zero-trust network architecture, every service authenticated independently, no implicit trust between services.</p>
-<p>Layer 4 is behavioural security: our biometric analysis runs locally on the user's device and sends only a risk signal (not raw biometric data) to our systems. Layer 5 is smart contract security: large withdrawals require 2-of-3 multisig approval, with time-locks on transfers above configurable thresholds.</p>`
-  },
-  founder: {
-    tag:'Founder', tagColor:'var(--gold)', tagBg:'rgba(255,215,64,.1)', tagBorder:'rgba(255,215,64,.2)',
-    date:'Jan 20, 2026', readTime:'7 min read',
-    title:'Why I built Intellix: payments are broken and nobody is fixing the right problem',
-    excerpt:'A frank look at what\'s actually wrong with the payments industry.',
-    body:`<h2>The wrong diagnosis</h2>
-<p>The dominant narrative in payments innovation is that the problem is "fragmentation" — too many payment methods, too many currencies, too many networks. The solution, according to this narrative, is to aggregate: build a single API that abstracts away the fragmentation.</p>
-<p>This is a real problem, and it's worth solving. But it's not the deepest problem. The deepest problem is that payments are invisible — they happen in the background, outside the flow of normal human interaction, and they're only noticed when something goes wrong.</p>
-<blockquote>"Payments today are broken — slow, expensive, and invisible until something goes wrong. I built Intellix because every person and every business deserves a financial system that works as fast as their ambitions."</blockquote>
-<h2>What I wanted to build instead</h2>
-<p>I wanted to build a payment system that felt natural. One where sending money felt as normal as sending a message. Where fraud detection happened invisibly, without false positives that embarrassed you in front of a merchant. Where your transactions told a story you could actually understand.</p>
-<p>That's why Intellix Social exists. That's why every FraudNet decision comes with an explanation. That's why our route optimizer shows you what it saved before you confirm. Transparency and naturalness aren't product features — they're the core design philosophy.</p>
-<h2>November 2025 to today</h2>
-<p>Building Intellix has been the hardest and most meaningful thing I've done. We launched in November 2025, shipped FraudNet v1.0 six weeks later, launched Social in January 2026, and opened the alpha to the world in March. I'm writing this from Singapore, where it's 2am, and I'm genuinely excited about what we're building. That's a good sign.</p>`
-  },
-  polygon: {
-    tag:'Engineering', tagColor:'#a66bff', tagBg:'rgba(130,71,229,.1)', tagBorder:'rgba(130,71,229,.25)',
-    date:'Jan 8, 2026', readTime:'13 min read',
-    title:'Why Polygon Bridge: the technical case for 14-second settlement at $0.18',
-    excerpt:'We evaluated 12 blockchain networks before choosing Polygon.',
-    body:`<h2>The evaluation process</h2>
-<p>Before we committed to Polygon as our primary settlement layer, we ran a 6-week technical evaluation of 12 blockchain networks. The criteria were: settlement finality time, average transaction cost, network reliability (uptime over the previous 12 months), developer tooling quality, and bridge liquidity for fiat on/off-ramps.</p>
-<p>The candidates included Ethereum mainnet, Arbitrum, Optimism, Base, BNB Smart Chain, Solana, Avalanche, and Polygon. We eliminated three immediately due to poor developer tooling, and another two due to insufficient bridge liquidity for the volume we were projecting.</p>
-<blockquote>Polygon won on every metric that mattered for payments: 14-second finality, $0.18 average fee, 99.9% uptime over the past 24 months, and best-in-class EVM compatibility for our smart contract code.</blockquote>
-<h2>The tradeoffs we accepted</h2>
-<p>Polygon is not perfect. It's a proof-of-stake network with a relatively small validator set compared to Ethereum mainnet, which means its security guarantees are theoretically weaker. We accepted this tradeoff for several reasons: the amounts transacted through Intellix Social are typically consumer-scale (not institutional-scale), our smart contracts have multisig time-locks that provide an additional security layer, and the $0.18 fee vs $15+ on mainnet is a decisive product advantage for our target users.</p>
-<p>We also built chain abstraction into our architecture from day one — adding a new settlement network is a configuration change, not a rebuild. This means we can switch or add networks as the landscape evolves without disrupting existing users.</p>`
+  history: {
+    tag:'Founder Story',
+    tagColor:'var(--gold)',
+    tagBg:'rgba(255,215,64,.1)',
+    tagBorder:'rgba(255,215,64,.3)',
+    date:'November 2025',
+    readTime:'5 min read',
+    title:'The History of Intellix: Why I Built This Platform and What It Means to Me',
+    excerpt:'A personal account from Ghokkul Muhunthan — why he left the 9 to 5 behind, what Intellix really is, and what comes next.',
+    body:`<h2>It started with a feeling</h2>
+<p>I want to be completely honest with you. I did not build Intellix because I spotted a gap in the market or because a VC told me payments was a good space to be in. I built it because I was tired. Tired of the routine. Tired of waking up every morning knowing exactly how the day would go — the same commute, the same desk, the same clock watching until 5pm.</p>
+<p>The 9 to 5 is not a bad thing for everyone. But for me, it felt like a ceiling. Every day I was trading my time for money, and I knew deep down that there had to be another way. A way to build something of my own. Something that could grow beyond the hours I put in. Something that could one day give me the freedom I was looking for.</p>
+<blockquote>"Freedom is not about having nothing to do. It is about choosing what you do — and building something that works for you, not the other way around."</blockquote>
+<h2>Why payments?</h2>
+<p>Honestly, payments was not my first idea. But the more I looked at the space, the more broken I realised it was. Sending money anywhere in the world still takes days. Fees are hidden until after you click confirm. Fraud protection is a black box. And the social side of money — splitting a bill, paying a friend back, settling up after a trip — is still completely fragmented across five different apps.</p>
+<p>I thought: what if I built one platform that did all of this, and did it properly? Fast, transparent, intelligent, and actually enjoyable to use. That was the seed of Intellix.</p>
+<h2>November 2025 — the beginning</h2>
+<p>Intellix was founded in November 2025. I started building alone, from scratch, learning as I went. No team, no funding, no roadmap handed to me by someone else. Just a clear vision and a lot of late nights.</p>
+<p>From day one I knew I wanted to build something that felt genuinely different — not just another fintech with a slick landing page. I wanted the product itself to reflect the values behind it: transparency, speed, intelligence, and the belief that every person deserves a financial platform that works as fast as their ambitions.</p>
+<h2>What Intellix is — right now</h2>
+<p>The platform you are looking at today is a design preview. It is the full vision of what Intellix will be when it launches — every page, every feature, every interaction has been designed and built by hand since November 2025. The AI payment engine, the fraud detection, the Social tab, the developer API, the About page, this blog — all of it is real work, built piece by piece.</p>
+<p>Intellix is not live yet. It is still being built. But I wanted to share what it looks like — to show the world the direction, to invite feedback, and to prove to myself that the vision is real and coherent. What you are seeing is not a mockup. It is a living, working prototype of a platform I believe in deeply.</p>
+<h2>What comes next</h2>
+<p>I am still building. Every week, new features get added, existing ones get refined, and the platform moves closer to something I would be proud to hand to real users. When it is ready — truly ready — it will launch. Not before.</p>
+<p>If you have found this website, I hope you like what you see. I hope it gives you a sense of what is coming. And I hope it shows that one person, working with intention and consistency, can build something that looks and feels like a real company — because that is exactly what this is becoming.</p>
+<p>Stay tuned. There is a lot more coming.</p>
+<p style="margin-top:28px;font-family:var(--font);font-size:15px;font-weight:700;color:var(--text)">— Ghokkul Muhunthan<br><span style="font-size:13px;font-weight:400;color:var(--text3)">Founder, Intellix · November 2025</span></p>`
   }
 };
 
@@ -4040,7 +3966,7 @@ setInterval(()=>{
       <div style="margin-bottom:48px">
         <div style="font-family:var(--mono);font-size:11px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:3px;margin-bottom:12px;display:flex;align-items:center;gap:8px"><span style="display:block;width:20px;height:1px;background:var(--cyan)"></span> Intellix Journal</div>
         <div style="font-family:var(--font);font-size:48px;font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:14px">All Posts</div>
-        <p style="font-size:16px;color:var(--text2);max-width:560px;line-height:1.7">Engineering deep dives, founder essays, and product announcements from the team building the future of payments.</p>
+        <p style="font-size:16px;color:var(--text2);max-width:560px;line-height:1.7">The story behind Intellix — from the very beginning. Written by Ghokkul Muhunthan, Founder &amp; CEO.</p>
       </div>
       <div style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden" id="blogAllPosts"></div>
     </div>
