@@ -714,9 +714,10 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
   </a>
   <div class="nav-links">
     <button class="nav-link active" id="nl-home"   onclick="showPage('home')">Home</button>
-    <button class="nav-link" id="nl-features"      onclick="scrollTo('#features')" title="View all core technologies">Features</button>
-    <button class="nav-link" id="nl-platform"      onclick="scrollTo('#platform')" title="View the Intellix Platform">Platform</button>
-    <button class="nav-link" id="nl-developers"    onclick="scrollTo('#developers')" title="API docs & SDKs">Developers</button>
+    <button class="nav-link" id="nl-features"      onclick="scrollToSection('#features')" title="View all core technologies">Features</button>
+    <button class="nav-link" id="nl-platform"      onclick="scrollToSection('#platform')" title="View the Intellix Platform">Platform</button>
+    <button class="nav-link" id="nl-globalmap"    onclick="showPage('globalmap')" title="Live global currency map">&#127758; Map</button>
+    <button class="nav-link" id="nl-developers"    onclick="scrollToSection('#developers')" title="API docs & SDKs">Developers</button>
     <button class="nav-link nl-about" id="nl-about" onclick="showPage('about')">About</button>
     <button class="nav-link" id="nl-blog"           onclick="showPage('blog')">Blog</button>
     <button class="nav-link nl-social" id="nl-social" onclick="openSocialOverlay()">&#9829; Social</button>
@@ -755,7 +756,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
       <p class="hero-lead">Ultra-fast transactions, global routing, crypto-native settlement, social payments with friends, and the most intelligent fraud engine ever built — all in one unified platform.</p>
       <div class="cta-row">
         <button class="cta-primary" onclick="openSignUp()">Get Started &rarr;</button>
-        <button class="cta-ghost" onclick="scrollTo('#features')">View Features</button>
+        <button class="cta-ghost" onclick="scrollToSection('#features')">View Features</button>
         <button class="cta-ghost" onclick="openSocialOverlay()">&#9829; Join Social</button>
       </div>
       <div class="hero-sub-note">Founded November 2025 &nbsp;·&nbsp; <strong>Alpha Live</strong> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/ghokkul-muhunthan" target="_blank" rel="noopener" style="color:var(--cyan);text-decoration:none">&#128101; Ghokkul Muhunthan</a></div>
@@ -770,7 +771,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
         <strong style="color:var(--text);font-size:13px;font-weight:700;display:block;margin-bottom:12px">Quick Actions</strong>
         <div class="mini-btns">
           <button class="mini-btn-p" onclick="openSocialOverlay()">&#9829; Social</button>
-          <button class="mini-btn-g" onclick="scrollTo('#platform')">View Platform</button>
+          <button class="mini-btn-g" onclick="scrollToSection('#platform')">View Platform</button>
         </div>
       </div>
     </div>
@@ -2653,7 +2654,7 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
         <button class="cta-primary" onclick="openSignUp()">Start Building &rarr;</button>
         <button class="cta-ghost" onclick="openSocialOverlay()">&#9829; Join Social</button>
-        <button class="cta-ghost" onclick="scrollTo('#developers')">View API Docs</button>
+        <button class="cta-ghost" onclick="scrollToSection('#developers')">View API Docs</button>
       </div>
     </div>
   </div>
@@ -2747,6 +2748,1012 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
 
   </div>
 </div>
+
+<!-- ══════════════════════════════════════════
+     GLOBAL CURRENCY 3D GLOBE PAGE
+══════════════════════════════════════════ -->
+<div class="page" id="page-globalmap" style="padding-top:96px;min-height:100vh;background:var(--bg);overflow:hidden">
+<style>
+.globe-shell{max-width:1400px;margin:0 auto;padding:28px 36px 48px}
+.globe-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:16px}
+.globe-eyebrow{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:3px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.globe-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--cyan)}
+.globe-title{font-family:var(--font);font-size:38px;font-weight:900;letter-spacing:-2px;line-height:1;color:var(--text)}
+.globe-title span{background:linear-gradient(90deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.globe-stats{display:flex;gap:10px;flex-wrap:wrap}
+.globe-stat{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 16px;text-align:center}
+.globe-stat-val{font-family:var(--font);font-size:18px;font-weight:900}
+.globe-stat-lbl{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+.globe-layout{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.globe-canvas-wrap{position:relative;background:radial-gradient(ellipse at 50% 50%,#060d1f 0%,#02050f 100%);border:1px solid rgba(0,229,255,.15);border-radius:18px;overflow:hidden;box-shadow:0 0 80px rgba(0,229,255,.08),0 24px 80px rgba(0,0,0,.6);cursor:grab}
+.globe-canvas-wrap:active{cursor:grabbing}
+#globeCanvas{display:block;width:100%;height:560px}
+.globe-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(6,7,13,.85);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:6px 14px;font-size:10px;color:var(--text3);white-space:nowrap;pointer-events:none;backdrop-filter:blur(8px)}
+.globe-tooltip{position:absolute;pointer-events:none;z-index:100;background:rgba(10,13,26,.97);border:1px solid rgba(0,229,255,.35);border-radius:12px;padding:12px 16px;min-width:190px;max-width:240px;box-shadow:0 8px 32px rgba(0,0,0,.7),0 0 20px rgba(0,229,255,.1);display:none;font-family:var(--body)}
+.globe-tooltip.show{display:block}
+.gtt-code{font-family:var(--font);font-size:20px;font-weight:900;color:var(--cyan);margin-bottom:2px}
+.gtt-name{font-size:12px;color:var(--text);font-weight:600;margin-bottom:8px}
+.gtt-row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px}
+.gtt-lbl{color:var(--text3)}
+.gtt-val{color:var(--text2);font-family:var(--mono);font-weight:600}
+.gtt-badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:9px;font-weight:800;margin-top:6px;font-family:var(--font);text-transform:uppercase;letter-spacing:.5px}
+/* Side panel */
+.globe-panel{display:flex;flex-direction:column;gap:12px}
+.globe-filters{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px}
+.globe-filters h3{font-family:var(--font);font-size:12px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.gf-pills{display:flex;flex-wrap:wrap;gap:6px}
+.gf-pill{padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border2);background:transparent;color:var(--text3);transition:all .15s;font-family:var(--body)}
+.gf-pill:hover{color:var(--text);border-color:var(--border3)}
+.gf-pill.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,.08)}
+.globe-search-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px}
+.globe-search-wrap h3{font-family:var(--font);font-size:12px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+#globeSearch{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:9px;padding:8px 12px;color:var(--text);font-size:12px;font-family:var(--body);outline:none;transition:border-color .2s;box-sizing:border-box}
+#globeSearch:focus{border-color:var(--cyan)}
+#globeSearch::placeholder{color:var(--text3)}
+.globe-list{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px;max-height:300px;overflow-y:auto}
+.globe-list::-webkit-scrollbar{width:3px}
+.globe-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
+.globe-list h3{font-family:var(--font);font-size:12px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.gli{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;cursor:pointer;transition:all .12s;margin-bottom:2px}
+.gli:hover{background:rgba(255,255,255,.04)}
+.gli.active{background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2)}
+.gli-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.gli-code{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--text);flex-shrink:0;width:40px}
+.gli-name{font-size:10px;color:var(--text3);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gli-rate{font-family:var(--mono);font-size:10px;color:var(--text2)}
+.globe-legend{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px}
+.globe-legend h3{font-family:var(--font);font-size:12px;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.gl-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text3);margin-bottom:6px}
+.gl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.globe-controls{position:absolute;top:14px;right:14px;display:flex;flex-direction:column;gap:6px}
+.globe-ctrl-btn{width:32px;height:32px;background:rgba(10,13,26,.85);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:var(--text2);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;backdrop-filter:blur(8px)}
+.globe-ctrl-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+@media(max-width:900px){.globe-layout{grid-template-columns:1fr}}
+</style>
+
+<div class="globe-shell">
+  <div class="globe-hdr">
+    <div>
+      <div class="globe-eyebrow">&#127758; LIVE GLOBAL COVERAGE</div>
+      <div class="globe-title">135+ Currencies.<br><span>Every corner of earth.</span></div>
+    </div>
+    <div class="globe-stats">
+      <div class="globe-stat"><div class="globe-stat-val" style="color:var(--cyan)">135+</div><div class="globe-stat-lbl">Currencies</div></div>
+      <div class="globe-stat"><div class="globe-stat-val" style="color:var(--green)">150+</div><div class="globe-stat-lbl">Countries</div></div>
+      <div class="globe-stat"><div class="globe-stat-val" style="color:var(--purple)">340+</div><div class="globe-stat-lbl">Methods</div></div>
+      <div class="globe-stat"><div class="globe-stat-val" style="color:var(--gold)">14s</div><div class="globe-stat-lbl">Settlement</div></div>
+    </div>
+  </div>
+
+  <div class="globe-layout">
+    <!-- 3D Globe -->
+    <div class="globe-canvas-wrap" id="globeWrap">
+      <canvas id="globeCanvas"></canvas>
+      <div class="globe-hint">&#9654; Drag to rotate &nbsp;&#8901;&nbsp; Scroll to zoom &nbsp;&#8901;&nbsp; Click pins for details</div>
+      <div class="globe-tooltip" id="globeTooltip"></div>
+      <div class="globe-controls">
+        <button class="globe-ctrl-btn" onclick="globeResetView()" title="Reset view">&#8635;</button>
+        <button class="globe-ctrl-btn" onclick="globeZoomIn()" title="Zoom in">+</button>
+        <button class="globe-ctrl-btn" onclick="globeZoomOut()" title="Zoom out">&#8722;</button>
+        <button class="globe-ctrl-btn" onclick="globeToggleSpin()" id="globeSpinBtn" title="Toggle auto-spin">&#9654;</button>
+      </div>
+    </div>
+
+    <!-- Side panel -->
+    <div class="globe-panel">
+      <div class="globe-filters">
+        <h3>Filter</h3>
+        <div class="gf-pills">
+          <div class="gf-pill active" onclick="globeFilter('all',this)">All</div>
+          <div class="gf-pill" onclick="globeFilter('fiat',this)">&#127982; Fiat</div>
+          <div class="gf-pill" onclick="globeFilter('crypto',this)">&#9674; Crypto</div>
+          <div class="gf-pill" onclick="globeFilter('stable',this)">&#9632; Stable</div>
+          <div class="gf-pill" onclick="globeFilter('americas',this)">Americas</div>
+          <div class="gf-pill" onclick="globeFilter('europe',this)">Europe</div>
+          <div class="gf-pill" onclick="globeFilter('asia',this)">Asia</div>
+          <div class="gf-pill" onclick="globeFilter('oceania',this)">Oceania</div>
+          <div class="gf-pill" onclick="globeFilter('africa',this)">Africa</div>
+        </div>
+      </div>
+      <div class="globe-search-wrap">
+        <h3>Search</h3>
+        <input id="globeSearch" type="text" placeholder="Search currency, country..." oninput="globeSearch(this.value)">
+      </div>
+      <div class="globe-list">
+        <h3>Currencies <span id="globeCount" style="color:var(--cyan)"></span></h3>
+        <div id="globeList"></div>
+      </div>
+      <div class="globe-legend">
+        <h3>Legend</h3>
+        <div class="gl-item"><div class="gl-dot" style="background:#ffd740"></div>Major Reserve Currency</div>
+        <div class="gl-item"><div class="gl-dot" style="background:#00e5ff"></div>Fiat Currency</div>
+        <div class="gl-item"><div class="gl-dot" style="background:#9c6fff"></div>Cryptocurrency</div>
+        <div class="gl-item"><div class="gl-dot" style="background:#26a17b"></div>Stablecoin</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;text-align:center">
+    <button onclick="showPage('home')" style="padding:10px 26px;border-radius:999px;background:transparent;border:1px solid var(--border2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--body);transition:all .2s" onmouseover="this.style.borderColor='var(--cyan)';this.style.color='var(--cyan)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text2)'">&#8592; Back to Home</button>
+  </div>
+</div>
+
+<script>
+(function(){
+// ══════════════════════════════════════════
+// INTELLIX 3D GLOBE — Currency World Map
+// ══════════════════════════════════════════
+
+var GLOBE_DATA = [
+  // lat, lon, code, name, country, type, region, color, rate, vol, major
+  {lat:37.09,lon:-95.71,code:"USD",name:"US Dollar",country:"United States",type:"fiat",region:"americas",color:"#ffd740",rate:"1.0000",vol:"$48.2B/day",major:true},
+  {lat:56.13,lon:-106.3,code:"CAD",name:"Canadian Dollar",country:"Canada",type:"fiat",region:"americas",color:"#00e5ff",rate:"1.3678",vol:"$2.1B/day"},
+  {lat:23.63,lon:-102.5,code:"MXN",name:"Mexican Peso",country:"Mexico",type:"fiat",region:"americas",color:"#00e5ff",rate:"17.12",vol:"$412M/day"},
+  {lat:-14.23,lon:-51.92,code:"BRL",name:"Brazilian Real",country:"Brazil",type:"fiat",region:"americas",color:"#00e5ff",rate:"4.97",vol:"$380M/day"},
+  {lat:-38.4,lon:-63.6,code:"ARS",name:"Argentine Peso",country:"Argentina",type:"fiat",region:"americas",color:"#00e5ff",rate:"834.5",vol:"$85M/day"},
+  {lat:-35.67,lon:-71.54,code:"CLP",name:"Chilean Peso",country:"Chile",type:"fiat",region:"americas",color:"#00e5ff",rate:"876.2",vol:"$42M/day"},
+  {lat:4.57,lon:-74.29,code:"COP",name:"Colombian Peso",country:"Colombia",type:"fiat",region:"americas",color:"#00e5ff",rate:"3920",vol:"$38M/day"},
+  {lat:-9.19,lon:-75.01,code:"PEN",name:"Peruvian Sol",country:"Peru",type:"fiat",region:"americas",color:"#00e5ff",rate:"3.72",vol:"$22M/day"},
+  // Europe
+  {lat:51.16,lon:10.45,code:"EUR",name:"Euro",country:"Eurozone",type:"fiat",region:"europe",color:"#ffd740",rate:"0.9254",vol:"$18.6B/day",major:true},
+  {lat:55.37,lon:-3.43,code:"GBP",name:"British Pound",country:"United Kingdom",type:"fiat",region:"europe",color:"#ffd740",rate:"0.7892",vol:"$6.4B/day",major:true},
+  {lat:46.81,lon:8.22,code:"CHF",name:"Swiss Franc",country:"Switzerland",type:"fiat",region:"europe",color:"#00e5ff",rate:"0.8812",vol:"$1.9B/day"},
+  {lat:60.12,lon:18.64,code:"SEK",name:"Swedish Krona",country:"Sweden",type:"fiat",region:"europe",color:"#00e5ff",rate:"10.42",vol:"$320M/day"},
+  {lat:60.47,lon:8.46,code:"NOK",name:"Norwegian Krone",country:"Norway",type:"fiat",region:"europe",color:"#00e5ff",rate:"10.55",vol:"$285M/day"},
+  {lat:56.26,lon:9.50,code:"DKK",name:"Danish Krone",country:"Denmark",type:"fiat",region:"europe",color:"#00e5ff",rate:"6.88",vol:"$212M/day"},
+  {lat:51.91,lon:19.14,code:"PLN",name:"Polish Zloty",country:"Poland",type:"fiat",region:"europe",color:"#00e5ff",rate:"3.95",vol:"$168M/day"},
+  {lat:49.81,lon:15.47,code:"CZK",name:"Czech Koruna",country:"Czech Republic",type:"fiat",region:"europe",color:"#00e5ff",rate:"22.85",vol:"$92M/day"},
+  {lat:47.16,lon:19.5,code:"HUF",name:"Hungarian Forint",country:"Hungary",type:"fiat",region:"europe",color:"#00e5ff",rate:"352.4",vol:"$78M/day"},
+  {lat:45.94,lon:24.96,code:"RON",name:"Romanian Leu",country:"Romania",type:"fiat",region:"europe",color:"#00e5ff",rate:"4.61",vol:"$52M/day"},
+  {lat:38.96,lon:35.24,code:"TRY",name:"Turkish Lira",country:"Turkey",type:"fiat",region:"europe",color:"#00e5ff",rate:"29.45",vol:"$248M/day"},
+  {lat:61.52,lon:105.3,code:"RUB",name:"Russian Ruble",country:"Russia",type:"fiat",region:"europe",color:"#00e5ff",rate:"91.2",vol:"$188M/day"},
+  // Middle East
+  {lat:23.42,lon:53.84,code:"AED",name:"UAE Dirham",country:"UAE",type:"fiat",region:"asia",color:"#00e5ff",rate:"3.6725",vol:"$892M/day"},
+  {lat:23.88,lon:45.07,code:"SAR",name:"Saudi Riyal",country:"Saudi Arabia",type:"fiat",region:"asia",color:"#00e5ff",rate:"3.7505",vol:"$448M/day"},
+  {lat:31.04,lon:34.85,code:"ILS",name:"Israeli Shekel",country:"Israel",type:"fiat",region:"asia",color:"#00e5ff",rate:"3.68",vol:"$218M/day"},
+  {lat:25.35,lon:51.18,code:"QAR",name:"Qatari Riyal",country:"Qatar",type:"fiat",region:"asia",color:"#00e5ff",rate:"3.64",vol:"$122M/day"},
+  // Asia
+  {lat:36.20,lon:138.2,code:"JPY",name:"Japanese Yen",country:"Japan",type:"fiat",region:"asia",color:"#ffd740",rate:"149.82",vol:"$9.4B/day",major:true},
+  {lat:35.86,lon:104.1,code:"CNY",name:"Chinese Yuan",country:"China",type:"fiat",region:"asia",color:"#ffd740",rate:"7.2415",vol:"$5.2B/day",major:true},
+  {lat:22.30,lon:114.1,code:"HKD",name:"Hong Kong Dollar",country:"Hong Kong",type:"fiat",region:"asia",color:"#00e5ff",rate:"7.824",vol:"$2.8B/day"},
+  {lat:35.90,lon:127.7,code:"KRW",name:"South Korean Won",country:"South Korea",type:"fiat",region:"asia",color:"#00e5ff",rate:"1325.4",vol:"$1.4B/day"},
+  {lat:1.35,lon:103.8,code:"SGD",name:"Singapore Dollar",country:"Singapore",type:"fiat",region:"asia",color:"#ffd740",rate:"1.3412",vol:"$1.2B/day",major:true},
+  {lat:20.59,lon:78.96,code:"INR",name:"Indian Rupee",country:"India",type:"fiat",region:"asia",color:"#00e5ff",rate:"83.12",vol:"$712M/day"},
+  {lat:15.87,lon:100.9,code:"THB",name:"Thai Baht",country:"Thailand",type:"fiat",region:"asia",color:"#00e5ff",rate:"35.24",vol:"$388M/day"},
+  {lat:4.21,lon:108.0,code:"MYR",name:"Malaysian Ringgit",country:"Malaysia",type:"fiat",region:"asia",color:"#00e5ff",rate:"4.712",vol:"$292M/day"},
+  {lat:-0.78,lon:113.9,code:"IDR",name:"Indonesian Rupiah",country:"Indonesia",type:"fiat",region:"asia",color:"#00e5ff",rate:"15622",vol:"$248M/day"},
+  {lat:12.87,lon:121.7,code:"PHP",name:"Philippine Peso",country:"Philippines",type:"fiat",region:"asia",color:"#00e5ff",rate:"56.42",vol:"$188M/day"},
+  {lat:14.05,lon:108.2,code:"VND",name:"Vietnamese Dong",country:"Vietnam",type:"fiat",region:"asia",color:"#00e5ff",rate:"24350",vol:"$128M/day"},
+  {lat:23.69,lon:120.9,code:"TWD",name:"Taiwan Dollar",country:"Taiwan",type:"fiat",region:"asia",color:"#00e5ff",rate:"31.48",vol:"$448M/day"},
+  {lat:30.37,lon:69.34,code:"PKR",name:"Pakistani Rupee",country:"Pakistan",type:"fiat",region:"asia",color:"#00e5ff",rate:"278.5",vol:"$62M/day"},
+  {lat:23.68,lon:90.35,code:"BDT",name:"Bangladeshi Taka",country:"Bangladesh",type:"fiat",region:"asia",color:"#00e5ff",rate:"109.8",vol:"$38M/day"},
+  // Oceania
+  {lat:-25.27,lon:133.7,code:"AUD",name:"Australian Dollar",country:"Australia",type:"fiat",region:"oceania",color:"#ffd740",rate:"1.5234",vol:"$2.1B/day",major:true},
+  {lat:-40.9,lon:174.8,code:"NZD",name:"New Zealand Dollar",country:"New Zealand",type:"fiat",region:"oceania",color:"#00e5ff",rate:"1.6412",vol:"$412M/day"},
+  {lat:-17.7,lon:178.0,code:"FJD",name:"Fijian Dollar",country:"Fiji",type:"fiat",region:"oceania",color:"#00e5ff",rate:"2.248",vol:"$18M/day"},
+  // Africa
+  {lat:-30.55,lon:22.93,code:"ZAR",name:"South African Rand",country:"South Africa",type:"fiat",region:"africa",color:"#00e5ff",rate:"18.62",vol:"$248M/day"},
+  {lat:9.08,lon:8.67,code:"NGN",name:"Nigerian Naira",country:"Nigeria",type:"fiat",region:"africa",color:"#00e5ff",rate:"785.5",vol:"$88M/day"},
+  {lat:26.82,lon:30.8,code:"EGP",name:"Egyptian Pound",country:"Egypt",type:"fiat",region:"africa",color:"#00e5ff",rate:"30.92",vol:"$72M/day"},
+  {lat:0.02,lon:37.9,code:"KES",name:"Kenyan Shilling",country:"Kenya",type:"fiat",region:"africa",color:"#00e5ff",rate:"129.8",vol:"$42M/day"},
+  {lat:7.94,lon:-1.02,code:"GHS",name:"Ghanaian Cedi",country:"Ghana",type:"fiat",region:"africa",color:"#00e5ff",rate:"12.38",vol:"$28M/day"},
+  {lat:-6.36,lon:34.88,code:"TZS",name:"Tanzanian Shilling",country:"Tanzania",type:"fiat",region:"africa",color:"#00e5ff",rate:"2520",vol:"$18M/day"},
+  // Crypto - spread across the globe visually
+  {lat:40.71,lon:-74.0,code:"BTC",name:"Bitcoin",country:"Global Network",type:"crypto",region:"global",color:"#f7931a",rate:"$67,420",vol:"$48B/day",major:true},
+  {lat:51.5,lon:-0.12,code:"ETH",name:"Ethereum",country:"Global Network",type:"crypto",region:"global",color:"#627eea",rate:"$3,502",vol:"$22B/day",major:true},
+  {lat:37.56,lon:126.97,code:"SOL",name:"Solana",country:"Global Network",type:"crypto",region:"global",color:"#9945ff",rate:"$142.3",vol:"$4.2B/day"},
+  {lat:-33.86,lon:151.2,code:"BNB",name:"BNB",country:"Global Network",type:"crypto",region:"global",color:"#f3ba2f",rate:"$608",vol:"$2.8B/day"},
+  {lat:48.85,lon:2.35,code:"MATIC",name:"Polygon",country:"Global Network",type:"crypto",region:"global",color:"#8247e5",rate:"$0.842",vol:"$880M/day"},
+  {lat:25.2,lon:55.27,code:"XRP",name:"XRP",country:"Global Network",type:"crypto",region:"global",color:"#00aae4",rate:"$0.624",vol:"$1.8B/day"},
+  {lat:-23.5,lon:-46.6,code:"ADA",name:"Cardano",country:"Global Network",type:"crypto",region:"global",color:"#0033ad",rate:"$0.521",vol:"$620M/day"},
+  {lat:55.75,lon:37.61,code:"AVAX",name:"Avalanche",country:"Global Network",type:"crypto",region:"global",color:"#e84142",rate:"$38.2",vol:"$580M/day"},
+  {lat:1.28,lon:103.8,code:"LINK",name:"Chainlink",country:"Global Network",type:"crypto",region:"global",color:"#2a5ada",rate:"$14.28",vol:"$488M/day"},
+  // Stablecoins
+  {lat:37.77,lon:-122.4,code:"USDC",name:"USD Coin",country:"Global Stablecoin",type:"stable",region:"global",color:"#2775ca",rate:"$1.0001",vol:"$8.2B/day",major:true},
+  {lat:22.39,lon:114.1,code:"USDT",name:"Tether",country:"Global Stablecoin",type:"stable",region:"global",color:"#26a17b",rate:"$1.0000",vol:"$42B/day",major:true},
+  {lat:47.37,lon:8.54,code:"DAI",name:"DAI",country:"Global Stablecoin",type:"stable",region:"global",color:"#f5ac37",rate:"$1.0001",vol:"$528M/day"},
+  {lat:52.37,lon:4.89,code:"BUSD",name:"Binance USD",country:"Global Stablecoin",type:"stable",region:"global",color:"#f0b90b",rate:"$1.0000",vol:"$1.2B/day"},
+];
+
+var globe = {
+  canvas: null, ctx: null, width: 0, height: 0,
+  radius: 0, centerX: 0, centerY: 0,
+  rotX: 0.3, rotY: -1.5, rotZ: 0,
+  isDragging: false, lastX: 0, lastY: 0,
+  velX: 0, velY: 0,
+  autoSpin: true, spinSpeed: 0.003,
+  zoom: 1.0, minZoom: 0.5, maxZoom: 2.5,
+  activeFilter: 'all', searchQuery: '',
+  selectedPin: null,
+  animFrame: null,
+  stars: []
+};
+
+// Generate stars once
+for(var i=0; i<200; i++){
+  globe.stars.push({
+    x: Math.random()*2-1,
+    y: Math.random()*2-1,
+    z: Math.random()*2-1,
+    size: Math.random()*1.5+0.3,
+    brightness: Math.random()*0.6+0.2
+  });
+}
+
+function latLonToXYZ(lat,lon,r){
+  var phi = (90-lat)*Math.PI/180;
+  var theta = (lon+180)*Math.PI/180;
+  return {
+    x: -(r*Math.sin(phi)*Math.cos(theta)),
+    y: r*Math.cos(phi),
+    z: r*Math.sin(phi)*Math.sin(theta)
+  };
+}
+
+function rotatePoint(p, rx, ry){
+  // Rotate around Y axis
+  var cosY = Math.cos(ry), sinY = Math.sin(ry);
+  var x1 = p.x*cosY + p.z*sinY;
+  var z1 = -p.x*sinY + p.z*cosY;
+  // Rotate around X axis
+  var cosX = Math.cos(rx), sinX = Math.sin(rx);
+  var y2 = p.y*cosX - z1*sinX;
+  var z2 = p.y*sinX + z1*cosX;
+  return {x: x1, y: y2, z: z2};
+}
+
+function hexToRgb(hex){
+  var r = parseInt(hex.slice(1,3),16);
+  var g = parseInt(hex.slice(3,5),16);
+  var b = parseInt(hex.slice(5,7),16);
+  return {r:r,g:g,b:b};
+}
+
+function getFilteredData(){
+  var f = globe.activeFilter;
+  var q = globe.searchQuery.toLowerCase();
+  return GLOBE_DATA.filter(function(d){
+    var fm = f==='all' || f===d.type || f===d.region;
+    var qm = !q || d.code.toLowerCase().includes(q) || d.name.toLowerCase().includes(q) || d.country.toLowerCase().includes(q);
+    return fm && qm;
+  });
+}
+
+function drawGlobe(){
+  var c = globe.canvas;
+  if(!c) return;
+  var ctx = globe.ctx;
+  var W = globe.width, H = globe.height;
+  var R = globe.radius * globe.zoom;
+  var cx = globe.centerX, cy = globe.centerY;
+
+  ctx.clearRect(0,0,W,H);
+
+  // Background gradient
+  var bg = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H));
+  bg.addColorStop(0,'#060d1f');
+  bg.addColorStop(1,'#02050f');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,H);
+
+  // Stars (fixed in background)
+  globe.stars.forEach(function(s){
+    var sx = cx + s.x*(W*0.5);
+    var sy = cy + s.y*(H*0.5);
+    ctx.beginPath();
+    ctx.arc(sx,sy,s.size,0,Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,'+s.brightness+')';
+    ctx.fill();
+  });
+
+  // Globe shadow / depth
+  var shadow = ctx.createRadialGradient(cx+R*0.2,cy-R*0.2,R*0.1,cx,cy,R);
+  shadow.addColorStop(0,'rgba(0,229,255,0.04)');
+  shadow.addColorStop(0.6,'rgba(5,10,30,0.6)');
+  shadow.addColorStop(1,'rgba(0,0,0,0.95)');
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.fillStyle='rgba(8,14,35,0.92)';
+  ctx.fill();
+  ctx.fillStyle=shadow;
+  ctx.fill();
+
+  // Globe border glow
+  var borderGrad = ctx.createRadialGradient(cx,cy,R*0.98,cx,cy,R*1.02);
+  borderGrad.addColorStop(0,'rgba(0,229,255,0.15)');
+  borderGrad.addColorStop(1,'transparent');
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.strokeStyle='rgba(0,229,255,0.3)';
+  ctx.lineWidth=1.5;
+  ctx.stroke();
+
+  // Lat/lon grid lines
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx,cy,R,0,Math.PI*2);
+  ctx.clip();
+
+  // Draw latitude lines
+  for(var lat=-60; lat<=60; lat+=30){
+    ctx.beginPath();
+    var firstPt = true;
+    for(var lon2=-180; lon2<=180; lon2+=5){
+      var p = latLonToXYZ(lat,lon2,R);
+      var rp = rotatePoint(p, globe.rotX, globe.rotY);
+      var screenX = cx + rp.x;
+      var screenY = cy - rp.y;
+      var alpha = (rp.z/R)*0.5+0.5;
+      if(rp.z < -R*0.1) { firstPt=true; continue; }
+      if(firstPt){ ctx.moveTo(screenX,screenY); firstPt=false; }
+      else ctx.lineTo(screenX,screenY);
+    }
+    ctx.strokeStyle='rgba(0,229,255,0.06)';
+    ctx.lineWidth=0.5;
+    ctx.stroke();
+  }
+
+  // Equator highlight
+  ctx.beginPath();
+  firstPt = true;
+  for(var lon3=-180; lon3<=180; lon3+=2){
+    var pe = latLonToXYZ(0,lon3,R);
+    var rpe = rotatePoint(pe, globe.rotX, globe.rotY);
+    if(rpe.z < -R*0.1){ firstPt=true; continue; }
+    var sex = cx+rpe.x, sey = cy-rpe.y;
+    if(firstPt){ ctx.moveTo(sex,sey); firstPt=false; }
+    else ctx.lineTo(sex,sey);
+  }
+  ctx.strokeStyle='rgba(0,229,255,0.14)';
+  ctx.lineWidth=1;
+  ctx.setLineDash([4,4]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Draw longitude lines
+  for(var lon4=-180; lon4<180; lon4+=30){
+    ctx.beginPath();
+    firstPt=true;
+    for(var lat2=-80; lat2<=80; lat2+=5){
+      var pl = latLonToXYZ(lat2,lon4,R);
+      var rpl = rotatePoint(pl, globe.rotX, globe.rotY);
+      if(rpl.z < -R*0.1){ firstPt=true; continue; }
+      var sx2=cx+rpl.x, sy2=cy-rpl.y;
+      if(firstPt){ ctx.moveTo(sx2,sy2); firstPt=false; }
+      else ctx.lineTo(sx2,sy2);
+    }
+    ctx.strokeStyle='rgba(0,229,255,0.04)';
+    ctx.lineWidth=0.5;
+    ctx.stroke();
+  }
+
+  ctx.restore();
+
+  // Atmosphere glow
+  var atm = ctx.createRadialGradient(cx,cy,R*0.95,cx,cy,R*1.15);
+  atm.addColorStop(0,'rgba(0,229,255,0.08)');
+  atm.addColorStop(0.5,'rgba(0,100,180,0.04)');
+  atm.addColorStop(1,'transparent');
+  ctx.beginPath();
+  ctx.arc(cx,cy,R*1.15,0,Math.PI*2);
+  ctx.fillStyle=atm;
+  ctx.fill();
+
+  // Collect visible pins
+  var filtered = getFilteredData();
+  var visiblePins = [];
+  filtered.forEach(function(d){
+    var p3 = latLonToXYZ(d.lat,d.lon,R);
+    var rp3 = rotatePoint(p3, globe.rotX, globe.rotY);
+    var isVisible = rp3.z > -R*0.05;
+    if(isVisible){
+      visiblePins.push({d:d, rp:rp3, sx:cx+rp3.x, sy:cy-rp3.y});
+    }
+  });
+
+  // Sort by z-depth (back to front)
+  visiblePins.sort(function(a,b){ return a.rp.z - b.rp.z; });
+
+  // Draw connection lines between major currencies
+  var majorPins = visiblePins.filter(function(p){ return p.d.major; });
+  for(var mi=0; mi<majorPins.length-1; mi++){
+    var pa=majorPins[mi], pb=majorPins[mi+1];
+    ctx.beginPath();
+    ctx.moveTo(pa.sx,pa.sy);
+    ctx.lineTo(pb.sx,pb.sy);
+    ctx.strokeStyle='rgba(0,229,255,0.06)';
+    ctx.lineWidth=0.8;
+    ctx.setLineDash([3,5]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Draw pins
+  visiblePins.forEach(function(pin){
+    var d=pin.d, sx=pin.sx, sy=pin.sy, rp=pin.rp;
+    var depth = (rp.z/R)*0.5+0.5;
+    var isSelected = globe.selectedPin && globe.selectedPin.code===d.code;
+    var baseR = d.major ? 7 : 4;
+    var pr = baseR * (0.6 + depth*0.4) * globe.zoom;
+    if(pr < 1.5) pr = 1.5;
+
+    var col = d.color;
+    var rgb = hexToRgb(col);
+
+    // Glow
+    if(d.major || isSelected){
+      var glowR = pr*3;
+      var glow = ctx.createRadialGradient(sx,sy,0,sx,sy,glowR);
+      glow.addColorStop(0,'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+(isSelected?0.5:0.25)+')');
+      glow.addColorStop(1,'transparent');
+      ctx.beginPath();
+      ctx.arc(sx,sy,glowR,0,Math.PI*2);
+      ctx.fillStyle=glow;
+      ctx.fill();
+    }
+
+    // Pulse ring for major
+    if(d.major){
+      var t = (Date.now()/1000)%2;
+      var pr2 = pr*(1+t*1.5);
+      var alp = 0.4*(1-t/2);
+      ctx.beginPath();
+      ctx.arc(sx,sy,pr2,0,Math.PI*2);
+      ctx.strokeStyle='rgba('+rgb.r+','+rgb.g+','+rgb.b+','+alp+')';
+      ctx.lineWidth=1;
+      ctx.stroke();
+    }
+
+    // Pin circle
+    ctx.beginPath();
+    ctx.arc(sx,sy,pr,0,Math.PI*2);
+    ctx.fillStyle=col;
+    ctx.globalAlpha = isSelected ? 1 : (0.5+depth*0.5);
+    ctx.fill();
+    ctx.globalAlpha=1;
+
+    // Border for selected
+    if(isSelected){
+      ctx.beginPath();
+      ctx.arc(sx,sy,pr+2,0,Math.PI*2);
+      ctx.strokeStyle='#fff';
+      ctx.lineWidth=1.5;
+      ctx.stroke();
+    }
+
+    // Label for major currencies or large zoom
+    if((d.major || globe.zoom>1.4) && depth>0.3 && pr>4){
+      ctx.font='bold '+(Math.floor(pr*0.9)+6)+'px JetBrains Mono,monospace';
+      ctx.fillStyle=col;
+      ctx.globalAlpha=Math.min(1,depth*1.5);
+      ctx.fillText(d.code, sx+pr+3, sy+4);
+      ctx.globalAlpha=1;
+    }
+  });
+
+  // Store visible pins for hit testing
+  globe._visiblePins = visiblePins;
+}
+
+function globeAnimate(){
+  if(globe.autoSpin && !globe.isDragging){
+    globe.rotY += globe.spinSpeed;
+  }
+  // Momentum
+  if(!globe.isDragging && (Math.abs(globe.velX)>0.0001 || Math.abs(globe.velY)>0.0001)){
+    globe.rotY += globe.velY;
+    globe.rotX += globe.velX;
+    globe.velX *= 0.92;
+    globe.velY *= 0.92;
+    // Clamp rotX
+    globe.rotX = Math.max(-Math.PI/2, Math.min(Math.PI/2, globe.rotX));
+  }
+  drawGlobe();
+  globe.animFrame = requestAnimationFrame(globeAnimate);
+}
+
+function globeResize(){
+  var wrap = document.getElementById('globeWrap');
+  if(!wrap || !globe.canvas) return;
+  var w = wrap.clientWidth;
+  var h = Math.min(560, Math.max(360, w*0.6));
+  globe.canvas.width = w;
+  globe.canvas.height = h;
+  globe.width = w;
+  globe.height = h;
+  globe.centerX = w/2;
+  globe.centerY = h/2;
+  globe.radius = Math.min(w,h)*0.38;
+}
+
+function globeHitTest(mx,my){
+  if(!globe._visiblePins) return null;
+  var best=null, bestDist=20;
+  globe._visiblePins.forEach(function(pin){
+    var dx=pin.sx-mx, dy=pin.sy-my;
+    var dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<bestDist){ bestDist=dist; best=pin.d; }
+  });
+  return best;
+}
+
+function globeShowTooltip(d,mx,my){
+  var tt = document.getElementById('globeTooltip');
+  if(!tt) return;
+  var typeLbl = d.type==='fiat' ? 'Fiat' : d.type==='crypto' ? 'Crypto' : 'Stablecoin';
+  var typeCol = d.type==='fiat' ? '#00e5ff' : d.type==='crypto' ? d.color : '#26a17b';
+  var typeBg = d.type==='fiat' ? 'rgba(0,229,255,.1)' : d.type==='crypto' ? d.color+'22' : 'rgba(38,161,123,.1)';
+  tt.innerHTML =
+    '<div class="gtt-code">' + d.code + '</div>' +
+    '<div class="gtt-name">' + d.name + '</div>' +
+    '<div class="gtt-row"><span class="gtt-lbl">Region</span><span class="gtt-val">' + d.country + '</span></div>' +
+    '<div class="gtt-row"><span class="gtt-lbl">Rate (USD)</span><span class="gtt-val">' + d.rate + '</span></div>' +
+    '<div class="gtt-row"><span class="gtt-lbl">Volume</span><span class="gtt-val" style="color:#00e676">' + d.vol + '</span></div>' +
+    '<span class="gtt-badge" style="background:' + typeBg + ';color:' + typeCol + '">' + typeLbl + (d.major?' · Major':'') + '</span>';
+  var wrap = document.getElementById('globeWrap');
+  var wr = wrap.getBoundingClientRect();
+  var tx = mx, ty = my-120;
+  if(tx+240 > wr.width) tx = mx-240;
+  if(ty < 0) ty = my+20;
+  tt.style.left = tx+'px';
+  tt.style.top = ty+'px';
+  tt.classList.add('show');
+}
+
+function globeHideTooltip(){
+  var tt = document.getElementById('globeTooltip');
+  if(tt) tt.classList.remove('show');
+}
+
+// Render the side list
+function globeRenderList(){
+  var list = document.getElementById('globeList');
+  var countEl = document.getElementById('globeCount');
+  if(!list) return;
+  var data = getFilteredData();
+  if(countEl) countEl.textContent = '(' + data.length + ')';
+  list.innerHTML = '';
+  data.forEach(function(d){
+    var el = document.createElement('div');
+    el.className = 'gli' + (globe.selectedPin && globe.selectedPin.code===d.code ? ' active' : '');
+    el.innerHTML =
+      '<div class="gli-dot" style="background:' + d.color + '"></div>' +
+      '<div class="gli-code">' + d.code + '</div>' +
+      '<div class="gli-name">' + d.name + '</div>' +
+      '<div class="gli-rate">' + d.rate + '</div>';
+    el.addEventListener('click', function(){
+      globe.selectedPin = (globe.selectedPin && globe.selectedPin.code===d.code) ? null : d;
+      // Navigate globe to this location
+      if(globe.selectedPin){
+        var targetRotY = -d.lon*Math.PI/180 - Math.PI;
+        var targetRotX = d.lat*Math.PI/180 * 0.8;
+        globe.rotY = targetRotY;
+        globe.rotX = targetRotX;
+        globe.autoSpin = false;
+        document.getElementById('globeSpinBtn').textContent = '▶';
+      }
+      globeRenderList();
+    });
+    list.appendChild(el);
+  });
+}
+
+// Globe controls
+window.globeFilter = function(f, el){
+  globe.activeFilter = f;
+  globe.selectedPin = null;
+  document.querySelectorAll('.gf-pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  globeRenderList();
+};
+window.globeSearch = function(v){
+  globe.searchQuery = v;
+  globe.selectedPin = null;
+  globeRenderList();
+};
+window.globeResetView = function(){
+  globe.rotX = 0.3; globe.rotY = -1.5;
+  globe.zoom = 1.0; globe.velX = 0; globe.velY = 0;
+  globe.selectedPin = null;
+  globeRenderList();
+};
+window.globeZoomIn = function(){ globe.zoom = Math.min(globe.maxZoom, globe.zoom+0.2); };
+window.globeZoomOut = function(){ globe.zoom = Math.max(globe.minZoom, globe.zoom-0.2); };
+window.globeToggleSpin = function(){
+  globe.autoSpin = !globe.autoSpin;
+  document.getElementById('globeSpinBtn').textContent = globe.autoSpin ? '⏸' : '▶';
+};
+
+// Mouse / touch events
+function globeGetPos(e){
+  var rect = globe.canvas.getBoundingClientRect();
+  var src = e.touches ? e.touches[0] : e;
+  return {x: src.clientX - rect.left, y: src.clientY - rect.top};
+}
+
+function onMouseDown(e){
+  e.preventDefault();
+  var pos = globeGetPos(e);
+  globe.isDragging = true;
+  globe.lastX = pos.x;
+  globe.lastY = pos.y;
+  globe.velX = 0; globe.velY = 0;
+}
+function onMouseMove(e){
+  e.preventDefault();
+  var pos = globeGetPos(e);
+  if(globe.isDragging){
+    var dx = pos.x - globe.lastX;
+    var dy = pos.y - globe.lastY;
+    globe.velY = dx * 0.006;
+    globe.velX = dy * 0.006;
+    globe.rotY += globe.velY;
+    globe.rotX += globe.velX;
+    globe.rotX = Math.max(-Math.PI/2, Math.min(Math.PI/2, globe.rotX));
+    globe.lastX = pos.x;
+    globe.lastY = pos.y;
+  } else {
+    var hit = globeHitTest(pos.x, pos.y);
+    if(hit){ globeShowTooltip(hit,pos.x,pos.y); globe.canvas.style.cursor='pointer'; }
+    else { globeHideTooltip(); globe.canvas.style.cursor='grab'; }
+  }
+}
+function onMouseUp(e){
+  if(globe.isDragging){
+    var pos = globeGetPos(e);
+    var hit = globeHitTest(pos.x, pos.y);
+    if(hit && Math.abs(globe.velX)<0.01 && Math.abs(globe.velY)<0.01){
+      globe.selectedPin = (globe.selectedPin && globe.selectedPin.code===hit.code) ? null : hit;
+      globeRenderList();
+    }
+  }
+  globe.isDragging = false;
+}
+function onWheel(e){
+  e.preventDefault();
+  var delta = e.deltaY > 0 ? -0.12 : 0.12;
+  globe.zoom = Math.max(globe.minZoom, Math.min(globe.maxZoom, globe.zoom+delta));
+}
+
+function globeInit(){
+  var c = document.getElementById('globeCanvas');
+  if(!c || globe.canvas) return;
+  globe.canvas = c;
+  globe.ctx = c.getContext('2d');
+  globeResize();
+
+  c.addEventListener('mousedown', onMouseDown);
+  c.addEventListener('mousemove', onMouseMove);
+  c.addEventListener('mouseup', onMouseUp);
+  c.addEventListener('mouseleave', function(){ globe.isDragging=false; globeHideTooltip(); });
+  c.addEventListener('wheel', onWheel, {passive:false});
+  c.addEventListener('touchstart', onMouseDown, {passive:false});
+  c.addEventListener('touchmove', onMouseMove, {passive:false});
+  c.addEventListener('touchend', onMouseUp);
+
+  window.addEventListener('resize', function(){ globeResize(); });
+  globeRenderList();
+  if(globe.animFrame) cancelAnimationFrame(globe.animFrame);
+  globeAnimate();
+}
+
+// Expose init globally
+window.globeInit = globeInit;
+
+})();
+</script>
+
+</div><!-- /page-globalmap -->
+
+
+<script>
+// ══════════════════════════════════════════
+// GLOBAL CURRENCY MAP ENGINE
+// ══════════════════════════════════════════
+var GMAP_DATA = [
+  // FIAT - AMERICAS
+  {code:'USD',name:'US Dollar',country:'United States',x:160,y:195,type:'fiat',region:'americas',color:'#00e5ff',rate:'1.0000',vol:'$48.2B/day',flag:'🇺🇸',major:true},
+  {code:'CAD',name:'Canadian Dollar',country:'Canada',x:148,y:148,type:'fiat',region:'americas',color:'#00e5ff',rate:'1.3678',vol:'$2.1B/day',flag:'🇨🇦'},
+  {code:'MXN',name:'Mexican Peso',country:'Mexico',x:155,y:248,type:'fiat',region:'americas',color:'#00e5ff',rate:'17.12',vol:'$412M/day',flag:'🇲🇽'},
+  {code:'BRL',name:'Brazilian Real',country:'Brazil',x:235,y:320,type:'fiat',region:'americas',color:'#00e5ff',rate:'4.97',vol:'$380M/day',flag:'🇧🇷'},
+  {code:'ARS',name:'Argentine Peso',country:'Argentina',x:218,y:375,type:'fiat',region:'americas',color:'#00e5ff',rate:'834.5',vol:'$85M/day',flag:'🇦🇷'},
+  {code:'CLP',name:'Chilean Peso',country:'Chile',x:205,y:380,type:'fiat',region:'americas',color:'#00e5ff',rate:'876.2',vol:'$42M/day',flag:'🇨🇱'},
+  {code:'COP',name:'Colombian Peso',country:'Colombia',x:210,y:298,type:'fiat',region:'americas',color:'#00e5ff',rate:'3920',vol:'$38M/day',flag:'🇨🇴'},
+  {code:'PEN',name:'Peruvian Sol',country:'Peru',x:205,y:325,type:'fiat',region:'americas',color:'#00e5ff',rate:'3.72',vol:'$22M/day',flag:'🇵🇪'},
+
+  // FIAT - EUROPE
+  {code:'EUR',name:'Euro',country:'Eurozone (19)',x:468,y:102,type:'fiat',region:'europe',color:'#ffd740',rate:'0.9254',vol:'$18.6B/day',flag:'🇪🇺',major:true},
+  {code:'GBP',name:'British Pound',country:'United Kingdom',x:435,y:88,type:'fiat',region:'europe',color:'#00e5ff',rate:'0.7892',vol:'$6.4B/day',flag:'🇬🇧',major:true},
+  {code:'CHF',name:'Swiss Franc',country:'Switzerland',x:468,y:112,type:'fiat',region:'europe',color:'#00e5ff',rate:'0.8812',vol:'$1.9B/day',flag:'🇨🇭'},
+  {code:'SEK',name:'Swedish Krona',country:'Sweden',x:468,y:60,type:'fiat',region:'europe',color:'#00e5ff',rate:'10.42',vol:'$320M/day',flag:'🇸🇪'},
+  {code:'NOK',name:'Norwegian Krone',country:'Norway',x:458,y:55,type:'fiat',region:'europe',color:'#00e5ff',rate:'10.55',vol:'$285M/day',flag:'🇳🇴'},
+  {code:'DKK',name:'Danish Krone',country:'Denmark',x:462,y:65,type:'fiat',region:'europe',color:'#00e5ff',rate:'6.88',vol:'$212M/day',flag:'🇩🇰'},
+  {code:'PLN',name:'Polish Złoty',country:'Poland',x:485,y:88,type:'fiat',region:'europe',color:'#00e5ff',rate:'3.95',vol:'$168M/day',flag:'🇵🇱'},
+  {code:'CZK',name:'Czech Koruna',country:'Czech Republic',x:480,y:92,type:'fiat',region:'europe',color:'#00e5ff',rate:'22.85',vol:'$92M/day',flag:'🇨🇿'},
+  {code:'HUF',name:'Hungarian Forint',country:'Hungary',x:488,y:96,type:'fiat',region:'europe',color:'#00e5ff',rate:'352.4',vol:'$78M/day',flag:'🇭🇺'},
+  {code:'RON',name:'Romanian Leu',country:'Romania',x:498,y:100,type:'fiat',region:'europe',color:'#00e5ff',rate:'4.61',vol:'$52M/day',flag:'🇷🇴'},
+  {code:'TRY',name:'Turkish Lira',country:'Turkey',x:510,y:118,type:'fiat',region:'europe',color:'#00e5ff',rate:'29.45',vol:'$248M/day',flag:'🇹🇷'},
+  {code:'RUB',name:'Russian Ruble',country:'Russia',x:560,y:72,type:'fiat',region:'europe',color:'#00e5ff',rate:'91.2',vol:'$188M/day',flag:'🇷🇺'},
+
+  // FIAT - MIDDLE EAST
+  {code:'AED',name:'UAE Dirham',country:'UAE',x:578,y:152,type:'fiat',region:'asia',color:'#00e5ff',rate:'3.6725',vol:'$892M/day',flag:'🇦🇪'},
+  {code:'SAR',name:'Saudi Riyal',country:'Saudi Arabia',x:558,y:155,type:'fiat',region:'asia',color:'#00e5ff',rate:'3.7505',vol:'$448M/day',flag:'🇸🇦'},
+  {code:'ILS',name:'Israeli Shekel',country:'Israel',x:530,y:138,type:'fiat',region:'asia',color:'#00e5ff',rate:'3.68',vol:'$218M/day',flag:'🇮🇱'},
+  {code:'QAR',name:'Qatari Riyal',country:'Qatar',x:568,y:152,type:'fiat',region:'asia',color:'#00e5ff',rate:'3.6400',vol:'$122M/day',flag:'🇶🇦'},
+  {code:'KWD',name:'Kuwaiti Dinar',country:'Kuwait',x:555,y:145,type:'fiat',region:'asia',color:'#00e5ff',rate:'0.3075',vol:'$88M/day',flag:'🇰🇼'},
+
+  // FIAT - ASIA
+  {code:'JPY',name:'Japanese Yen',country:'Japan',x:835,y:110,type:'fiat',region:'asia',color:'#ffd740',rate:'149.82',vol:'$9.4B/day',flag:'🇯🇵',major:true},
+  {code:'CNY',name:'Chinese Yuan',country:'China',x:755,y:128,type:'fiat',region:'asia',color:'#ffd740',rate:'7.2415',vol:'$5.2B/day',flag:'🇨🇳',major:true},
+  {code:'HKD',name:'Hong Kong Dollar',country:'Hong Kong',x:778,y:148,type:'fiat',region:'asia',color:'#00e5ff',rate:'7.8240',vol:'$2.8B/day',flag:'🇭🇰'},
+  {code:'KRW',name:'South Korean Won',country:'South Korea',x:815,y:115,type:'fiat',region:'asia',color:'#00e5ff',rate:'1325.4',vol:'$1.4B/day',flag:'🇰🇷'},
+  {code:'SGD',name:'Singapore Dollar',country:'Singapore',x:718,y:188,type:'fiat',region:'asia',color:'#00e5ff',rate:'1.3412',vol:'$1.2B/day',flag:'🇸🇬',major:true},
+  {code:'INR',name:'Indian Rupee',country:'India',x:638,y:162,type:'fiat',region:'asia',color:'#00e5ff',rate:'83.12',vol:'$712M/day',flag:'🇮🇳'},
+  {code:'THB',name:'Thai Baht',country:'Thailand',x:705,y:168,type:'fiat',region:'asia',color:'#00e5ff',rate:'35.24',vol:'$388M/day',flag:'🇹🇭'},
+  {code:'MYR',name:'Malaysian Ringgit',country:'Malaysia',x:715,y:182,type:'fiat',region:'asia',color:'#00e5ff',rate:'4.712',vol:'$292M/day',flag:'🇲🇾'},
+  {code:'IDR',name:'Indonesian Rupiah',country:'Indonesia',x:742,y:195,type:'fiat',region:'asia',color:'#00e5ff',rate:'15622',vol:'$248M/day',flag:'🇮🇩'},
+  {code:'PHP',name:'Philippine Peso',country:'Philippines',x:772,y:172,type:'fiat',region:'asia',color:'#00e5ff',rate:'56.42',vol:'$188M/day',flag:'🇵🇭'},
+  {code:'VND',name:'Vietnamese Dong',country:'Vietnam',x:725,y:168,type:'fiat',region:'asia',color:'#00e5ff',rate:'24350',vol:'$128M/day',flag:'🇻🇳'},
+  {code:'TWD',name:'Taiwan Dollar',country:'Taiwan',x:790,y:148,type:'fiat',region:'asia',color:'#00e5ff',rate:'31.48',vol:'$448M/day',flag:'🇹🇼'},
+  {code:'PKR',name:'Pakistani Rupee',country:'Pakistan',x:622,y:148,type:'fiat',region:'asia',color:'#00e5ff',rate:'278.5',vol:'$62M/day',flag:'🇵🇰'},
+  {code:'BDT',name:'Bangladeshi Taka',country:'Bangladesh',x:655,y:158,type:'fiat',region:'asia',color:'#00e5ff',rate:'109.8',vol:'$38M/day',flag:'🇧🇩'},
+  {code:'LKR',name:'Sri Lankan Rupee',country:'Sri Lanka',x:648,y:200,type:'fiat',region:'asia',color:'#00e5ff',rate:'310.5',vol:'$22M/day',flag:'🇱🇰'},
+
+  // FIAT - OCEANIA
+  {code:'AUD',name:'Australian Dollar',country:'Australia',x:808,y:348,type:'fiat',region:'oceania',color:'#ffd740',rate:'1.5234',vol:'$2.1B/day',flag:'🇦🇺',major:true},
+  {code:'NZD',name:'New Zealand Dollar',country:'New Zealand',x:905,y:368,type:'fiat',region:'oceania',color:'#00e5ff',rate:'1.6412',vol:'$412M/day',flag:'🇳🇿'},
+  {code:'FJD',name:'Fijian Dollar',country:'Fiji',x:922,y:318,type:'fiat',region:'oceania',color:'#00e5ff',rate:'2.248',vol:'$18M/day',flag:'🇫🇯'},
+
+  // FIAT - AFRICA
+  {code:'ZAR',name:'South African Rand',country:'South Africa',x:482,y:305,type:'fiat',region:'africa',color:'#00e5ff',rate:'18.62',vol:'$248M/day',flag:'🇿🇦'},
+  {code:'NGN',name:'Nigerian Naira',country:'Nigeria',x:460,y:228,type:'fiat',region:'africa',color:'#00e5ff',rate:'785.5',vol:'$88M/day',flag:'🇳🇬'},
+  {code:'EGP',name:'Egyptian Pound',country:'Egypt',x:505,y:165,type:'fiat',region:'africa',color:'#00e5ff',rate:'30.92',vol:'$72M/day',flag:'🇪🇬'},
+  {code:'KES',name:'Kenyan Shilling',country:'Kenya',x:512,y:255,type:'fiat',region:'africa',color:'#00e5ff',rate:'129.8',vol:'$42M/day',flag:'🇰🇪'},
+  {code:'GHS',name:'Ghanaian Cedi',country:'Ghana',x:448,y:228,type:'fiat',region:'africa',color:'#00e5ff',rate:'12.38',vol:'$28M/day',flag:'🇬🇭'},
+  {code:'TZS',name:'Tanzanian Shilling',country:'Tanzania',x:510,y:268,type:'fiat',region:'africa',color:'#00e5ff',rate:'2520',vol:'$18M/day',flag:'🇹🇿'},
+
+  // CRYPTO - rendered at distinct locations
+  {code:'BTC',name:'Bitcoin',country:'Global Network',x:120,y:420,type:'crypto',region:'global',color:'#f7931a',rate:'$67,420',vol:'$48B/day',flag:'₿',major:true},
+  {code:'ETH',name:'Ethereum',country:'Global Network',x:178,y:420,type:'crypto',region:'global',color:'#627eea',rate:'$3,502',vol:'$22B/day',flag:'Ξ',major:true},
+  {code:'SOL',name:'Solana',country:'Global Network',x:236,y:420,type:'crypto',region:'global',color:'#9945ff',rate:'$142.3',vol:'$4.2B/day',flag:'◎'},
+  {code:'BNB',name:'BNB',country:'Global Network',x:294,y:420,type:'crypto',region:'global',color:'#f3ba2f',rate:'$608',vol:'$2.8B/day',flag:'⬡'},
+  {code:'MATIC',name:'Polygon',country:'Global Network',x:352,y:420,type:'crypto',region:'global',color:'#8247e5',rate:'$0.842',vol:'$880M/day',flag:'Ⓟ'},
+  {code:'ADA',name:'Cardano',country:'Global Network',x:410,y:420,type:'crypto',region:'global',color:'#0033ad',rate:'$0.521',vol:'$620M/day',flag:'₳'},
+  {code:'XRP',name:'XRP',country:'Global Network',x:468,y:420,type:'crypto',region:'global',color:'#00aae4',rate:'$0.624',vol:'$1.8B/day',flag:'✕'},
+  {code:'AVAX',name:'Avalanche',country:'Global Network',x:526,y:420,type:'crypto',region:'global',color:'#e84142',rate:'$38.2',vol:'$580M/day',flag:'🔺'},
+  {code:'DOT',name:'Polkadot',country:'Global Network',x:584,y:420,type:'crypto',region:'global',color:'#e6007a',rate:'$7.82',vol:'$320M/day',flag:'●'},
+  {code:'LINK',name:'Chainlink',country:'Global Network',x:642,y:420,type:'crypto',region:'global',color:'#2a5ada',rate:'$14.28',vol:'$488M/day',flag:'⬡'},
+
+  // STABLECOINS
+  {code:'USDC',name:'USD Coin',country:'Global Stablecoin',x:700,y:420,type:'stable',region:'global',color:'#2775ca',rate:'$1.0001',vol:'$8.2B/day',flag:'$',major:true},
+  {code:'USDT',name:'Tether',country:'Global Stablecoin',x:758,y:420,type:'stable',region:'global',color:'#26a17b',rate:'$1.0000',vol:'$42B/day',flag:'₮',major:true},
+  {code:'BUSD',name:'Binance USD',country:'Global Stablecoin',x:816,y:420,type:'stable',region:'global',color:'#f0b90b',rate:'$1.0000',vol:'$1.2B/day',flag:'$'},
+  {code:'DAI',name:'DAI',country:'Global Stablecoin',x:874,y:420,type:'stable',region:'global',color:'#f5ac37',rate:'$1.0001',vol:'$528M/day',flag:'◈'},
+  {code:'FRAX',name:'FRAX',country:'Global Stablecoin',x:932,y:420,type:'stable',region:'global',color:'#000000',rate:'$1.0000',vol:'$180M/day',flag:'F'},
+];
+
+var gmapActive = 'all';
+var gmapHighlight = null;
+
+function gmapGetColor(d){
+  if(d.major) return d.type==='fiat' ? '#ffd740' : d.color;
+  return d.color;
+}
+
+function gmapRenderPins(data){
+  var svg = document.getElementById('gmapPins');
+  if(!svg) return;
+  svg.innerHTML = '';
+  data.forEach(function(d){
+    var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','gmap-pin');
+    g.setAttribute('data-code', d.code);
+
+    var col = gmapGetColor(d);
+    var r = d.major ? 6 : 4;
+    var opacity = gmapHighlight ? (gmapHighlight===d.code ? 1 : 0.3) : 1;
+
+    // Pulse ring (for major currencies)
+    if(d.major){
+      var pulse = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      pulse.setAttribute('cx', d.x);
+      pulse.setAttribute('cy', d.y);
+      pulse.setAttribute('r', '10');
+      pulse.setAttribute('fill', col);
+      pulse.setAttribute('fill-opacity', '0.12');
+      pulse.setAttribute('class','pin-pulse');
+      g.appendChild(pulse);
+    }
+
+    // Outer glow
+    var glow = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    glow.setAttribute('cx', d.x);
+    glow.setAttribute('cy', d.y);
+    glow.setAttribute('r', r+2);
+    glow.setAttribute('fill', col);
+    glow.setAttribute('fill-opacity', '0.2');
+    g.appendChild(glow);
+
+    // Main dot
+    var circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    circle.setAttribute('cx', d.x);
+    circle.setAttribute('cy', d.y);
+    circle.setAttribute('r', r);
+    circle.setAttribute('fill', col);
+    circle.setAttribute('class','pin-circle');
+    circle.setAttribute('filter','url(#glow)');
+    g.appendChild(circle);
+
+    // Label for major currencies
+    if(d.major || r>=5){
+      var text = document.createElementNS('http://www.w3.org/2000/svg','text');
+      text.setAttribute('x', d.x + r + 3);
+      text.setAttribute('y', d.y + 4);
+      text.setAttribute('fill', col);
+      text.setAttribute('font-size', d.major ? '8' : '7');
+      text.setAttribute('font-family','JetBrains Mono,monospace');
+      text.setAttribute('font-weight','700');
+      text.textContent = d.code;
+      g.appendChild(text);
+    }
+
+    g.style.opacity = opacity;
+
+    // Events
+    g.addEventListener('mouseenter', function(e){ gmapShowTooltip(d, g); });
+    g.addEventListener('mouseleave', gmapHideTooltip);
+    g.addEventListener('click', function(){ gmapClickPin(d); });
+
+    svg.appendChild(g);
+  });
+}
+
+function gmapShowTooltip(d, g){
+  var tt = document.getElementById('gmapTooltip');
+  var wrap = document.getElementById('gmapWrap');
+  if(!tt || !wrap) return;
+
+  var typeLbl = d.type==='fiat' ? 'Fiat Currency' : d.type==='crypto' ? 'Cryptocurrency' : 'Stablecoin';
+  var typeCol = d.type==='fiat' ? '#00e5ff' : d.type==='crypto' ? d.color : '#26a17b';
+  var typeBg = d.type==='fiat' ? 'rgba(0,229,255,.1)' : d.type==='crypto' ? d.color+'22' : 'rgba(38,161,123,.1)';
+
+  tt.innerHTML =
+    '<div class="gtt-code">' + d.flag + ' ' + d.code + '</div>' +
+    '<div class="gtt-name">' + d.name + '</div>' +
+    '<div class="gtt-row"><span class="gtt-lbl">Country</span><span class="gtt-val">' + d.country + '</span></div>' +
+    '<div class="gtt-row"><span class="gtt-lbl">Rate (vs USD)</span><span class="gtt-val">' + d.rate + '</span></div>' +
+    '<div class="gtt-row"><span class="gtt-lbl">24h Volume</span><span class="gtt-val" style="color:var(--green)">' + d.vol + '</span></div>' +
+    '<span class="gtt-type" style="background:' + typeBg + ';color:' + typeCol + '">' + typeLbl + (d.major?' · Major Reserve':'') + '</span>';
+
+  // Position relative to wrap
+  var wRect = wrap.getBoundingClientRect();
+  var svgEl = document.getElementById('gmapSVG');
+  var svgRect = svgEl.getBoundingClientRect();
+  var scaleX = svgRect.width / 1000;
+  var scaleY = svgRect.height / 500;
+  var px = d.x * scaleX;
+  var py = d.y * scaleY;
+
+  tt.style.left = px + 'px';
+  tt.style.top = py + 'px';
+  tt.classList.add('show');
+}
+
+function gmapHideTooltip(){
+  var tt = document.getElementById('gmapTooltip');
+  if(tt) tt.classList.remove('show');
+}
+
+function gmapClickPin(d){
+  gmapHighlight = (gmapHighlight === d.code) ? null : d.code;
+  var filtered = gmapGetFiltered();
+  gmapRenderPins(filtered);
+  gmapRenderList(filtered);
+}
+
+function gmapGetFiltered(){
+  var q = (document.getElementById('gmapSearch')||{}).value || '';
+  q = q.toLowerCase();
+  return GMAP_DATA.filter(function(d){
+    var regionMatch = gmapActive === 'all' ||
+      (gmapActive === d.type) ||
+      (gmapActive === d.region);
+    var qMatch = !q ||
+      d.code.toLowerCase().includes(q) ||
+      d.name.toLowerCase().includes(q) ||
+      d.country.toLowerCase().includes(q);
+    return regionMatch && qMatch;
+  });
+}
+
+function gmapFilter(f, el){
+  gmapActive = f;
+  gmapHighlight = null;
+  document.querySelectorAll('.gmap-filter-pill').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  var filtered = gmapGetFiltered();
+  gmapRenderPins(filtered);
+  gmapRenderList(filtered);
+}
+
+function gmapSearch(val){
+  gmapHighlight = null;
+  var filtered = gmapGetFiltered();
+  gmapRenderPins(filtered);
+  gmapRenderList(filtered);
+}
+
+function gmapRenderList(data){
+  var list = document.getElementById('gmapList');
+  if(!list) return;
+  list.innerHTML = '';
+  data.forEach(function(d){
+    var item = document.createElement('div');
+    item.className = 'gmap-list-item' + (gmapHighlight===d.code?' highlighted':'');
+    item.setAttribute('data-code', d.code);
+    var col = gmapGetColor(d);
+    item.innerHTML =
+      '<div class="gli-dot" style="background:' + col + '"></div>' +
+      '<div><div class="gli-code">' + d.code + '</div><div class="gli-name">' + d.name + '</div></div>' +
+      '<div class="gli-rate">' + d.rate + '</div>';
+    item.addEventListener('click', function(){
+      gmapHighlight = (gmapHighlight===d.code) ? null : d.code;
+      gmapRenderPins(gmapGetFiltered());
+      gmapRenderList(gmapGetFiltered());
+      // Scroll item into view
+      document.querySelector('.gmap-list-item.highlighted')?.scrollIntoView({behavior:'smooth',block:'nearest'});
+    });
+    list.appendChild(item);
+  });
+}
+
+function gmapInit(){
+  var all = gmapGetFiltered();
+  gmapRenderPins(all);
+  gmapRenderList(all);
+
+  // Animate random connection lines between major currencies
+  var majors = GMAP_DATA.filter(function(d){ return d.major; });
+  var linesG = document.getElementById('gmapLines');
+  if(linesG){
+    for(var i=0; i<majors.length-1; i++){
+      var a = majors[i], b = majors[i+1];
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', a.x); line.setAttribute('y1', a.y);
+      line.setAttribute('x2', b.x); line.setAttribute('y2', b.y);
+      line.setAttribute('stroke', '#00e5ff');
+      line.setAttribute('stroke-width', '0.5');
+      line.setAttribute('stroke-dasharray', '3,3');
+      linesG.appendChild(line);
+    }
+  }
+}
+
+// Init when page becomes active
+var _gmapInited = false;
+var _origShowPage = window.showPage;
+if(typeof showPage === 'function'){
+  // Will be called by existing showPage override below
+}
+
+// Watch for page activation
+window.addEventListener('load', function(){
+  // If globalmap is active on load
+  if(document.getElementById('page-globalmap') &&
+     document.getElementById('page-globalmap').classList.contains('active')){
+    gmapInit();
+    _gmapInited = true;
+  }
+});
+
+// Expose globally so showPage hook can call it
+window.gmapInit = gmapInit;
+window.gmapFilter = gmapFilter;
+window.gmapSearch = gmapSearch;
+</script>
+
+</div><!-- /page-globalmap -->
+
 <!-- END SOCIAL PAGE -->
 
 <!-- ══════════════════════════════════════════
@@ -2990,7 +3997,7 @@ console.<span class="fn">log</span>(payment.status)  <span class="cmt">// confir
 <div id="nexaLauncher" onclick="nxToggle()">
   <div class="nx-launcher-av" style="position:relative">
     NX
-    <span id="nexaBadge">1</span>
+    <span id="nexaBadge" style="display:none">1</span>
   </div>
   <div class="nx-launcher-text">
     <span class="nx-launcher-name">Nexa</span>
@@ -3186,11 +4193,8 @@ async function nxCallClaude(userMsg){
     // Convert markdown-ish to HTML
     reply = reply
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/
-
-/g, '<br><br>')
-      .replace(/
-/g, '<br>');
+      .split('\n\n').join('<br><br>')
+      .split('\n').join('<br>');
 
     return reply;
 
@@ -3257,19 +4261,42 @@ function nxAddCards(){
   if(!msgs) return;
   var cw = document.createElement('div');
   cw.style.cssText = 'display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease';
-  cw.innerHTML =
-    '<div class="nx-card" onclick="nxChip(this,'How do I get started with Intellix for free?')">' +
-      '<div class="nx-card-title">&#9670; Get Started Free</div>' +
-      '<div class="nx-card-sub">Create an account in minutes. No credit card needed.</div>' +
-    '</div>' +
-    '<div class="nx-card" onclick="nxChip(this,'How does Intellix compare to Stripe or PayPal?')" style="border-color:rgba(156,111,255,.25)">' +
-      '<div class="nx-card-title" style="color:#9c6fff">&#9656; Why Choose Intellix?</div>' +
-      '<div class="nx-card-sub">See how we compare to traditional payment processors.</div>' +
-    '</div>' +
-    '<div class="nx-card" onclick="nxChip(this,'Show me how Intellix Social payments work')" style="border-color:rgba(255,64,129,.25)">' +
-      '<div class="nx-card-title" style="color:#ff4081">&#9829; Intellix Social</div>' +
-      '<div class="nx-card-sub">Chat and pay friends in the same conversation thread.</div>' +
-    '</div>';
+
+  var cards = [
+    {
+      q: 'How do I get started with Intellix for free?',
+      title: '&#9670; Get Started Free',
+      sub: 'Create an account in minutes. No credit card needed.',
+      border: 'rgba(0,229,255,.2)',
+      color: '#00e5ff'
+    },
+    {
+      q: 'How does Intellix compare to Stripe or PayPal?',
+      title: '&#9656; Why Choose Intellix?',
+      sub: 'See how we compare to traditional payment processors.',
+      border: 'rgba(156,111,255,.25)',
+      color: '#9c6fff'
+    },
+    {
+      q: 'Show me how Intellix Social payments work',
+      title: '&#9829; Intellix Social',
+      sub: 'Chat and pay friends in the same conversation thread.',
+      border: 'rgba(255,64,129,.25)',
+      color: '#ff4081'
+    }
+  ];
+
+  cards.forEach(function(card) {
+    var d = document.createElement('div');
+    d.className = 'nx-card';
+    d.style.borderColor = card.border;
+    d.innerHTML = '<div class="nx-card-title" style="color:' + card.color + '">' + card.title + '</div>' +
+                  '<div class="nx-card-sub">' + card.sub + '</div>';
+    d.setAttribute('data-q', card.q);
+    d.addEventListener('click', function() { nxChip(this, this.getAttribute('data-q')); });
+    cw.appendChild(d);
+  });
+
   msgs.appendChild(cw);
   msgs.scrollTop = msgs.scrollHeight;
   requestAnimationFrame(function(){
@@ -3286,6 +4313,8 @@ function nxToggle(){
   if(!panel) return;
 
   panel.classList.toggle('open', NX.open);
+  var launcher = document.getElementById('nexaLauncher');
+  if(launcher) launcher.style.display = NX.open ? 'none' : 'flex';
 
   if(NX.open){
     if(badge) badge.style.display = 'none';
@@ -3378,6 +4407,7 @@ function showPage(p){
     'feat-ai-engine':'nl-features','feat-dispute':'nl-features',
     'feat-finder':'nl-features','feat-methods':'nl-features',
     'feat-security':'nl-features','feat-insights':'nl-features',
+    'globalmap':'nl-globalmap',
     'feat-pay':'nl-platform','feat-fraud':'nl-platform',
     'feat-payouts':'nl-platform','feat-connect':'nl-platform',
     'feat-global':'nl-platform',
@@ -3387,13 +4417,15 @@ function showPage(p){
   if(nl)nl.classList.add('active');
 
   window.scrollTo(0,0);
+  // Init globe when navigated to
+  if(p==='globalmap' && typeof globeInit==='function'){ setTimeout(globeInit,80); }
   const sup=document.getElementById('supportLinks');
   if(sup)sup.style.display=['home','about'].includes(p)?'flex':'none';
   // Lazy-init calculators
   if(p==='payment')setTimeout(calcPayFee,80);
   if(p==='pricing')setTimeout(calcPricing,80);
 }
-function scrollTo(sel){
+function scrollToSection(sel){
   // If not on home page, switch first then scroll
   const homePage=document.getElementById('page-home');
   if(!homePage||!homePage.classList.contains('active')){
@@ -5490,7 +6522,7 @@ setInterval(()=>{
 
     <!-- Quick links -->
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:48px">
-      <div onclick="showPage('page-terms')" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:all .15s" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">
+      <div onclick="showPage('terms')" style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:all .15s" onmouseover="this.style.borderColor='var(--border2)'" onmouseout="this.style.borderColor='var(--border)'">
         <span style="font-size:20px">&#128220;</span>
         <div><div style="font-family:var(--font);font-size:14px;font-weight:700">Terms of Service</div><div style="font-size:12px;color:var(--text3)">Our full legal terms</div></div>
         <span style="margin-left:auto;color:var(--text3)">&#8594;</span>
@@ -5658,7 +6690,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-ai-engine">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -5667,7 +6699,7 @@ setInterval(()=>{
       <p class="feat-page-lead">Every millisecond, Intellix's AI evaluates hundreds of network paths, fees, and risk signals to route your payment along the fastest, cheapest, and safest possible route — automatically, in real time.</p>
       <div class="feat-page-btns">
         <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start for free &rarr;</button>
-        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollTo('#feat-ai-how')">How it works</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollToSection('#feat-ai-how')">How it works</button>
       </div>
     </div>
     <div class="feat-visual" style="background:var(--bg2);padding:24px">
@@ -5728,7 +6760,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-dispute">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -5800,7 +6832,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-finder">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -5869,7 +6901,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-methods">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -5878,7 +6910,7 @@ setInterval(()=>{
       <p class="feat-page-lead">Cards, bank transfers, mobile wallets, local rails, crypto — Intellix connects to every major payment method across 150+ countries through a single unified API, so you never have to build a new integration again.</p>
       <div class="feat-page-btns">
         <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start for free &rarr;</button>
-        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollTo('#feat-methods-list')">View all methods</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollToSection('#feat-methods-list')">View all methods</button>
       </div>
     </div>
     <div class="feat-visual" style="background:var(--bg2);padding:22px">
@@ -5932,7 +6964,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-security">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -6000,7 +7032,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-insights">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#features')">&#8592; Back to Features</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#features')">&#8592; Back to Features</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -6065,7 +7097,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-pay">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -6074,7 +7106,7 @@ setInterval(()=>{
       <p class="feat-page-lead">Intellix Pay is the fastest way to accept money from anyone, anywhere on earth. Cards, crypto, wallets, bank transfers, and local rails — all accessible through a single unified API with built-in routing, fraud detection, and instant settlement.</p>
       <div class="feat-page-btns">
         <button class="cta-primary" style="font-size:13px;padding:10px 24px" onclick="openSignUp()">Start accepting payments &rarr;</button>
-        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollTo('#developers')">View API docs</button>
+        <button class="cta-ghost" style="font-size:13px;padding:10px 18px" onclick="scrollToSection('#developers')">View API docs</button>
       </div>
     </div>
     <div class="feat-visual" style="background:var(--bg2);padding:24px;font-family:var(--mono);font-size:13px">
@@ -6131,7 +7163,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-fraud">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -6201,7 +7233,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-payouts">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -6269,7 +7301,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-connect">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
@@ -6336,7 +7368,7 @@ setInterval(()=>{
 ════════════════════════════════════════════════ -->
 <div class="page feat-page" id="page-feat-global">
   <div style="max-width:1200px;margin:0 auto;padding:48px 48px 0">
-    <button class="feat-back-btn" onclick="scrollTo('#platform')">&#8592; Back to Platform</button>
+    <button class="feat-back-btn" onclick="scrollToSection('#platform')">&#8592; Back to Platform</button>
   </div>
   <div class="feat-page-hero">
     <div>
