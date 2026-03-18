@@ -722,6 +722,7 @@ footer{padding:32px 48px;border-top:1px solid var(--border);display:flex;align-i
     <button class="nav-link nl-social" id="nl-social" onclick="openSocialOverlay()">&#9829; Social</button>
   </div>
   <div class="nav-space"></div>
+  <div id="timeGreeting" style="display:flex;align-items:center;gap:7px;padding:5px 14px;border-radius:16px;border:1px solid var(--border2);font-size:11px;font-weight:600;font-family:var(--body);background:var(--card);white-space:nowrap;margin-right:4px"></div>
   <div class="nav-pill"><span class="live-dot"></span><span id="navLive">Live · $4.2M/hr</span></div>
   <button class="nav-btn nav-btn-ghost" onclick="openSignIn()">Sign in</button>
   <button class="nav-btn nav-btn-primary" onclick="openSignUp()">Get started</button>
@@ -3152,6 +3153,12 @@ function handleSignUp(){
   if(!terms){toast('Please accept the Terms of Service to continue','warning');return;}
   toast('Creating your account...','info',1200);
   setTimeout(()=>{
+    sendSimulatedEmail({
+      to: email,
+      subject: `Congratulations ${first} — You're on Intellix! ◆`,
+      type: 'signup',
+      name: first
+    });
     toast(`Account created! Welcome to Intellix, ${first}! ✓`,'success',3000);
     setTimeout(()=>{showPage('home');setTimeout(openSocialOverlay,200);},1800);
   },1400);
@@ -3396,9 +3403,19 @@ function filterBlog(cat, el) {
 function subscribeNewsletter() {
   const email = document.getElementById('blogNlEmail')?.value?.trim();
   if (!email || !email.includes('@')) { toast('Please enter a valid email address','error'); return; }
-  toast(`✓ Subscribed! Welcome to the Intellix Journal, ${email.split('@')[0]}.`,'success',4000);
-  const inp = document.getElementById('blogNlEmail');
-  if (inp) inp.value = '';
+  // Simulate sending confirmation email
+  toast(`Sending confirmation to ${email}...`,'info',1500);
+  setTimeout(()=>{
+    sendSimulatedEmail({
+      to: email,
+      subject: 'Welcome to The Intellix Journal ◆',
+      type: 'newsletter',
+      name: email.split('@')[0]
+    });
+    toast(`✓ Confirmed! Check your inbox — welcome to the Intellix Journal.`,'success',5000);
+    const inp = document.getElementById('blogNlEmail');
+    if (inp) inp.value = '';
+  }, 1200);
 }
 
 function buildBlogIndex() {
@@ -3650,6 +3667,329 @@ function mobSwitch(tab){
     if(el)el.style.display=t===tab?'flex':'none';
   });
 }
+
+// ══════════════════════════════════════════
+// SIMULATED EMAIL SYSTEM
+// ══════════════════════════════════════════
+function sendSimulatedEmail({to, subject, type, name}){
+  // In production this would call EmailJS / SendGrid / Resend etc.
+  // Here we display a beautiful in-app "email sent" modal to show the user
+  // what email they would receive.
+  let bodyHTML = '';
+
+  if(type === 'newsletter'){
+    bodyHTML = `
+      <div style="background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:16px;overflow:hidden">
+        <!-- Email header -->
+        <div style="background:linear-gradient(135deg,rgba(156,111,255,.15),rgba(0,229,255,.1));padding:28px 28px 20px;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:14px;font-weight:800;color:#000">IX</div>
+            <div>
+              <div style="font-family:var(--font);font-size:13px;font-weight:800;color:var(--text)">Intellix</div>
+              <div style="font-size:11px;color:var(--text3)">noreply@intellix.io → ${to}</div>
+            </div>
+            <div style="margin-left:auto;background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.25);padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700">✓ SENT</div>
+          </div>
+          <div style="font-family:var(--font);font-size:18px;font-weight:900;color:var(--text)">${subject}</div>
+        </div>
+        <!-- Email body -->
+        <div style="padding:24px 28px">
+          <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px">Hi <strong style="color:var(--text)">${name}</strong>,</p>
+          <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px">You're officially part of <strong style="color:var(--cyan)">The Intellix Journal</strong> — thanks for subscribing.</p>
+          <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">Expect deep-dive engineering posts, founder essays, and product announcements delivered straight to your inbox. No noise. No cadence commitment. Just the good stuff.</p>
+          <div style="background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.2);border-radius:12px;padding:16px 18px;margin-bottom:20px">
+            <div style="font-family:var(--font);font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:6px">◆ What to expect</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.8">Engineering deep-dives · Founder essays · Product announcements · No spam, ever.</div>
+          </div>
+          <p style="font-size:12px;color:var(--text3);line-height:1.7">You can unsubscribe at any time. This email was sent to ${to} because you subscribed at intellix.io.</p>
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)">© 2026 Intellix · Founded by Ghokkul Muhunthan · <a href="#" style="color:var(--cyan)">Unsubscribe</a></div>
+        </div>
+      </div>`;
+  } else if(type === 'signup'){
+    bodyHTML = `
+      <div style="background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:16px;overflow:hidden">
+        <!-- Email header -->
+        <div style="background:linear-gradient(135deg,rgba(0,230,118,.12),rgba(0,229,255,.08));padding:28px 28px 20px;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:14px;font-weight:800;color:#000">IX</div>
+            <div>
+              <div style="font-family:var(--font);font-size:13px;font-weight:800;color:var(--text)">Intellix</div>
+              <div style="font-size:11px;color:var(--text3)">welcome@intellix.io → ${to}</div>
+            </div>
+            <div style="margin-left:auto;background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.25);padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700">✓ SENT</div>
+          </div>
+          <div style="font-family:var(--font);font-size:18px;font-weight:900;color:var(--text)">${subject}</div>
+        </div>
+        <!-- Email body -->
+        <div style="padding:24px 28px">
+          <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px">Hi <strong style="color:var(--text)">${name}</strong> 👋</p>
+          <div style="background:linear-gradient(135deg,rgba(0,230,118,.08),rgba(0,229,255,.05));border:1px solid rgba(0,230,118,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px">
+            <div style="font-family:var(--font);font-size:22px;font-weight:900;color:var(--green);margin-bottom:6px">🎉 You're in.</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.7">Your Intellix account is active. You now have access to the AI payment engine, FraudNet v2.1, Intellix Social, and everything else the platform offers.</div>
+          </div>
+          <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px">Here's what you can do right now:</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--cyan);font-size:16px">◆</span> Explore the AI Payment Engine — route your first transaction</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--pink);font-size:16px">♥</span> Open Intellix Social — chat and pay friends instantly</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--purple);font-size:16px">▶</span> Check FraudNet — every transaction is already protected</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--gold);font-size:16px">↑</span> Upgrade to Pro — 50,000 transactions, AI route optimizer</div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:16px">
+            <div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:4px">YOUR PLAN</div>
+            <div style="font-family:var(--font);font-size:16px;font-weight:800;color:var(--text)">Starter — Free forever</div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px">1,000 transactions/month · FraudNet · Intellix Social</div>
+          </div>
+          <p style="font-size:12px;color:var(--text3);line-height:1.7">If you didn't create this account, please contact support@intellix.io immediately.</p>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)">© 2026 Intellix · Ghokkul Muhunthan, Founder · <a href="#" style="color:var(--cyan)">Manage account</a></div>
+        </div>
+      </div>`;
+  }
+
+  openModal(
+    `📧 Email sent to ${to}`,
+    `<div style="margin-bottom:12px;padding:10px 14px;background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.2);border-radius:10px;font-size:12px;color:var(--green)">
+      <strong>✓ Confirmation email sent!</strong> In production, this email would land in your inbox via Resend/SendGrid. Here's a preview of exactly what was sent:
+    </div>` + bodyHTML,
+    `<button class="ix-btn ix-btn-primary" onclick="closeModal()">Got it ◆</button>`
+  );
+}
+
+// ══════════════════════════════════════════
+// TIME-BASED GREETING SYSTEM (with timezone)
+// ══════════════════════════════════════════
+
+function getGreetingData(h) {
+  if (h >= 5 && h < 12) return {
+    period: 'morning',
+    greeting: 'Good Morning',
+    emoji: '🌅',
+    tagline: 'The markets are awake — and so are you.',
+    sub: 'Markets are live',
+    color: '#ffd740',
+    border: 'rgba(255,215,64,.3)',
+    gradient: 'linear-gradient(135deg,rgba(255,215,64,.18),rgba(255,145,0,.1))',
+    particle: '☀️'
+  };
+  if (h >= 12 && h < 16) return {
+    period: 'afternoon',
+    greeting: 'Good Afternoon',
+    emoji: '⚡',
+    tagline: 'Payments are routing. Keep building.',
+    sub: 'Routes are flying',
+    color: '#00e5ff',
+    border: 'rgba(0,229,255,.3)',
+    gradient: 'linear-gradient(135deg,rgba(0,229,255,.15),rgba(124,79,255,.1))',
+    particle: '💳'
+  };
+  if (h >= 16 && h < 19) return {
+    period: 'evening',
+    greeting: 'Good Evening',
+    emoji: '🌆',
+    tagline: 'Wind down — but FraudNet never does.',
+    sub: 'Systems nominal',
+    color: '#ff9100',
+    border: 'rgba(255,145,0,.3)',
+    gradient: 'linear-gradient(135deg,rgba(255,145,0,.15),rgba(255,64,129,.1))',
+    particle: '🌇'
+  };
+  return {
+    period: 'night',
+    greeting: 'Good Night',
+    emoji: '🌙',
+    tagline: 'The AI never sleeps. You\'ve earned it.',
+    sub: 'FraudNet active',
+    color: '#9c6fff',
+    border: 'rgba(156,111,255,.3)',
+    gradient: 'linear-gradient(135deg,rgba(156,111,255,.18),rgba(0,229,255,.08))',
+    particle: '✨'
+  };
+}
+
+function getTimezoneInfo() {
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+  const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  // Get UTC offset
+  const offset = -now.getTimezoneOffset();
+  const sign = offset >= 0 ? '+' : '-';
+  const absOffset = Math.abs(offset);
+  const hOff = String(Math.floor(absOffset / 60)).padStart(2, '0');
+  const mOff = String(absOffset % 60).padStart(2, '0');
+  const utcLabel = `UTC${sign}${hOff}:${mOff}`;
+  // Shorten timezone name
+  const tzShort = tz.split('/').pop().replace(/_/g, ' ');
+  return { tz, tzShort, timeStr, dateStr, utcLabel };
+}
+
+function showWelcomeSplash() {
+  const h = new Date().getHours();
+  const g = getGreetingData(h);
+  const tz = getTimezoneInfo();
+
+  // Inject splash overlay into body
+  const splash = document.createElement('div');
+  splash.id = 'welcomeSplash';
+  splash.style.cssText = `
+    position:fixed;inset:0;z-index:99999;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(6,7,13,0.92);backdrop-filter:blur(18px);
+    animation:splashFadeIn .4s ease;
+    padding:20px;
+  `;
+
+  splash.innerHTML = `
+    <style>
+      @keyframes splashFadeIn{from{opacity:0}to{opacity:1}}
+      @keyframes splashFadeOut{from{opacity:1}to{opacity:0;pointer-events:none}}
+      @keyframes greetPop{0%{transform:translateY(28px) scale(.96);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
+      @keyframes floatEmoji{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+      @keyframes tickClock{0%{opacity:.4}50%{opacity:1}100%{opacity:.4}}
+      .splash-card{
+        background:var(--bg2);border:1px solid var(--border2);
+        border-radius:24px;max-width:500px;width:100%;
+        animation:greetPop .5s cubic-bezier(.22,1,.36,1) .1s both;
+        overflow:hidden;position:relative;
+      }
+      .splash-top{
+        background:${g.gradient};
+        border-bottom:1px solid var(--border);
+        padding:40px 36px 32px;
+        text-align:center;position:relative;overflow:hidden;
+      }
+      .splash-top::before{
+        content:'';position:absolute;inset:0;
+        background:radial-gradient(ellipse at 50% 0%,${g.color}22,transparent 70%);
+        pointer-events:none;
+      }
+      .splash-emoji{font-size:56px;display:block;margin-bottom:18px;animation:floatEmoji 3s ease-in-out infinite;line-height:1}
+      .splash-greeting{
+        font-family:'Syne',sans-serif;font-size:38px;font-weight:900;
+        letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px;
+        color:var(--text);
+      }
+      .splash-tagline{font-size:14px;color:var(--text2);line-height:1.6;}
+      .splash-body{padding:28px 32px 32px;}
+      .splash-tz-row{
+        display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;
+      }
+      .splash-tz-card{
+        background:var(--bg3);border:1px solid var(--border);
+        border-radius:12px;padding:13px 15px;
+      }
+      .splash-tz-label{font-size:9px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+      .splash-tz-value{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--text);}
+      .splash-tz-sub{font-size:10px;color:var(--text3);margin-top:2px;}
+      .splash-status{
+        display:flex;align-items:center;gap:9px;padding:11px 14px;
+        background:rgba(0,230,118,.06);border:1px solid rgba(0,230,118,.18);
+        border-radius:10px;font-size:12px;color:var(--text2);margin-bottom:22px;
+      }
+      .splash-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:ldpulse 1.5s infinite;flex-shrink:0;}
+      .splash-btn{
+        width:100%;padding:14px;border-radius:12px;
+        background:linear-gradient(135deg,${g.color === '#ffd740' ? 'var(--gold),var(--orange)' :
+          g.color === '#00e5ff' ? 'var(--cyan2),var(--purple2)' :
+          g.color === '#ff9100' ? '#ff9100,var(--pink)' :
+          'var(--purple),var(--cyan2)'});
+        border:none;color:${g.color === '#ffd740' || g.color === '#00e5ff' ? '#000' : '#fff'};
+        font-family:'Syne',sans-serif;font-size:15px;font-weight:800;
+        cursor:pointer;transition:all .2s;letter-spacing:-.3px;
+      }
+      .splash-btn:hover{opacity:.9;transform:translateY(-2px);}
+      .splash-close{
+        position:absolute;top:14px;right:14px;
+        width:28px;height:28px;border-radius:50%;
+        background:rgba(255,255,255,.08);border:1px solid var(--border2);
+        display:flex;align-items:center;justify-content:center;
+        cursor:pointer;font-size:12px;color:var(--text2);
+        transition:all .15s;
+      }
+      .splash-close:hover{background:rgba(255,255,255,.14);color:var(--text);}
+      .clock-live{animation:tickClock 2s ease-in-out infinite;display:inline;}
+    </style>
+
+    <div class="splash-card">
+      <div class="splash-close" onclick="dismissSplash()">✕</div>
+      <div class="splash-top">
+        <span class="splash-emoji">${g.emoji}</span>
+        <div class="splash-greeting">${g.greeting}</div>
+        <div class="splash-tagline">${g.tagline}</div>
+      </div>
+      <div class="splash-body">
+        <div class="splash-tz-row">
+          <div class="splash-tz-card">
+            <div class="splash-tz-label">Your Time</div>
+            <div class="splash-tz-value"><span class="clock-live" id="splashClock">${tz.timeStr}</span></div>
+            <div class="splash-tz-sub">${tz.utcLabel}</div>
+          </div>
+          <div class="splash-tz-card">
+            <div class="splash-tz-label">Your Timezone</div>
+            <div class="splash-tz-value" style="font-size:12px">${tz.tzShort}</div>
+            <div class="splash-tz-sub">${tz.tz.split('/')[0] || 'Local'}</div>
+          </div>
+          <div class="splash-tz-card" style="grid-column:span 2">
+            <div class="splash-tz-label">Today</div>
+            <div class="splash-tz-value" style="font-size:11px;font-family:'Inter',sans-serif;font-weight:600">${tz.dateStr}</div>
+          </div>
+        </div>
+        <div class="splash-status">
+          <div class="splash-live-dot"></div>
+          <span><strong style="color:var(--green)">All systems operational</strong> — AI engine, FraudNet v2.1 & Social are live</span>
+        </div>
+        <button class="splash-btn" onclick="dismissSplash()">
+          Enter Intellix ${g.particle}
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(splash);
+
+  // Tick the clock inside splash every second
+  const clockEl = document.getElementById('splashClock');
+  const clockInterval = setInterval(() => {
+    if (!document.getElementById('welcomeSplash')) { clearInterval(clockInterval); return; }
+    if (clockEl) {
+      clockEl.textContent = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
+    }
+  }, 1000);
+
+  // Auto-dismiss after 12s
+  setTimeout(() => dismissSplash(), 12000);
+}
+
+function dismissSplash() {
+  const splash = document.getElementById('welcomeSplash');
+  if (!splash) return;
+  splash.style.animation = 'splashFadeOut .35s ease forwards';
+  setTimeout(() => splash.remove(), 380);
+}
+
+function updateTimeGreeting() {
+  const el = document.getElementById('timeGreeting');
+  if (!el) return;
+  const h = new Date().getHours();
+  const g = getGreetingData(h);
+  const tz = getTimezoneInfo();
+
+  el.style.borderColor = g.border;
+  el.innerHTML = `
+    <span style="font-size:13px">${g.emoji}</span>
+    <span style="color:${g.color};font-weight:700">${g.greeting}</span>
+    <span style="color:var(--text3);font-weight:400;font-size:10px">· ${tz.tzShort} ${tz.utcLabel}</span>
+  `;
+  el.style.background = g.gradient;
+  el.title = `${tz.timeStr} — ${tz.tz}`;
+}
+
+updateTimeGreeting();
+setInterval(updateTimeGreeting, 60000);
+
+// Show welcome splash on page load
+window.addEventListener('load', () => {
+  setTimeout(showWelcomeSplash, 600);
+});
 
 // ── START ──
 buildTicker();
