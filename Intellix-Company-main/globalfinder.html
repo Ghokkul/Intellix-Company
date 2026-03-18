@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Intellix GlobalFinder — Best Prices Worldwide</title>
+
+<style>
+:root{
+  --brand:#5b2ff6;
+  --accent:#4df0a6;
+  --bg1:linear-gradient(135deg,#2e0f61,#4b0f88,#1a063a);
+  --glass:rgba(255,255,255,0.06);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--bg1);
+  color:#eee6ff;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 30px;
+  background:rgba(0,0,0,0.12);
+  backdrop-filter:blur(10px);
+}
+
+.logo{font-weight:800;font-size:22px;color:#fff}
+nav a{
+  color:#d7c6ff;
+  text-decoration:none;
+  margin-right:16px;
+  font-size:15px;
+}
+
+.container{padding:30px;max-width:1200px;margin:0 auto}
+.small{font-size:13px;color:#cfc2ff}
+
+.search-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.input,select{
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.04);
+  color:#fff;
+  outline:none;
+}
+
+.btn{
+  background:var(--brand);
+  border:none;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+  transition:0.3s;
+}
+
+.btn:hover{opacity:0.85}
+
+.panel{
+  margin-top:20px;
+  padding:20px;
+  border-radius:14px;
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(10px);
+}
+
+.results{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:16px;
+  margin-top:22px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:18px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(8px);
+  transition:0.2s;
+}
+
+.card.lowest{
+  border:1px solid var(--accent);
+  box-shadow:0 8px 25px rgba(77,240,166,0.15);
+}
+
+.badge{
+  background:rgba(0,0,0,0.2);
+  padding:5px 8px;
+  font-size:12px;
+  border-radius:8px;
+  color:#d7c6ff;
+}
+
+.price{
+  font-weight:800;
+  font-family:monospace;
+  color:var(--accent);
+  font-size:17px;
+}
+
+.footer{
+  margin-top:30px;
+  text-align:center;
+  color:#d7c6ff;
+}
+
+/* Modal */
+.modal{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.6);
+  z-index:1000;
+}
+.dialog{
+  background:rgba(255,255,255,0.08);
+  padding:25px;
+  border-radius:14px;
+  width:90%;
+  max-width:480px;
+  color:#fff;
+  backdrop-filter:blur(10px);
+}
+
+@media(max-width:760px){
+  .search-row{flex-direction:column}
+  .btn,select,.input{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Intellix</div>
+  <nav>
+    <a href="index.html">Landing</a>
+    <a href="features.html">Features</a>
+    <a href="globalfinder.html">Global Finder</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="roadmap.html">Roadmap</a>
+    <a href="login.html" class="btn" style="margin-left:22px;">Sign in</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2>Search any product — see the best global price instantly</h2>
+  <p class="small">Type any product name. The system will automatically generate real-world global vendor prices.</p>
+
+  <div class="panel">
+    <div class="search-row">
+      <input id="q" class="input" placeholder="Search product (e.g. PS6, RTX 5090, Nike...)" />
+      <select id="currency" class="input">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="JPY">JPY</option>
+        <option value="NZD">NZD</option>
+      </select>
+      <button id="searchBtn" class="btn">Search</button>
+    </div>
+
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+      <label class="small">Sort:</label>
+      <button onclick="setSort('total')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.1)">Best Price</button>
+      <button onclick="setSort('shipping')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.1)">Lowest Shipping</button>
+      <button onclick="setSort('eta')" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.1)">Fastest Delivery</button>
+    </div>
+  </div>
+
+  <div id="results" class="results" aria-live="polite"></div>
+  <div class="footer">GlobalFinder simulates real-world vendors, currency markets & landed cost calculations.</div>
+</main>
+
+<!-- Payment Modal -->
+<div id="modal" class="modal">
+  <div class="dialog">
+    <h3 id="modalTitle"></h3>
+    <p id="modalBody" class="small"></p>
+
+    <div style="margin-top:14px">
+      <label class="small">Payment method</label>
+      <select id="pmethod" class="input" style="width:100%;margin-top:6px">
+        <option value="card">Card (Visa/Mastercard)</option>
+        <option value="apple">Apple Pay</option>
+        <option value="crypto">Crypto (USDC)</option>
+      </select>
+    </div>
+
+    <div style="margin-top:14px">
+      <label class="small">Email</label>
+      <input id="payerEmail" class="input" style="width:100%;margin-top:6px" placeholder="you@example.com"/>
+    </div>
+
+    <div style="margin-top:18px;display:flex;justify-content:flex-end;gap:10px">
+      <button class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.1)" onclick="closeModal()">Cancel</button>
+      <button class="btn" onclick="completePayment()">Pay Now</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ------------------------------------------
+   Intelligent global marketplace generator
+--------------------------------------------- */
+const COUNTRIES = [
+  {code:"US", currency:"USD", vendor:"ShopUS"},
+  {code:"GB", currency:"GBP", vendor:"UKStore"},
+  {code:"DE", currency:"EUR", vendor:"DETech"},
+  {code:"JP", currency:"JPY", vendor:"JPMarket"},
+  {code:"NZ", currency:"NZD", vendor:"NZTech"},
+  {code:"AE", currency:"USD", vendor:"DubaiElectro"},
+  {code:"SG", currency:"USD", vendor:"SGGlobal"},
+];
+
+const RATES={USD:1,EUR:1.06,GBP:1.25,JPY:0.0068,NZD:0.61};
+
+function convert(amount,from,to){
+  if(!RATES[from]||!RATES[to])return amount;
+  const usd = amount / RATES[from];
+  return usd * RATES[to];
+}
+function human(x,curr){
+  return new Intl.NumberFormat('en-US',{style:'currency',currency:curr}).format(x);
+}
+
+let generated = [];
+let sortMode = "total";
+
+function generateGlobalResults(product){
+  let results = [];
+
+  COUNTRIES.forEach(c=>{
+    let basePrice = Math.random()*800 + 100;  
+    let multiplier = Math.random()*1.8 + 0.6; 
+    let finalPrice = basePrice * multiplier;
+
+    results.push({
+      id:Math.random().toString(36).slice(2),
+      product:product,
+      vendor:c.vendor,
+      country:c.code,
+      currency:c.currency,
+      price:finalPrice,
+      shipping:Math.floor(Math.random()*40)+10,
+      tax:Math.floor(finalPrice*0.07),
+      eta_days:Math.floor(Math.random()*6)+2
+    });
+  });
+
+  return results;
+}
+
+function search(){
+  const q = document.getElementById("q").value.trim();
+  const currency = document.getElementById("currency").value;
+
+  if(!q.length){
+    document.getElementById("results").innerHTML = "<div>No product entered.</div>";
+    return;
+  }
+
+  generated = generateGlobalResults(q).map(it=>{
+    const total = convert(it.price+it.shipping+it.tax, it.currency, currency);
+    return {...it, displayCurrency:currency, total};
+  });
+
+  renderResults();
+}
+
+function setSort(mode){
+  sortMode = mode;
+  renderResults();
+}
+
+function renderResults(){
+  let results = [...generated];
+
+  if(sortMode==="total") results.sort((a,b)=>a.total-b.total);
+  if(sortMode==="shipping") results.sort((a,b)=>a.shipping-b.shipping);
+  if(sortMode==="eta") results.sort((a,b)=>a.eta_days-b.eta_days);
+
+  const lowest = Math.min(...results.map(r=>r.total));
+  const container=document.getElementById("results");
+  container.innerHTML="";
+
+  results.forEach(r=>{
+    const card=document.createElement("div");
+    card.className="card"+(r.total===lowest?" lowest":"");
+
+    card.innerHTML = `
+      <h4>${r.vendor} <span class="badge">${r.country}</span></h4>
+      <p class="small">${r.product}</p>
+      <p>Vendor Price: <span class="price">${human(r.price,r.currency)}</span></p>
+      <p>Shipping: ${human(r.shipping,r.currency)} • Tax: ${human(r.tax,r.currency)}</p>
+      <p style="margin-top:8px">Total: <span class="price">${human(r.total,r.displayCurrency)}</span></p>
+
+      <div style="display:flex;justify-content:space-between;margin-top:12px;align-items:center">
+        <span class="small">ETA: ${r.eta_days} days</span>
+        <button class="btn" onclick="openModal('${r.id}')">Pay</button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function openModal(id){
+  const item = generated.find(x=>x.id===id);
+  document.getElementById("modalTitle").innerText = `Pay ${item.vendor}`;
+  document.getElementById("modalBody").innerHTML = `
+    Product: <strong>${item.product}</strong><br>
+    Total: <strong>${human(item.total,item.displayCurrency)}</strong>
+  `;
+  document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+function completePayment(){
+  alert("Payment simulated — here you would connect to Intellix API");
+  closeModal();
+}
+
+document.getElementById("searchBtn").onclick = search;
+document.getElementById("q").addEventListener("keydown",e=>{
+  if(e.key==="Enter") search();
+});
+</script>
+
+</body>
+</html>
