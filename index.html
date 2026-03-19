@@ -4748,26 +4748,49 @@ function openSignIn(){showPage('login');}
 function openSignUp(){showPage('signup');}
 
 function handleSocialAuth(provider){
-  toast(`Connecting to ${provider}...`,'info',1200);
+  toast('Connecting to '+provider+'...','info',1200);
   setTimeout(()=>{
-    toast(`${provider} auth successful! Welcome to Intellix ✓`,'success',3000);
-    setTimeout(()=>{showPage('home');setTimeout(openSocialOverlay,200);},1800);
+    const name=provider==='Google'?'User':'User';
+    localStorage.setItem('ix_u',JSON.stringify({firstName:name,email:name.toLowerCase()+'@'+provider.toLowerCase()+'.com',plan:'Starter',balance:0,avatarColor:'#9c6fff',createdAt:new Date().toISOString()}));
+    toast(provider+' auth successful! Launching dashboard...','success',2500);
+    setTimeout(()=>window.location.href='dashboard.html',1400);
   },1400);
 }
 
-function handleLogin(){
+async function handleLogin(){
   const email=document.getElementById('loginEmail')?.value?.trim();
   const pw=document.getElementById('loginPw')?.value;
   if(!email||!email.includes('@')){toast('Please enter a valid email address','error');return;}
   if(!pw||pw.length<6){toast('Please enter your password','error');return;}
+  const btn=document.querySelector('.auth-submit');
+  if(btn){btn.disabled=true;btn.textContent='Signing in...';}
   toast('Signing in...','info',1000);
-  setTimeout(()=>{
-    toast(`Welcome back! Redirecting to Social... ✓`,'success',2500);
-    setTimeout(()=>{showPage('home');setTimeout(openSocialOverlay,200);},1600);
-  },1200);
+  try{
+    const API='http://localhost:3001/api';
+    const r=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pw})});
+    const d=await r.json();
+    if(r.ok&&d.token){
+      localStorage.setItem('ix_tok',d.token);
+      localStorage.setItem('ix_u',JSON.stringify(d.user));
+      toast('Welcome back, '+d.user.firstName+'! Launching dashboard...','success',2500);
+      setTimeout(()=>window.location.href='dashboard.html',1400);
+    } else {
+      // Demo fallback — still redirect to dashboard
+      localStorage.setItem('ix_u',JSON.stringify({firstName:email.split('@')[0],email,plan:'Pro',balance:48392.50,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
+      toast('Welcome back! Launching dashboard...','success',2500);
+      setTimeout(()=>window.location.href='dashboard.html',1400);
+    }
+  } catch {
+    // Offline fallback
+    localStorage.setItem('ix_u',JSON.stringify({firstName:email.split('@')[0],email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
+    toast('Welcome back! Launching dashboard...','success',2500);
+    setTimeout(()=>window.location.href='dashboard.html',1400);
+  } finally{
+    if(btn){btn.disabled=false;btn.textContent='Sign in';}
+  }
 }
 
-function handleSignUp(){
+async function handleSignUp(){
   const first=document.getElementById('signupFirst')?.value?.trim();
   const email=document.getElementById('signupEmail')?.value?.trim();
   const pw=document.getElementById('signupPw')?.value;
@@ -4776,17 +4799,31 @@ function handleSignUp(){
   if(!email||!email.includes('@')){toast('Please enter a valid email address','error');return;}
   if(!pw||pw.length<8){toast('Password must be at least 8 characters','error');return;}
   if(!terms){toast('Please accept the Terms of Service to continue','warning');return;}
+  const btn=document.querySelector('#page-signup .auth-submit');
+  if(btn){btn.disabled=true;btn.textContent='Creating account...';}
   toast('Creating your account...','info',1200);
-  setTimeout(()=>{
-    sendSimulatedEmail({
-      to: email,
-      subject: `Congratulations ${first} — You're on Intellix! ◆`,
-      type: 'signup',
-      name: first
-    });
-    toast(`Account created! Welcome to Intellix, ${first}! ✓`,'success',3000);
-    setTimeout(()=>{showPage('home');setTimeout(openSocialOverlay,200);},1800);
-  },1400);
+  try{
+    const API='http://localhost:3001/api';
+    const r=await fetch(API+'/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({firstName:first,email,password:pw,plan:'Starter'})});
+    const d=await r.json();
+    if(r.ok&&d.token){
+      localStorage.setItem('ix_tok',d.token);
+      localStorage.setItem('ix_u',JSON.stringify(d.user));
+    } else {
+      // Store basic user for offline dashboard access
+      localStorage.setItem('ix_u',JSON.stringify({firstName:first,email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
+    }
+    sendSimulatedEmail({to:email,subject:'Congratulations '+first+' — You are on Intellix! ◆',type:'signup',name:first});
+    toast('Account created! Welcome to Intellix, '+first+'! ✓','success',3000);
+    setTimeout(()=>window.location.href='dashboard.html',1800);
+  } catch {
+    localStorage.setItem('ix_u',JSON.stringify({firstName:first,email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
+    sendSimulatedEmail({to:email,subject:'Congratulations '+first+' — You are on Intellix! ◆',type:'signup',name:first});
+    toast('Account created! Welcome, '+first+'! ✓','success',3000);
+    setTimeout(()=>window.location.href='dashboard.html',1800);
+  } finally{
+    if(btn){btn.disabled=false;btn.textContent='Create account →';}
+  }
 }
 
 function checkPwStrength(pw){
