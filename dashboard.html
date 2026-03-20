@@ -198,7 +198,8 @@ td{padding:9px 13px;font-size:12px}
   <div class="sb-pod" onclick="go('profile')" id="sbPod">
     <div style="display:flex;align-items:center;gap:9px">
       <div class="sb-av" id="sbAv" style="background:linear-gradient(135deg,var(--cy),var(--pu))">?<div class="sb-av-dot"></div></div>
-      <div style="flex:1;min-width:0"><div class="sb-uname" id="sbNm">Loading…</div><div class="sb-uplan" id="sbPl">◆ Starter</div></div>
+      <div style="flex:1;min-width:0"><div class="sb-uname" id="sbNm">Loading…</div><div class="sb-uplan" id="sbPl">◆ Starter</div>
+      <div id="sbAccId" style="font-family:var(--mono);font-size:9px;color:var(--t3);letter-spacing:.8px;margin-top:1px"></div></div>
     </div>
   </div>
   <div class="sb-bal">
@@ -363,6 +364,12 @@ td{padding:9px 13px;font-size:12px}
           <div style="font-family:var(--font);font-size:16px;font-weight:800" id="pNm">—</div>
           <div style="font-size:11px;color:var(--t3);margin-top:2px" id="pEm">—</div>
           <div id="pPl" style="display:inline-block;margin-top:9px;padding:3px 11px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.16);border-radius:999px;font-size:10px;font-weight:700;color:var(--cy)">◆ Starter</div>
+          <div style="margin-top:9px;display:flex;align-items:center;justify-content:center;gap:8px">
+            <div style="background:linear-gradient(135deg,rgba(0,229,255,.07),rgba(156,111,255,.04));border:1px solid rgba(0,229,255,.2);border-radius:9px;padding:8px 14px;display:inline-flex;align-items:center;gap:8px">
+              <span style="font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px">Account ID</span>
+              <span id="pAccId" style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--cy);letter-spacing:1.5px">—</span>
+            </div>
+          </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px;padding-top:13px;border-top:1px solid var(--b1)">
             <div><div style="font-family:var(--font);font-size:14px;font-weight:800;color:var(--cy)" id="pTx">—</div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-top:2px">Txns</div></div>
             <div><div style="font-family:var(--font);font-size:14px;font-weight:800;color:var(--gn)" id="pVol">—</div><div style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;margin-top:2px">Volume</div></div>
@@ -433,7 +440,7 @@ function bLD(u){
     const d=new Date(Date.now()-i*86400000);
     return{label:d.toLocaleDateString('en-US',{weekday:'short'}),volume:Math.random()*8000+400,count:Math.floor(Math.random()*20+2)};
   }).reverse();
-  return{success:true,dashboard:{balance:u.balance||48392.50,currency:'USD',plan:u.plan||'Pro',apiKey:u.apiKey||'ix_live_sk_demo00000001',kycVerified:true,stats:{totalTransactions:35,completed:done,totalIn:+inn.toFixed(2),totalOut:12450.80,feesSaved:428.52,avgFraud:0.0234,successRate:94.3,settlementAvg:'14s'},volumeByDay:days,recentTxns:txns.slice(0,10)}};
+  return{success:true,dashboard:{balance:u.balance||0,currency:'USD',plan:u.plan||'Pro',apiKey:u.apiKey||'ix_live_sk_demo00000001',kycVerified:true,stats:{totalTransactions:35,completed:done,totalIn:+inn.toFixed(2),totalOut:12450.80,feesSaved:428.52,avgFraud:0.0234,successRate:94.3,settlementAvg:'14s'},volumeByDay:days,recentTxns:txns.slice(0,10)}};
 }
 function bLA(){
   return{success:true,analytics:{totalVolume:45290.05,count:35,avgFee:1.24,fraudBlocked:3,byCurrency:[{currency:'USD',count:14,volume:22000},{currency:'ETH',count:7,volume:8500},{currency:'EUR',count:6,volume:6800},{currency:'USDC',count:5,volume:5000},{currency:'BTC',count:3,volume:2990}],byRoute:[{route:'Polygon Bridge',count:15},{route:'Card Network',count:9},{route:'ACH',count:6},{route:'SWIFT',count:5}]}};
@@ -460,6 +467,7 @@ function updSb(){
   if(tav){tav.textContent=ini;tav.style.background=`linear-gradient(135deg,${col},#7c4dff)`;}
   $('sbNm').textContent=(U.firstName||'')+' '+(U.lastName||'');
   $('sbPl').textContent='◆ '+(U.plan||'Starter');
+  const sbId=$('sbAccId'); if(sbId) sbId.textContent=U.accountId||U.id||'';
   $('topNm').textContent=U.firstName||'User';
 }
 function setGreet(){
@@ -587,11 +595,12 @@ function updProf(){
   $('pNm').textContent=(U.firstName||'')+' '+(U.lastName||'');
   $('pEm').textContent=U.email||'';
   $('pPl').textContent='◆ '+(U.plan||'Starter');
+  const pId=$('pAccId'); if(pId) pId.textContent=U.accountId||U.id||'—';
   $('pTx').textContent=D?.stats?.totalTransactions||'—';
   $('pVol').textContent='$'+((D?.stats?.totalIn||0)/1000).toFixed(1)+'K';
   $('pYr').textContent=U.createdAt?new Date(U.createdAt).getFullYear():'2026';
   const d=$('pDet');
-  if(d)d.innerHTML=[['Name',(U.firstName||'')+' '+(U.lastName||'')],['Email',U.email||'—'],['Business',U.businessName||'—'],['Country',U.country||'—'],['Plan',U.plan||'Starter'],['KYC',U.kycVerified?'✓ Verified':'⚠ Pending'],['Member',U.createdAt?new Date(U.createdAt).toLocaleDateString():'—']].map(([k,v])=>`<div class="kvr"><span class="kvk">${k}</span><span class="kvv">${v}</span></div>`).join('');
+  if(d)d.innerHTML=[['Account ID',U.accountId||U.id||'—'],['Name',(U.firstName||'')+' '+(U.lastName||'')],['Email',U.email||'—'],['Business',U.businessName||'—'],['Country',U.country||'—'],['Plan',U.plan||'Starter'],['KYC',U.kycVerified?'✓ Verified':'⚠ Pending'],['Member',U.createdAt?new Date(U.createdAt).toLocaleDateString():'—']].map(([k,v])=>`<div class="kvr"><span class="kvk">${k}</span><span class="kvv">${v}</span></div>`).join('');
 }
 function showEP(){
   oMo('Edit Profile',`<div class="fl"><label>First Name</label><input class="fi" id="eF" value="${U?.firstName||''}"></div><div class="fl"><label>Last Name</label><input class="fi" id="eL" value="${U?.lastName||''}"></div><div class="fl"><label>Business</label><input class="fi" id="eB" value="${U?.businessName||''}"></div><div class="fl"><label>Country</label><input class="fi" id="eC" value="${U?.country||''}"></div>`,`<button class="bg" onclick="cMo()">Cancel</button><button class="bp" onclick="svProf()">Save</button>`);

@@ -4341,7 +4341,7 @@ function nxToggle(){
       setTimeout(function(){
         NX.history.push({
           role: 'assistant',
-          content: greetWord + '! Welcome to Intellix. I'm Nexa, your AI Payment Agent. I know everything about Intellix — payments, fraud protection, pricing, the Social feature, developer API, and more. What can I help you with today?'
+          content: greetWord + "! Welcome to Intellix. I'm Nexa, your AI Payment Agent. I know everything about Intellix — payments, fraud protection, pricing, the Social feature, developer API, and more. What can I help you with today?"
         });
       }, 1200);
 
@@ -4747,14 +4747,74 @@ function doSmpAction(){
 function openSignIn(){showPage('login');}
 function openSignUp(){showPage('signup');}
 
+// ── Account ID generator ──────────────────────────────────────────────────
+// Generates a unique, human-readable Intellix account ID
+// Format: usr_<timestamp-base36>_<4-random-chars>
+// Example: usr_m4x9k2_a7f3
+function genUserId() {
+  const ts   = Date.now().toString(36);           // base-36 timestamp  e.g. "lrxxxxxxxxx"
+  const rand = Math.random().toString(36).slice(2,6); // 4 random chars e.g. "a7f3"
+  return 'usr_' + ts + '_' + rand;
+}
+
+// Also expose a formatted display version: IXL-XXXXXX (uppercase, easy to share)
+function genDisplayId() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // no ambiguous chars
+  let id = 'IXL-';
+  for (let i = 0; i < 8; i++) {
+    if (i === 4) id += '-';
+    id += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return id; // e.g. IXL-K7M2-X9QP
+}
+
 function handleSocialAuth(provider){
+  // Show connecting state on the button
+  const btns = document.querySelectorAll('.auth-social-btn');
+  btns.forEach(b=>{ b.disabled=true; b.style.opacity='.5'; });
   toast('Connecting to '+provider+'...','info',1200);
+
   setTimeout(()=>{
-    const name=provider==='Google'?'User':'User';
-    localStorage.setItem('ix_u',JSON.stringify({firstName:name,email:name.toLowerCase()+'@'+provider.toLowerCase()+'.com',plan:'Starter',balance:0,avatarColor:'#9c6fff',createdAt:new Date().toISOString()}));
-    toast(provider+' auth successful! Launching dashboard...','success',2500);
-    setTimeout(()=>window.location.href='dashboard.html',1400);
-  },1400);
+    // Simulate OAuth — extract a plausible first name
+    const providerEmail = provider==='Google'
+      ? 'user@gmail.com'
+      : 'user@icloud.com';
+    const firstName = provider==='Google' ? 'Google User' : 'Apple User';
+    const avatarColor = provider==='Google' ? '#ea4335' : '#555555';
+
+    // Build new user object — balance ALWAYS starts at $0
+    const userId    = genUserId();
+    const displayId = genDisplayId();
+    const newUser = {
+      id:        userId,
+      accountId: displayId,
+      firstName: firstName,
+      lastName: '',
+      email: providerEmail,
+      plan: 'Starter',
+      balance: 0,
+      currency: 'USD',
+      avatarColor: avatarColor,
+      provider: provider,
+      kycVerified: false,
+      createdAt: new Date().toISOString(),
+      isNewAccount: true
+    };
+    localStorage.setItem('ix_u', JSON.stringify(newUser));
+
+    // Send welcome email notification immediately
+    sendSimulatedEmail({
+      to: providerEmail,
+      subject: 'Welcome to Intellix! Your account is ready ◆',
+      type: 'social-signup',
+      name: firstName,
+      provider: provider
+    });
+
+    // After modal is dismissed, redirect to dashboard
+    btns.forEach(b=>{ b.disabled=false; b.style.opacity='1'; });
+    toast(provider+' connected ✓ Welcome to Intellix!','success',3000);
+  }, 1400);
 }
 
 async function handleLogin(){
@@ -4776,13 +4836,14 @@ async function handleLogin(){
       setTimeout(()=>window.location.href='dashboard.html',1400);
     } else {
       // Demo fallback — still redirect to dashboard
-      localStorage.setItem('ix_u',JSON.stringify({firstName:email.split('@')[0],email,plan:'Pro',balance:48392.50,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
+      // Login fallback — balance is always $0 until loaded from backend
+      localStorage.setItem('ix_u',JSON.stringify({id:genUserId(),accountId:genDisplayId(),firstName:email.split('@')[0],email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString(),isNewAccount:false}));
       toast('Welcome back! Launching dashboard...','success',2500);
       setTimeout(()=>window.location.href='dashboard.html',1400);
     }
   } catch {
     // Offline fallback
-    localStorage.setItem('ix_u',JSON.stringify({firstName:email.split('@')[0],email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
+    localStorage.setItem('ix_u',JSON.stringify({id:genUserId(),accountId:genDisplayId(),firstName:email.split('@')[0],email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
     toast('Welcome back! Launching dashboard...','success',2500);
     setTimeout(()=>window.location.href='dashboard.html',1400);
   } finally{
@@ -4811,13 +4872,13 @@ async function handleSignUp(){
       localStorage.setItem('ix_u',JSON.stringify(d.user));
     } else {
       // Store basic user for offline dashboard access
-      localStorage.setItem('ix_u',JSON.stringify({firstName:first,email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
+      localStorage.setItem('ix_u',JSON.stringify({id:genUserId(),accountId:genDisplayId(),firstName:first,email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
     }
     sendSimulatedEmail({to:email,subject:'Congratulations '+first+' — You are on Intellix! ◆',type:'signup',name:first});
     toast('Account created! Welcome to Intellix, '+first+'! ✓','success',3000);
     setTimeout(()=>window.location.href='dashboard.html',1800);
   } catch {
-    localStorage.setItem('ix_u',JSON.stringify({firstName:first,email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
+    localStorage.setItem('ix_u',JSON.stringify({id:genUserId(),accountId:genDisplayId(),firstName:first,email,plan:'Starter',balance:0,avatarColor:'#00e5ff',createdAt:new Date().toISOString()}));
     sendSimulatedEmail({to:email,subject:'Congratulations '+first+' — You are on Intellix! ◆',type:'signup',name:first});
     toast('Account created! Welcome, '+first+'! ✓','success',3000);
     setTimeout(()=>window.location.href='dashboard.html',1800);
@@ -5333,7 +5394,7 @@ function mobSwitch(tab){
 // ══════════════════════════════════════════
 // SIMULATED EMAIL SYSTEM
 // ══════════════════════════════════════════
-function sendSimulatedEmail({to, subject, type, name}){
+function sendSimulatedEmail({to, subject, type, name, provider}){
   // In production this would call EmailJS / SendGrid / Resend etc.
   // Here we display a beautiful in-app "email sent" modal to show the user
   // what email they would receive.
@@ -5365,6 +5426,50 @@ function sendSimulatedEmail({to, subject, type, name}){
           </div>
           <p style="font-size:12px;color:var(--text3);line-height:1.7">You can unsubscribe at any time. This email was sent to ${to} because you subscribed at intellix.io.</p>
           <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)">© 2026 Intellix · Founded by Ghokkul Muhunthan · <a href="#" style="color:var(--cyan)">Unsubscribe</a></div>
+        </div>
+      </div>`;
+  } else if(type === 'social-signup'){
+    const providerIcon = name.provider==='Google' ? '🔵' : '🍎';
+    const providerName = (name.provider||provider||'Social') + '';
+    bodyHTML = `
+      <div style="background:linear-gradient(135deg,var(--bg2),var(--bg3));border:1px solid var(--border2);border-radius:16px;overflow:hidden">
+        <div style="background:linear-gradient(135deg,rgba(0,229,255,.12),rgba(156,111,255,.08));padding:28px 28px 20px;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--cyan),var(--purple));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font);font-size:14px;font-weight:800;color:#000">IX</div>
+            <div>
+              <div style="font-family:var(--font);font-size:13px;font-weight:800;color:var(--text)">Intellix</div>
+              <div style="font-size:11px;color:var(--text3)">security@intellix.io → \${to}</div>
+            </div>
+            <div style="margin-left:auto;background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.25);padding:3px 10px;border-radius:99px;font-size:10px;font-weight:700">✓ SENT</div>
+          </div>
+          <div style="font-family:var(--font);font-size:18px;font-weight:900;color:var(--text)">\${subject}</div>
+        </div>
+        <div style="padding:24px 28px">
+          <div style="background:linear-gradient(135deg,rgba(0,229,255,.07),rgba(156,111,255,.05));border:1px solid rgba(0,229,255,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px">
+            <div style="font-family:var(--font);font-size:20px;font-weight:900;color:var(--cyan);margin-bottom:8px">🎉 Account created via \${providerName}!</div>
+            <div style="font-size:13px;color:var(--text2);line-height:1.7">Your Intellix account has been created and linked to your <strong>\${providerName}</strong> account. You're signed in and ready to go.</div>
+          </div>
+          <div style="background:rgba(255,215,64,.06);border:1px solid rgba(255,215,64,.18);border-radius:12px;padding:16px 18px;margin-bottom:20px">
+            <div style="font-family:var(--font);font-size:12px;font-weight:800;color:var(--gold);margin-bottom:6px">⚠ Security notice</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.7">If you did <strong>not</strong> create this account, contact <a href="mailto:support@intellix.io" style="color:var(--cyan)">support@intellix.io</a> immediately and we'll secure your account.</div>
+          </div>
+          <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:14px">Here's what you can do with your new account:</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--cyan)">◆</span> Send and receive payments in 14 seconds via Polygon Bridge</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--pink)">♥</span> Pay friends in chat — Intellix Social is live</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)"><span style="color:var(--purple)">▶</span> FraudNet v2.1 is protecting every transaction automatically</div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:14px">
+            <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.8px">Your Plan · Starting Balance</div>
+            <div style="font-family:var(--font);font-size:16px;font-weight:800;color:var(--text)">Starter — Free forever &nbsp;·&nbsp; <span style="color:var(--cyan)">$0.00</span></div>
+            <div style="font-size:12px;color:var(--text2);margin-top:2px">Add funds to start sending payments</div>
+          </div>
+          <div style="background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(156,111,255,.04));border:1px solid rgba(0,229,255,.18);border-radius:10px;padding:14px 16px;margin-bottom:16px">
+            <div style="font-size:10px;font-weight:700;color:var(--text3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px">◆ Your Account ID</div>
+            <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--cyan);letter-spacing:2px">${newUser.accountId || 'IXL-????-????'}</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:4px">Keep this safe — you'll need it for support and account recovery.</div>
+          </div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)">© 2026 Intellix · Ghokkul Muhunthan, Founder · <a href="#" style="color:var(--cyan)">Manage account</a> · <a href="#" style="color:var(--text3)">Security settings</a></div>
         </div>
       </div>`;
   } else if(type === 'signup'){
@@ -5401,18 +5506,29 @@ function sendSimulatedEmail({to, subject, type, name}){
             <div style="font-family:var(--font);font-size:16px;font-weight:800;color:var(--text)">Starter — Free forever</div>
             <div style="font-size:12px;color:var(--text2);margin-top:2px">1,000 transactions/month · FraudNet · Intellix Social</div>
           </div>
+          <div style="background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(156,111,255,.04));border:1px solid rgba(0,229,255,.18);border-radius:10px;padding:14px 16px;margin-bottom:16px">
+            <div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:6px">◆ YOUR ACCOUNT ID</div>
+            <div style="font-family:var(--mono);font-size:18px;font-weight:700;color:var(--cyan);letter-spacing:2px">${localStorage.getItem('ix_u') ? JSON.parse(localStorage.getItem('ix_u')).accountId || 'IXL-????-????' : 'IXL-????-????'}</div>
+            <div style="font-size:11px;color:var(--text2);margin-top:4px">Save this ID — use it for support requests and account recovery.</div>
+          </div>
           <p style="font-size:12px;color:var(--text3);line-height:1.7">If you didn't create this account, please contact support@intellix.io immediately.</p>
           <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)">© 2026 Intellix · Ghokkul Muhunthan, Founder · <a href="#" style="color:var(--cyan)">Manage account</a></div>
         </div>
       </div>`;
   }
 
+  // For social signup — redirect to dashboard after the user dismisses the modal
+  const isSocialSignup = type === 'social-signup';
+  const footerBtn = isSocialSignup
+    ? `<button class="ix-btn ix-btn-primary" onclick="closeModal();setTimeout(()=>window.location.href='dashboard.html',400)">Enter Dashboard ◆</button>`
+    : `<button class="ix-btn ix-btn-primary" onclick="closeModal()">Got it ◆</button>`;
+
   openModal(
     `📧 Email sent to ${to}`,
     `<div style="margin-bottom:12px;padding:10px 14px;background:rgba(0,230,118,.08);border:1px solid rgba(0,230,118,.2);border-radius:10px;font-size:12px;color:var(--green)">
       <strong>✓ Confirmation email sent!</strong> In production, this email would land in your inbox via Resend/SendGrid. Here's a preview of exactly what was sent:
     </div>` + bodyHTML,
-    `<button class="ix-btn ix-btn-primary" onclick="closeModal()">Got it ◆</button>`
+    footerBtn
   );
 }
 
