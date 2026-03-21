@@ -1,37 +1,71 @@
-# Intellix — AI Payment Engine
+# Intellix
 
-![Intellix](https://img.shields.io/badge/Intellix-AI%20Payment%20Engine-00e5ff?style=for-the-badge)
-![Deploy](https://img.shields.io/badge/GitHub%20Pages-Live-00e676?style=for-the-badge)
+> **Technology. Design. Business. Everything useful.**
 
-## 🌐 Live Site
-**[https://ghokkul.github.io/Intellix-Company](https://ghokkul.github.io/Intellix-Company)**
+Personal website of **Ghokkul Muhunthan** — a space to write about technology, design and business, and sell original digital products.
 
-## 🚀 Deploy in 3 steps
+🌐 **Live site:** [intellix.io](https://intellix.io)  
+🛍 **Digital store:** [ghokkuldesigns.gumroad.com](https://ghokkuldesigns.gumroad.com)
 
-### GitHub Pages (recommended)
-1. Push this folder to `github.com/Ghokkul/Intellix-Company`
-2. Go to **Settings → Pages → Source → GitHub Actions**
-3. Push to `main` — the workflow deploys automatically
+---
 
-### Netlify (drag & drop)
-1. Go to [netlify.com/drop](https://netlify.com/drop)
-2. Drag this entire folder onto the page
-3. Live in 30 seconds
+## About
 
-### Vercel
-```bash
-npx vercel --yes
-```
+Intellix was founded in **November 2025** as a personal corner of the internet — purely my creation and purely my own work.
 
-## 📁 Files
+A place to write about the topics I enjoy:
+
+- **Technology** — how it works, where it's going
+- **Business** — strategy, decision-making, building things
+- **Design** — clarity, aesthetics, and how things feel to use
+
+---
+
+## What's inside
+
 | File | Description |
 |------|-------------|
-| `index.html` | Main app — Landing + Social platform |
-| `src/python/fraud_engine.py` | AI fraud detection |
-| `src/typescript/payment.service.ts` | Payment processing |
-| `src/go/blockchain_listener.go` | Blockchain monitor |
-| `src/rust/crypto_engine.rs` | Crypto signing engine |
-| `src/sql/analytics.sql` | PostgreSQL schema |
-| `src/swift/BiometricAuth.swift` | iOS biometric auth |
+| `index.html` | Complete single-file website |
+| `README.md` | This file |
+| `.gitignore` | Standard web project ignores |
+| `LICENSE` | MIT License |
 
-MIT © 2026 Intellix · [github.com/Ghokkul/Intellix-Company](https://github.com/Ghokkul/Intellix-Company)
+---
+
+## Features
+
+- ✦ Time-based greeting splash (Good morning / afternoon / evening / night)
+- 💬 **Lumina** — built-in AI-style chatbot companion
+- 📖 Blog — coming soon
+- ⚛️ Science corner — coming soon
+- 🛍 Digital store — embedded Gumroad store
+- 📧 Newsletter signup
+- 📱 Fully responsive
+
+---
+
+## Deploy to GitHub Pages
+
+1. Fork or clone this repository
+2. Go to **Settings → Pages**
+3. Set source to `main` branch, root folder `/`
+4. Your site will be live at `https://yourusername.github.io/intellix`
+
+---
+
+## Tech stack
+
+Plain HTML · CSS · Vanilla JavaScript  
+No frameworks. No dependencies. No build step.  
+Open `index.html` in any browser and it works.
+
+---
+
+## Creator
+
+**Ghokkul Muhunthan**  
+[LinkedIn](https://www.linkedin.com/in/ghokkul-muhunthan) · [Gumroad](https://ghokkuldesigns.gumroad.com) · [Email](mailto:support@intellix.io)
+
+---
+
+© 2025 Intellix · Ghokkul Muhunthan · All rights reserved
