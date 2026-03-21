@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Intellix — Technology. Design. Business. Everything Useful.</title>
+<meta name="description" content="Ghokkul Muhunthan shares insights on technology, design and business — and everything worth knowing.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════════════════ */
+:root{
+  --ink:#06070f;
+  --ink2:#0c0d1e;
+  --ink3:#13142a;
+  --card:#111228;
+  --card2:#171835;
+
+  --b0:rgba(255,255,255,.04);
+  --b1:rgba(255,255,255,.07);
+  --b2:rgba(255,255,255,.11);
+  --b3:rgba(255,255,255,.18);
+
+  --cream:#f0ede8;
+  --warm:#c9c3b8;
+  --muted:#6e6a7c;
+  --dim:#2e2a3a;
+
+  --amber:#f59e0b;
+  --amber2:#d97706;
+  --violet:#8b5cf6;
+  --violet2:#6d28d9;
+  --coral:#f43f5e;
+  --sky:#38bdf8;
+  --emerald:#10b981;
+
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+::selection{background:rgba(139,92,246,.35);color:#fff}
+
+/* ═══════════════════════════════════════════════════════
+   NOISE TEXTURE OVERLAY
+═══════════════════════════════════════════════════════ */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:0 48px;height:68px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,7,15,.82);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--b0);
+  transition:border-color .3s;
+}
+nav.scrolled{border-bottom-color:var(--b1)}
+.nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.nav-mark{
+  width:34px;height:34px;border-radius:8px;
+  background:linear-gradient(135deg,var(--amber),var(--violet));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:16px;font-weight:600;color:#000;flex-shrink:0;
+}
+.nav-name{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:.5px;color:var(--cream)}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-link{
+  padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;
+  color:var(--warm);cursor:pointer;transition:all .15s;
+  background:transparent;border:none;font-family:var(--sans);text-decoration:none;
+  letter-spacing:.2px;
+}
+.nav-link:hover{color:var(--cream);background:var(--b0)}
+.nav-link.active{color:var(--amber);background:rgba(245,158,11,.08)}
+.nav-cta{
+  padding:8px 20px;border-radius:8px;
+  background:linear-gradient(135deg,var(--amber),var(--amber2));
+  border:none;color:#000;font-family:var(--sans);font-size:13px;
+  font-weight:700;cursor:pointer;transition:all .15s;text-decoration:none;
+  letter-spacing:.2px;
+}
+.nav-cta:hover{opacity:.88;transform:translateY(-1px)}
+.nav-mobile-toggle{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:4px}
+.nav-mobile-toggle span{display:block;width:22px;height:2px;background:var(--warm);border-radius:2px;transition:all .2s}
+
+/* ═══════════════════════════════════════════════════════
+   PAGES / ROUTER
+═══════════════════════════════════════════════════════ */
+.page{display:none}
+.page.active{display:block;animation:fadeIn .32s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════ */
+.hero{
+  position:relative;min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:140px 24px 80px;overflow:hidden;
+}
+#starCanvas{position:absolute;inset:0;pointer-events:none}
+.hero-glow{
+  position:absolute;top:20%;left:50%;transform:translateX(-50%);
+  width:700px;height:700px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(139,92,246,.15) 0%,rgba(245,158,11,.06) 40%,transparent 70%);
+  filter:blur(60px);
+}
+.hero-overline{
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  color:var(--amber);letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:22px;opacity:.9;
+  display:flex;align-items:center;gap:10px;
+}
+.hero-overline::before,.hero-overline::after{content:'';display:block;width:28px;height:1px;background:var(--amber);opacity:.5}
+.hero-title{
+  font-family:var(--serif);font-size:clamp(68px,10vw,130px);
+  font-weight:600;line-height:.92;letter-spacing:-3px;
+  color:var(--cream);margin-bottom:10px;position:relative;
+}
+.hero-title em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--amber) 0%,var(--coral) 50%,var(--violet) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-tagline{
+  font-family:var(--serif);font-size:clamp(20px,3vw,28px);
+  font-weight:300;font-style:italic;color:var(--warm);
+  margin-bottom:40px;letter-spacing:.5px;line-height:1.4;
+}
+.hero-desc{
+  font-size:15px;color:var(--muted);max-width:520px;
+  margin:0 auto 44px;line-height:1.8;
+}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn-primary{
+  padding:13px 32px;border-radius:10px;
+  background:linear-gradient(135deg,var(--amber),var(--amber2));
+  border:none;color:#000;font-family:var(--sans);font-size:14px;
+  font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.2px;
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,158,11,.3)}
+.btn-ghost{
+  padding:13px 32px;border-radius:10px;background:transparent;
+  border:1px solid var(--b2);color:var(--warm);font-family:var(--sans);
+  font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;
+}
+.btn-ghost:hover{border-color:var(--b3);color:var(--cream);background:var(--b0)}
+.hero-scroll{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--dim);
+  letter-spacing:2px;text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:scrollBob 2.5s ease-in-out infinite;
+}
+@keyframes scrollBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.hero-scroll::after{content:'';width:1px;height:36px;background:linear-gradient(var(--dim),transparent)}
+
+/* ═══════════════════════════════════════════════════════
+   SECTION COMMONS
+═══════════════════════════════════════════════════════ */
+section{padding:100px 0;position:relative}
+.container{max-width:1160px;margin:0 auto;padding:0 40px}
+.section-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--amber);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-label::before{content:'';width:20px;height:1px;background:var(--amber)}
+.section-title{
+  font-family:var(--serif);font-size:clamp(36px,5vw,54px);
+  font-weight:600;letter-spacing:-1.5px;line-height:1.1;
+  color:var(--cream);margin-bottom:16px;
+}
+.section-title em{font-style:italic;color:var(--amber)}
+.section-sub{font-size:15px;color:var(--muted);max-width:520px;line-height:1.8}
+.section-hdr{margin-bottom:54px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--b2),transparent);margin:0 40px}
+
+/* ═══════════════════════════════════════════════════════
+   ABOUT STRIP
+═══════════════════════════════════════════════════════ */
+.about-strip{
+  padding:80px 0;
+  background:linear-gradient(135deg,rgba(139,92,246,.05),rgba(245,158,11,.03));
+  border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);
+}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-img-wrap{position:relative}
+.about-av{
+  width:180px;height:180px;border-radius:20px;
+  background:linear-gradient(135deg,#1a1030,#0a0818);
+  border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:64px;font-weight:600;
+  color:var(--amber);position:relative;overflow:hidden;
+}
+.about-av::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(245,158,11,.08));
+}
+.about-av-ring{
+  position:absolute;inset:-12px;border-radius:28px;
+  border:1px solid rgba(245,158,11,.2);
+  animation:ringPulse 3s ease-in-out infinite;
+}
+@keyframes ringPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:.2;transform:scale(1.03)}}
+.about-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.tag{
+  padding:4px 12px;border-radius:999px;font-size:11px;font-weight:500;
+  border:1px solid var(--b2);color:var(--muted);background:var(--b0);
+  font-family:var(--mono);letter-spacing:.5px;
+}
+.about-text h2{font-family:var(--serif);font-size:40px;font-weight:600;letter-spacing:-1px;margin-bottom:16px;line-height:1.15}
+.about-text h2 em{font-style:italic;color:var(--amber)}
+.about-text p{font-size:15px;color:var(--warm);line-height:1.85;margin-bottom:16px}
+.about-text p strong{color:var(--cream);font-weight:600}
+.about-stats{display:flex;gap:32px;margin-top:28px;padding-top:28px;border-top:1px solid var(--b1)}
+.astat-val{font-family:var(--serif);font-size:32px;font-weight:600;color:var(--amber);letter-spacing:-1px;display:block}
+.astat-lbl{font-size:11px;color:var(--muted);letter-spacing:.5px;margin-top:2px;font-family:var(--mono)}
+
+/* ═══════════════════════════════════════════════════════
+   BLOG POSTS
+═══════════════════════════════════════════════════════ */
+.posts-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.post-card{
+  background:var(--card);border:1px solid var(--b1);border-radius:14px;
+  overflow:hidden;cursor:pointer;transition:all .2s;
+  display:flex;flex-direction:column;
+}
+.post-card:hover{border-color:var(--b2);transform:translateY(-4px);box-shadow:0 16px 50px rgba(0,0,0,.35)}
+.post-card.featured{grid-column:1/3}
+.post-thumb{
+  height:160px;display:flex;align-items:center;justify-content:center;
+  font-size:48px;position:relative;overflow:hidden;
+}
+.post-card.featured .post-thumb{height:200px}
+.post-thumb-bg{position:absolute;inset:0;opacity:.6;transition:opacity .2s}
+.post-card:hover .post-thumb-bg{opacity:.8}
+.post-thumb-emoji{position:relative;z-index:1;font-size:52px;filter:drop-shadow(0 4px 20px rgba(0,0,0,.5))}
+.post-body{padding:18px;flex:1;display:flex;flex-direction:column}
+.post-cat{
+  font-family:var(--mono);font-size:9px;letter-spacing:1.8px;
+  text-transform:uppercase;font-weight:600;margin-bottom:8px;
+}
+.post-title{
+  font-family:var(--serif);font-size:20px;font-weight:600;
+  color:var(--cream);margin-bottom:8px;line-height:1.3;letter-spacing:-.3px;
+}
+.post-card.featured .post-title{font-size:26px}
+.post-excerpt{font-size:13px;color:var(--muted);line-height:1.7;flex:1;margin-bottom:16px}
+.post-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.post-date{font-family:var(--mono);font-size:10px;color:var(--dim)}
+.post-read{font-size:11px;color:var(--amber);font-weight:600;cursor:pointer}
+.post-read:hover{text-decoration:underline}
+
+/* ═══════════════════════════════════════════════════════
+   SCIENCE SECTION
+═══════════════════════════════════════════════════════ */
+.science-section{
+  background:linear-gradient(180deg,var(--ink) 0%,var(--ink2) 50%,var(--ink) 100%);
+}
+.science-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sci-card{
+  background:var(--card);border:1px solid var(--b1);border-radius:14px;
+  padding:28px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
+}
+.sci-card:hover{border-color:var(--b2);transform:translateY(-3px)}
+.sci-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--accent,var(--violet));opacity:.7;
+}
+.sci-card-full{grid-column:1/-1}
+.sci-icon{font-size:36px;margin-bottom:14px;display:block}
+.sci-cat{
+  font-family:var(--mono);font-size:9px;letter-spacing:1.8px;
+  text-transform:uppercase;font-weight:600;
+  color:var(--accent,var(--violet));margin-bottom:8px;
+}
+.sci-title{
+  font-family:var(--serif);font-size:22px;font-weight:600;
+  color:var(--cream);margin-bottom:10px;line-height:1.3;letter-spacing:-.3px;
+}
+.sci-excerpt{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:16px}
+.sci-formula{
+  display:inline-block;
+  font-family:var(--mono);font-size:13px;
+  background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);
+  border-radius:8px;padding:8px 14px;color:var(--violet);
+  margin-bottom:16px;
+}
+.sci-meta{display:flex;align-items:center;justify-content:space-between}
+.sci-date{font-family:var(--mono);font-size:10px;color:var(--dim)}
+.sci-more{font-size:11px;font-weight:600;cursor:pointer}
+.sci-more:hover{text-decoration:underline}
+
+/* ═══════════════════════════════════════════════════════
+   TOPICS TICKER
+═══════════════════════════════════════════════════════ */
+.topics-strip{
+  padding:28px 0;
+  border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);
+  overflow:hidden;background:var(--ink2);
+}
+.topics-track{
+  display:flex;gap:40px;
+  animation:topicScroll 22s linear infinite;
+  white-space:nowrap;
+}
+.topics-track:hover{animation-play-state:paused}
+@keyframes topicScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.topic-item{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:12px;color:var(--muted);
+  flex-shrink:0;cursor:default;
+  transition:color .15s;
+}
+.topic-item:hover{color:var(--cream)}
+.topic-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);opacity:.5}
+
+/* ═══════════════════════════════════════════════════════
+   STORE SECTION
+═══════════════════════════════════════════════════════ */
+.store-section{background:var(--ink)}
+.store-inner{
+  background:var(--card);border:1px solid var(--b1);border-radius:20px;
+  overflow:hidden;
+}
+.store-top{
+  display:grid;grid-template-columns:1fr auto;align-items:center;
+  padding:28px 32px;border-bottom:1px solid var(--b1);gap:20px;
+  background:linear-gradient(135deg,rgba(245,158,11,.04),rgba(139,92,246,.03));
+}
+.store-brand{display:flex;align-items:center;gap:12px}
+.store-av{
+  width:44px;height:44px;border-radius:10px;
+  background:linear-gradient(135deg,var(--amber),var(--amber2));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:18px;font-weight:700;color:#000;
+}
+.store-name{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--cream)}
+.store-url{font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:2px}
+.store-actions{display:flex;gap:8px}
+.store-frame-wrap{position:relative;height:600px;background:var(--ink)}
+.store-loader{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:12px;z-index:2;
+  background:var(--ink);pointer-events:none;transition:opacity .4s;
+}
+.store-spin{
+  width:36px;height:36px;border-radius:50%;
+  border:2px solid var(--b2);border-top-color:var(--amber);
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.store-loader p{font-family:var(--mono);font-size:11px;color:var(--dim)}
+#gumFrame{width:100%;height:600px;border:none;display:block;opacity:0;transition:opacity .5s}
+#gumFrame.loaded{opacity:1}
+.store-footer{
+  padding:14px 32px;border-top:1px solid var(--b1);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.2);
+}
+.store-footer p{font-size:12px;color:var(--muted)}
+.store-footer a{color:var(--amber);text-decoration:none}
+.store-footer a:hover{text-decoration:underline}
+
+/* ═══════════════════════════════════════════════════════
+   NEWSLETTER
+═══════════════════════════════════════════════════════ */
+.nl-section{
+  padding:80px 0;
+  background:linear-gradient(135deg,rgba(139,92,246,.06),rgba(245,158,11,.04));
+  border-top:1px solid var(--b1);border-bottom:1px solid var(--b1);
+}
+.nl-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+}
+.nl-text h2{font-family:var(--serif);font-size:38px;font-weight:600;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
+.nl-text h2 em{font-style:italic;color:var(--amber)}
+.nl-text p{font-size:14px;color:var(--muted);line-height:1.8}
+.nl-form-wrap{display:flex;flex-direction:column;gap:10px}
+.nl-input{
+  background:var(--ink3);border:1px solid var(--b2);border-radius:10px;
+  padding:14px 18px;color:var(--cream);font-size:14px;font-family:var(--sans);
+  outline:none;transition:border-color .2s;
+  width:100%;
+}
+.nl-input:focus{border-color:rgba(245,158,11,.4)}
+.nl-input::placeholder{color:var(--dim)}
+.nl-submit{
+  padding:14px;border-radius:10px;
+  background:linear-gradient(135deg,var(--amber),var(--amber2));
+  border:none;color:#000;font-family:var(--sans);font-size:14px;
+  font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.2px;
+}
+.nl-submit:hover{opacity:.88;transform:translateY(-1px)}
+.nl-note{font-size:11px;color:var(--dim)}
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+footer{
+  padding:56px 0 36px;
+  border-top:1px solid var(--b1);
+}
+.footer-inner{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;
+  gap:48px;margin-bottom:48px;
+}
+.footer-brand .nav-brand{margin-bottom:14px;display:inline-flex}
+.footer-brand p{font-size:13px;color:var(--muted);line-height:1.8;max-width:240px}
+.footer-col h4{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--amber);margin-bottom:16px;
+}
+.footer-col a{
+  display:block;font-size:13px;color:var(--muted);
+  text-decoration:none;margin-bottom:10px;transition:color .15s;cursor:pointer;
+}
+.footer-col a:hover{color:var(--cream)}
+.footer-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:28px;border-top:1px solid var(--b1);
+}
+.footer-copy{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.footer-socials{display:flex;gap:10px}
+.social-btn{
+  width:34px;height:34px;border-radius:8px;background:var(--b0);
+  border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:14px;cursor:pointer;transition:all .15s;text-decoration:none;
+}
+.social-btn:hover{background:var(--b1);color:var(--cream);border-color:var(--b2)}
+
+/* ═══════════════════════════════════════════════════════
+   INNER PAGES
+═══════════════════════════════════════════════════════ */
+.page-hero{
+  padding:140px 0 60px;
+  text-align:center;
+  background:linear-gradient(180deg,rgba(139,92,246,.05) 0%,transparent 100%);
+  border-bottom:1px solid var(--b1);
+  margin-bottom:0;
+}
+.page-hero .section-label{justify-content:center}
+.page-hero h1{
+  font-family:var(--serif);font-size:clamp(48px,7vw,80px);
+  font-weight:600;letter-spacing:-2.5px;line-height:1.05;
+  margin-bottom:16px;
+}
+.page-hero p{font-size:16px;color:var(--muted);max-width:480px;margin:0 auto;line-height:1.8}
+
+/* Blog page */
+.blog-filters{display:flex;gap:6px;margin-bottom:36px;flex-wrap:wrap}
+.filter-pill{
+  padding:6px 16px;border-radius:999px;font-size:12px;font-weight:500;
+  cursor:pointer;border:1px solid var(--b2);background:transparent;
+  color:var(--muted);transition:all .12s;font-family:var(--sans);
+}
+.filter-pill:hover{color:var(--cream);border-color:var(--b3)}
+.filter-pill.on{background:rgba(245,158,11,.09);border-color:rgba(245,158,11,.35);color:var(--amber)}
+.blog-grid-full{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+
+/* Science page */
+.sci-full-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:36px}
+
+/* Store page */
+.store-page-frame{
+  background:var(--card);border:1px solid var(--b1);border-radius:16px;
+  overflow:hidden;margin-top:36px;
+}
+
+/* About page */
+.about-page{padding:120px 0 80px}
+.about-page-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
+.about-sticky{position:sticky;top:90px}
+.about-big-av{
+  width:100%;aspect-ratio:1;max-width:280px;border-radius:20px;
+  background:linear-gradient(135deg,#1a1030,#0c0818);
+  border:1px solid var(--b2);display:flex;align-items:center;
+  justify-content:center;font-family:var(--serif);font-size:80px;
+  font-weight:600;color:var(--amber);position:relative;overflow:hidden;
+  margin-bottom:20px;
+}
+.about-big-av::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(245,158,11,.06));
+}
+.interests-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.interest-tag{
+  padding:10px 14px;border-radius:9px;background:var(--b0);border:1px solid var(--b1);
+  font-size:12px;color:var(--warm);display:flex;align-items:center;gap:7px;
+  cursor:default;transition:all .15s;
+}
+.interest-tag:hover{background:var(--b1);border-color:var(--b2);color:var(--cream)}
+.about-content h2{font-family:var(--serif);font-size:40px;font-weight:600;letter-spacing:-1.2px;margin-bottom:20px;line-height:1.15}
+.about-content h2 em{font-style:italic;color:var(--amber)}
+.about-content h3{font-family:var(--serif);font-size:22px;font-weight:600;color:var(--cream);margin:32px 0 12px;letter-spacing:-.5px}
+.about-content p{font-size:15px;color:var(--warm);line-height:1.9;margin-bottom:16px}
+.about-content strong{color:var(--cream);font-weight:600}
+blockquote{
+  border-left:3px solid var(--amber);padding:16px 24px;
+  background:rgba(245,158,11,.04);border-radius:0 10px 10px 0;
+  font-family:var(--serif);font-size:18px;font-style:italic;
+  color:var(--warm);line-height:1.7;margin:24px 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════ */
+#toastWrap{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px}
+.toast{
+  padding:12px 18px;border-radius:10px;font-size:13px;
+  background:var(--card2);border:1px solid var(--b2);color:var(--cream);
+  min-width:220px;opacity:0;transform:translateX(16px);
+  transition:all .25s;cursor:pointer;border-left:3px solid var(--amber);
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+}
+.toast.show{opacity:1;transform:translateX(0)}
+
+/* ═══════════════════════════════════════════════════════
+   READING MODAL
+═══════════════════════════════════════════════════════ */
+.read-overlay{
+  position:fixed;inset:0;z-index:800;background:rgba(6,7,15,.95);
+  backdrop-filter:blur(20px);display:none;overflow-y:auto;
+  padding:80px 20px 60px;
+}
+.read-overlay.open{display:block;animation:fadeIn .3s ease}
+.read-close{
+  position:fixed;top:24px;right:24px;z-index:801;
+  width:40px;height:40px;border-radius:50%;background:var(--card2);
+  border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--muted);font-size:16px;transition:all .15s;
+}
+.read-close:hover{color:var(--cream);background:var(--b1)}
+.read-inner{max-width:680px;margin:0 auto}
+.read-cat{
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:14px;
+}
+.read-title{
+  font-family:var(--serif);font-size:clamp(32px,5vw,52px);
+  font-weight:600;letter-spacing:-1.5px;line-height:1.1;
+  color:var(--cream);margin-bottom:16px;
+}
+.read-meta{
+  display:flex;align-items:center;gap:16px;font-family:var(--mono);
+  font-size:11px;color:var(--dim);margin-bottom:40px;
+  padding-bottom:32px;border-bottom:1px solid var(--b1);
+}
+.read-body{font-size:16px;color:var(--warm);line-height:1.9}
+.read-body h2{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--cream);margin:36px 0 14px;letter-spacing:-.8px}
+.read-body p{margin-bottom:18px}
+.read-body .formula{
+  background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.18);
+  border-radius:10px;padding:14px 20px;font-family:var(--mono);
+  font-size:14px;color:var(--violet);margin:20px 0;text-align:center;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  .nav-mobile-toggle{display:flex}
+  .nav-links.open{
+    display:flex;flex-direction:column;
+    position:absolute;top:68px;left:0;right:0;
+    background:rgba(6,7,15,.97);padding:16px;
+    border-bottom:1px solid var(--b1);
+    gap:4px;
+  }
+  .about-inner,.nl-inner,.footer-inner,.about-page-grid{grid-template-columns:1fr}
+  .posts-grid{grid-template-columns:1fr}
+  .post-card.featured{grid-column:1}
+  .science-grid,.blog-grid-full,.sci-full-grid{grid-template-columns:1fr}
+  .sci-card-full{grid-column:1}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .hero-title{font-size:clamp(52px,12vw,80px)}
+  .container{padding:0 24px}
+  section{padding:70px 0}
+}
+
+/* ═══════════════════════════════════════════════════════
+   GREETING SPLASH
+═══════════════════════════════════════════════════════ */
+#greetSplash{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:all;
+  background:var(--ink);
+  transition:opacity .8s ease, transform .8s ease;
+}
+#greetSplash.out{
+  opacity:0;transform:scale(1.04);pointer-events:none;
+}
+.gs-inner{
+  text-align:center;padding:40px 24px;
+  animation:gsIn .9s cubic-bezier(.22,.61,.36,1) both;
+}
+@keyframes gsIn{
+  from{opacity:0;transform:translateY(28px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.gs-time-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--amber);
+  margin-bottom:28px;
+  background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.18);
+  padding:7px 18px;border-radius:999px;
+}
+.gs-time-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--amber);
+  animation:gsDot 1.4s ease-in-out infinite;
+}
+@keyframes gsDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.gs-greeting{
+  font-family:var(--serif);
+  font-size:clamp(48px,8vw,90px);
+  font-weight:600;
+  letter-spacing:-3px;
+  line-height:.95;
+  color:var(--cream);
+  margin-bottom:16px;
+}
+.gs-greeting em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--amber),var(--coral),var(--violet));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.gs-sub{
+  font-size:15px;color:var(--muted);margin-bottom:36px;
+  font-family:var(--serif);font-style:italic;letter-spacing:.3px;
+  line-height:1.6;
+}
+.gs-enter{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 36px;border-radius:12px;
+  background:linear-gradient(135deg,var(--amber),var(--amber2));
+  border:none;color:#000;font-family:var(--sans);
+  font-size:15px;font-weight:700;cursor:pointer;
+  transition:all .2s;letter-spacing:.3px;
+}
+.gs-enter:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(245,158,11,.3)}
+.gs-enter-arrow{
+  display:inline-block;transition:transform .2s;font-size:18px;
+}
+.gs-enter:hover .gs-enter-arrow{transform:translateX(4px)}
+.gs-clock{
+  font-family:var(--mono);font-size:13px;color:var(--dim);
+  margin-top:24px;letter-spacing:1px;
+}
+.gs-orbs{
+  position:absolute;inset:0;pointer-events:none;overflow:hidden;
+}
+.gs-orb{
+  position:absolute;border-radius:50%;filter:blur(80px);
+  animation:gsOrb 8s ease-in-out infinite;
+}
+@keyframes gsOrb{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-20px) scale(1.05)}
+}
+.gs-stars{position:absolute;inset:0;pointer-events:none}
+
+/* ═══════════════════════════════════════════════════════
+   CHATBOT — LUMINA
+═══════════════════════════════════════════════════════ */
+#luminaBtn{
+  position:fixed;bottom:28px;right:28px;z-index:800;
+  width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(135deg,var(--violet),var(--amber));
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 32px rgba(139,92,246,.4),0 0 0 0 rgba(139,92,246,.3);
+  transition:all .2s;
+  animation:luminaPulse 3s ease-in-out infinite;
+}
+@keyframes luminaPulse{
+  0%,100%{box-shadow:0 8px 32px rgba(139,92,246,.4),0 0 0 0 rgba(139,92,246,.25)}
+  50%{box-shadow:0 8px 32px rgba(139,92,246,.5),0 0 0 10px rgba(139,92,246,0)}
+}
+#luminaBtn:hover{transform:scale(1.08) translateY(-2px)}
+#luminaBtn.open{animation:none;background:linear-gradient(135deg,#374151,#1f2937)}
+.lumina-icon{font-size:24px;transition:all .2s}
+#luminaUnread{
+  position:absolute;top:-2px;right:-2px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--coral);border:2px solid var(--ink);
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  animation:none;
+}
+
+#luminaPanel{
+  position:fixed;bottom:98px;right:28px;z-index:799;
+  width:360px;height:520px;
+  background:var(--ink2);
+  border:1px solid rgba(139,92,246,.2);
+  border-radius:20px;
+  display:none;
+  flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 60px rgba(139,92,246,.08);
+  transform:translateY(12px) scale(.96);
+  opacity:0;
+  transition:transform .25s cubic-bezier(.34,1.4,.64,1), opacity .22s ease;
+}
+#luminaPanel.open{
+  display:flex;
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+.lp-header{
+  padding:14px 16px 12px;
+  background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(245,158,11,.06));
+  border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;gap:10px;
+  flex-shrink:0;
+}
+.lp-av{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--violet),var(--amber));
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;position:relative;
+}
+.lp-av-ring{
+  position:absolute;inset:-3px;border-radius:50%;
+  border:1px solid rgba(139,92,246,.4);
+  animation:rp 2.5s ease-in-out infinite;
+}
+@keyframes rp{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:.2;transform:scale(1.06)}}
+.lp-info{flex:1}
+.lp-name{font-family:var(--serif);font-size:14px;font-weight:600;color:var(--cream);line-height:1.2}
+.lp-status{font-size:10px;color:var(--violet);font-family:var(--mono);letter-spacing:.5px;display:flex;align-items:center;gap:5px;margin-top:2px}
+.lp-status-dot{width:5px;height:5px;border-radius:50%;background:var(--emerald);animation:gsDot 1.8s ease-in-out infinite}
+.lp-close{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--muted);font-size:12px;
+  transition:all .15s;flex-shrink:0;
+}
+.lp-close:hover{background:rgba(255,23,68,.1);color:var(--coral)}
+
+.lp-msgs{
+  flex:1;overflow-y:auto;padding:14px 14px 6px;
+  display:flex;flex-direction:column;gap:10px;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.06) transparent;
+}
+.lp-msgs::-webkit-scrollbar{width:3px}
+.lp-msgs::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:2px}
+
+.lm{display:flex;gap:7px;align-items:flex-end;max-width:88%}
+.lm.user{align-self:flex-end;flex-direction:row-reverse}
+.lm-av{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:11px;
+}
+.lm-av.bot{background:linear-gradient(135deg,var(--violet),var(--amber))}
+.lm-av.usr{background:linear-gradient(135deg,var(--sky),var(--emerald));font-family:var(--serif);font-weight:600;color:#000;font-size:10px}
+.lm-bubble{
+  padding:9px 13px;border-radius:14px;font-size:12px;line-height:1.65;
+  max-width:100%;
+}
+.lm-bubble.bot{
+  background:var(--card2);border:1px solid rgba(139,92,246,.15);
+  color:var(--warm);border-radius:4px 14px 14px 14px;
+}
+.lm-bubble.usr{
+  background:linear-gradient(135deg,rgba(139,92,246,.25),rgba(245,158,11,.15));
+  border:1px solid rgba(139,92,246,.2);
+  color:var(--cream);border-radius:14px 4px 14px 14px;
+}
+.lm-bubble strong{color:var(--cream)}
+.lm-bubble em{color:var(--amber);font-style:normal}
+.lm-time{font-family:var(--mono);font-size:9px;color:var(--dim);margin-top:3px;padding:0 4px}
+
+.lp-typing{
+  display:flex;gap:7px;align-items:flex-end;max-width:88%;
+}
+.lp-dots{
+  padding:10px 14px;background:var(--card2);border:1px solid rgba(139,92,246,.15);
+  border-radius:4px 14px 14px 14px;display:flex;gap:4px;align-items:center;
+}
+.lp-dot{
+  width:5px;height:5px;border-radius:50%;background:var(--violet);opacity:.4;
+  animation:lpDot 1.2s ease-in-out infinite;
+}
+.lp-dot:nth-child(2){animation-delay:.2s}
+.lp-dot:nth-child(3){animation-delay:.4s}
+@keyframes lpDot{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+
+.lp-chips{
+  padding:8px 14px;display:flex;flex-wrap:wrap;gap:6px;
+  border-top:1px solid rgba(255,255,255,.04);flex-shrink:0;
+}
+.lp-chip{
+  padding:5px 11px;border-radius:999px;font-size:11px;font-weight:500;
+  cursor:pointer;border:1px solid rgba(139,92,246,.25);
+  background:rgba(139,92,246,.07);color:var(--violet);
+  transition:all .12s;font-family:var(--sans);white-space:nowrap;
+}
+.lp-chip:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4);color:var(--cream)}
+
+.lp-input-row{
+  padding:10px 12px;border-top:1px solid rgba(255,255,255,.06);
+  display:flex;gap:8px;align-items:flex-end;flex-shrink:0;
+}
+.lp-input{
+  flex:1;background:var(--ink3);border:1px solid rgba(139,92,246,.2);
+  border-radius:10px;padding:9px 12px;color:var(--cream);
+  font-size:12px;font-family:var(--sans);outline:none;
+  resize:none;max-height:80px;line-height:1.5;
+  transition:border-color .2s;scrollbar-width:none;
+}
+.lp-input:focus{border-color:rgba(139,92,246,.45)}
+.lp-input::placeholder{color:var(--dim)}
+.lp-input::-webkit-scrollbar{display:none}
+.lp-send{
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--violet),var(--amber));
+  border:none;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:14px;color:#fff;
+  transition:all .15s;
+}
+.lp-send:hover{opacity:.85;transform:scale(1.06)}
+.lp-send:disabled{opacity:.35;cursor:not-allowed;transform:none}
+
+
+/* ── Coming Soon ── */
+.coming-soon-block{
+  text-align:center;padding:72px 24px;
+  background:var(--card);border:1px solid var(--b1);
+  border-radius:16px;width:100%;
+}
+.cs-icon{font-size:44px;margin-bottom:18px;display:block;opacity:.7}
+.cs-title{
+  font-family:var(--serif);font-size:28px;font-weight:600;
+  color:var(--cream);letter-spacing:-.8px;margin-bottom:10px;
+}
+.cs-sub{font-size:14px;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto}
+
+</style>
+</head>
+<body>
+
+<div id="toastWrap"></div>
+
+<!-- Reading modal -->
+<div class="read-overlay" id="readOverlay">
+  <div class="read-close" onclick="closeRead()">✕</div>
+  <div class="read-inner" id="readContent"></div>
+</div>
+
+<!-- ═══════ NAV ═══════ -->
+<nav id="mainNav">
+  <a class="nav-brand" onclick="showPage('home')">
+    <div class="nav-mark">G</div>
+    <span class="nav-name">Intellix</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a class="nav-link active" id="nl-home" onclick="showPage('home')">Home</a>
+    <a class="nav-link" id="nl-blog" onclick="showPage('blog')">Blog</a>
+    <a class="nav-link" id="nl-science" onclick="showPage('science')">Science</a>
+    <a class="nav-link" id="nl-store" onclick="showPage('store')">Store</a>
+    <a class="nav-link" id="nl-about" onclick="showPage('about')">About</a>
+  </div>
+  <a class="nav-cta" onclick="showPage('store')">Shop Now</a>
+  <div class="nav-mobile-toggle" onclick="toggleMobileNav()" id="mobileToggle">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════
+     PAGE: HOME
+════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <div class="hero">
+    <canvas id="starCanvas"></canvas>
+    <div class="hero-glow"></div>
+    <div class="hero-overline">Ghokkul Muhunthan · Est. 2025</div>
+    <h1 class="hero-title">
+      <em>Intel</em>lix
+    </h1>
+    <p class="hero-tagline">Technology. Design. Business. Everything useful.</p>
+    <p class="hero-desc">Founded by Ghokkul Muhunthan in November 2025 — a place to write about technology, business and design, and sell original digital products. Purely personal. Purely original.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="showPage('blog')">Read the Blog</button>
+      <button class="btn-ghost" onclick="showPage('science')">Explore Science</button>
+    </div>
+    <div class="hero-scroll">scroll</div>
+  </div>
+
+  <!-- Topics ticker -->
+  <div class="topics-strip">
+    <div class="topics-track" id="topicTrack">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <!-- About strip -->
+  <div class="about-strip">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-img-wrap">
+          <div style="position:relative;display:inline-block">
+            <div class="about-av">G<div class="about-av-ring"></div></div>
+          </div>
+          <div class="about-tags" style="margin-top:18px">
+            <span class="tag">Mathematics</span>
+            <span class="tag">Physics</span>
+            <span class="tag">Space</span>
+            <span class="tag">Design</span>
+            <span class="tag">E-commerce</span>
+            <span class="tag">Singapore</span>
+          </div>
+        </div>
+        <div class="about-text">
+          <h2>Hi, I'm <em>Ghokkul.</em></h2>
+          <p>I'm <strong>Ghokkul Muhunthan</strong>, founder of Intellix. I built this in <strong>November 2025</strong> because I wanted one place — completely mine — where I could write about the topics I love and sell my own digital products.</p>
+          <p>Technology, business, design — and whatever else grabs my attention. <strong>Intellix is purely my creation and purely my own work.</strong></p>
+          <div class="about-stats">
+            <div><span class="astat-val">∞</span><span class="astat-lbl">Ideas</span></div>
+            <div><span class="astat-val">1</span><span class="astat-lbl">Mind</span></div>
+            <div><span class="astat-val">2025</span><span class="astat-lbl">Founded</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Latest posts -->
+  <section>
+    <div class="container">
+      <div class="section-hdr" style="display:flex;align-items:flex-end;justify-content:space-between">
+        <div>
+          <div class="section-label">Latest Writing</div>
+          <h2 class="section-title">From the <em>blog</em></h2>
+        </div>
+        <a onclick="showPage('blog')" style="font-size:13px;color:var(--amber);cursor:pointer;font-weight:600;white-space:nowrap">All posts →</a>
+      </div>
+      <div class="posts-grid" id="homePostsGrid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Science teaser -->
+  <section class="science-section">
+    <div class="container">
+      <div class="section-hdr" style="display:flex;align-items:flex-end;justify-content:space-between">
+        <div>
+          <div class="section-label">Science Corner</div>
+          <h2 class="section-title">Maths, Physics & <em>Space</em></h2>
+          <p class="section-sub">Deep dives into the ideas that built the universe — and the equations behind them.</p>
+        </div>
+        <a onclick="showPage('science')" style="font-size:13px;color:var(--amber);cursor:pointer;font-weight:600;white-space:nowrap">Explore →</a>
+      </div>
+      <div class="science-grid" id="homeSciGrid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Newsletter -->
+  <div class="nl-section">
+    <div class="container">
+      <div class="nl-inner">
+        <div class="nl-text">
+          <div class="section-label">Newsletter</div>
+          <h2>Stay in the <em>loop.</em></h2>
+          <p>No spam. No schedule. Just the interesting things — whenever Ghokkul writes something worth sharing.</p>
+        </div>
+        <div class="nl-form-wrap">
+          <input class="nl-input" type="email" id="nlEmail" placeholder="your@email.com">
+          <button class="nl-submit" onclick="subscribeNl()">Subscribe — it's free</button>
+          <p class="nl-note">Unsubscribe anytime · No noise · Ever.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-home -->
+
+<!-- ════════════════════════════════════════════
+     PAGE: BLOG
+════════════════════════════════════════════ -->
+<div class="page" id="page-blog">
+  <div class="page-hero">
+    <div class="container">
+      <div class="section-label">Writing</div>
+      <h1>The <em style="font-style:italic;color:var(--amber)">Blog</em></h1>
+      <p>Essays, thoughts, and ideas from across the intersection of curiosity and creativity.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="blog-filters" id="blogFilters">
+        <button class="filter-pill on" onclick="filterBlog('all',this)">All</button>
+        <button class="filter-pill" onclick="filterBlog('essay',this)">Essays</button>
+        <button class="filter-pill" onclick="filterBlog('tech',this)">Technology</button>
+        <button class="filter-pill" onclick="filterBlog('life',this)">Life</button>
+        <button class="filter-pill" onclick="filterBlog('design',this)">Design</button>
+        <button class="filter-pill" onclick="filterBlog('ecommerce',this)">E-commerce</button>
+      </div>
+      <div class="blog-grid-full" id="blogGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════════════════════════════
+     PAGE: SCIENCE
+════════════════════════════════════════════ -->
+<div class="page" id="page-science">
+  <div class="page-hero" style="background:linear-gradient(180deg,rgba(56,189,248,.04) 0%,transparent 100%)">
+    <div class="container">
+      <div class="section-label" style="justify-content:center;color:var(--sky)">
+        <span style="width:20px;height:1px;background:var(--sky);display:block"></span>
+        Science & Mathematics
+      </div>
+      <h1>Maths, Physics <br><em style="font-style:italic;color:var(--sky)">& Space</em></h1>
+      <p>Exploring the equations, theories, and wonders that explain our universe.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="blog-filters">
+        <button class="filter-pill on" onclick="filterSci('all',this)">All</button>
+        <button class="filter-pill" onclick="filterSci('maths',this)">Mathematics</button>
+        <button class="filter-pill" onclick="filterSci('physics',this)">Physics</button>
+        <button class="filter-pill" onclick="filterSci('space',this)">Space</button>
+        <button class="filter-pill" onclick="filterSci('philosophy',this)">Philosophy</button>
+      </div>
+      <div class="sci-full-grid" id="sciGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════════════════════════════
+     PAGE: STORE
+════════════════════════════════════════════ -->
+<div class="page" id="page-store">
+  <div class="page-hero" style="background:linear-gradient(180deg,rgba(245,158,11,.05) 0%,transparent 100%)">
+    <div class="container">
+      <div class="section-label" style="justify-content:center">Digital Store</div>
+      <h1><em style="font-style:italic;color:var(--amber)">Ghokkul</em>'s<br>Digital Products</h1>
+      <p>Browse and purchase digital products — designs, templates, and creative resources.</p>
+    </div>
+  </div>
+  <section>
+    <div class="container">
+      <div class="store-inner">
+        <div class="store-top">
+          <div class="store-brand">
+            <div class="store-av">G</div>
+            <div>
+              <div class="store-name">Ghokkul Muhunthan</div>
+              <div class="store-url">ghokkuldesigns.gumroad.com</div>
+            </div>
+          </div>
+          <div class="store-actions">
+            <button class="btn-ghost" style="padding:8px 16px;font-size:12px" onclick="document.getElementById('gumFrame2').src=document.getElementById('gumFrame2').src;document.getElementById('storeLoader2').style.display='flex';document.getElementById('gumFrame2').classList.remove('loaded')">↻ Reload</button>
+            <a href="https://ghokkuldesigns.gumroad.com/" target="_blank" class="btn-primary" style="padding:9px 20px;font-size:12px;text-decoration:none">Open in Gumroad ↗</a>
+          </div>
+        </div>
+        <div class="store-frame-wrap">
+          <div class="store-loader" id="storeLoader2">
+            <div class="store-spin"></div>
+            <p>Loading store…</p>
+          </div>
+          <iframe
+            id="gumFrame2"
+            src="https://ghokkuldesigns.gumroad.com/"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+            title="Ghokkul Muhunthan — Digital Store"
+            style="width:100%;height:600px;border:none;display:block;opacity:0;transition:opacity .5s"
+            onload="this.style.opacity='1';document.getElementById('storeLoader2').style.display='none'"
+          ></iframe>
+        </div>
+        <div class="store-footer">
+          <p>🔒 Secure checkout · Instant download · <a href="https://ghokkuldesigns.gumroad.com/" target="_blank">ghokkuldesigns.gumroad.com</a></p>
+          <p style="font-family:var(--mono);font-size:11px;color:var(--dim)">Powered by Gumroad</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ════════════════════════════════════════════
+     PAGE: ABOUT
+════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-page">
+    <div class="container">
+      <div class="about-page-grid">
+        <div class="about-sticky">
+          <div class="about-big-av">G</div>
+          <div style="font-family:var(--serif);font-size:22px;font-weight:600;color:var(--cream);margin-bottom:4px">Ghokkul Muhunthan</div>
+          <div style="font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:20px">Singapore · 2025</div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px">
+            <a href="https://www.linkedin.com/in/ghokkul-muhunthan" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--b0);border:1px solid var(--b1);border-radius:9px;text-decoration:none;color:var(--warm);font-size:13px;transition:all .15s" onmouseover="this.style.borderColor='var(--b2)'" onmouseout="this.style.borderColor='var(--b1)'">
+              <span>🔗</span> LinkedIn
+            </a>
+            <a href="https://ghokkuldesigns.gumroad.com/" target="_blank" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--b0);border:1px solid var(--b1);border-radius:9px;text-decoration:none;color:var(--warm);font-size:13px;transition:all .15s" onmouseover="this.style.borderColor='var(--b2)'" onmouseout="this.style.borderColor='var(--b1)'">
+              <span>🛍</span> Gumroad Store
+            </a>
+            <a href="/cdn-cgi/l/email-protection#e794929797889593a78e8993828b8b8e9fc98e88" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--b0);border:1px solid var(--b1);border-radius:9px;text-decoration:none;color:var(--warm);font-size:13px;transition:all .15s" onmouseover="this.style.borderColor='var(--b2)'" onmouseout="this.style.borderColor='var(--b1)'">
+              <span>📧</span> Email
+            </a>
+          </div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--dim);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase">Interests</div>
+          <div class="interests-grid">
+            <div class="interest-tag">🔢 Mathematics</div>
+            <div class="interest-tag">⚛️ Physics</div>
+            <div class="interest-tag">🌌 Space</div>
+            <div class="interest-tag">🎨 Design</div>
+            <div class="interest-tag">🛍 E-commerce</div>
+            <div class="interest-tag">💡 Ideas</div>
+            <div class="interest-tag">📖 Writing</div>
+            <div class="interest-tag">🚀 Startups</div>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <h2>Hi. I'm <em>Ghokkul.</em></h2>
+          <p>I built Intellix in <strong>November 2025</strong> because I wanted a place that was completely mine. Not a social media profile. Not a platform somebody else owns. <strong>My own corner of the internet.</strong></p>
+
+          <blockquote>"I wanted one place where I could write anything that comes to my mind — about the topics I enjoy, the things I build, and the ideas I find worth sharing."</blockquote>
+
+          <h3>Why I built this</h3>
+          <p>I love <strong>technology</strong> — how it works, where it's going, and what it means for how we live and work. I love <strong>business</strong> — the strategy behind building things, the thinking behind decisions. I love <strong>design</strong> — not just how things look, but how they feel to use.</p>
+          <p>I didn't want to pick one. So I built a space where I don't have to.</p>
+
+          <h3>The digital store</h3>
+          <p>I also sell my own digital products here — through my Gumroad store at <a href="https://ghokkuldesigns.gumroad.com/" target="_blank" style="color:var(--amber);text-decoration:none">ghokkuldesigns.gumroad.com</a>. Everything in the store is made by me, from scratch. Design assets, templates, and tools I've built and genuinely use.</p>
+
+          <h3>Purely mine</h3>
+          <p>Every word on this site is mine. Every product in the store is mine. Every design decision is mine. <strong>Intellix is purely my creation and purely my own work.</strong> I built it to last — not for an algorithm, not for a trend, but for myself and for anyone who finds something useful here.</p>
+          <p>If something I write helps you think differently about a problem, that's enough for me.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ FOOTER (shared) ═══════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="nav-brand" onclick="showPage('home')">
+          <div class="nav-mark">G</div>
+          <span class="nav-name">Intellix</span>
+        </a>
+        <p style="margin-top:14px">Technology, design, business and beyond. A personal space for ideas worth sharing.</p>
+        <p style="margin-top:10px;font-family:var(--mono);font-size:10px;color:var(--dim)">Singapore · Est. 2025</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('blog')">Blog</a>
+        <a onclick="showPage('science')">Science</a>
+        <a onclick="showPage('store')">Store</a>
+        <a onclick="showPage('about')">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <a onclick="showPage('science');filterSci('maths',document.querySelector('.filter-pill'))">Mathematics</a>
+        <a onclick="showPage('science');filterSci('physics',document.querySelector('.filter-pill'))">Physics</a>
+        <a onclick="showPage('science');filterSci('space',document.querySelector('.filter-pill'))">Space</a>
+        <a onclick="showPage('blog')">Essays</a>
+        <a onclick="showPage('blog')">Design</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/ghokkul-muhunthan" target="_blank">LinkedIn</a>
+        <a href="https://ghokkuldesigns.gumroad.com/" target="_blank">Gumroad Store</a>
+        <a href="/cdn-cgi/l/email-protection#83f0f6f3f3ecf1f7c3eaedf7e6efefeafbadeaec">Email</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Intellix · Ghokkul Muhunthan · All rights reserved</p>
+      <div class="footer-socials">
+        <a href="https://www.linkedin.com/in/ghokkul-muhunthan" target="_blank" class="social-btn" title="LinkedIn">in</a>
+        <a href="https://ghokkuldesigns.gumroad.com/" target="_blank" class="social-btn" title="Gumroad">🛍</a>
+        <a href="/cdn-cgi/l/email-protection#7f0c0a0f0f100d0b3f16110b1a13131607511610" class="social-btn" title="Email">@</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ═══════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════
+
+const BLOG_POSTS = [];
+
+const SCI_POSTS = [];
+
+const TOPICS = ["Technology", "Design", "Business", "Startups", "E-commerce", "AI & Machine Learning", "Product Design", "Marketing", "Leadership", "UX Writing", "Digital Products", "Productivity", "Mathematics", "Physics", "Space", "Typography", "Creativity", "Figma", "Branding", "Entrepreneurship"];
+
+// ═══════════════════════════════════════════════════════
+// ROUTER
+// ═══════════════════════════════════════════════════════
+const PAGE_TITLES = {home:'Home',blog:'Blog',science:'Science',store:'Store',about:'About'};
+
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(x => x.classList.remove('active'));
+  const pg = document.getElementById('page-' + p);
+  const nl = document.getElementById('nl-' + p);
+  if (pg) pg.classList.add('active');
+  if (nl) nl.classList.add('active');
+  document.title = (PAGE_TITLES[p] || p) + ' — Intellix';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Close mobile nav
+  document.getElementById('navLinks').classList.remove('open');
+  // Init page-specific
+  if (p === 'blog') renderBlogPage();
+  if (p === 'science') renderSciPage();
+}
+
+// ═══════════════════════════════════════════════════════
+// STAR CANVAS
+// ═══════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', function() {
+(function initStars() {
+  const cv = document.getElementById('starCanvas');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let W, H, stars = [];
+
+  function resize() {
+    W = cv.width = cv.offsetWidth;
+    H = cv.height = cv.offsetHeight;
+  }
+  function makeStar() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      r: Math.random() * 1.2 + 0.2,
+      a: Math.random(),
+      s: (Math.random() - 0.5) * 0.15,
+      dx: (Math.random() - 0.5) * 0.08,
+      dy: (Math.random() - 0.5) * 0.04,
+      col: Math.random() > 0.85
+        ? (Math.random() > 0.5 ? '#f59e0b' : '#8b5cf6')
+        : '#ffffff'
+    };
+  }
+  resize();
+  for (let i = 0; i < 280; i++) stars.push(makeStar());
+  window.addEventListener('resize', resize);
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    stars.forEach(s => {
+      s.a += s.s * 0.02;
+      if (s.a < 0) s.a = 0.05;
+      if (s.a > 1) s.a = 0.95;
+      s.x += s.dx; s.y += s.dy;
+      if (s.x < 0) s.x = W;
+      if (s.x > W) s.x = 0;
+      if (s.y < 0) s.y = H;
+      if (s.y > H) s.y = 0;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.col;
+      ctx.globalAlpha = s.a * 0.7;
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ═══════════════════════════════════════════════════════
+// TOPICS TICKER
+// ═══════════════════════════════════════════════════════
+(function buildTicker() {
+  const track = document.getElementById('topicTrack');
+  if (!track) return;
+  const all = [...TOPICS, ...TOPICS]; // doubled for seamless loop
+  track.innerHTML = all.map(t =>
+    '<span class="topic-item"><span class="topic-dot"></span>' + t + '</span>'
+  ).join('');
+})();
+
+// ═══════════════════════════════════════════════════════
+// HOME POSTS GRID
+// ═══════════════════════════════════════════════════════
+function postCardHTML(p, featured) {
+  const f = !!featured;
+  return `<div class="post-card${f?' featured':''}" onclick="openRead(${p.id},'blog')">
+    <div class="post-thumb" style="background:${p.bg}">
+      <div class="post-thumb-bg" style="background:${p.bg}"></div>
+      <span class="post-thumb-emoji">${p.emoji}</span>
+    </div>
+    <div class="post-body">
+      <div class="post-cat" style="color:${p.catColor}">${p.catLabel}</div>
+      <div class="post-title">${p.title}</div>
+      <div class="post-excerpt">${p.excerpt}</div>
+      <div class="post-meta">
+        <span class="post-date">${p.date} · ${p.read}</span>
+        <span class="post-read">Read →</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+(function buildHomePosts() {
+  var g = document.getElementById('homePostsGrid');
+  if (!g) return;
+  g.innerHTML = '<div class="coming-soon-block" style="grid-column:1/-1">' +
+    '<div class="cs-icon">✦</div>' +
+    '<div class="cs-title">First posts coming soon.</div>' +
+    '<div class="cs-sub">Ghokkul is working on the first batch of writing. Subscribe below to be notified.</div>' +
+    '</div>';
+})();
+(function buildHomeSci() {
+  var g = document.getElementById('homeSciGrid');
+  if (!g) return;
+  g.innerHTML = '<div class="coming-soon-block" style="grid-column:1/-1">' +
+    '<div class="cs-icon">⚛️</div>' +
+    '<div class="cs-title">Science posts coming soon.</div>' +
+    '<div class="cs-sub">Maths, physics and space — deep dives on their way.</div>' +
+    '</div>';
+})();
+(function initGreeting() {
+  const h = new Date().getHours();
+  const mins = new Date().getMinutes();
+
+  const periods = [
+    { name:'Night',    emoji:'🌙', badge:'Late night at Intellix',   sub:'The quietest hours. The best thoughts.',          colorA:'rgba(139,92,246,.14)', colorB:'rgba(56,189,248,.08)',  start:0,  end:5  },
+    { name:'Morning',  emoji:'🌅', badge:'Good morning, explorer',   sub:'A new day. A new idea. Start here.',              colorA:'rgba(245,158,11,.13)', colorB:'rgba(244,63,94,.07)',   start:5,  end:12 },
+    { name:'Afternoon',emoji:'⚡', badge:'Good afternoon, curious one',sub:'The best time to learn something new.',          colorA:'rgba(56,189,248,.12)', colorB:'rgba(16,185,129,.07)', start:12, end:17 },
+    { name:'Evening',  emoji:'🌆', badge:'Good evening, thinker',    sub:'The cosmos awaits. So do the ideas.',             colorA:'rgba(244,63,94,.11)',  colorB:'rgba(139,92,246,.1)',   start:17, end:20 },
+    { name:'Night',    emoji:'🌙', badge:'Good night, dreamer',      sub:'The best ideas often arrive after dark.',         colorA:'rgba(139,92,246,.14)', colorB:'rgba(245,158,11,.07)', start:20, end:24 },
+  ];
+
+  const period = periods.find(p => h >= p.start && h < p.end) || periods[0];
+
+  // Set greeting text
+  var gsG = document.getElementById('gsGreeting');
+  var gsBadge = document.getElementById('gsBadgeText');
+  var gsSb = document.getElementById('gsSub');
+  if (gsG) gsG.innerHTML = 'Good <em>' + period.name + '</em>';
+  if (gsBadge) gsBadge.textContent = period.badge;
+  if (gsSb) gsSb.textContent = period.sub;
+
+  // Live clock
+  function updateClock() {
+    const now = new Date();
+    const hh = String(now.getHours()).padStart(2,'0');
+    const mm = String(now.getMinutes()).padStart(2,'0');
+    const ss = String(now.getSeconds()).padStart(2,'0');
+    const el = document.getElementById('gsClock');
+    if (el) el.textContent = hh + ':' + mm + ':' + ss;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Mini stars on greeting canvas
+  const cv = document.getElementById('gsStars');
+  if (cv) {
+    const ctx = cv.getContext('2d');
+    function resizeGS() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+    resizeGS();
+    window.addEventListener('resize', resizeGS);
+    const stars = Array.from({length:200}, () => ({
+      x: Math.random() * cv.width,
+      y: Math.random() * cv.height,
+      r: Math.random() * 1.1 + 0.2,
+      a: Math.random() * 0.6 + 0.1,
+      drift: (Math.random() - 0.5) * 0.06,
+    }));
+    (function drawGS() {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      stars.forEach(s => {
+        s.x += s.drift;
+        if (s.x < 0) s.x = cv.width;
+        if (s.x > cv.width) s.x = 0;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.globalAlpha = s.a * 0.5;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(drawGS);
+    })();
+  }
+
+  // Auto-dismiss after 14s
+  const autoTimer = setTimeout(dismissGreeting, 14000);
+  window._gsTimer = autoTimer;
+})();
+
+function dismissGreeting() {
+  clearTimeout(window._gsTimer);
+  const el = document.getElementById('greetSplash');
+  if (!el) return;
+  el.classList.add('out');
+  setTimeout(() => { el.style.display = 'none'; }, 850);
+  // Show Lumina badge after greeting dismissed
+  setTimeout(() => {
+    document.getElementById('luminaUnread').style.display = 'flex';
+  }, 2000);
+}
+
+// ═══════════════════════════════════════════════════════
+// LUMINA CHATBOT — Knowledge base
+// ═══════════════════════════════════════════════════════
+var LUMINA = {
+  open: false,
+  loading: false,
+  greeted: false,
+
+  kb: {
+    detect: function(t) {
+      t = t.toLowerCase();
+      var map = {
+        greeting:    ['hello','hi ','hey ','hiya','howdy','morning','afternoon','evening','night','sup','yo ','greet'],
+        about:       ['about','who is','ghokkul','muhunthan','who made','creator','founder','behind','person','you','singapore'],
+        space:       ['space','cosmos','universe','galaxy','star','planet','black hole','nebula','light year','nasa','astronomy','cosmic','milky way','big bang'],
+        physics:     ['physics','relativity','einstein','quantum','particle','energy','force','gravity','thermodynamics','electromagnetism','wave','photon','electron'],
+        maths:       ['math','mathematics','euler','equation','calculus','algebra','geometry','number','prime','infinity','pi ','formula','theorem','proof','fractal'],
+        blog:        ['blog','post','article','write','essay','read','latest','writing','content','published'],
+        store:       ['store','shop','product','buy','purchase','gumroad','digital','template','design','download','sell'],
+        science:     ['science','discovery','research','theory','experiment','hypothesis','scientific'],
+        philosophy:  ['philosophy','meaning','truth','knowledge','consciousness','existence','logic','reasoning','wisdom'],
+        design:      ['design','figma','ui','ux','aesthetic','visual','colour','typography','brand','creative'],
+        interests:   ['interest','passion','hobby','like','love','enjoy','favourite','curious'],
+        contact:     ['contact','email','reach','find','social','linkedin','connect','get in touch'],
+        help:        ['help','what can','can you','do you','how does','navigation','use this','guide'],
+      };
+      var best = null, bestScore = 0;
+      Object.keys(map).forEach(function(intent) {
+        var score = 0;
+        map[intent].forEach(function(kw) { if (t.indexOf(kw) !== -1) score += kw.trim().split(' ').length; });
+        if (score > bestScore) { bestScore = score; best = intent; }
+      });
+      return bestScore > 0 ? best : null;
+    },
+
+    reply: function(intent) {
+      var h = new Date().getHours();
+      var timeGreet = h < 5 ? 'Burning the midnight oil?' : h < 12 ? 'Good morning!' : h < 17 ? 'Good afternoon!' : h < 20 ? 'Good evening!' : 'Good night, stargazer.';
+      var replies = {
+        greeting: timeGreet + ' I am <strong>Lumina</strong> — your guide through Intellix. I can help you explore the blog, find science posts, visit the digital store, or just have a conversation. What are you curious about?',
+        about: 'Intellix is the personal space of <em>Ghokkul Muhunthan</em> — based in Singapore, 2025. He writes about whatever fascinates him: mathematics, physics, space, design, and e-commerce. The tagline says it best: <strong>"Where passion meets creativity."</strong><br><br>This site exists because the internet needs more honest writing and fewer content calendars.',
+        space: 'Space is one of the great obsessions here. 🌌<br><br>From the <strong>scale of the observable universe</strong> (46.5 billion light-years across) to the strange physics of <strong>black holes</strong> and what they actually are — not vacuum cleaners, but warped geometry.<br><br>Head to the <em>Science</em> page for deep-dives. The overview effect — what astronauts feel seeing Earth from space — might be the most profound thing humans have ever experienced.',
+        physics: 'Physics is the poetry of reality. ⚛️<br><br>Ghokkul writes about it because understanding <em>why</em> nothing travels faster than light — that it is about spacetime geometry, not a speed limit — changes how you see everything.<br><br>On the Science page you will find posts on special relativity, the Schwarzschild radius, and Maxwell equations. What aspect of physics interests you most?',
+        maths: '∞ Mathematics is the language the universe wrote itself in.<br><br>The site has pieces on <strong>Euler\'s identity</strong> (e^iπ + 1 = 0 — five constants, one equation, infinite elegance), the <strong>unreasonable effectiveness of mathematics</strong> in physics, and the oldest debate: is mathematics <em>discovered or invented?</em><br><br>Explore the Science page and filter by Mathematics.',
+        blog: 'The blog is where Ghokkul writes freely — no niche, no schedule, no algorithm. Recent pieces include:<br><br>&#9670; <strong>Why I Write About Everything</strong> — the case for generalism<br>&#9670; <strong>What Building a Digital Store Taught Me</strong><br>&#9670; <strong>The Internet I Want to Build On</strong><br><br>Click the Blog tab to read all of them. Every post is fully readable.',
+        store: '🛍 Ghokkul runs a digital products store at <strong>ghokkuldesigns.gumroad.com</strong>. Design assets, Figma templates, UI kits, and creative resources — all instantly downloadable.<br><br>You can browse the full store embedded right here in Intellix. Click the <em>Store</em> tab and everything loads from Gumroad. Secure checkout, instant download.',
+        science: 'The Science corner is one of the most distinctive parts of Intellix. 🔭<br><br>It covers mathematics, physics, astronomy, and the philosophy of science — all written for curious people, not specialists. Every piece includes the relevant equations because the maths is the point, not the decoration.<br><br>Navigate to the <em>Science</em> tab and filter by topic.',
+        philosophy: '🧠 Philosophy lives at the edges of everything on this site. The post on whether mathematics is discovered or invented sits at the border of philosophy and maths. The essay on what space travel means for humanity is as much philosophy as astronomy.<br><br>Ghokkul\'s view: the most interesting questions are the ones that do not have clean answers yet.',
+        design: 'Design runs through everything here — the site itself is a design object. 🎨<br><br>Ghokkul has written about the design principles that actually matter in practice (contrast, restraint, designing for edge states). He also sells design assets at his Gumroad store.<br><br>Check the Blog page, filter by Design, or visit the Store tab.',
+        interests: 'Ghokkul is interested in <em>everything</em> — which is simultaneously a gift and a problem, as he writes about in one of the blog posts. 😄<br><br>The main obsessions: <strong>mathematics</strong> (the beauty of proofs), <strong>physics</strong> (the structure of reality), <strong>space</strong> (the scale of things), <strong>design</strong> (form and function), and <strong>e-commerce</strong> (creativity under commercial pressure).',
+        contact: 'You can reach Ghokkul at:<br><br>📧 <strong>support@intellix.io</strong><br>🔗 <strong>linkedin.com/in/ghokkul-muhunthan</strong><br>🛍 <strong>ghokkuldesigns.gumroad.com</strong><br><br>He is based in Singapore. Intellix was founded in 2025.',
+        help: 'I am Lumina, your Intellix guide. Here is how this site works:<br><br>&#9670; <strong>Blog</strong> — essays and writing, filter by topic<br>&#9670; <strong>Science</strong> — maths, physics, space posts with equations<br>&#9670; <strong>Store</strong> — digital products on Gumroad, embedded here<br>&#9670; <strong>About</strong> — who is Ghokkul and why this exists<br><br>Click any card to read the full post. What would you like to explore?',
+        fallback: 'That is an interesting one. Let me think... 🌌<br><br>I know a lot about Intellix — the blog, the science posts, the store, Ghokkul\'s story. You can also ask me about mathematics, physics, or space.<br><br>Or just explore — click any card on the home page and dive in. What direction sparks your curiosity?',
+      };
+      return replies[intent] || replies.fallback;
+    }
+  }
+};
+
+// ── Lumina core ─────────────────────────────────────────
+function luminaToggle() {
+  var panel = document.getElementById('luminaPanel');
+  var btn   = document.getElementById('luminaBtn');
+  var icon  = document.getElementById('luminaIcon');
+  var unread = document.getElementById('luminaUnread');
+
+  LUMINA.open = !LUMINA.open;
+  unread.style.display = 'none';
+
+  if (LUMINA.open) {
+    panel.style.display = 'flex';
+    btn.classList.add('open');
+    icon.textContent = '✕';
+    requestAnimationFrame(function() { panel.classList.add('open'); });
+    if (!LUMINA.greeted) { LUMINA.greeted = true; luminaGreet(); }
+    setTimeout(function() {
+      var inp = document.getElementById('lpInput');
+      if (inp) inp.focus();
+    }, 300);
+  } else {
+    panel.classList.remove('open');
+    btn.classList.remove('open');
+    icon.textContent = '✦';
+    setTimeout(function() { panel.style.display = 'none'; }, 260);
+  }
+}
+
+function luminaGreet() {
+  var h = new Date().getHours();
+  var timeWord = h < 5 ? 'up late' : h < 12 ? 'good morning' : h < 17 ? 'good afternoon' : h < 20 ? 'good evening' : 'good night';
+  var greetMsg = '<strong>' + timeWord.charAt(0).toUpperCase() + timeWord.slice(1) + '!</strong> I am <strong>Lumina</strong> — the Intellix companion. ✦<br><br>I know everything about this site: the blog posts, science deep-dives, the digital store, and the mind behind it all. Ask me anything, or tap a topic below.';
+  luminaAddMsg(greetMsg, false, 400);
+}
+
+function luminaSend(overrideText) {
+  if (LUMINA.loading) return;
+  var inp = document.getElementById('lpInput');
+  var text = (overrideText || (inp ? inp.value.trim() : '')).trim();
+  if (!text) return;
+  if (!overrideText && inp) { inp.value = ''; inp.style.height = 'auto'; }
+
+  // Hide chips after first send
+  var chips = document.getElementById('lpChips');
+  if (chips) chips.style.display = 'none';
+
+  luminaAddMsg(text, true);
+  LUMINA.loading = true;
+
+  var sendBtn = document.getElementById('lpSendBtn');
+  if (sendBtn) sendBtn.disabled = true;
+  luminaShowTyping();
+
+  var intent = LUMINA.kb.detect(text);
+  var reply  = LUMINA.kb.reply(intent);
+  var delay  = 600 + Math.min(reply.replace(/<[^>]+>/g,'').length * 0.5, 800);
+
+  setTimeout(function() {
+    luminaHideTyping();
+    luminaAddMsg(reply, false);
+    LUMINA.loading = false;
+    if (sendBtn) sendBtn.disabled = false;
+  }, delay);
+}
+
+function luminaChip(el) {
+  var text = el.textContent.replace(/^[^\w]+/, '').trim();
+  el.style.opacity = '0.4'; el.style.pointerEvents = 'none';
+  luminaSend(text);
+}
+
+function luminaAddMsg(html, isUser, delay) {
+  delay = delay || 0;
+  var msgs = document.getElementById('lpMsgs');
+  if (!msgs) return;
+  setTimeout(function() {
+    var h = new Date().getHours();
+    var mm = String(new Date().getMinutes()).padStart(2,'0');
+    var hh = String(h % 12 || 12).padStart(2,'0');
+    var ampm = h < 12 ? 'am' : 'pm';
+    var timeStr = hh + ':' + mm + ' ' + ampm;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'lm' + (isUser ? ' user' : '');
+    wrap.style.cssText = 'opacity:0;transform:translateY(8px);transition:opacity .22s,transform .22s';
+
+    var avHTML = isUser
+      ? '<div class="lm-av usr">You</div>'
+      : '<div class="lm-av bot">✦</div>';
+
+    wrap.innerHTML = (isUser ? '' : avHTML) +
+      '<div><div class="lm-bubble ' + (isUser ? 'usr' : 'bot') + '">' + html + '</div>' +
+      '<div class="lm-time">' + timeStr + '</div></div>' +
+      (isUser ? avHTML : '');
+
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+    requestAnimationFrame(function() {
+      wrap.style.opacity = '1';
+      wrap.style.transform = 'translateY(0)';
+    });
+  }, delay);
+}
+
+function luminaShowTyping() {
+  var msgs = document.getElementById('lpMsgs');
+  if (!msgs || document.getElementById('lpTyping')) return;
+  var el = document.createElement('div');
+  el.id = 'lpTyping';
+  el.className = 'lp-typing';
+  el.innerHTML = '<div class="lm-av bot" style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--amber));display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0">✦</div>' +
+    '<div class="lp-dots"><div class="lp-dot"></div><div class="lp-dot"></div><div class="lp-dot"></div></div>';
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function luminaHideTyping() {
+  var el = document.getElementById('lpTyping');
+  if (el) el.remove();
+}
+
+// Show Lumina notification after 5s (if greeting already dismissed early)
+setTimeout(function() {
+  var splash = document.getElementById('greetSplash');
+  if (splash && splash.style.display === 'none') {
+    document.getElementById('luminaUnread').style.display = 'flex';
+  }
+}, 5000);
+
+
+
+// ── Blog page ─────────────────────────────────
+  var blogFilter = 'all';
+
+  function renderBlogPage() {
+    var g = document.getElementById('blogGrid');
+    if (!g) return;
+    g.innerHTML = '<div class="coming-soon-block" style="grid-column:1/-1">' +
+      '<div class="cs-icon">✦</div>' +
+      '<div class="cs-title">Blog posts coming soon.</div>' +
+      '<div class="cs-sub">Ghokkul is writing. Check back shortly.</div>' +
+      '</div>';
+  }
+
+  function filterBlog(f, el) {
+    blogFilter = f;
+    document.querySelectorAll('#blogFilters .filter-pill').forEach(function(b){ b.classList.remove('on'); });
+    if (el) el.classList.add('on');
+    renderBlogPage();
+  }
+
+  // ── Science page ───────────────────────────────
+  var sciFilter = 'all';
+
+  function renderSciPage() {
+    var g = document.getElementById('sciGrid');
+    if (!g) return;
+    g.innerHTML = '<div class="coming-soon-block" style="grid-column:1/-1">' +
+      '<div class="cs-icon">⚛️</div>' +
+      '<div class="cs-title">Science posts coming soon.</div>' +
+      '<div class="cs-sub">Deep dives into maths, physics and space are on the way.</div>' +
+      '</div>';
+  }
+
+  function filterSci(f, el) {
+    sciFilter = f;
+    document.querySelectorAll('#page-science .filter-pill').forEach(function(b){ b.classList.remove('on'); });
+    if (el) el.classList.add('on');
+    renderSciPage();
+  }
+
+  // ── Reading modal ──────────────────────────────
+  function openRead(id, type) { return; } // no posts yet
+
+  function closeRead() {
+    document.getElementById('readOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── Newsletter ─────────────────────────────────
+  function subscribeNl() {
+    var el = document.getElementById('nlEmail');
+    var email = el ? el.value.trim() : '';
+    if (!email || email.indexOf('@') === -1) {
+      toast('Please enter a valid email address', 'warn');
+      return;
+    }
+    if (el) el.value = '';
+    toast("You're subscribed! Welcome to Intellix.", 'ok');
+  }
+
+  // ── Toast ──────────────────────────────────────
+  function toast(msg, type, dur) {
+    type = type || 'info'; dur = dur || 3500;
+    var w = document.getElementById('toastWrap');
+    var t = document.createElement('div');
+    var cols = { info: '#f59e0b', ok: '#10b981', warn: '#f43f5e', err: '#ef4444' };
+    t.className = 'toast';
+    t.style.borderLeftColor = cols[type] || cols.info;
+    t.innerHTML = msg;
+    t.onclick = function(){ t.remove(); };
+    w.appendChild(t);
+    requestAnimationFrame(function(){ t.classList.add('show'); });
+    setTimeout(function(){ t.classList.remove('show'); setTimeout(function(){ t.remove(); }, 280); }, dur);
+  }
+
+  // ── Nav scroll & mobile ────────────────────────
+  window.addEventListener('scroll', function() {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  function toggleMobileNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeRead();
+  });
+
+
+  // ── Expose functions globally for HTML onclick handlers ──
+  window.closeRead = closeRead;
+  window.dismissGreeting = dismissGreeting;
+  window.filterBlog = filterBlog;
+  window.filterSci = filterSci;
+  window.luminaChip = luminaChip;
+  window.luminaSend = luminaSend;
+  window.luminaToggle = luminaToggle;
+  window.openRead = openRead;
+  window.subscribeNl = subscribeNl;
+  window.toggleMobileNav = toggleMobileNav;
+
+}); // end DOMContentLoaded
+</script>
+
+<!-- ═══════ GREETING SPLASH ═══════ -->
+<div id="greetSplash">
+  <canvas id="gsStars" class="gs-stars"></canvas>
+  <div class="gs-orbs">
+    <div class="gs-orb" id="gsOrb1" style="width:500px;height:500px;top:-10%;left:-15%;background:radial-gradient(circle,rgba(139,92,246,.12),transparent 60%);animation-delay:0s"></div>
+    <div class="gs-orb" id="gsOrb2" style="width:400px;height:400px;bottom:-10%;right:-10%;background:radial-gradient(circle,rgba(245,158,11,.09),transparent 60%);animation-delay:-3s"></div>
+  </div>
+  <div class="gs-inner">
+    <div class="gs-time-badge">
+      <span class="gs-time-dot"></span>
+      <span id="gsBadgeText">Welcome</span>
+    </div>
+    <div class="gs-greeting" id="gsGreeting">Good <em id="gsPeriod">Morning</em></div>
+    <div class="gs-sub" id="gsSub">The cosmos is wide. Curiosity is wider.</div>
+    <button class="gs-enter" onclick="dismissGreeting()">
+      Enter Intellix <span class="gs-enter-arrow">→</span>
+    </button>
+    <div class="gs-clock" id="gsClock"></div>
+  </div>
+</div>
+
+<!-- ═══════ CHATBOT — LUMINA ═══════ -->
+<button id="luminaBtn" onclick="luminaToggle()" title="Chat with Lumina">
+  <span class="lumina-icon" id="luminaIcon">✦</span>
+  <span id="luminaUnread" style="display:none">1</span>
+</button>
+
+<div id="luminaPanel">
+  <div class="lp-header">
+    <div class="lp-av">✦<div class="lp-av-ring"></div></div>
+    <div class="lp-info">
+      <div class="lp-name">Lumina</div>
+      <div class="lp-status"><span class="lp-status-dot"></span>Online · Intellix companion</div>
+    </div>
+    <div class="lp-close" onclick="luminaToggle()">✕</div>
+  </div>
+
+  <div class="lp-msgs" id="lpMsgs"></div>
+
+  <div class="lp-chips" id="lpChips">
+    <div class="lp-chip" onclick="luminaChip(this)">✦ About Ghokkul</div>
+    <div class="lp-chip" onclick="luminaChip(this)">🌌 Space & Physics</div>
+    <div class="lp-chip" onclick="luminaChip(this)">🛍 Digital Store</div>
+    <div class="lp-chip" onclick="luminaChip(this)">📖 Latest Posts</div>
+    <div class="lp-chip" onclick="luminaChip(this)">∞ Mathematics</div>
+  </div>
+
+  <div class="lp-input-row">
+    <textarea class="lp-input" id="lpInput" placeholder="Ask Lumina anything…" rows="1"
+      oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHei
