@@ -4056,234 +4056,197 @@ window.gmapSearch = gmapSearch;
 
 <script>
 (function(){
-// ══════════════════════════════════════════════════════
-// NEXA — FULL AI PAYMENT AGENT  (Claude-powered)
-// ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════════
+// NEXA — INTELLIX AI PAYMENT AGENT (Fully local, zero network)
+// ══════════════════════════════════════════════════════════
 
-var NX = {
-  open: false,
-  greeted: false,
-  loading: false,
-  history: [],   // full conversation for context
-  typingEl: null,
-  typingTimer: null
+var NX = { open: false, greeted: false, loading: false, history: [] };
+
+// ── Complete Knowledge Base ──────────────────────────────
+var KB = {
+
+  detect: function(t) {
+    t = t.toLowerCase();
+    var map = {
+      greetings:   ['hi ','hello','hey ','sup','yo ','howdy','hiya','greetings','good morning','good afternoon','good evening','good night','what\'s up','wassup'],
+      getstarted:  ['get started','start free','create account','sign up','register','join intellix','free account','how do i start','how to start','begin','onboard','setup','set up','first step','new account','make account','open account','how to use'],
+      payments:    ['payment','pay ','send money','send funds','transaction','transfer','checkout','accept payment','how do i pay','how does pay','collect money','receive money','process payment','make payment','payment method','how to send'],
+      fraud:       ['fraud','fraudnet','security','scam','protect','risk','chargeback','dispute','safe','block','detect','hack','stolen','malicious','threat','protect my'],
+      pricing:     ['price','pricing','cost','fee','how much','plan','starter','pro plan','enterprise','subscription','free plan','paid plan','monthly','upgrade','billing','what do i pay','afford','charge'],
+      social:      ['social','friends','chat','conversation','thread','pay friends','intellix social','send to friend','social payment','social pay','pay in chat'],
+      speed:       ['speed','how fast','settle','settlement','instant','14 second','14s','polygon','quick','time to settle','when will','how long','delivery time','payout time'],
+      api:         ['api','sdk','developer','integrate','code','typescript','python','go lang','rust','swift','endpoint','webhook','technical','documentation','docs','build with','rest api'],
+      currencies:  ['currency','currencies','crypto','bitcoin','btc','eth','ethereum','usdc','fiat','stablecoin','token','what currencies','135','340','which coin','eur','gbp','jpy','aud','sgd'],
+      global:      ['global','country','countries','international','region','worldwide','150 country','where is','available in','supported country','my country','which country'],
+      compare:     ['compare','stripe','paypal','adyen','vs ','versus','difference','better than','alternative','switch from','why not stripe','why intellix','competitor'],
+      kyc:         ['kyc','verify','identity','verification','compliance','legal','aml','id check','proof of identity','know your customer'],
+      support:     ['support','help me','contact','email support','reach out','talk to','human','speak to','live chat','agent','team','someone'],
+      about:       ['about intellix','who made','founder','ghokkul','muhunthan','company','who is','when founded','history','story','mission','why built'],
+      ai:          ['ai ','artificial intelligence','machine learning','ml ','route optimizer','routing','ai engine','smart routing','how does ai','ai fraud','neural'],
+      security:    ['secure','security','pci','aes','tls','encryption','iso 27001','soc 2','certified','compliance','breach','data safe','is it safe'],
+      dispute:     ['dispute','chargeback','win dispute','evidence','fight back','customer dispute','reverse','refund dispute']
+    };
+    var best = null, bestScore = 0;
+    Object.keys(map).forEach(function(intent) {
+      var score = 0;
+      map[intent].forEach(function(kw) {
+        if (t.indexOf(kw) !== -1) score += kw.trim().split(' ').length;
+      });
+      if (score > bestScore) { bestScore = score; best = intent; }
+    });
+    return bestScore > 0 ? best : null;
+  },
+
+  reply: function(intent) {
+    var replies = {
+      greetings: '<strong>Hey there! 👋</strong><br><br>I\'m <strong>Nexa</strong>, your Intellix AI Payment Agent — I know everything about Intellix.<br><br>I can help you with:<br>&#8226; Getting started &amp; pricing<br>&#8226; Payments &amp; settlement speed<br>&#8226; FraudNet AI protection<br>&#8226; Social Pay &amp; currencies<br>&#8226; Developer API &amp; SDKs<br><br>What would you like to know? 💬',
+
+      getstarted: '🚀 <strong>Getting started is completely free!</strong><br><br>Here\'s how in 3 steps:<br><br><strong>1. Create your account</strong><br>Click <em>Get started</em> in the top nav — takes under 2 minutes. No credit card required.<br><br><strong>2. You\'re on the Starter plan</strong><br>&#8226; 1,000 transactions/month — free forever<br>&#8226; FraudNet v2.1 protection on every transaction<br>&#8226; Intellix Social — chat &amp; pay friends<br>&#8226; Full dashboard access<br><br><strong>3. When you\'re ready to scale</strong><br>Upgrade to <strong>Pro at $49/mo</strong> for 50,000 transactions, the AI Route Optimizer (saves up to 98.5% on fees), and priority support.<br><br>Want to know more about the plans?',
+
+      payments: '💳 <strong>340+ payment methods — all in one API call.</strong><br><br><strong>Cards:</strong> Visa, Mastercard, Amex, UnionPay<br><strong>Bank:</strong> ACH, SEPA Instant, SWIFT wire<br><strong>Crypto:</strong> BTC, ETH, SOL, USDC, 40+ tokens<br><strong>Wallets:</strong> Apple Pay, Google Pay, PayPal<br><strong>Local rails:</strong> UPI, PIX, PayNow<br><br>The <strong>AI Route Optimizer</strong> evaluates 47+ network paths per transaction and picks the cheapest, fastest route automatically — saving up to <strong>98.5% on fees</strong>.<br><br>Settlement is as fast as <strong>14 seconds</strong> via Polygon Bridge. Want to know about specific methods or speeds?',
+
+      fraud: '🛡️ <strong>FraudNet v2.1 — AI fraud detection.</strong><br><br>Every transaction is scored in <strong>under 1ms</strong> before it settles. Here\'s what makes it powerful:<br><br>&#8226; <strong>99.8% accuracy</strong> — industry-leading detection rate<br>&#8226; 8 signal categories analysed per transaction<br>&#8226; Fully explainable — you see exactly why a transaction was flagged<br>&#8226; <strong>94% dispute win rate</strong> — AI builds evidence packages automatically<br>&#8226; Zero config — works from day one, no rules to write<br><br>FraudNet is included on <strong>every plan</strong>, including Starter (free). You never pay extra for fraud protection.',
+
+      pricing: '💰 <strong>Simple, honest pricing. No hidden fees.</strong><br><br><strong>Starter — Free forever</strong><br>&#8226; 1,000 transactions/month<br>&#8226; FraudNet v2.1 included<br>&#8226; Intellix Social included<br>&#8226; Full API access<br><br><strong>Pro — $49/month</strong><br>&#8226; 50,000 transactions/month<br>&#8226; AI Route Optimizer (saves up to 98.5% on fees)<br>&#8226; Priority support<br>&#8226; Advanced analytics<br>&#8226; 14-day free trial — no card required<br><br><strong>Enterprise — Custom pricing</strong><br>&#8226; Unlimited volume<br>&#8226; Dedicated account manager<br>&#8226; SLA guarantees<br>&#8226; Custom integrations<br><br>Transaction fees are at-cost — we never mark them up.',
+
+      social: '♥ <strong>Intellix Social — chat and pay in one place.</strong><br><br>Send money to friends directly inside a conversation thread — no switching apps, no copying wallet addresses.<br><br>&#8226; <strong>14-second settlement</strong> via Polygon Bridge<br>&#8226; <strong>135+ currencies</strong> — send USD, receive ETH, no problem<br>&#8226; All users are KYC-verified for trust<br>&#8226; Payment history lives inside the chat thread<br>&#8226; Request money, split bills, or pay instantly<br><br>To use it, click the <strong>♥ Social</strong> button in the nav. You can also access it from your dashboard.',
+
+      speed: '⚡ <strong>Intellix settlement speeds:</strong><br><br>&#8226; <strong>Polygon Bridge — 14 seconds at $0.18 flat</strong> (fastest &amp; cheapest)<br>&#8226; <strong>ACH Same-Day — under 4 hours</strong><br>&#8226; <strong>SEPA Instant — seconds</strong> (EU)<br>&#8226; <strong>Card networks — instant auth</strong>, 1-2 day funding<br>&#8226; <strong>SWIFT — 1-2 business days</strong><br><br>The AI Route Optimizer automatically selects the fastest affordable route for every transaction. Most payments settle in <strong>14 seconds</strong> via Polygon.',
+
+      api: '⌥ <strong>Developer API — 5 SDKs, one integration.</strong><br><br><strong>Available SDKs:</strong><br>&#8226; TypeScript / JavaScript<br>&#8226; Python<br>&#8226; Go<br>&#8226; Rust<br>&#8226; Swift (iOS)<br><br><strong>Rate limits:</strong><br>&#8226; Starter: 100 req/min<br>&#8226; Pro: 10,000 req/min<br><br>A single API call handles payment creation, fraud scoring, and route optimisation simultaneously. Full webhook support for async events.<br><br>Check the <strong>Developers</strong> section on the home page for live code examples in all 5 languages.',
+
+      currencies: '🌍 <strong>135+ currencies supported.</strong><br><br><strong>Major fiat:</strong> USD, EUR, GBP, JPY, AUD, NZD, SGD, CAD, CHF, and 50+ more<br><br><strong>Crypto:</strong> BTC, ETH, SOL, BNB, MATIC, ADA, XRP, AVAX, DOT, LINK, and 30+ more<br><br><strong>Stablecoins:</strong> USDC, USDT, BUSD, DAI, FRAX<br><br>The AI Route Optimizer handles cross-currency conversion automatically — send in USD, your recipient gets ETH. No manual conversion steps.',
+
+      global: '🌐 <strong>Intellix is live in 150+ countries across 6 regions.</strong><br><br>&#8226; <strong>Americas</strong> — US, Canada, Brazil, Mexico, Argentina<br>&#8226; <strong>Europe</strong> — All EU + UK, Switzerland, Norway<br>&#8226; <strong>Asia-Pacific</strong> — Singapore, Australia, Japan, India, China<br>&#8226; <strong>Middle East</strong> — UAE, Saudi Arabia, Israel, Qatar<br>&#8226; <strong>Africa</strong> — South Africa, Nigeria, Kenya, Ghana<br>&#8226; <strong>Oceania</strong> — Australia, New Zealand, Fiji<br><br><strong>99.999% uptime SLA</strong> across all regions. Zero single point of failure.',
+
+      compare: '⚡ <strong>Intellix vs. the alternatives:</strong><br><br><table style="font-size:11px;width:100%;border-collapse:collapse"><tr><td style="padding:4px 6px;color:var(--cy);font-weight:700">Feature</td><td style="padding:4px 6px;color:var(--cy);font-weight:700">Intellix</td><td style="padding:4px 6px;color:var(--t3)">Stripe / PayPal</td></tr><tr><td style="padding:4px 6px">Settlement</td><td style="padding:4px 6px;color:var(--gn)">14 seconds</td><td style="padding:4px 6px;color:var(--t2)">1-3 days</td></tr><tr><td style="padding:4px 6px">AI Fraud</td><td style="padding:4px 6px;color:var(--gn)">✓ FraudNet v2.1</td><td style="padding:4px 6px;color:var(--t2)">Basic rules</td></tr><tr><td style="padding:4px 6px">Social Pay</td><td style="padding:4px 6px;color:var(--gn)">✓ Built-in</td><td style="padding:4px 6px;color:var(--t2)">✗ None</td></tr><tr><td style="padding:4px 6px">Route Optimizer</td><td style="padding:4px 6px;color:var(--gn)">✓ AI-powered</td><td style="padding:4px 6px;color:var(--t2)">✗ Direct only</td></tr><tr><td style="padding:4px 6px">Crypto + Fiat</td><td style="padding:4px 6px;color:var(--gn)">✓ 135+ currencies</td><td style="padding:4px 6px;color:var(--t2)">Fiat only</td></tr></table><br>Switching from Stripe or PayPal? We\'ll help you migrate.',
+
+      kyc: '✅ <strong>KYC verification — fast and simple.</strong><br><br>Intellix uses a 3-step onboarding process:<br><br><strong>1. Basic info</strong> — name, email, country (2 min)<br><strong>2. Identity check</strong> — government ID photo (automated, 30 sec)<br><strong>3. Verified!</strong> — full platform access unlocked<br><br>KYC is required for sending over certain thresholds and for Intellix Social. The Starter plan lets you get started with limited KYC — upgrade as you grow.',
+
+      support: '💬 <strong>Intellix support:</strong><br><br>&#8226; <strong>Email:</strong> support@intellix.io<br>&#8226; <strong>LinkedIn:</strong> linkedin.com/in/ghokkul-muhunthan (Founder)<br>&#8226; <strong>Docs:</strong> Available in the Developers section<br><br>For the fastest response, email support@intellix.io with your Account ID. Most queries are answered within a few hours.<br><br>I\'m also here 24/7 — just ask me anything about Intellix!',
+
+      about: '👤 <strong>About Intellix:</strong><br><br>Intellix is a next-generation AI payment platform founded in <strong>November 2025</strong> by <strong>Ghokkul Muhunthan</strong> — a solo founder building payment infrastructure for the modern web.<br><br>The mission: make moving money as natural as sending a message — instant, global, and AI-protected by default.<br><br>&#8226; Founded: November 2025<br>&#8226; HQ: Singapore<br>&#8226; Status: Alpha — live and accepting signups<br><br>Read the full founder story in the <strong>Blog</strong> section.',
+
+      ai: '🤖 <strong>Intellix AI — two core systems:</strong><br><br><strong>1. AI Route Optimizer</strong><br>Evaluates 47+ payment network paths in real time and selects the cheapest, fastest route for every transaction. Saves merchants up to <strong>98.5% on fees</strong> vs. direct card processing.<br><br><strong>2. FraudNet v2.1</strong><br>Scores every transaction in under 1ms across 8 signal categories. <strong>99.8% accuracy</strong>, fully explainable verdicts, and automated dispute evidence building (94% win rate).<br><br>Both systems run automatically — no configuration needed.',
+
+      security: '🔐 <strong>Intellix security certifications:</strong><br><br>&#8226; <strong>PCI-DSS Level 1</strong> — highest card data security tier<br>&#8226; <strong>AES-256 encryption</strong> at rest<br>&#8226; <strong>TLS 1.3</strong> in transit<br>&#8226; <strong>ISO 27001</strong> certified<br>&#8226; <strong>SOC 2 Type II</strong> audited<br>&#8226; <strong>Zero breaches</strong> since launch<br><br>Biometric authentication is supported for payments via the mobile SDK. Your card data is tokenised — Intellix never stores raw card numbers.',
+
+      dispute: '⚖️ <strong>Dispute automation — 94% win rate.</strong><br><br>When a chargeback is filed, FraudNet automatically:<br><br>1. Collects transaction evidence (timestamps, IP, device fingerprint, fraud score)<br>2. Builds a formatted evidence package in under 5 minutes<br>3. Submits to the card network automatically<br>4. Tracks the outcome and notifies you<br><br>Zero manual work. Most disputes are resolved in favour of the merchant. Available on all plans including Starter.',
+
+      fallback: 'I can help you with anything about Intellix! Try asking about:<br><br>&#8226; <strong>Getting started</strong> — how to create a free account<br>&#8226; <strong>Payments</strong> — 340+ methods, AI routing<br>&#8226; <strong>Pricing</strong> — Starter (free), Pro ($49/mo)<br>&#8226; <strong>FraudNet</strong> — AI protection, 99.8% accuracy<br>&#8226; <strong>Speed</strong> — 14-second settlement<br>&#8226; <strong>Social Pay</strong> — chat and pay friends<br>&#8226; <strong>API &amp; SDKs</strong> — 5 languages<br>&#8226; <strong>Security</strong> — PCI-DSS Level 1<br>&#8226; <strong>Comparing</strong> — vs Stripe, PayPal<br>&#8226; <strong>About Intellix</strong> — founder story<br><br>Just type your question!'
+    };
+    return replies[intent] || replies.fallback;
+  }
 };
 
-// ── System prompt fed to Claude ──
-var NX_SYSTEM = [
-  "You are Nexa, the friendly AI Payment Agent for Intellix — a next-generation AI payment platform founded in November 2025 by Ghokkul Muhunthan.",
-  "",
-  "INTELLIX KEY FACTS (always use these):",
-  "- 340+ payment methods: cards (Visa/MC/Amex/UnionPay), crypto (BTC/ETH/USDC/SOL/40 tokens), wallets (Apple Pay/Google Pay/PayPal), bank transfers (ACH/SEPA/SWIFT), local rails (PIX/UPI/PayNow)",
-  "- AI Route Optimizer: evaluates 47+ network paths per transaction, saves up to 98.5% on fees",
-  "- FraudNet v2.1: scores every transaction in <1ms, 99.8% accuracy, 8 signal categories, fully explainable",
-  "- Settlement: Polygon Bridge ~14 seconds at $0.18 flat fee; ACH same-day <4h; SEPA instant; SWIFT 1-2 days",
-  "- 135+ currencies: USD/EUR/GBP/JPY/AUD/NZD + crypto + stablecoins",
-  "- 150+ countries, 6 global regions, 99.999% uptime SLA",
-  "- Pricing: Starter (free, 1K txns/month), Pro ($49/mo, 50K txns, full FraudNet, AI router, webhooks), Enterprise (custom)",
-  "- Intellix Social: chat + pay in the same thread, 14s settlement, all currencies, KYC-verified users",
-  "- Developer API: 5 SDKs (TypeScript/Python/Go/Rust/Swift), single API call, 10K req/min on Pro",
-  "- Security: AES-256, TLS 1.3, PCI-DSS Level 1, ISO 27001, SOC 2 Type II, zero breaches since launch",
-  "- Dispute automation: 94% win rate, AI builds evidence packages in <5 minutes automatically",
-  "- Founder: Ghokkul Muhunthan, LinkedIn: linkedin.com/in/ghokkul-muhunthan",
-  "- Contact: support@intellix.io",
-  "",
-  "PERSONALITY:",
-  "- Friendly, knowledgeable, concise — like a brilliant colleague who knows the product inside out",
-  "- Use short paragraphs and occasional bold for key numbers/facts",
-  "- Use simple HTML in responses: <strong>, <br>, bullet points as &#8226;",
-  "- Keep responses under 180 words unless the user asks for detail",
-  "- Never make up features. If unsure, say to check the website or email support@intellix.io",
-  "- End with a helpful follow-up question when appropriate",
-  "- You can help users navigate: mention clicking nav buttons like 'Get started' or '&#9829; Social'"
-].join("\n");
-
-// ── Render helpers ──
-function nxTime(){
+// ── Helpers ────────────────────────────────────────────────
+function nxTime() {
   return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
 }
 
-function nxAddMsg(html, fromUser, delay){
+function nxAddMsg(html, isUser, delay) {
   delay = delay || 0;
   var msgs = document.getElementById('nxMsgs');
-  if(!msgs) return;
-  setTimeout(function(){
+  if (!msgs) return;
+  setTimeout(function() {
     var wrap = document.createElement('div');
-    wrap.className = 'nx-msg' + (fromUser ? ' from-user' : '');
-    wrap.style.cssText = 'opacity:0;transform:translateY(12px);transition:opacity .28s ease,transform .28s ease';
-    var av = fromUser
+    wrap.style.cssText = 'display:flex;gap:8px;align-items:flex-end;max-width:92%;opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s' + (isUser ? ';align-self:flex-end;flex-direction:row-reverse' : '');
+    var av = isUser
       ? '<div class="nx-av user">You</div>'
       : '<div class="nx-av">NX</div>';
     wrap.innerHTML =
-      (fromUser ? '' : av) +
+      (isUser ? '' : av) +
       '<div><div class="nx-bubble">' + html + '</div>' +
       '<div class="nx-time">' + nxTime() + '</div></div>' +
-      (fromUser ? av : '');
+      (isUser ? av : '');
     msgs.appendChild(wrap);
     msgs.scrollTop = msgs.scrollHeight;
-    requestAnimationFrame(function(){
+    requestAnimationFrame(function() {
       wrap.style.opacity = '1';
       wrap.style.transform = 'translateY(0)';
     });
   }, delay);
 }
 
-function nxShowTyping(){
+function nxShowTyping() {
   var msgs = document.getElementById('nxMsgs');
-  if(!msgs || document.getElementById('nxTyping')) return;
+  if (!msgs || document.getElementById('nxTyping')) return;
   var el = document.createElement('div');
   el.id = 'nxTyping';
-  el.className = 'nx-typing-wrap';
+  el.style.cssText = 'display:flex;gap:8px;align-items:flex-end;max-width:88%';
   el.innerHTML = '<div class="nx-av">NX</div>' +
     '<div class="nx-typing-dots">' +
-    '<div class="nx-dot"></div>' +
-    '<div class="nx-dot"></div>' +
-    '<div class="nx-dot"></div>' +
+    '<div class="nx-dot"></div><div class="nx-dot"></div><div class="nx-dot"></div>' +
     '</div>';
   msgs.appendChild(el);
   msgs.scrollTop = msgs.scrollHeight;
 }
 
-function nxHideTyping(){
+function nxHideTyping() {
   var el = document.getElementById('nxTyping');
-  if(el) el.remove();
+  if (el) el.remove();
 }
 
-function nxSetLoading(on){
-  NX.loading = on;
-  var btn = document.getElementById('nxSendBtn');
+// ── Core send ─────────────────────────────────────────────
+function nxSend(overrideText) {
   var inp = document.getElementById('nxInput');
-  if(btn) btn.disabled = on;
-  if(inp) inp.disabled = on;
-}
+  var text = (overrideText || (inp ? inp.value.trim() : '')).trim();
+  if (!text || NX.loading) return;
 
-// ── Claude API call ──
-async function nxCallClaude(userMsg){
-  // Build message history
-  NX.history.push({role:'user', content: userMsg});
+  if (!overrideText && inp) { inp.value = ''; inp.style.height = ''; }
 
-  // Keep history to last 10 turns (20 messages) to stay within context
-  var msgs = NX.history.slice(-20);
-
-  try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 400,
-        system: NX_SYSTEM,
-        messages: msgs
-      })
-    });
-
-    if(!resp.ok){
-      var errData = await resp.json().catch(function(){ return {}; });
-      throw new Error(errData.error && errData.error.message ? errData.error.message : 'API error ' + resp.status);
-    }
-
-    var data = await resp.json();
-    var reply = data.content && data.content[0] && data.content[0].text
-      ? data.content[0].text
-      : "I'm having trouble responding right now. Please try again!";
-
-    // Add assistant reply to history
-    NX.history.push({role:'assistant', content: reply});
-
-    // Convert markdown-ish to HTML
-    reply = reply
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .split('\n\n').join('<br><br>')
-      .split('\n').join('<br>');
-
-    return reply;
-
-  } catch(err){
-    // Remove the user message from history on error so they can retry
-    NX.history.pop();
-    throw err;
-  }
-}
-
-// ── Send message ──
-async function nxSend(overrideText){
-  var inp = document.getElementById('nxInput');
-  var text = overrideText || (inp ? inp.value.trim() : '');
-  if(!text || NX.loading) return;
-
-  if(!overrideText && inp){
-    inp.value = '';
-    inp.style.height = '';
-  }
-
-  // Hide chips after first use
   var chips = document.getElementById('nxChips');
-  if(chips) chips.style.display = 'none';
+  if (chips) chips.style.display = 'none';
 
   nxAddMsg(text, true);
-  nxSetLoading(true);
+
+  NX.loading = true;
+  var btn = document.getElementById('nxSendBtn');
+  var inp2 = document.getElementById('nxInput');
+  if (btn) btn.disabled = true;
+  if (inp2) inp2.disabled = true;
+
   nxShowTyping();
 
-  try {
-    var reply = await nxCallClaude(text);
+  // Detect intent and get reply from local KB
+  var intent = KB.detect(text);
+  var reply  = KB.reply(intent);
+  var delay  = 500 + Math.min(reply.replace(/<[^>]+>/g,'').length * 0.6, 900);
+
+  setTimeout(function() {
     nxHideTyping();
     nxAddMsg(reply, false);
-  } catch(err){
-    nxHideTyping();
-    var errMsg = '<div class="nx-error-bubble">&#9888; ' +
-      (err.message && err.message.length < 120 ? err.message : 'Something went wrong. Please try again.') +
-      '</div>';
-    nxAddMsg(errMsg, false);
-  } finally {
-    nxSetLoading(false);
-    if(inp && !inp.disabled) inp.focus();
-  }
+    NX.loading = false;
+    if (btn) btn.disabled = false;
+    if (inp2) { inp2.disabled = false; inp2.focus(); }
+  }, delay);
 }
 
-function nxChip(el, text){
-  el.style.opacity = '0.45';
-  el.style.pointerEvents = 'none';
+function nxChip(el, text) {
+  if (el) { el.style.opacity = '0.45'; el.style.pointerEvents = 'none'; }
   nxSend(text);
 }
 
-function nxKey(e){
-  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); nxSend(); }
+function nxKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); nxSend(); }
 }
 
-function nxResize(el){
+function nxResize(el) {
   el.style.height = 'auto';
   el.style.height = Math.min(el.scrollHeight, 88) + 'px';
 }
 
-// ── Quick reply cards after greeting ──
-function nxAddCards(){
+// ── Quick-reply cards ─────────────────────────────────────
+function nxAddCards() {
   var msgs = document.getElementById('nxMsgs');
-  if(!msgs) return;
+  if (!msgs) return;
   var cw = document.createElement('div');
   cw.style.cssText = 'display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease';
 
   var cards = [
-    {
-      q: 'How do I get started with Intellix for free?',
-      title: '&#9670; Get Started Free',
-      sub: 'Create an account in minutes. No credit card needed.',
-      border: 'rgba(0,229,255,.2)',
-      color: '#00e5ff'
-    },
-    {
-      q: 'How does Intellix compare to Stripe or PayPal?',
-      title: '&#9656; Why Choose Intellix?',
-      sub: 'See how we compare to traditional payment processors.',
-      border: 'rgba(156,111,255,.25)',
-      color: '#9c6fff'
-    },
-    {
-      q: 'Show me how Intellix Social payments work',
-      title: '&#9829; Intellix Social',
-      sub: 'Chat and pay friends in the same conversation thread.',
-      border: 'rgba(255,64,129,.25)',
-      color: '#ff4081'
-    }
+    { q:'How do I get started with Intellix for free?',   title:'&#9670; Get Started Free',    sub:'Free account, no credit card needed.',       color:'#00e5ff', border:'rgba(0,229,255,.2)' },
+    { q:'How does Intellix compare to Stripe or PayPal?', title:'&#9656; Why Choose Intellix?', sub:'See how we stack up against the alternatives.',color:'#9c6fff', border:'rgba(156,111,255,.25)' },
+    { q:'Show me how Intellix Social payments work',       title:'&#9829; Intellix Social',      sub:'Chat and pay friends in the same thread.',    color:'#ff4081', border:'rgba(255,64,129,.25)' }
   ];
 
   cards.forEach(function(card) {
@@ -4299,72 +4262,69 @@ function nxAddCards(){
 
   msgs.appendChild(cw);
   msgs.scrollTop = msgs.scrollHeight;
-  requestAnimationFrame(function(){
+  requestAnimationFrame(function() {
     cw.style.opacity = '1';
     cw.style.transform = 'translateY(0)';
   });
 }
 
-// ── Toggle panel ──
-function nxToggle(){
+// ── Toggle panel ──────────────────────────────────────────
+function nxToggle() {
   NX.open = !NX.open;
-  var panel = document.getElementById('nexaPanel');
-  var badge = document.getElementById('nexaBadge');
-  if(!panel) return;
+  var panel    = document.getElementById('nexaPanel');
+  var badge    = document.getElementById('nexaBadge');
+  var launcher = document.getElementById('nexaLauncher');
+  if (!panel) return;
 
   panel.classList.toggle('open', NX.open);
-  var launcher = document.getElementById('nexaLauncher');
-  if(launcher) launcher.style.display = NX.open ? 'none' : 'flex';
+  if (launcher) launcher.style.display = NX.open ? 'none' : 'flex';
 
-  if(NX.open){
-    if(badge) badge.style.display = 'none';
+  if (NX.open) {
+    if (badge) badge.style.display = 'none';
 
-    if(!NX.greeted){
+    if (!NX.greeted) {
       NX.greeted = true;
 
       var h = new Date().getHours();
-      var greetWord = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : h < 20 ? 'Good evening' : 'Good night';
-      var greetEmoji = h < 12 ? '&#127749;' : h < 17 ? '&#9889;' : h < 20 ? '&#127750;' : '&#127769;';
+      var greetWord  = h < 12 ? 'Good morning'  : h < 17 ? 'Good afternoon' : h < 20 ? 'Good evening' : 'Good night';
+      var greetEmoji = h < 12 ? '&#127749;'     : h < 17 ? '&#9889;'        : h < 20 ? '&#127750;'    : '&#127769;';
 
-      var greeting = greetEmoji + ' <strong>' + greetWord + '! Welcome to Intellix.</strong><br><br>' +
-        "I'm <strong>Nexa</strong>, your AI Payment Agent. &#128179;<br><br>" +
-        "I know everything about Intellix — payments, fraud protection, pricing, the Social feature, developer API, and more.<br><br>" +
-        "<strong>What can I help you with today?</strong>";
+      var greeting =
+        greetEmoji + ' <strong>' + greetWord + '! Welcome to Intellix.</strong><br><br>' +
+        'I\'m <strong>Nexa</strong>, your AI Payment Agent. &#128179;<br><br>' +
+        'I know everything about Intellix — payments, fraud protection, pricing, Social Pay, developer API, and more.<br><br>' +
+        '<strong>What can I help you with today?</strong>';
 
-      // Show greeting immediately (no API call for this)
-      setTimeout(function(){ nxAddMsg(greeting, false); }, 250);
-
-      // Show quick-reply cards after greeting appears
+      setTimeout(function() { nxAddMsg(greeting, false); }, 250);
       setTimeout(nxAddCards, 1100);
 
-      // Add greeting to history so Claude has context
-      setTimeout(function(){
+      setTimeout(function() {
         NX.history.push({
           role: 'assistant',
-          content: greetWord + "! Welcome to Intellix. I'm Nexa, your AI Payment Agent. I know everything about Intellix — payments, fraud protection, pricing, the Social feature, developer API, and more. What can I help you with today?"
+          content: greetWord + '! Welcome to Intellix. I\'m Nexa, your AI Payment Agent. What can I help you with today?'
         });
       }, 1200);
 
-      setTimeout(function(){
+      setTimeout(function() {
         var inp = document.getElementById('nxInput');
-        if(inp) inp.focus();
+        if (inp) inp.focus();
       }, 400);
     }
   }
 }
 
-// Expose globally
+// ── Expose globals ─────────────────────────────────────────
 window.nxToggle = nxToggle;
-window.nxSend = nxSend;
-window.nxChip = nxChip;
-window.nxKey = nxKey;
+window.nxSend   = nxSend;
+window.nxChip   = nxChip;
+window.nxKey    = nxKey;
 window.nxResize = nxResize;
 
-// Show notification badge after 3s
-setTimeout(function(){
-  if(!NX.open){
+// Show badge after 3 s if panel not opened
+setTimeout(function() {
+  if (!NX.open) {
     var b = document.getElementById('nexaBadge');
-    if(b) b.style.display = 'flex';
+    if (b) b.style.display = 'flex';
   }
 }, 3000);
 
